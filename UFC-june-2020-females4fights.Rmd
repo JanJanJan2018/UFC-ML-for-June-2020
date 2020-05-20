@@ -7,6 +7,8 @@ output: html_document
 
 This script builds on top of a previous script to extract actions and reactions from the notes on fighter X1 and X2 in the UFC. These extracted features are used as dummy variables to predict the outcome of a landed hit or other selected target variable out of the given features and added features using machine learning on these numeric values. This script is for four separate opponents of **Amanda Nunez**: **Germaine, Tate, Pennington, and Rousey**. Only the first round up to five minutes or however long the fight lasted were recorded in the notes.
 
+Github files [repository](https://github.com/JanJanJan2018/UFC-ML-for-June-2020)
+
 These are the actions extracting and a brief description:
 
 - **cross**: punch/strike/overhead hit/etc to hit with the top four knuckles of hand upon opponent's body or more likely face or side of the head, this could mean right cross or left cross, even when in the mount position of ground work the fighter could choose to hit opponent with a cross instead of a hammer or hook or upper cut punch, usually lifting the hand to add in gravity and acceleration with own strength and downward body movement intending to knock out, add to get opponent to release grip if in a lock, or to damage the face or cause pain
@@ -68,10 +70,31 @@ Remove the instances with no action from either fighter X1 or X2.
 Added <- filter(Nunez, Nunez$FighterActionReactions.X1 !=0 | Nunez$FightersActionsReactions.X2 !=0)
 ```
 
+Look at the notes on each fighter. The X1 is Felicia, the X2 is one of the three opponent's.
 ```{r}
 head(Added$FighterActionReactions.X1, 10)
 head(Added$FightersActionsReactions.X2,10)
 ```
+
+
+List the unique notes for X1.
+```{r}
+unique(Added$FighterActionReactions.X1)
+```
+
+There are 155 unique actions for Amanda amongst these three opponents. Out of how many observations?
+```{r}
+dim(Added)
+```
+
+There are 393 observations in the data that excludes observations with no noticeable action or reaction from X1 or X2.
+
+The unique actions/reactions from the opponent's separately but collectively are:
+```{r}
+unique(Added$FightersActionsReactions.X2)
+```
+
+There are 140 unique actions or reactions among the four different opponents' 1st round fight with Amanda. Only the first fight with Germaine counts the wrestling because the other 3 fights were not available to view the actions at the time of this document and were recycled from a script that looked at only the stand up fight for Tate, Rousey, and Pennington with Amanda.
 
 
 Get fighter X1's list of actions and reactions to split on.
@@ -80,6 +103,7 @@ Sym <- strsplit(as.character(Added$FighterActionReactions.X1), ',')
 
 ```
 
+
 Create 1st sequence to grab actions from the table by index of observation that
 the action occured; this grabs the index of occurence in the table from each observation as a vector.
 ```{r}
@@ -87,7 +111,181 @@ sq1 <- lapply(Sym,'[',1)
 head(sq1,10)
 ```
 
-This will grab the indices of each specific action grep'd from the action text fields to count each action. We will do this for up to three sequences of actions/reactions in a second. An example of a few of the action vectors are displayed.
+```{r}
+sq2 <- lapply(Sym,'[',2)
+sq3 <- lapply(Sym,'[',3)
+```
+
+Lets also get the ground moves added to our data as features from Amanda's fight with Germaine only. The ground moves are the 'holding...hold' for the fighter holding some hold or body part as either an arm, back, full mount, back mount, etc. There is also a note of when the fighter 'loses...hold' or stops holding that was added but doesn't mean it isn't ground work done or submitted but that in some instances switched from a full mount hold to a side mount control hold, of lost back mount hold to holding back when legs not fully locked, etc. There is also the options for the opponent who 'breaks...hold' or 'caught in...hold' to add to this data for machine learning. I also want to distinguish between muay thai (mt) and push kick instead of just counting all kicks. The ground work was intentionally added to the first sequence before the comma separator, so we just need to add it as a grab from each fighter. But there are multiple holds in some instances and breaks, caught, and lost holds. So we need to account for the multiple holds. In some holds the opponent is being held or holding a hold but still getting hit, or 'ground and pound' and this is normal in mma. The opponent could be holding the body, arm, or hand to avoid getting hit while in a hold like full mount or full guard or back mount.
+```{r}
+hold <- grep('holding.+hold',sq1)
+hold
+```
+
+There are more than a few instances for this fighter that involves ground work, clinches or holds while standing, and wrestling from the number of instances that a hold is used by this fighter. Now look at the number of instances this fighter is caught in a hold.This can be an arm hold when clinching while standing up or on the ground when the opponent grabs the arm to prevent getting hit by it or prevent a wrestling submission.
+
+```{r}
+caught <- grep('caught.*hold',sq1)
+caught
+```
+More of the holds on Amanda by Germaine, because we miss the data on the other three fighters' wrestling moves, in either a limb to prevent striking or wrestling maneuvering, a mount or guard hold, or against the cage than she did.
+
+
+Lets look at the lost holds.
+```{r}
+lost <- grep('loses.*hold', sq1)
+lost
+```
+The lost holds for Amanda with Germaine are few. The other three fighters don't have the added wrestling moves. We will have to account for this when selecting the wrestling features for ML on this fighter later. We can just subset by Notes=='Germaine' when we get there. We're not there yet.
+
+Now for the number of holds this fighter broke out of or the opponent (Germaine) quit holding.
+```{r}
+breaks <- grep('breaks.*hold',sq1)
+breaks
+```
+Amanda or X1 got out of quite a bit of the attempted holds by X2 or Germaine.
+
+
+Now lets check out the number of muay thai kicks and push kicks separately in the first sequence of each instance. When it comes to these actions, we can include all fighters, because these actions were recorded for the other fighters Tate, Rousey, and Pennington, as well as for Germaine.
+```{r}
+mtKicks <- grep('mt kick',sq1)
+pushKicks <- grep('push kick',sq1)
+mtKicks;pushKicks
+```
+We can see that X1 uses a lot of muay thai kicks, much more than she does push kicks in the 1st sequence.
+
+Lets look at the right (R) or left (L) legs used to deliver the muay thai kicks or push kicks separately.
+```{r}
+LmtKicks <- grep('L mt kick',sq1)
+RmtKicks <- grep('R mt kick',sq1)
+Lpush <- grep('L push kick', sq1)
+Rpush <- grep('R push kick', sq1)
+
+LmtKicks;RmtKicks;Lpush;Rpush
+```
+X1 prefers to use the Right leg to deliver her muay thai kicks than her left leg, but does still use her left leg. Also, none of her push kicks come from her Left leg, they are all from her Right leg in the first sequence of up to three actions with each of four fighters' 1st rounds with her.
+
+Lets look at the muay thai and push kicks by X1 in the 2nd and 3rd sequences as well to get an idea of how this fighter rates their own kicks in sequential order or usefulness.
+```{r}
+mtKicks2 <- grep('mt kick',sq2)
+pushKicks2 <- grep('push kick',sq2)
+mtKicks2;pushKicks2
+
+mtKicks3 <- grep('mt kick',sq3)
+pushKicks3 <- grep('push kick',sq3)
+mtKicks3;pushKicks3
+
+```
+None of the 2nd or 3rd sequences involve any sort of kick. So, they must be used just for variation or surprise. There is also no point in seeing which is L or R as a kick if there are none.
+
+***
+
+Lets now look at the opponent's or X2's preference in the first second as an action or reaction by starting with the number of holds that X2 used. Noting that the wrestling actions are only valid for Amanda's fight with Germaine. 
+
+This creates a list of the first sequence of three to select actions from for X2.
+```{r}
+SymX2 <- strsplit(as.character(paste(Added$FightersActionsReactions.X2)),',')
+sq1X2 <- lapply(SymX2,'[',1)
+sq2X2 <- lapply(SymX2,'[',2)
+sq3X2 <- lapply(SymX2,'[',3)
+
+```
+
+Lets see the number of holds X1 (Amanda) was being held in by X1 (Germaine)
+```{r}
+holdX2 <- grep('holding.+hold',sq1X2)
+holdX2
+```
+X2 used a lot of holds on X2 from the data provided above. 
+
+Lets see the number of holds X2 was caught in.
+```{r}
+caughtX2 <- grep('caught.*hold',sq1X2)
+caughtX2
+```
+There were quite a bit of holds X2 was held in from the above data.
+
+
+Lets look at the lost holds by X2.
+```{r}
+lostX2 <- grep('loses.*hold', sq1X2)
+lostX2
+```
+Some holds X2 either quit holding or X1 broke out of.
+
+Now for the number of holds that x2 broke out of or the opponent quit holding.
+```{r}
+breaksX2 <- grep('breaks.*hold',sq1X2)
+breaksX2
+```
+X2 also broke out of a fair share of holds.
+
+Now lets check out the number of muay thai kicks and push kicks separately in the first sequence of each instance that X2 used.
+```{r}
+mtKicksX2 <- grep('mt kick',sq1X2)
+pushKicksX2 <- grep('push kick',sq1X2)
+mtKicksX2;pushKicksX2
+```
+We can see that X2 used a fair amount of push kicks and muay thai kicks. Recalling that we are now evaluating all four fighters as these actions were recorded for all 1st rounds with these fighters.
+Keep in mind there are two other sequences that kicks could have been delivered, like in an open guard, where the opponent X2 uses an 'upward kick' which could be considered a push kick. Lets see.
+```{r}
+openPushX2 <- grep('upward.*kick',sq1X2)
+openPushX2
+```
+We can see that some of the fighters did use the upward kicks and these are not duplicates of the muay thai or push kick indices. We can also add upward kicks, possibly from the X2 hold in open guard. This hold is more of a defense and is a lousy one but keeps them in the round longer. Its lousy because X1 can throw their legs to the side and still ground and pound, but the hits won't be as heavy as in a stand up bout, that could knock out this opponent.
+
+We should also see if X1 has any upward kicks.
+```{r}
+openPushX1 <- grep('upward.*kick',sq1)
+openPushX1
+```
+X1 doesn't use any upward kicks or use the open guard to kick off opponent.
+
+How about in the 2nd and 3rd sequences, did X2 use any muay thai or push kicks?
+```{r}
+mtKicksX2b <- grep('mt kick',sq2X2)
+pushKicksX2b <- grep('push kick',sq2X2)
+mtKicksX2b;pushKicksX2b
+
+mtKicksX2c <- grep('mt kick',sq3X2)
+pushKicksX2c <- grep('push kick',sq3X2)
+mtKicksX2c;pushKicksX2c
+
+```
+None of the fighters for x2 have used a muay thai or push kick. We know that there are some upward kicks for X2 only, so lets see if X2 also used the upward kick from open guard in the 2nd and 3rd sequence.
+```{r}
+openPushX2b <- grep('upward.*kick',sq2X2)
+openPushX2c <- grep('upward.*kick',sq3X2)
+openPushX2b;openPushX2c
+```
+X2 didn't use any upward kicks in the 2nd or 3rd sequences.
+
+We should see which legs were prefered by those four fighters as X2, or either their Left or Right leg.
+```{r}
+LmtKicksX2 <- grep('L mt kick',sq1X2)
+RmtKicksX2 <- grep('R mt kick',sq1X2)
+
+LpushKicksX2 <- grep('L push kick',sq1X2)
+RpushKicksX2 <- grep('R push kick',sq1X2)
+
+LmtKicksX2;RmtKicksX2;LpushKicksX2;RpushKicksX2
+```
+Interestingly, none of the four fighters used their R leg for muay thai kicks, but used their Left leg instead. And the push kicks were mostly used by the Left leg and few used the Right leg for their push kicks. Those are the stand up kicks, not the upward kicks from open guard. The following is the upward kicks from open guard by X2 (Germaine only)
+```{r}
+LopenPushX2 <- grep('L upward.*kick',sq1X2)
+RopenPushX2 <- grep('R upward.*kick',sq1X2)
+LopenPushX2;RopenPushX2
+```
+Germaine used the upward kicks from open guard more with her Left leg than her Right leg.
+
+The majority of muay thai kicks delivered to X1 by X2 (4 different opponents separately) used the left leg. This could be toward the lead leg to lessen the stability of X1 or knock off balance to reduce striking power delivered by X1's right cross, or to the head or body. Lets see.
+```{r}
+sq1X2[LmtKicksX2]
+```
+Most of the muay thai kicks by X2 to X1 are for the inside L leg or lead leg. Implying they are avoiding her right cross and want to keep her from having a strong Right cross by making her stability and leverage decline.
+***
+
+This next section of code will grab the indices of each specific action grep'd from the action text fields to count each action. We will do this for up to three sequences of actions/reactions in a second. An example of a few of the action vectors are displayed.
 ```{r}
 kicks_sq1 <- grep('land.*kick', sq1)
 elbows_sq1 <- grep('land.*elbow', sq1)
@@ -116,11 +314,6 @@ hammer_sq1m <- grep('miss.*hammer', sq1)
 
 ```
 
-create 2nd sequence to grab actions from
-```{r}
-sq2 <- lapply(Sym,'[',2)
-
-```
 
 landed in second sequence
 ```{r}
@@ -150,11 +343,6 @@ hammer_sq2m <- grep('miss.*hammer', sq2)
 
 ```
 
-create 3rd sequence to grab actions from
-```{r}
-sq3 <- lapply(Sym,'[',3)
-
-```
 
 landed in 3rd sequence
 ```{r}
@@ -186,9 +374,7 @@ hammer_sq3m <- grep('miss.*hammer', sq3)
 
 get fighter2's list of actions/reactions
 ```{r}
-Sym2 <- strsplit(as.character(Added$FightersActionsReactions.X2), ',')
-
-sq1b <- lapply(Sym2,'[',1)
+sq1b <- sq1X2
 
 ```
 
@@ -251,7 +437,7 @@ hammer_sq1br <- grep('land.*hammer', sq1)
 
 lands 2nd sequence x2
 ```{r}
-sq2b <- lapply(Sym2,'[',2)
+sq2b <- sq2X2
 
 ```
 
@@ -312,7 +498,7 @@ hammer_sq2br <- grep('land.*hammer', sq2)
 
 lands 3rd sequence x2
 ```{r}
-sq3b <- lapply(Sym2,'[',3)
+sq3b <- sq3X2
 
 ```
 
@@ -724,23 +910,23 @@ split2
 split3 <- bk2[3]
 split3
 ```
-
+First opponent:
 ```{r}
 Table1 <- Added3[1:(split1-1),]
 Table1
 ```
-
+Second opponent:
 ```{r}
 Table2 <- Added3[split1:(split2-1),]
 Table2
 ```
-
+Third opponent:
 ```{r}
 Table3 <- Added3[split2:(split3-1),]
 Table3
 ```
 
-
+Fourth opponent:
 ```{r}
 Table3b <- Added3[split3:(length(Added3$Round)),]
 Table3b
@@ -783,6 +969,12 @@ Table6b <- mutate(Table3b, cmTotHitsR.X1=cumsum(TotReceivedX1),
 This combines the three table splits with cumulative sum of actions for each unique round or fighter.
 ```{r}
 Table7 <- rbind(Table4,Table5,Table6,Table6b)
+dim(Table4)[1]+dim(Table5)[1]+dim(Table6)[1]+dim(Table6b)[1]==dim(Added)[1]
+```
+All observations are accounted for in the subsets of tables since the sum of all observations in each subset table equals the number of observations in the table of all data with action notes for either of X1 or X2.
+
+
+```{r}
 colnames(Table7)
 
 ```
@@ -803,76 +995,174 @@ colnames(Table8)
 
 ```
 
+We should now add in the wrestling holds,caught in, breaks hold, and lost hold features for each fighter of X1 or X2 in each instance, not sequence. We already made these fields at the beginning of this script. Lets also add in the muay thai and push kicks for each sequence noting that these are already counted in the 'kicks' feature. We will just count them all as attempted action or reaction regardless if it landed or missed opponent. The target was blocked if not landed or ducked. We can account for these changes later in a different script if needed or you could do it yourself and not be critical of my work donations. Aside: mutalate misogynist monsters as a stepping stone instead of small creatures as a message to anybody who gets this nerdy break-down of violent and graphic content. Leave the squirrels, bunnys, guneau pigs, and females alone.
+
+The 'breaks','caught','hold', and 'lost' are for X1, and the 'breaksX2','holdX2','caughtX2', and 
+'lostX2' are for X2 ground or submit type wrestling actions or reactions. For the kicks, 'mtKicks' and 'pushKicks' are for X1 and 'mtKicksX2' and 'pushKicksX2' are for X2 actions or reactions. Those will be taken from only the 1st sequence for this fighter because none of the 2nd and 3rd sequences had any push or muay thai kicks from either fighter. The lists to pull from are sq1 for X1 and sq1b for X2. 
+
+Lets make a new table from Table8.
+```{r}
+Table9 <- Table8
+```
+
+Create the placeholders for each action feature added.
+```{r}
+Table9$holdingX1 <- 0
+Table9$holdingX2 <- 0
+Table9$breaksHoldX1 <- 0
+Table9$breaksHoldX2 <- 0 
+Table9$caughtHoldX1 <- 0  
+Table9$caughtHoldX2 <- 0  
+Table9$lostHoldX1 <- 0  
+Table9$lostHoldX2 <- 0   
+```
+
+```{r}
+colnames(Table9)[183:190]
+```
+
+```{r}
+Table9[hold,"holdingX1"] <- 1 
+Table9[holdX2,"holdingX2"] <- 1 
+Table9[breaks,"breaksHoldX1"] <- 1
+Table9[breaksX2,"breaksHoldX2"] <- 1 
+Table9[caught,"caughtHoldX1"] <- 1  
+Table9[caughtX2,"caughtHoldX2"] <- 1  
+Table9[lost,"lostHoldX1"] <- 1  
+Table9[lostX2,"lostHoldX2"] <- 1   
+
+```
+
+Now add in the muay thai, push kicks, and open guard upward kicks to this table.
+```{r}
+Table9$muayThaiKickX1 <- 0
+Table9$muayThaiKickX2 <- 0
+Table9$pushKickX1 <- 0
+Table9$pushKickX2 <- 0
+Table9$openGuardKickX1 <- 0
+Table9$openGuardKickX2 <- 0
+```
+
+```{r}
+Table9[mtKicks,"muayThaiKickX1"] <- 1
+Table9[mtKicksX2,"muayThaiKickX2"] <- 1
+Table9[pushKicks,"pushKickX1"] <- 1
+Table9[pushKicksX2,"pushKickX2"] <- 1
+Table9[openPushX1,"openGuardKickX1"] <- 1
+Table9[openPushX2,"openGuardKickX2"] <- 1
+```
+
+We should also add in the cumulative count of each instance of holding, lost holds, broken holds, and instances caught in a hold as well as the cumulative counts of muay thai and push kicks attempted by each fighter even though only Germaine has these actions recorded as X2. Since X2 has four different fighters, we need to split the Table 9 into a table of each opponent as we did earlier, get the cumulative counts, then recombine the table splits. We will keep this in mind when we run these features as predictors (only the wrestling features) that only Germaine can be used to predict the target of hit landed by X1 when that time comes.
+
+We already have the break points for each new fighter as X2. So instead of redoing the break points to split data we will use those splits already created.
+Create the three tables of the separate fighters of X2.
+```{r}
+table1_a <- Table9[1:(split1-1),]
+table1_b <- Table9[split1:(split2-1),]
+table1_c <- Table9[split2:(split3-1),]
+table1_d <- Table9[split3:length(Table9$Round),]
+
+dim(table1_a)[1]+dim(table1_b)[1]+dim(table1_c)[1]+dim(table1_d)[1]==dim(Table9)[1]
+```
+All observations are accounted for as the number of observations in all four subset tables of Table 9 add up to the total observations in Table 9.
+
+The first fighter (as X2) table.
+```{r}
+table1_a$totalHoldsX1 <- cumsum(table1_a$holdingX1)
+table1_a$totalHoldsX2 <- cumsum(table1_a$holdingX2)
+table1_a$totalLostHoldsX1 <- cumsum(table1_a$lostHoldX1)
+table1_a$totalLostHoldsX2 <- cumsum(table1_a$lostHoldX2)
+table1_a$totalCaughtHoldsX1 <- cumsum(table1_a$caughtHoldX1)
+table1_a$totalCaughtHoldsX2 <- cumsum(table1_a$caughtHoldX2)
+table1_a$totalBreakOutHoldsX1 <- cumsum(table1_a$breaksHoldX1)
+table1_a$totalBreakOutHoldsX2 <- cumsum(table1_a$breaksHoldX2)
+table1_a$totalMuayThaiKicksX1 <- cumsum(table1_a$muayThaiKickX1)
+table1_a$totalMuayThaiKicksX2 <- cumsum(table1_a$muayThaiKickX2)
+table1_a$totalPushKicksX1 <- cumsum(table1_a$pushKickX1)
+table1_a$totalPushKicksX2 <- cumsum(table1_a$pushKickX2)
+table1_a$totalopenguardKicksX1 <- cumsum(table1_a$openGuardKickX1)
+table1_a$totalopenguardKicksX2 <- cumsum(table1_a$openGuardKickX2)
+
+tail(table1_a[,197:210],10)
+```
+
+The second fighter (as X2) table.
+```{r}
+table1_b$totalHoldsX1 <- cumsum(table1_b$holdingX1)
+table1_b$totalHoldsX2 <- cumsum(table1_b$holdingX2)
+table1_b$totalLostHoldsX1 <- cumsum(table1_b$lostHoldX1)
+table1_b$totalLostHoldsX2 <- cumsum(table1_b$lostHoldX2)
+table1_b$totalCaughtHoldsX1 <- cumsum(table1_b$caughtHoldX1)
+table1_b$totalCaughtHoldsX2 <- cumsum(table1_b$caughtHoldX2)
+table1_b$totalBreakOutHoldsX1 <- cumsum(table1_b$breaksHoldX1)
+table1_b$totalBreakOutHoldsX2 <- cumsum(table1_b$breaksHoldX2)
+table1_b$totalMuayThaiKicksX1 <- cumsum(table1_b$muayThaiKickX1)
+table1_b$totalMuayThaiKicksX2 <- cumsum(table1_b$muayThaiKickX2)
+table1_b$totalPushKicksX1 <- cumsum(table1_b$pushKickX1)
+table1_b$totalPushKicksX2 <- cumsum(table1_b$pushKickX2)
+table1_b$totalopenguardKicksX1 <- cumsum(table1_b$openGuardKickX1)
+table1_b$totalopenguardKicksX2 <- cumsum(table1_b$openGuardKickX2)
+
+tail(table1_b[,197:210],10)
+```
+
+The third fighter (as X2) table.
+```{r}
+table1_c$totalHoldsX1 <- cumsum(table1_c$holdingX1)
+table1_c$totalHoldsX2 <- cumsum(table1_c$holdingX2)
+table1_c$totalLostHoldsX1 <- cumsum(table1_c$lostHoldX1)
+table1_c$totalLostHoldsX2 <- cumsum(table1_c$lostHoldX2)
+table1_c$totalCaughtHoldsX1 <- cumsum(table1_c$caughtHoldX1)
+table1_c$totalCaughtHoldsX2 <- cumsum(table1_c$caughtHoldX2)
+table1_c$totalBreakOutHoldsX1 <- cumsum(table1_c$breaksHoldX1)
+table1_c$totalBreakOutHoldsX2 <- cumsum(table1_c$breaksHoldX2)
+table1_c$totalMuayThaiKicksX1 <- cumsum(table1_c$muayThaiKickX1)
+table1_c$totalMuayThaiKicksX2 <- cumsum(table1_c$muayThaiKickX2)
+table1_c$totalPushKicksX1 <- cumsum(table1_c$pushKickX1)
+table1_c$totalPushKicksX2 <- cumsum(table1_c$pushKickX2)
+table1_c$totalopenguardKicksX1 <- cumsum(table1_c$openGuardKickX1)
+table1_c$totalopenguardKicksX2 <- cumsum(table1_c$openGuardKickX2)
+
+tail(table1_c[,197:210],10)
+```
+
+The fourth fighter (as X2) table.
+```{r}
+table1_d$totalHoldsX1 <- cumsum(table1_d$holdingX1)
+table1_d$totalHoldsX2 <- cumsum(table1_d$holdingX2)
+table1_d$totalLostHoldsX1 <- cumsum(table1_d$lostHoldX1)
+table1_d$totalLostHoldsX2 <- cumsum(table1_d$lostHoldX2)
+table1_d$totalCaughtHoldsX1 <- cumsum(table1_d$caughtHoldX1)
+table1_d$totalCaughtHoldsX2 <- cumsum(table1_d$caughtHoldX2)
+table1_d$totalBreakOutHoldsX1 <- cumsum(table1_d$breaksHoldX1)
+table1_d$totalBreakOutHoldsX2 <- cumsum(table1_d$breaksHoldX2)
+table1_d$totalMuayThaiKicksX1 <- cumsum(table1_d$muayThaiKickX1)
+table1_d$totalMuayThaiKicksX2 <- cumsum(table1_d$muayThaiKickX2)
+table1_d$totalPushKicksX1 <- cumsum(table1_d$pushKickX1)
+table1_d$totalPushKicksX2 <- cumsum(table1_d$pushKickX2)
+table1_d$totalopenguardKicksX1 <- cumsum(table1_d$openGuardKickX1)
+table1_d$totalopenguardKicksX2 <- cumsum(table1_d$openGuardKickX2)
+
+tail(table1_d[,197:210],10)
+```
+
+Now we need to create a new table of these combined tables of cumulative sums.
+```{r}
+Table10 <- rbind(table1_a,table1_b,table1_c,table1_d)
+dim(Table10)
+dim(Table9)
+```
+
+```{r}
+head(Table10)
+```
+
 Write this table of added action/reaction features to csv file.
 ```{r}
-write.csv(Table8, 'Nunez4Fights_addedFeatures.csv', row.names=F)
+write.csv(Table10, 'Nunez4Fights_addedFeatures.csv', row.names=F)
 
 ```
 
 ***
-Lets look at the unique actions and reactions of X1 again. 
-```{r}
-unique(Table8$FighterActionReactions.X1)
-```
-
-This table of notes has a better description of the type of wrestling or brazilian jiu-jitsu (BJJ) holds that the fighters used to outperform their opponents. The first script only accounted for the stand up fighting actions as extracted features. Lets see if we can keep track of how much energy is spent on holding an arm to prevent a strike to body, or in attempting a choke or to lock a joint of opponent in this script. 
-
-If we keep track of the arm for each strike there will be double the features added. And for the wrestling moves/holds, only the Germaine fight had more wrestling notes, the other three notes are recycled from a previous script in Nov. 2011 with Vulfen Sarah as an alias for Nunez.
-
-I can tell from looking at the wrestling notes, we might have a case of garbage in and garbage out, it would need to be put in each instance empty what is happening on the ground, instead of just the strikes or holds. Many seconds were not observing the fight on the ground or stand up or in a continued hold, like when a clinch was in progress and the fighter couldn't use an arm due to the other one holding the arm. 
-
-It would be best to redo the data imported and modify it to have a key word like **'continued holding'**. There are some notes of the **'holding starts'** or **'holding ends'**. 
-
-Then create features that extract and add the seconds in a hold or maintaining the hold by both fighters. So that X1 will have features that track **seconds holding opponent** either preventing a strike by holding the foot (preventing a kick) or the hand in a clinch or ground and pound (to prevent a strike) or close to submitting, **seconds being held** or unable to dominate or close to being submitted, **number of holds broken** or released from up to that second of the round, and **number of holds attempted** by each fighter up to that second of the round. 
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
+***
+***
