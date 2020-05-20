@@ -1,0 +1,1102 @@
+---
+title: "UFC ML actions and reactions females: Felicia Spencer"
+author: "Janis Corona"
+date: "5/18/2020"
+output: html_document
+---
+
+This script builds on top of a previous script to extract actions and reactions from the notes on fighter X1 and X2 in the UFC. These extracted features are used as dummy variables to predict the outcome of a landed hit or other selected target variable out of the given features and added features using machine learning on these numeric values. This takes the first round of three separate fights for **Felicia Spencer** with **Zarah, Anderson, and Cyborg**. 
+
+These are the actions extracting and a brief description:
+
+- **cross**: punch/strike/overhead hit/etc to hit with the top four knuckles of hand upon opponent's body or more likely face or side of the head, this could mean right cross or left cross, even when in the mount position of ground work the fighter could choose to hit opponent with a cross instead of a hammer or hook or upper cut punch, usually lifting the hand to add in gravity and acceleration with own strength and downward body movement intending to knock out, add to get opponent to release grip if in a lock, or to damage the face or cause pain
+
+- **jab**: This is done normally when breaking the ice or trying to open up opponent, it is not intended to be a power shot or heavy hit, usually used repetitively or to stun before delivering a cross which is a heavier hit powered from momentum added from the hips etc. Typically done in the stand up dance when testing out opponent when neither is getting too close for combat
+
+- **hammer**: This is a strike typically done in a ground in pound mount position, but can be while in the mount on top or on the bottom loosening a choke hold. The hit is done to smash and stun the face of opponent, and typically not a favorite, because it can hurt the fighter as much as the opponent due to the part of the hand being used. This type of strike is used for fast repetitive bursts to stun and get out of a lock when on the floor striking or preventing a choke or joint lock. The side of the fist used is the pinky side in alignment with the elbow. Can be lifted above the head to get more power in accelerating with gravity and body weight to hit opponent's face. This is why some fighters hit with a regular jab or cross instead to lessen damage to wrist and hand while stiking opponent. All strikes cause damage, but this is not likely to knock an opponent out, also the hand can be thrown off side to make the person get off balance and lose body control in the ground fight. The male fighters use this more than the females.
+
+- **hook**: This is a heavy hit or used in combination with other strikes like the jab or cross, because if the first hit, opponent can just back away unless their against the cage or ropes. It stuns and can knock the breath out of opponent, adds to chances of getting a TKO or technical knock out or knockout. Its a sneaky punch delivered when opponents arms are up or down blocking head shots and/or body kicks. 
+
+- **upper**: This is a puch delivered from upward momentum to strike the chin when up close in a clinch or hold of some sort. Not a powerful punch compared to other strikes, used to stun and to set up for other heavy hits or barrages of various strikes at once.
+
+- **kick**: The push kick is the most powerful to move opponent off balance with little effort, but the muay thai kick (mt abrev.) is a very powerful kick if your skilled in the pivot and trained your shins to deliver bone to bone or head kicks with its snapping movement. It breaks down the balance and you see fighters deliver this to the lead leg to knock the opponent off balance and prevent leverage needed for heavy hits or crosses, it can also make the opponent stumble if they get their lead leg kicked hard enough to knock out of stance. Some go for the inner leg as well to knock off balance. This kick is also shown aimed at the outer lead leg Iliotibial or IT band to cause pain and test out their kick to lead up to a head kick or the opponent's defenses. Usually some punches or an attempt at a takedown of opponent occurs, unless they step backwards.
+
+- **elbow**: This is a strike used standing up at close range, or in a ground and pound full mount position to drop with gravity while aiming the elbow towards the opponents face, not sure if the target is the forehead, but most opponents getting hit with the elbow end up with cuts/slashes/gashes on their forehead. This could be a technical knockout or some sort of stoppage if the opponent can't fight because blood gets in their eyes, and a doctor dismisses the fight due to inability to continue from injury. When cut, blood drips into the eyes. And it is said can cause blindness if the calcium hardens from the blood in the eye.
+
+- **takedown**: This happens when the fighter thinks they want to either body slam the opponent or have a better chance at ground and pound and a chance at mounting opponent once taken down, or will out wrestle the opponent with a joint lock or choke. Wrestling may look less violent, but wrestling can leave joints in repair for 6-12 months in rehab, break ribs from the chest locks, and make the opponent lose oxygen with neck holds and pass out. Usually fighters tap out if they think they will pass out, and would rather tap out than get choked out or know they are not a strong enough wrestler to break apart the hold. Once it is locked, it can be held for many minutes until the fight round ends, but usually skilled fighters will find other ways to disarm their opponent with wrestling, hits, body shifting, etc.
+
+- **knees**: These are used in clinches or holds of some sort, and can be aimed with high knees, jumping knees, knees striking the IT bands, or the abdomen, to stun and loosen grip to gain control. They can be very powerful if used right. Mazvidal knocked out a guy in under 5 seconds with a flying knee to the forehead. That was the only time I recognized seeing a knockout from a knee. It can cut the face and make the nose or lips bleed if hit with the knee.
+
+We are going to run this script first, but the notes do keep track of which arm was used when making a cross, knee, or other strike other than takedown. Left is L and right is R before the name of the action/strike used and after either lands or misses.
+
+As the extracted actions are listed, there is not an extracted description of which arm was used for the strike or action. There are also some types of wrestling moves noted in the notes, but the entirety of the observations didn't continually list the hold if still in a specific hold that second, only any changes observed. We can add in these features at the end.
+
+Here is a brief description pulled from Wikipedia on **BJJ moves** that aren't extracted as features but could be useful:
+
+**Guard**: person dominating on back with legs around opponent's waste, controls top opponent
+
+**half Guard**: person dominating on back controling with one leg of the top opponent preventing the opponent from passing or gaining side control
+
+**open Guard**: variations where person is on back but legs not wrapped around top opponent's waste, preventing the top opponent from striking or passing with feet or shins
+
+**side control**: top person dominates at the side pinning shoulders and/or hips while striking and trying to gain a lock or choke
+
+**full mount**: person on top dominates with legs above person on ground's hips and knees in armpits to prevent bottom opponent from striking or trying to gain control
+
+**back mount**: ankles in thighs of person who is being dominated by person on back to maneuver a choke or lock
+
+Aside: Having experienced this myself I know that there are things that happen in the hold that aren't illustrated to the viewers. Such as, if the person locks there legs around the rib cage, they are squeezing in an attempt to break their ribs or lower their ability to breathe with limited lung cavity movement, and the idea is to cut off the carotid with a foot, ankle arm and your arm when choking until the person taps out of passes out. FYI, experience matters. Having had 3 months training and going up against someone with 2 years experience and a height advantage I did not last longer than 59 seconds in limited mma, where punches to the face are illegal. FYI I was 27 and the opponent was 14 and both of us females at that time (I plan on dying a female with no changes in that feature until that finite point in time). Do not underestimate age. Also, it takes quite a bit of maneuvering to get out of a hold once locked. Also, too much wrestling leaves viewers who want to see hits or strikes and movement on the floor towards the opponent and not dancing around the ring to avoid opponent is how these fighters make a name for themselves. In other words, these fighters have to be to some extent bat crazy.
+
+
+
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+
+```
+
+
+```{r}
+felicia <- read.csv('Felicia3fights.csv', header=TRUE, sep=',', 
+                 na.strings=c('','NA'))
+
+colnames(felicia)
+
+```
+
+Remove the instances with no action from either fighter X1 or X2.
+```{r}
+Added <- filter(felicia, felicia$FighterActionReactions.X1 !=0 | felicia$FightersActionsReactions.X2 !=0)
+```
+
+Look at the notes on each fighter. The X1 is Felicia, the X2 is one of the three opponent's.
+```{r}
+head(Added$FighterActionReactions.X1, 10)
+head(Added$FightersActionsReactions.X2,10)
+```
+
+List the unique notes for X1.
+```{r}
+unique(Added$FighterActionReactions.X1)
+```
+
+There are 134 unique actions for Felicia amongst these three opponents. Out of how many observations?
+```{r}
+dim(Added)
+```
+There are 524 observations in the data that excludes observations with no noticeable action or reaction from X1 or X2.
+
+The unique actions/reactions from the opponent's separately but collectively are:
+```{r}
+unique(Added$FightersActionsReactions.X2)
+```
+There are 92 unique actions from these three opponent's as X2, in this case the opponents are Zarah, Megan Anderson, and Cyborg.
+
+***
+
+Get fighter X1's list of actions and reactions to split on.
+```{r}
+Sym <- strsplit(as.character(Added$FighterActionReactions.X1), ',')
+
+```
+
+Create 1st sequence to grab actions from the table by index of observation that
+the action occured; this grabs the index of occurence in the table from each observation as a vector.
+```{r}
+sq1 <- lapply(Sym,'[',1)
+head(sq1,10)
+```
+
+```{r}
+sq2 <- lapply(Sym,'[',2)
+sq3 <- lapply(Sym,'[',3)
+```
+
+Lets also get the ground moves added to our data as features. The ground moves are the 'holding...hold' for the fighter holding some hold or body part as either an arm, back, full mount, back mount, etc. There is also a note of when the fighter 'loses...hold' or stops holding that was added but doesn't mean it isn't ground work done or submitted but that in some instances switched from a full mount hold to a side mount control hold, of lost back mount hold to holding back when legs not fully locked, etc. There is also the options for the opponent who 'breaks...hold' or 'caught in...hold' to add to this data for machine learning. I also want to distinguish between muay thai (mt) and push kick instead of just counting all kicks. The ground work was intentionally added to the first sequence before the comma separator, so we just need to add it as a grab from each fighter. But there are multiple holds in some instances and breaks, caught, and lost holds. So we need to account for the multiple holds. 
+```{r}
+hold <- grep('holding.+hold',sq1)
+hold
+```
+There are a lot of instances for this fighter that involves ground work, clinches or holds while standing, and wrestling from the number of instances that a hold is used by this fighter. Now look at the number of instances this fighter is caught in a hold.This can be an arm hold when clinching while standing up or on the ground when the opponent grabs the arm to prevent getting hit by it or prevent a wrestling submission.
+```{r}
+caught <- grep('caught.*hold',sq1)
+caught
+```
+There aren't that many instances that the fighter is caught in a hold compared to holding the opponent.
+
+Lets look at the lost holds.
+```{r}
+lost <- grep('loses.*hold', sq1)
+lost
+```
+Not many holds were lost or quit by this fighter.
+
+Now for the number of holds this fighter broke out of or the opponent quit holding.
+```{r}
+breaks <- grep('breaks.*hold',sq1)
+breaks
+```
+There were some holds this fighter broke out of. They could have been quit by the opponent, and some are arm or limb holds of some sort.
+
+Now lets check out the number of muay thai kicks and push kicks separately in the first sequence of each instance.
+```{r}
+mtKicks <- grep('mt kick',sq1)
+pushKicks <- grep('push kick',sq1)
+mtKicks;pushKicks
+```
+Lets look at the right (R) or left (L) legs used to deliver the muay thai kicks or push kicks separately.
+```{r}
+LmtKicks <- grep('L mt kick',sq1)
+RmtKicks <- grep('R mt kick',sq1)
+Lpush <- grep('L push kick', sq1)
+Rpush <- grep('R push kick', sq1)
+
+LmtKicks;RmtKicks;Lpush;Rpush
+```
+For muay thai kicks this fighter prefers the left leg to deliver them, and for push kicks this fighter prefers using the right leg. And this is only in the start of a second in time of a three sequence max second of time as an observation. 
+
+Lets look at the muay thai and push kicks by X1 in the 2nd and 3rd sequences as well to get an idea of how this fighter rates their own kicks in sequential order or usefulness.
+```{r}
+mtKicks2 <- grep('mt kick',sq2)
+pushKicks2 <- grep('push kick',sq2)
+mtKicks2;pushKicks2
+
+mtKicks3 <- grep('mt kick',sq3)
+pushKicks3 <- grep('push kick',sq3)
+mtKicks3;pushKicks3
+
+```
+This fighter X1 didn't use any kicks in the 2nd and 3rd sequence, so there is no point in seeing which ones are delivered with the right or left leg.
+
+***
+
+Lets now look at the opponent's or X2's preference in the first second as an action or reaction by starting with the number of holds that X2 used. 
+
+This creates a list of the first sequence of three to select actions from for X2.
+```{r}
+SymX2 <- strsplit(as.character(paste(Added$FightersActionsReactions.X2)),',')
+sq1X2 <- lapply(SymX2,'[',1)
+sq2X2 <- lapply(SymX2,'[',2)
+sq3X2 <- lapply(SymX2,'[',3)
+
+```
+
+```{r}
+holdX2 <- grep('holding.+hold',sq1X2)
+holdX2
+```
+The opponent's acting as X2 didn't use as many holds as this X1 fighter did.
+
+
+Lets see the number of holds X2 was caught in.
+```{r}
+caughtX2 <- grep('caught.*hold',sq1X2)
+caughtX2
+```
+The opponent's were caught in many holds from X1, as we expect to see because X1 had a lot of holds initiated for many instances.
+
+
+Lets look at the lost holds by X2.
+```{r}
+lostX2 <- grep('loses.*hold', sq1X2)
+lostX2
+```
+The opponents lost some of the holds they had, but not all of them on X1.
+
+
+Now for the number of holds that x2 broke out of or the opponent quit holding.
+```{r}
+breaksX2 <- grep('breaks.*hold',sq1X2)
+breaksX2
+```
+The opponents broke out of quite a bit of holds. Some are mounts and moving up to the striking instead of wrestling ground work.
+
+
+Now lets check out the number of muay thai kicks and push kicks separately in the first sequence of each instance that X2 used.
+```{r}
+mtKicksX2 <- grep('mt kick',sq1X2)
+pushKicksX2 <- grep('push kick',sq1X2)
+mtKicksX2;pushKicksX2
+```
+None of these opponents used any push kicks, but did use some muay thai kicks in the first sequence. Keep in mind there are two other sequences that kicks could have been delivered, like in an open guard, where the opponent X2 uses an 'upward kick' which could be considered a push kick. Lets see.
+```{r}
+openPushX2 <- grep('upward.*kick',sq1X2)
+openPushX2
+```
+But not for these opponents, in the first sequence any how. How about in the 2nd and 3rd sequences, did X2 use any muay thai or push kicks?
+```{r}
+mtKicksX2b <- grep('mt kick',sq2X2)
+pushKicksX2b <- grep('push kick',sq2X2)
+mtKicksX2b;pushKicksX2b
+
+mtKicksX2c <- grep('mt kick',sq3X2)
+pushKicksX2c <- grep('push kick',sq3X2)
+mtKicksX2c;pushKicksX2c
+
+```
+No kicks by X2 in the 2nd or 3rd sequences of any instance.
+
+
+Lets look at the right (R) or left (L) legs used by X2 to deliver the muay thai kicks.
+```{r}
+LmtKicksX2 <- grep('L mt kick',sq1X2)
+RmtKicksX2 <- grep('R mt kick',sq1X2)
+
+LmtKicksX2;RmtKicksX2
+```
+It was almost an equal amount of muay thai kicks by all opponents in left or right leg used, but the majority of muay thai kicks delivered to X1 by X2 (3 different opponents separately) used the left leg. This could be toward the lead leg to lessen the stability of X1 or knock off balance to reduce striking power delivered by X1's right cross, or to the head or body. Lets see.
+```{r}
+sq1X2[LmtKicksX2]
+```
+It looks like the opponents are equal in landed muay thai kicks to the inner or L low leg, for this X1's lead leg is the left (L) leg, or the body. 
+
+***
+
+This will grab the indices of each specific action grep'd from the action text fields to count each action. We will do this for up to three sequences of actions/reactions in a second. An example of a few of the action vectors are displayed.
+```{r}
+kicks_sq1 <- grep('land.*kick', sq1)
+elbows_sq1 <- grep('land.*elbow', sq1)
+knees_sq1 <- grep('land.*knee', sq1)
+jab_sq1 <- grep('land.*jab', sq1)
+cross_sq1 <- grep('land.*cross', sq1)
+hook_sq1 <- grep('land.*hook', sq1)
+upper_sq1 <- grep('land.*uppercut', sq1)
+takedown_sq1 <- grep('land.*takedown', sq1)
+hammer_sq1 <- grep('land.*hammer', sq1)
+
+hammer_sq1;takedown_sq1;upper_sq1;cross_sq1
+```
+
+Missed in 1st sequence; Blocks aren't accounted for and when missed, it is assumed because the opponent was blocking or ducking, not that the fighter didn't land the hit but because it was blocked either with a block an opposing strike, grab, or ducked.
+```{r}
+kicks_sq1m <- grep('miss.*kick', sq1)
+elbows_sq1m <- grep('miss.*elbow', sq1)
+knees_sq1m <- grep('miss.*knee', sq1)
+jab_sq1m <- grep('miss.*jab', sq1)
+cross_sq1m <- grep('miss.*cross', sq1)
+hook_sq1m <- grep('miss.*hook', sq1)
+upper_sq1m <- grep('miss.*upp', sq1)
+takedown_sq1m <- grep('miss.*takedown', sq1)
+hammer_sq1m <- grep('miss.*hammer', sq1)
+
+```
+
+
+landed in second sequence
+```{r}
+kicks_sq2 <- grep('land*kick', sq2)
+elbows_sq2 <- grep('land.*elbow', sq2)
+knees_sq2 <- grep('land.*knee', sq2)
+jab_sq2 <- grep('land.*jab', sq2)
+cross_sq2 <- grep('land.*cross', sq2)
+hook_sq2 <- grep('land.*hook', sq2)
+upper_sq2 <- grep('land.*upp', sq2)
+takedown_sq2 <- grep('land.*takedown', sq2)
+hammer_sq2 <- grep('land.*hammer', sq2)
+
+```
+
+missed in 2nd sequence
+```{r}
+kicks_sq2m <- grep('miss.*kick', sq2)
+elbows_sq2m <- grep('miss.*elbow', sq2)
+knees_sq2m <- grep('miss.*knee', sq2)
+jab_sq2m <- grep('miss.*jab', sq2)
+cross_sq2m <- grep('miss.*cross', sq2)
+hook_sq2m <- grep('miss.*hook', sq2)
+upper_sq2m <- grep('miss.*upp', sq2)
+takedown_sq2m <- grep('miss.*takedown', sq2)
+hammer_sq2m <- grep('miss.*hammer', sq2)
+
+```
+
+
+landed in 3rd sequence
+```{r}
+kicks_sq3 <- grep('land.*kick', sq3)
+elbows_sq3 <- grep('land.*elbow', sq3)
+knees_sq3 <- grep('land.*knee', sq3)
+jab_sq3 <- grep('land.*jab', sq3)
+cross_sq3 <- grep('land.*cross', sq3)
+hook_sq3 <- grep('land.*hook', sq3)
+upper_sq3 <- grep('land.*upp', sq3)
+takedown_sq3 <- grep('land.*takedown', sq3)
+hammer_sq3 <- grep('land.*hammer', sq3)
+
+```
+
+missed in 3rd sequence
+```{r}
+kicks_sq3m <- grep('miss.*kick', sq3)
+elbows_sq3m <- grep('miss.*elbow', sq3)
+knees_sq3m <- grep('miss.*knee', sq3)
+jab_sq3m <- grep('miss.*jab', sq3)
+cross_sq3m <- grep('miss.*cross', sq3)
+hook_sq3m <- grep('miss.*hook', sq3)
+upper_sq3m <- grep('miss.*upp', sq3)
+takedown_sq3m <- grep('miss.*takedown', sq3)
+hammer_sq3m <- grep('miss.*hammer', sq3)
+
+```
+
+get fighter2's list of actions/reactions
+```{r}
+sq1b <- sq1X2
+
+```
+
+lands 1st sequence X2, ends with 'b', no 'l' to either for lands
+```{r}
+kicks_sq1b <- grep('land.*kick', sq1b)
+elbows_sq1b <- grep('land.*elbow', sq1b)
+knees_sq1b <- grep('land.*knee', sq1b)
+jab_sq1b <- grep('land.*jab', sq1b)
+cross_sq1b <- grep('land.*cross', sq1b)
+hook_sq1b <- grep('land.*hook', sq1b)
+upper_sq1b <- grep('land.*upp', sq1b)
+takedown_sq1b <- grep('land.*takedown', sq1b)
+hammer_sq1b <- grep('land.*hammer', sq1b)
+
+```
+
+received by X1 in 1st sequence, duplicated above as 
+equivalent to hits landed 1st seq of x2
+```{r}
+kicks_sq1r <- grep('land.*kick', sq1b)
+elbows_sq1r <- grep('land.*elbow', sq1b)
+knees_sq1r <- grep('land.*knee', sq1b)
+jab_sq1r <- grep('land.*jab', sq1b)
+cross_sq1r <- grep('land.*cross', sq1b)
+hook_sq1r <- grep('land.*hook', sq1b)
+upper_sq1r <- grep('land.*upp', sq1b)
+takedown_sq1r <- grep('land.*takedown', sq1b)
+hammer_sq1r <- grep('land.*hammer', sq1b)
+
+```
+
+missed in 1st sequence X2
+```{r}
+kicks_sq1bm <- grep('miss.*kick', sq1b)
+elbows_sq1bm <- grep('miss.*elbow', sq1b)
+knees_sq1bm <- grep('miss.*knee', sq1b)
+jab_sq1bm <- grep('miss.*jab', sq1b)
+cross_sq1bm <- grep('miss.*cross', sq1b)
+hook_sq1bm <- grep('miss.*hook', sq1b)
+upper_sq1bm <- grep('miss.*upp', sq1b)
+takedown_sq1bm <- grep('miss.*takedown', sq1b)
+hammer_sq1bm <- grep('miss.*hammer', sq1b)
+
+```
+
+received by x2 in 1st seq equivalent to lands by x1
+```{r}
+kicks_sq1br <- grep('land.*kick', sq1)
+elbows_sq1br <- grep('land.*elbow', sq1)
+knees_sq1br <- grep('land.*knee', sq1)
+jab_sq1br <- grep('land.*jab', sq1)
+cross_sq1br <- grep('land.*cross', sq1)
+hook_sq1br <- grep('land.*hook', sq1)
+upper_sq1br <- grep('land.*upp', sq1)
+takedown_sq1br <- grep('land.*takedown', sq1)
+hammer_sq1br <- grep('land.*hammer', sq1)
+
+```
+
+lands 2nd sequence x2
+```{r}
+sq2b <- sq2X2
+
+```
+
+```{r}
+kicks_sq2b <- grep('land.*kick', sq2b)
+elbows_sq2b <- grep('land.*elbow', sq2b)
+knees_sq2b <- grep('land.*knee', sq2b)
+jab_sq2b <- grep('land.*jab', sq2b)
+cross_sq2b <- grep('land.*cross', sq2b)
+hook_sq2b <- grep('land.*hook', sq2b)
+upper_sq2b <- grep('land.*upp', sq2b)
+takedown_sq2b <- grep('land.*takedown', sq2b)
+hammer_sq2b <- grep('land.*hammer', sq2b)
+
+```
+
+received by X1 in 2nd sequence equivalent to hits landed by x2 seq 2
+```{r}
+kicks_sq2r <- grep('land.*kick', sq2b)
+elbows_sq2r <- grep('land.*elbow', sq2b)
+knees_sq2r <- grep('land.*knee', sq2b)
+jab_sq2r <- grep('land.*jab', sq2b)
+cross_sq2r <- grep('land.*cross', sq2b)
+hook_sq2r <- grep('land.*hook', sq2b)
+upper_sq2r <- grep('land.*upp', sq2b)
+takedown_sq2r <- grep('land.*takedown', sq2b)
+hammer_sq2r <- grep('land.*hammer', sq2b)
+
+```
+
+missed in 2nd sequence x2
+```{r}
+kicks_sq2bm <- grep('miss.*kick', sq2b)
+elbows_sq2bm <- grep('miss.*elbow', sq2b)
+knees_sq2bm <- grep('miss.*knee', sq2b)
+jab_sq2bm <- grep('miss.*jab', sq2b)
+cross_sq2bm <- grep('miss.*cross', sq2b)
+hook_sq2bm <- grep('miss.*hook', sq2b)
+upper_sq2bm <- grep('miss.*upp', sq2b)
+takedown_sq2bm <- grep('miss.*takedown', sq2b)
+hammer_sq2bm <- grep('miss.*hammer', sq2b)
+
+```
+
+received 2nd seq by x2 equivalent to hits landed by x1 in seq 2
+```{r}
+kicks_sq2br <- grep('land.*kick', sq2)
+elbows_sq2br <- grep('land.*elbow', sq2)
+knees_sq2br <- grep('land.*knee', sq2)
+jab_sq2br <- grep('land.*jab', sq2)
+cross_sq2br <- grep('land.*cross', sq2)
+hook_sq2br <- grep('land.*hook', sq2)
+upper_sq2br <- grep('land.*upp', sq2)
+takedown_sq2br <- grep('land.*takedown', sq2)
+hammer_sq2br <- grep('land.*hammer', sq2)
+
+```
+
+lands 3rd sequence x2
+```{r}
+sq3b <- sq3X2
+
+```
+
+```{r}
+kicks_sq3b <- grep('land.*kick', sq3b)
+elbows_sq3b <- grep('land.*elbow', sq3b)
+knees_sq3b <- grep('land.*knee', sq3b)
+jab_sq3b <- grep('land.*jab', sq3b)
+cross_sq3b <- grep('land.*cross', sq3b)
+hook_sq3b <- grep('land.*hook', sq3b)
+upper_sq3b <- grep('land.*upp', sq3b)
+takedown_sq3b <- grep('land.*takedown', sq3b)
+hammer_sq3b <- grep('land.*hammer', sq3b)
+
+
+```
+
+received by X1 in 3rd sequence equivalent to hits landed by X2 in seq 3
+```{r}
+kicks_sq3r <- grep('land.*kick', sq3b)
+elbows_sq3r <- grep('land.*elbow', sq3b)
+knees_sq3r <- grep('land.*knee', sq3b)
+jab_sq3r <- grep('land.*jab', sq3b)
+cross_sq3r <- grep('land.*cross', sq3b)
+hook_sq3r <- grep('land.*hook', sq3b)
+upper_sq3r <- grep('land.*upp', sq3b)
+takedown_sq3r <- grep('land.*takedown', sq3b)
+hammer_sq3r <- grep('land.*hammer', sq3b)
+
+```
+
+missed in 3rd sequence x2
+```{r}
+kicks_sq3bm <- grep('miss.*kick', sq3b)
+elbows_sq3bm <- grep('miss.*elbow', sq3b)
+knees_sq3bm <- grep('miss.*knee', sq3b)
+jab_sq3bm <- grep('miss.*jab', sq3b)
+cross_sq3bm <- grep('miss.*cross', sq3b)
+hook_sq3bm <- grep('miss.*hook', sq3b)
+upper_sq3bm <- grep('miss.*upp', sq3b)
+takedown_sq3bm <- grep('miss.*takedown', sq3b)
+hammer_sq3bm <- grep('miss.*hammer', sq3b)
+
+```
+
+received in seq 3 by x2 equivalent to hits landed by x1 in seq3
+```{r}
+kicks_sq3br <- grep('land.*kick', sq3)
+elbows_sq3br <- grep('land.*elbow', sq3)
+knees_sq3br <- grep('land.*knee', sq3)
+jab_sq3br <- grep('land.*jab', sq3)
+cross_sq3br <- grep('land.*cross', sq3)
+hook_sq3br <- grep('land.*hook', sq3)
+upper_sq3br <- grep('land.*upp', sq3)
+takedown_sq3br <- grep('land.*takedown', sq3)
+hammer_sq3br <- grep('land.*hammer', sq3)
+
+```
+
+This adds the fields (54 fields for each sequence) to the table of actions per second, by
+creating table extensions of Added, then renaming the 3rd sequence of actions.
+```{r}
+added_landed <- mutate(Added, Crossl.X1=0, Kneel.X1=0, Elbowl.X1=0, Hookl.X1=0, Jabl.X1=0, Kickl.X1=0,
+                Crossl.X2=0, Kneel.X2=0, Elbowl.X2=0, Hookl.X2=0, Jabl.X2=0, Kickl.X2=0, upperl.X1=0,
+                upperl.X2=0, takedownl.X1=0, takedownl.X2=0, hammerl.X1=0, hammerl.X2=0
+                , Cross2l.X1=0, Knee2l.X1=0, Elbow2l.X1=0, Hook2l.X1=0, Jab2l.X1=0, Kick2l.X1=0,
+                Cross2l.X2=0, Knee2l.X2=0, Elbow2l.X2=0, Hook2l.X2=0, Jab2l.X2=0, Kick2l.X2=0, upper2l.X1=0,
+                upper2l.X2=0, takedown2l.X1=0, takedown2l.X2=0, hammer2l.X1=0, hammer2l.X2=0
+                , Cross3l.X1=0, Knee3l.X1=0, Elbow3l.X1=0, Hook3l.X1=0, Jab3l.X1=0, Kick3l.X1=0,
+                Cross3l.X2=0, Knee3l.X2=0, Elbow3l.X2=0, Hook3l.X2=0, Jab3l.X2=0, Kick3l.X2=0, upper3l.X1=0,
+                upper3l.X2=0, takedown3l.X1=0, takedown3l.X2=0, hammer3l.X1=0, hammer3l.X2=0)
+
+added_missed <- mutate(added_landed, Crossm.X1=0, Kneem.X1=0, Elbowm.X1=0, Hookm.X1=0, Jabm.X1=0, Kickm.X1=0,
+                       Crossm.X2=0, Kneem.X2=0, Elbowm.X2=0, Hookm.X2=0, Jabm.X2=0, Kickm.X2=0, upperm.X1=0,
+                       upperm.X2=0, takedownm.X1=0, takedownm.X2=0, hammerm.X1=0, hammerm.X2=0
+                       , Cross2m.X1=0, Knee2m.X1=0, Elbow2m.X1=0, Hook2m.X1=0, Jab2m.X1=0, Kick2m.X1=0,
+                       Cross2m.X2=0, Knee2m.X2=0, Elbow2m.X2=0, Hook2m.X2=0, Jab2m.X2=0, Kick2m.X2=0, upper2m.X1=0,
+                       upper2m.X2=0, takedown2m.X1=0, takedown2m.X2=0, hammer2m.X1=0, hammer2m.X2=0
+                       , Cross3m.X1=0, Knee3m.X1=0, Elbow3m.X1=0, Hook3m.X1=0, Jab3m.X1=0, Kick3m.X1=0,
+                       Cross3m.X2=0, Knee3m.X2=0, Elbow3m.X2=0, Hook3m.X2=0, Jab3m.X2=0, Kick3m.X2=0, upper3m.X1=0,
+                       upper3m.X2=0, takedown3m.X1=0, takedown3m.X2=0, hammer3m.X1=0, hammer3m.X2=0)
+
+added_received <- mutate(added_missed, Crossr.X1=0, Kneer.X1=0, Elbowr.X1=0, Hookr.X1=0, Jabr.X1=0, Kickr.X1=0,
+                       Crossr.X2=0, Kneer.X2=0, Elbowr.X2=0, Hookr.X2=0, Jabr.X2=0, Kickr.X2=0, upperr.X1=0,
+                       upperr.X2=0, takedownr.X1=0, takedownr.X2=0, hammerr.X1=0, hammerr.X2=0
+                       , Cross2r.X1=0, Knee2r.X1=0, Elbow2r.X1=0, Hook2r.X1=0, Jab2r.X1=0, Kick2r.X1=0,
+                       Cross2r.X2=0, Knee2r.X2=0, Elbow2r.X2=0, Hook2r.X2=0, Jab2r.X2=0, Kick2r.X2=0, upper2r.X1=0,
+                       upper2r.X2=0, takedown2r.X1=0, takedown2r.X2=0, hammer2r.X1=0, hammer2r.X2=0
+                       , Cross3r.X1=0, Knee3r.X1=0, Elbow3r.X1=0, Hook3r.X1=0, Jab3r.X1=0, Kick3r.X1=0,
+                       Cross3r.X2=0, Knee3r.X2=0, Elbow3r.X2=0, Hook3r.X2=0, Jab3r.X2=0, Kick3r.X2=0, upper3r.X1=0,
+                       upper3r.X2=0, takedown3r.X1=0, takedown3r.X2=0, hammer3r.X1=0, hammer3r.X2=0)
+
+```
+
+Save original Added data table and make a new table called Added that is the combined
+received, missed, and landed binary/dummy columns just mutated to each other above using dplyr.
+```{r}
+Added1 <- Added
+```
+
+```{r}
+Added <- added_received
+head(Added,10)
+```
+
+The following code adds a value of 1 if the grep'd binary field has a count in that index
+of observation, otherwise, it will be 0.
+```{r}
+Added[cross_sq1,'Crossl.X1'] <- 1
+Added[cross_sq1b,'Crossl.X2'] <- 1
+Added[hook_sq1,'Hookl.X1'] <- 1
+Added[hook_sq1b,'Hookl.X2'] <- 1
+Added[jab_sq1,'Jabl.X1'] <- 1
+Added[jab_sq1b,'Jabl.X2'] <- 1
+Added[knees_sq1,'Kneel.X1'] <- 1
+Added[knees_sq1b,'Kneel.X2'] <- 1
+Added[elbows_sq1,'Elbowl.X1'] <- 1
+Added[elbows_sq1b,'Elbowl.X2'] <- 1
+Added[kicks_sq1,'Kickl.X1'] <- 1
+Added[kicks_sq1b,'Kickl.X2'] <- 1
+Added[upper_sq1,'upperl.X1'] <- 1
+Added[upper_sq1b,'upperl.X2'] <- 1
+Added[takedown_sq1,'takedownl.X1'] <- 1
+Added[takedown_sq1b,'takedownl.X2'] <- 1
+Added[hammer_sq1,'hammerl.X1'] <- 1
+Added[hammer_sq1b,'hammerl.X2'] <- 1
+
+Added[cross_sq2,'Cross2l.X1'] <- 1
+Added[cross_sq2b,'Cross2l.X2'] <- 1
+Added[hook_sq2,'Hook2l.X1'] <- 1
+Added[hook_sq2b,'Hook2l.X2'] <- 1
+Added[jab_sq2,'Jab2l.X1'] <- 1
+Added[jab_sq2b,'Jab2l.X2'] <- 1
+Added[knees_sq2,'Knee2l.X1'] <- 1
+Added[knees_sq2b,'Knee2l.X2'] <- 1
+Added[elbows_sq2,'Elbow2l.X1'] <- 1
+Added[elbows_sq2b,'Elbow2l.X2'] <- 1
+Added[kicks_sq2,'Kick2l.X1'] <- 1
+Added[kicks_sq2b,'Kick2l.X2'] <- 1
+Added[upper_sq2,'upper2l.X1'] <- 1
+Added[upper_sq2b,'upper2l.X2'] <- 1
+Added[takedown_sq2,'takedown2l.X1'] <- 1
+Added[takedown_sq2b,'takedown2l.X2'] <- 1
+Added[hammer_sq2,'hammer2l.X1'] <- 1
+Added[hammer_sq2b,'hammer2l.X2'] <- 1
+
+Added[cross_sq3,'Cross3l.X1'] <- 1
+Added[cross_sq3b,'Cross3l.X2'] <- 1
+Added[hook_sq3,'Hook3l.X1'] <- 1
+Added[hook_sq3b,'Hook3l.X2'] <- 1
+Added[jab_sq3,'Jab3l.X1'] <- 1
+Added[jab_sq3b,'Jab3l.X2'] <- 1
+Added[knees_sq3,'Knee3l.X1'] <- 1
+Added[knees_sq3b,'Knee3l.X2'] <- 1
+Added[elbows_sq3,'Elbow3l.X1'] <- 1
+Added[elbows_sq3b,'Elbow3l.X2'] <- 1
+Added[kicks_sq3,'Kick3l.X1'] <- 1
+Added[kicks_sq3b,'Kick3l.X2'] <- 1
+Added[upper_sq3,'upper3l.X1'] <- 1
+Added[upper_sq3b,'upper3l.X2'] <- 1
+Added[takedown_sq3,'takedown3l.X1'] <- 1
+Added[takedown_sq3b,'takedown3l.X2'] <- 1
+Added[hammer_sq3,'hammer3l.X1'] <- 1
+Added[hammer_sq3b,'hammer3l.X2'] <- 1
+
+Added[cross_sq1m,'Crossm.X1'] <- 1
+Added[cross_sq1bm,'Crossm.X2'] <- 1
+Added[hook_sq1m,'Hookm.X1'] <- 1
+Added[hook_sq1bm,'Hookm.X2'] <- 1
+Added[jab_sq1m,'Jabm.X1'] <- 1
+Added[jab_sq1bm,'Jabm.X2'] <- 1
+Added[knees_sq1m,'Kneem.X1'] <- 1
+Added[knees_sq1bm,'Kneem.X2'] <- 1
+Added[elbows_sq1m,'Elbowm.X1'] <- 1
+Added[elbows_sq1bm,'Elbowm.X2'] <- 1
+Added[kicks_sq1m,'Kickm.X1'] <- 1
+Added[kicks_sq1bm,'Kickm.X2'] <- 1
+Added[upper_sq1m,'upperm.X1'] <- 1
+Added[upper_sq1bm,'upperm.X2'] <- 1
+Added[takedown_sq1m,'takedownm.X1'] <- 1
+Added[takedown_sq1bm,'takedownm.X2'] <- 1
+Added[hammer_sq1m,'hammerm.X1'] <- 1
+Added[hammer_sq1bm,'hammerm.X2'] <- 1
+
+Added[cross_sq2m,'Cross2m.X1'] <- 1
+Added[cross_sq2bm,'Cross2m.X2'] <- 1
+Added[hook_sq2m,'Hook2m.X1'] <- 1
+Added[hook_sq2bm,'Hook2m.X2'] <- 1
+Added[jab_sq2m,'Jab2m.X1'] <- 1
+Added[jab_sq2bm,'Jab2m.X2'] <- 1
+Added[knees_sq2m,'Knee2m.X1'] <- 1
+Added[knees_sq2bm,'Knee2m.X2'] <- 1
+Added[elbows_sq2m,'Elbow2m.X1'] <- 1
+Added[elbows_sq2bm,'Elbow2m.X2'] <- 1
+Added[kicks_sq2m,'Kick2m.X1'] <- 1
+Added[kicks_sq2bm,'Kick2m.X2'] <- 1
+Added[upper_sq2m,'upper2m.X1'] <- 1
+Added[upper_sq2bm,'upper2m.X2'] <- 1
+Added[takedown_sq2m,'takedown2m.X1'] <- 1
+Added[takedown_sq2bm,'takedown2m.X2'] <- 1
+Added[hammer_sq2m,'hammer2m.X1'] <- 1
+Added[hammer_sq2bm,'hammer2m.X2'] <- 1
+
+Added[cross_sq3m,'Cross3m.X1'] <- 1
+Added[cross_sq3bm,'Cross3m.X2'] <- 1
+Added[hook_sq3m,'Hook3m.X1'] <- 1
+Added[hook_sq3bm,'Hook3m.X2'] <- 1
+Added[jab_sq3m,'Jab3m.X1'] <- 1
+Added[jab_sq3bm,'Jab3m.X2'] <- 1
+Added[knees_sq3m,'Knee3m.X1'] <- 1
+Added[knees_sq3bm,'Knee3m.X2'] <- 1
+Added[elbows_sq3m,'Elbow3m.X1'] <- 1
+Added[elbows_sq3bm,'Elbow3m.X2'] <- 1
+Added[kicks_sq3m,'Kick3m.X1'] <- 1
+Added[kicks_sq3bm,'Kick3m.X2'] <- 1
+Added[upper_sq3m,'upper3m.X1'] <- 1
+Added[upper_sq3bm,'upper3m.X2'] <- 1
+Added[takedown_sq3m,'takedown3m.X1'] <- 1
+Added[takedown_sq3bm,'takedown3m.X2'] <- 1
+Added[hammer_sq3m,'hammer3m.X1'] <- 1
+Added[hammer_sq3bm,'hammer3m.X2'] <- 1
+
+Added[cross_sq1r,'Crossr.X1'] <- 1
+Added[cross_sq1br,'Crossr.X2'] <- 1
+Added[hook_sq1r,'Hookr.X1'] <- 1
+Added[hook_sq1br,'Hookr.X2'] <- 1
+Added[jab_sq1r,'Jabr.X1'] <- 1
+Added[jab_sq1br,'Jabr.X2'] <- 1
+Added[knees_sq1r,'Kneer.X1'] <- 1
+Added[knees_sq1br,'Kneer.X2'] <- 1
+Added[elbows_sq1r,'Elbowr.X1'] <- 1
+Added[elbows_sq1br,'Elbowr.X2'] <- 1
+Added[kicks_sq1r,'Kickr.X1'] <- 1
+Added[kicks_sq1br,'Kickr.X2'] <- 1
+Added[upper_sq1r,'upperr.X1'] <- 1
+Added[upper_sq1br,'upperr.X2'] <- 1
+Added[takedown_sq1r,'takedownr.X1'] <- 1
+Added[takedown_sq1br,'takedownr.X2'] <- 1
+Added[hammer_sq1r,'hammerr.X1'] <- 1
+Added[hammer_sq1br,'hammerr.X2'] <- 1
+
+Added[cross_sq2r,'Cross2r.X1'] <- 1
+Added[cross_sq2br,'Cross2r.X2'] <- 1
+Added[hook_sq2r,'Hook2r.X1'] <- 1
+Added[hook_sq2br,'Hook2r.X2'] <- 1
+Added[jab_sq2r,'Jab2r.X1'] <- 1
+Added[jab_sq2br,'Jab2r.X2'] <- 1
+Added[knees_sq2r,'Knee2r.X1'] <- 1
+Added[knees_sq2br,'Knee2r.X2'] <- 1
+Added[elbows_sq2r,'Elbow2r.X1'] <- 1
+Added[elbows_sq2br,'Elbow2r.X2'] <- 1
+Added[kicks_sq2r,'Kick2r.X1'] <- 1
+Added[kicks_sq2br,'Kick2r.X2'] <- 1
+Added[upper_sq2r,'upper2r.X1'] <- 1
+Added[upper_sq2br,'upper2r.X2'] <- 1
+Added[takedown_sq2r,'takedown2r.X1'] <- 1
+Added[takedown_sq2br,'takedown2r.X2'] <- 1
+Added[hammer_sq2r,'hammer2r.X1'] <- 1
+Added[hammer_sq2br,'hammer2r.X2'] <- 1
+
+Added[cross_sq3r,'Cross3r.X1'] <- 1
+Added[cross_sq3br,'Cross3r.X2'] <- 1
+Added[hook_sq3r,'Hook3r.X1'] <- 1
+Added[hook_sq3br,'Hook3r.X2'] <- 1
+Added[jab_sq3r,'Jab3r.X1'] <- 1
+Added[jab_sq3br,'Jab3r.X2'] <- 1
+Added[knees_sq3r,'Knee3r.X1'] <- 1
+Added[knees_sq3br,'Knee3r.X2'] <- 1
+Added[elbows_sq3r,'Elbow3r.X1'] <- 1
+Added[elbows_sq3br,'Elbow3r.X2'] <- 1
+Added[kicks_sq3r,'Kick3r.X1'] <- 1
+Added[kicks_sq3br,'Kick3r.X2'] <- 1
+Added[upper_sq3r,'upper3r.X1'] <- 1
+Added[upper_sq3br,'upper3r.X2'] <- 1
+Added[takedown_sq3r,'takedown3r.X1'] <- 1
+Added[takedown_sq3br,'takedown3r.X2'] <- 1
+Added[hammer_sq3r,'hammer3r.X1'] <- 1
+Added[hammer_sq3br,'hammer3r.X2'] <- 1
+
+```
+
+```{r}
+colnames(Added)
+```
+
+```{r}
+head(Added,10)
+```
+
+
+Removes SecondsIntoRound.
+```{r}
+Added2 <- Added[,-2] 
+Seconds <- mutate(Added2, SecondsIntoRound=300-(as.numeric(Added2$Time)))
+seconds <- Seconds[,c(1,181,2:180)]
+
+```
+
+
+```{r}
+seconds$lastAction <- as.character(paste(lag(seconds$SecondsIntoRound,1)))
+seconds$lastAction <- gsub('NA','0',seconds$lastAction)
+seconds$lastAction <- as.numeric(paste(seconds$lastAction))
+```
+
+Get the first and last neighborhood of features or columns in this data table.
+```{r}
+colnames(seconds)[c(1:5,180:182)]
+```
+
+Rearrange the columns and remove the empty SecondsLastRoundAction field.
+```{r}
+seconds <- seconds[,c(1:2,182,4:181)]
+colnames(seconds)[1:8]
+```
+
+Extension of seconds using mutate() of dplyr library, keeps value of seconds into round as
+seconds since last action if no action that observation.
+```{r}
+last <- mutate(seconds, SecondsLastRoundAction = if_else(seconds$SecondsIntoRound -
+                                                         seconds$lastAction > 0,
+                                                       seconds$SecondsIntoRound -
+                                                         seconds$lastAction,
+                                                       seconds$SecondsIntoRound))
+
+```
+
+Reorders so that SecondsLastRoundAction is at front fields location.
+```{r}
+last <- last[,c(1:3,182,4:181)] 
+
+```
+
+Rearrange the order of the actions by fighter and landed, missed, and received. Also, add the counts for each accumulated landed actions, missed actions, and received actions per second observed.
+```{r}
+landX1 <- colnames(last)[c(21:26,33,35,37,39:44,51,53,55,57:62,69,71,73)]
+landX2 <- colnames(last)[c(27:32,34,36,38,45:50,52,54,56,63:68,70,72,74)]
+
+missX1 <- colnames(last)[c(75:80,87,89,91,93:98,105,107,109,111:116,123,125,127)]
+missX2 <- colnames(last)[c(81:86,88,90,92,99:104,106,108,110,117:122,124,126,128)]
+
+recvX1 <- colnames(last)[c(129:134,141,143,145,147:152,159,161,163,165:170,177,179,181)]
+recvX2 <- colnames(last)[c(135:140,142,144,146,153:158,160,162,164,171:176,178,180,182)]
+
+x1l <- mutate(last, TotLandsX1=last[,21]+last[,22]+last[,23]+last[,24]+last[,25]+
+                last[,26]+last[,33]+last[,35]+last[,37]+last[,39]+last[,40]+
+                last[,41]+last[,42]+last[,43]+last[,44]+last[,51]+last[,53]+
+                last[,55]+last[,57]+last[,58]+last[,59]+last[,60]+last[,61]+
+                last[,62]+last[,69]+last[,71]+last[,73])
+x1m <- mutate(x1l, TotMissedX1=last[,75]+last[,76]+last[,77]+last[,78]+last[,79]+
+                last[,80]+last[,87]+last[,89]+last[,91]+last[,93]+last[,94]+
+                last[,95]+last[,96]+last[,97]+last[,98]+last[,105]+last[,107]+
+                last[,109]+last[,111]+last[,112]+last[,113]+last[,114]+last[,115]+
+                last[,116]+last[,123]+last[,125]+last[,127])
+x1r <- mutate(x1m, TotReceivedX1=last[,129]+last[,130]+last[,131]+last[,132]+last[,133]+
+                last[,134]+last[,141]+last[,143]+last[,145]+last[,147]+last[,148]+
+                last[,149]+last[,150]+last[,151]+last[,152]+last[,159]+last[,161]+
+                last[,163]+last[,165]+last[,166]+last[,167]+last[,168]+last[,169]+
+                last[,170]+last[,177]+last[,179]+last[,181])
+
+x2l <- mutate(x1r, TotLandsX2=last[,27]+last[,28]+last[,29]+last[,30]+last[,31]+
+                last[,32]+last[,34]+last[,36]+last[,38]+last[,45]+last[,46]+
+                last[,47]+last[,48]+last[,49]+last[,50]+last[,52]+last[,54]+
+                last[,56]+last[,63]+last[,64]+last[,65]+last[,66]+last[,67]+
+                last[,68]+last[,70]+last[,72]+last[,74])
+x2m <- mutate(x2l, TotMissedX2=last[,81]+last[,82]+last[,83]+last[,84]+last[,85]+
+                last[,86]+last[,88]+last[,90]+last[,92]+last[,99]+last[,100]+
+                last[,101]+last[,102]+last[,103]+last[,104]+last[,106]+last[,108]+
+                last[,110]+last[,117]+last[,118]+last[,119]+last[,120]+last[,121]+
+                last[,122]+last[,124]+last[,126]+last[,128])
+x2r <- mutate(x2m, TotReceivedX2=last[,135]+last[,136]+last[,137]+last[,138]+last[,139]+
+                last[,140]+last[,142]+last[,144]+last[,146]+last[,153]+last[,154]+
+                last[,155]+last[,156]+last[,157]+last[,158]+last[,160]+last[,162]+
+                last[,164]+last[,171]+last[,172]+last[,173]+last[,174]+last[,175]+
+                last[,176]+last[,178]+last[,180]+last[,182])
+
+Added3 <- x2r[,c(1,2,3,4:7,183:185,11:13,186:188,17:182)]
+
+colnames(Added3)
+```
+
+Create break points where last action in seconds is greater than the amount of seconds of the round. This is because there are three round 1's from three fights, where the cut off needs to be in place for the end of a round when counting seconds since last action of that round.
+```{r}
+break1 <- Added3$lastAction > Added3$SecondsIntoRound
+break1
+```
+
+```{r}
+break2 <- row.names(Added3[break1,])
+break2
+```
+
+```{r}
+bk2 <- as.numeric(break2)
+bk2
+```
+
+```{r}
+split1 <- bk2[1]
+split1
+```
+
+```{r}
+split2 <- bk2[2]
+split2
+```
+First opponent:
+```{r}
+Table1 <- Added3[1:(split1-1),]
+Table1
+```
+Second opponent:
+```{r}
+Table2 <- Added3[split1:(split2-1),]
+Table2
+```
+Third opponent:
+```{r}
+Table3 <- Added3[split2:(length(Added3$Round)),]
+Table3
+```
+
+This next section creates the cumulative actions of hits landed,missed, or received for each second
+into the round for each of the three table splits by opponent, since only first round of various fights extracted and just created above.
+```{r}
+Table4 <- mutate(Table1, cmTotHitsR.X1=cumsum(TotReceivedX1), 
+                cmTotHitsL.X1=cumsum(TotLandsX1),
+                cmTotHitsM.X1=cumsum(TotMissedX1),
+                cmTotHitsR.X2=cumsum(TotReceivedX2),
+                cmTotHitsL.X2=cumsum(TotLandsX2),
+                cmTotHitsM.X2=cumsum(TotMissedX2))
+
+Table5 <- mutate(Table2, cmTotHitsR.X1=cumsum(TotReceivedX1), 
+                 cmTotHitsL.X1=cumsum(TotLandsX1),
+                 cmTotHitsM.X1=cumsum(TotMissedX1),
+                 cmTotHitsR.X2=cumsum(TotReceivedX2),
+                 cmTotHitsL.X2=cumsum(TotLandsX2),
+                 cmTotHitsM.X2=cumsum(TotMissedX2))
+
+Table6 <- mutate(Table3, cmTotHitsR.X1=cumsum(TotReceivedX1), 
+                 cmTotHitsL.X1=cumsum(TotLandsX1),
+                 cmTotHitsM.X1=cumsum(TotMissedX1),
+                 cmTotHitsR.X2=cumsum(TotReceivedX2),
+                 cmTotHitsL.X2=cumsum(TotLandsX2),
+                 cmTotHitsM.X2=cumsum(TotMissedX2))
+
+```
+
+This combines the three table splits with cumulative sum of actions for each unique round or fighter.
+```{r}
+Table7 <- rbind(Table4,Table5,Table6)
+colnames(Table7)
+
+```
+
+The following rearranges the table columns by actions landed, missed, and received into a new table.
+```{r}
+landX1 <- c(21:26,33,35,37,39:44,51,53,55,57:62,69,71,73)
+landX2 <- c(27:32,34,36,38,45:50,52,54,56,63:68,70,72,74)
+
+missX1 <- c(75:80,87,89,91,93:98,105,107,109,111:116,123,125,127)
+missX2 <- c(81:86,88,90,92,99:104,106,108,110,117:122,124,126,128)
+
+recvX1 <- c(129:134,141,143,145,147:152,159,161,163,165:170,177,179,181)
+recvX2 <- c(135:140,142,144,146,153:158,160,162,164,171:176,178,180,182)
+
+Table8 <- Table7[,c(1:20,landX1,landX2,missX1,missX2,recvX1,recvX2)]
+colnames(Table8)
+
+```
+
+We should now add in the wrestling holds,caught in, breaks hold, and lost hold features for each fighter of X1 or X2 in each instance, not sequence. We already made these fields at the beginning of this script. Lets also add in the muay thai and push kicks for each sequence noting that these are already counted in the 'kicks' feature. We will just count them all as attempted action or reaction regardless if it landed or missed opponent. The target was blocked if not landed or ducked. We can account for these changes later in a different script if needed or you could do it yourself and not be critical of my work donations. Aside: mutalate misogynist monsters as a stepping stone instead of small creatures as a message to anybody who gets this nerdy break-down of violent and graphic content. Leave the squirrels, bunnys, guneau pigs, and females alone.
+
+The 'breaks','caught','hold', and 'lost' are for X1, and the 'breaksX2','holdX2','caughtX2', and 
+'lostX2' are for X2 ground or submit type wrestling actions or reactions. For the kicks, 'mtKicks' and 'pushKicks' are for X1 and 'mtKicksX2' and 'pushKicksX2' are for X2 actions or reactions. Those will be taken from only the 1st sequence for this fighter because none of the 2nd and 3rd sequences had any push or muay thai kicks from either fighter. The lists to pull from are sq1 for X1 and sq1b for X2. 
+
+Lets make a new table from Table8.
+```{r}
+Table9 <- Table8
+```
+
+Create the placeholders for each action feature added.
+```{r}
+Table9$holdingX1 <- 0
+Table9$holdingX2 <- 0
+Table9$breaksHoldX1 <- 0
+Table9$breaksHoldX2 <- 0 
+Table9$caughtHoldX1 <- 0  
+Table9$caughtHoldX2 <- 0  
+Table9$lostHoldX1 <- 0  
+Table9$lostHoldX2 <- 0   
+```
+
+```{r}
+colnames(Table9)[183:190]
+```
+
+```{r}
+Table9[hold,"holdingX1"] <- 1 
+Table9[holdX2,"holdingX2"] <- 1 
+Table9[breaks,"breaksHoldX1"] <- 1
+Table9[breaksX2,"breaksHoldX2"] <- 1 
+Table9[caught,"caughtHoldX1"] <- 1  
+Table9[caughtX2,"caughtHoldX2"] <- 1  
+Table9[lost,"lostHoldX1"] <- 1  
+Table9[lostX2,"lostHoldX2"] <- 1   
+
+```
+Now add in the muay thai and push kicks to this table.
+```{r}
+Table9$muayThaiKickX1 <- 0
+Table9$muayThaiKickX2 <- 0
+Table9$pushKickX1 <- 0
+Table9$pushKickX2 <- 0
+```
+
+```{r}
+Table9[mtKicks,"muayThaiKickX1"] <- 1
+Table9[mtKicksX2,"muayThaiKickX2"] <- 1
+Table9[pushKicks,"pushKickX1"] <- 1
+Table9[pushKicksX2,"pushKickX2"] <- 1
+
+```
+
+
+We should also add in the cumulative count of each instance of holding, lost holds, broken holds, and instances caught in a hold as well as the cumulative counts of muay thai and push kicks attempted by each fighter. Since X2 has three different fighters, we need to split the Table 9 into a table of each opponent as we did earlier, get the cumulative counts, then recombine the table splits.
+```{r}
+break_1 <- Table9$lastAction > Table9$SecondsIntoRound
+break_1
+```
+
+```{r}
+breaks_3 <- row.names(Table9)[break_1]
+breaks_3
+```
+```{r}
+breaks_split <- as.numeric(paste(breaks_3))
+breaks_split
+```
+We had these values already stored in bk2, but the above was a refresher on how we obtained the X2 fighter splits.
+
+Create the three tables of the separate fighters of X2.
+```{r}
+table1_a <- Table9[1:(breaks_split[1]-1),]
+table1_b <- Table9[breaks_split[1]:(breaks_split[2]-1),]
+table1_c <- Table9[breaks_split[2]:length(Table9$Round),]
+
+dim(table1_a)[1]+dim(table1_b)[1]+dim(table1_c)[1]==dim(Table9)[1]
+```
+All observations are accounted for as the number of observations in all three subset tables of Table 9 add up to the total observations in Table 9.
+
+Now lets create those cumulative fields for each table. The cumulative sum of holds and caught holds is for seconds in a hold as caught or holding a hold, while the cumulative sums of the broken holds and lost holds are for number of times in that round and this fighter the hold was broken if caught in a hold or lost if holding the hold.
+
+The first fighter as X2 table.
+```{r}
+table1_a$totalHoldsX1 <- cumsum(table1_a$holdingX1)
+table1_a$totalHoldsX2 <- cumsum(table1_a$holdingX2)
+table1_a$totalLostHoldsX1 <- cumsum(table1_a$lostHoldX1)
+table1_a$totalLostHoldsX2 <- cumsum(table1_a$lostHoldX2)
+table1_a$totalCaughtHoldsX1 <- cumsum(table1_a$caughtHoldX1)
+table1_a$totalCaughtHoldsX2 <- cumsum(table1_a$caughtHoldX2)
+table1_a$totalBreakOutHoldsX1 <- cumsum(table1_a$breaksHoldX1)
+table1_a$totalBreakOutHoldsX2 <- cumsum(table1_a$breaksHoldX2)
+table1_a$totalMuayThaiKicksX1 <- cumsum(table1_a$muayThaiKickX1)
+table1_a$totalMuayThaiKicksX2 <- cumsum(table1_a$muayThaiKickX2)
+table1_a$totalPushKicksX1 <- cumsum(table1_a$pushKickX1)
+table1_a$totalPushKicksX2 <- cumsum(table1_a$pushKickX2)
+
+tail(table1_a[,195:206],10)
+```
+
+The 2nd fighter as x2 table.
+```{r}
+table1_b$totalHoldsX1 <- cumsum(table1_b$holdingX1)
+table1_b$totalHoldsX2 <- cumsum(table1_b$holdingX2)
+table1_b$totalLostHoldsX1 <- cumsum(table1_b$lostHoldX1)
+table1_b$totalLostHoldsX2 <- cumsum(table1_b$lostHoldX2)
+table1_b$totalCaughtHoldsX1 <- cumsum(table1_b$caughtHoldX1)
+table1_b$totalCaughtHoldsX2 <- cumsum(table1_b$caughtHoldX2)
+table1_b$totalBreakOutHoldsX1 <- cumsum(table1_b$breaksHoldX1)
+table1_b$totalBreakOutHoldsX2 <- cumsum(table1_b$breaksHoldX2)
+table1_b$totalMuayThaiKicksX1 <- cumsum(table1_b$muayThaiKickX1)
+table1_b$totalMuayThaiKicksX2 <- cumsum(table1_b$muayThaiKickX2)
+table1_b$totalPushKicksX1 <- cumsum(table1_b$pushKickX1)
+table1_b$totalPushKicksX2 <- cumsum(table1_b$pushKickX2)
+
+tail(table1_b[,195:206],10)
+```
+
+The 3rd fighter as X2 table.
+```{r}
+table1_c$totalHoldsX1 <- cumsum(table1_c$holdingX1)
+table1_c$totalHoldsX2 <- cumsum(table1_c$holdingX2)
+table1_c$totalLostHoldsX1 <- cumsum(table1_c$lostHoldX1)
+table1_c$totalLostHoldsX2 <- cumsum(table1_c$lostHoldX2)
+table1_c$totalCaughtHoldsX1 <- cumsum(table1_c$caughtHoldX1)
+table1_c$totalCaughtHoldsX2 <- cumsum(table1_c$caughtHoldX2)
+table1_c$totalBreakOutHoldsX1 <- cumsum(table1_c$breaksHoldX1)
+table1_c$totalBreakOutHoldsX2 <- cumsum(table1_c$breaksHoldX2)
+table1_c$totalMuayThaiKicksX1 <- cumsum(table1_c$muayThaiKickX1)
+table1_c$totalMuayThaiKicksX2 <- cumsum(table1_c$muayThaiKickX2)
+table1_c$totalPushKicksX1 <- cumsum(table1_c$pushKickX1)
+table1_c$totalPushKicksX2 <- cumsum(table1_c$pushKickX2)
+
+tail(table1_c[,195:206],10)
+```
+
+Now we need to create a new table of these combined tables of cumulative sums.
+```{r}
+Table10 <- rbind(table1_a,table1_b,table1_c)
+dim(Table10)
+dim(Table9)
+```
+
+```{r}
+head(Table10)
+```
+
+
+
+
+Write this table of added action/reaction features to csv file.
+```{r}
+write.csv(Table10, 'Felicia3Fights_addedFeatures.csv', row.names=F)
+
+```
+
+So far, we have a great table of actions, reactions, and cumulative totals for all actions, for attempted muay thai kicks, attempted push kicks, cumulative seconds of holds and being caught in a hold for each fighter, and cumulative counts of holds broken or lost for each fighter in the first round of their fight with Felicia as either Zarah, Megan Anderson, or Cyborg. Next we will select some or all features to target the outcome as a hit landed for that instant as predicted with the features selected. We will see how far our machine learning can go as far as predicting if the main outcome for X1 is a hit landed based on all given features or a select few using a model built on the training subset of this data to test on the remaining samples in accuracy of prediction. 
+
+
+
+***
+***
+***
+
