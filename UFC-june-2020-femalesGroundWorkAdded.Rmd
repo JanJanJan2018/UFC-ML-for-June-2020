@@ -7,6 +7,8 @@ output: html_document
 
 This script builds on top of a previous script to extract actions and reactions from the notes on fighter X1 and X2 in the UFC. These extracted features are used as dummy variables to predict the outcome of a landed hit or other selected target variable out of the given features and added features using machine learning on these numeric values. This takes the first round of three separate fights for **Felicia Spencer** with **Zarah, Anderson, and Cyborg**. 
 
+Github files [repository](https://github.com/JanJanJan2018/UFC-ML-for-June-2020)
+
 These are the actions extracting and a brief description:
 
 - **cross**: punch/strike/overhead hit/etc to hit with the top four knuckles of hand upon opponent's body or more likely face or side of the head, this could mean right cross or left cross, even when in the mount position of ground work the fighter could choose to hit opponent with a cross instead of a hammer or hook or upper cut punch, usually lifting the hand to add in gravity and acceleration with own strength and downward body movement intending to knock out, add to get opponent to release grip if in a lock, or to damage the face or cause pain
