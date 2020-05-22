@@ -1,7 +1,7 @@
 ---
 title: "UFC ML actions and reactions females: Nunez"
 author: "Janis Corona"
-date: "5/18/2020"
+date: "5/18/2020-5/22/2020"
 output: html_document
 ---
 
@@ -1166,3 +1166,1052 @@ write.csv(Table10, 'Nunez4Fights_addedFeatures.csv', row.names=F)
 ***
 ***
 ***
+
+# Machine Learning with R packages 
+
+This section will test out these features in part to predict the target of X1 landing a hit or missing a hit. We have to exclude the features where X2 received a hit if the instance shows a hit landed, so the model learns well. Random forest, recursive partitioned trees, generalized linear models, knn, and gradient boosted models within the R packages of Caret will be used to see how well these features predict the accuracy in a hit landed. Note that we do have all wrestling features for this data set. 
+
+```{r}
+library(caret)
+```
+
+
+Make a table to predict the hit landed for X1 using all features except for the time, notes, X1 landed, X1 missed, X1 received, and X2 received features. 
+```{r}
+colnames(Table10)
+```
+
+
+```{r}
+ML_table <- Table10[,c(2:16,48:74,102:128,183:206)]
+str(ML_table)
+```
+
+
+Write this table out to use in Python later. Its easier than selecting the columns in Python.
+```{r}
+write.csv(ML_table, 'Amanda_ml_ready.csv', row.names=FALSE)
+```
+
+Our target variable is TotLandsX1 which will be a hit landed for X1 based on the other features that include the wrestling features of both X1 and X2, and actions of X2 for hits landed and missed to see how this can predict if X1 will land more hits based on the number of attempts on X1, the seconds holding and being held, the number of holds broken or lost, the seconds since last action by either X1 or X2, the seconds into the round, and cumulative totals for all landed, missed, and received hits for X1 and X2. Since all values are numeric, this will make it easier to classify the hit with linear regression as closer to zero or up to the max hits landed in an observation. We should see what that value is for the max number of hits landed in one second.
+```{r}
+max(ML_table$TotLandsX1)
+```
+Amanda has up to three hits landed in an instance. 
+
+
+Lets split the data into a 70% training set and a 30% testing set.
+```{r}
+set.seed(12345)
+inTrain <- createDataPartition(y=ML_table$TotLandsX1, p=0.7, list=FALSE)
+
+trainingSet <- ML_table[inTrain,]
+testingSet <- ML_table[-inTrain,]
+```
+
+Lets get the dimensions of the testing and training set to see how many observations are in each subset of our data.
+```{r}
+dim(testingSet)
+dim(trainingSet)
+```
+
+testing set has 158 samples. Lets see how many of each total landed hits by X1 are in each subset.
+```{r}
+library(dplyr)
+
+```
+
+
+```{r}
+summaryLandedHitsX1 <- trainingSet %>% group_by(TotLandsX1) %>% count(TotLandsX1)
+summaryLandedHitsX1
+```
+
+There is only one instance where 3 hits were landed in the training subset it could lead to errors in prediction on the testing set, where recall, or other values could get misclassifed as 3, and if it is in our testing set, then the value isn't expected or shouldn't be so we would win on precision as none of the 3s were identified correctly (recall) but also no other classe other than a 3 were classified as 3 (precision). There are also much more 0s in our training set.
+
+```{r}
+summaryLandedHitsX1b <- testingSet %>% group_by(TotLandsX1) %>% count(TotLandsX1)
+summaryLandedHitsX1b
+```
+
+There are no 3s in our testing set, and few 1s and 2s compared to the number of 0s. The recall could be low on the 2s, but precision should be good on the 0s and 1s.Due to the higher number of those instances being trained in our model.
+
+Lets start with the random forest model using the boot method and also will be centering and scaling the features in our model. We will use the cv or cross validation which tests on subsets when training to build the model, and set classProbs to TRUE so that regression isn't done on our numeric values, but classification for classes: 0,1,or 2.
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+rf_cv15 <- train(TotLandsX1~., method='rf', 
+               na.action=na.pass,
+               data=(trainingSet),  preProc = c("center", "scale"),
+               trControl=trainControl(method='cv', classProbs = T), number=15)
+```
+
+```{r}
+predRF_cv15 <- predict(rf_cv15, testingSet)
+
+DF_cv15 <- data.frame(predRF_cv15, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_cv15 <- length(DF_cv15$ActualHitsLanded)
+
+sum_cv15 <- sum(DF_cv15$predRF_boot==DF_cv15$ActualHitsLanded)
+
+accRF_cv15 <- (sum_cv15/length_cv15)
+
+accRF_cv15
+```
+
+
+
+```{r}
+head(DF_cv15,30)
+```
+
+The values predicted are outside their class probabilities, probably due to the centered scaling or normalisaion. 
+
+Lets try this again without preprocessing which will 
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+rf_cv15b <- train(TotLandsX1~., method='rf', 
+               na.action=na.pass,
+               data=(trainingSet),  #preProc = c("center", "scale"),
+               trControl=trainControl(method='cv', classProbs = T), number=15)
+```
+
+
+```{r}
+predRF_cv15b <- predict(rf_cv15b, testingSet)
+
+DF_cv15b <- data.frame(predRF_cv15b, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_cv15b <- length(DF_cv15b$ActualHitsLanded)
+
+sum_cv15b <- sum(DF_cv15b$predRF_boot==DF_cv15b$ActualHitsLanded)
+
+accRF_cv15b <- (sum_cv15b/length_cv15b)
+
+accRF_cv15b
+```
+
+
+```{r}
+head(DF_cv15b,30)
+```
+
+
+Lets add in an extra feature that will round these values to 0, 1, or 2 on both random forest models to get a realistic output. Even when not normalizing and using classProbs set to True, the classification is producing probability classes instead. Could be due to the numeric type of the target. Lets see if we change the numeric type to a factor if it classifies better. Or the same as our rounded features of the random forest models normalized and not normalized.
+```{r}
+trainingSetFactor <- trainingSet
+testingSetFactor <- testingSet
+
+trainingSetFactor$TotLandsX1 <- as.factor(paste(trainingSetFactor$TotLandsX1))
+testingSetFactor$TotLandsX1 <- as.factor(paste(testingSetFactor$TotLandsX1))
+```
+
+
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+rf_cv15c <- train(TotLandsX1~., method='rf', 
+               na.action=na.pass,
+               data=(trainingSetFactor),  #preProc = c("center", "scale"),
+               trControl=trainControl(method='cv'), number=15)
+```
+
+
+```{r}
+predRF_cv15c <- predict(rf_cv15c, testingSetFactor)
+
+DF_cv15c <- data.frame(predRF_cv15c, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_cv15c <- length(DF_cv15c$ActualHitsLanded)
+
+sum_cv15c <- sum(DF_cv15c$predRF_cv15c==DF_cv15c$ActualHitsLanded)
+
+accRF_cv15c <- (sum_cv15c/length_cv15c)
+
+accRF_cv15c
+```
+
+
+```{r}
+head(DF_cv15c,30)
+```
+
+It did work better, because the accuracy went from 0 to 100% accuracy in predicting the hits landed correctly.
+
+Lets still add in the features to the previous random forest models to compare.Our minimum bound is 0 and
+our maximum bound is 3 for hits landed. Lets set those boundaries and round to the nearest value within those bounds.
+```{r}
+DF_cv15$roundedPrediction <- ifelse(DF_cv15$predRF_cv15 < 0, 0, 
+                                    ifelse(DF_cv15$predRF_cv15 > 3, 3,
+                                           round(DF_cv15$predRF_cv15)
+                                           )
+                                    )
+DF_cv15$Correct <- ifelse(DF_cv15$ActualHitsLanded==DF_cv15$roundedPrediction,1,0)
+accuracy1 <- sum(DF_cv15$Correct)/length(DF_cv15$Correct)
+accuracy1
+```
+After setting the boundaries and rounding within those boundaries, our numeric classification was also able to score 100% accuracy.
+
+
+```{r}
+head(DF_cv15)
+```
+
+
+The non normalized random forest model results when rounding to boundaries or closest class:
+```{r}
+DF_cv15b$roundedPrediction <- ifelse(DF_cv15b$predRF_cv15 < 0, 0, 
+                                    ifelse(DF_cv15b$predRF_cv15 > 3, 3,
+                                           round(DF_cv15b$predRF_cv15)
+                                           )
+                                    )
+DF_cv15b$Correct <- ifelse(DF_cv15b$ActualHitsLanded==DF_cv15b$roundedPrediction,1,0)
+accuracy2 <- sum(DF_cv15b$Correct)/length(DF_cv15b$Correct)
+accuracy2
+```
+
+This model also scored 100% accuracy after adjusting for boundaries and rounding within those boundaries for our non-normalized features.
+
+
+```{r}
+head(DF_cv15b)
+```
+
+
+Next, we will use the k-nearest neighbor algorithm with the cv method to train.
+```{r}
+knn_cv <- train(TotLandsX1 ~ .,
+                method='knn',# preProcess=c('center','scale'),
+                tuneLength=10, trControl=trainControl(method='cv'),
+                data=trainingSet)
+```
+
+
+```{r}
+predKNN_cv <- predict(knn_cv, testingSet)
+
+DF_KNN_cv <- data.frame(predKNN_cv, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_KNN_cv <- length(DF_KNN_cv$ActualHitsLanded)
+
+sum_KNN_cv <- sum(DF_KNN_cv$predKNN_cv==DF_KNN_cv$ActualHitsLanded)
+
+accKNN_cv <- (sum_KNN_cv/length_KNN_cv)
+
+accKNN_cv
+```
+
+
+```{r}
+head(DF_KNN_cv)
+```
+
+Lets add in the same features of rounded and correct fields to this table as well. As the predicted values are not integers.
+```{r}
+DF_KNN_cv$roundedPrediction <- ifelse(DF_KNN_cv$predKNN_cv<0,0,
+                            ifelse(DF_KNN_cv$predKNN_cv>3,3,
+                                   round(DF_KNN_cv$predKNN_cv,0)))
+DF_KNN_cv$Correct <- ifelse(DF_KNN_cv$ActualHitsLanded==DF_KNN_cv$roundedPrediction,1,0)
+accuracy3 <- sum(DF_KNN_cv$Correct)/length(DF_KNN_cv$Correct)
+accuracy3
+```
+
+The KNN algorithm scored 82.9% accuracy after adjusting the output for min and max bounds and rounding within those bounds.
+
+
+Next, we will use the k-nearest neighbor algorithm with the cv method to train on the target as a factor instead of numeric.
+```{r}
+knn_cvb <- train(TotLandsX1 ~ .,
+                method='knn',# preProcess=c('center','scale'),
+                tuneLength=10, trControl=trainControl(method='cv'),
+                data=trainingSetFactor)
+```
+
+
+```{r}
+predKNN_cvb <- predict(knn_cvb, testingSetFactor)
+
+DF_KNN_cvb <- data.frame(predKNN_cvb, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_KNN_cvb <- length(DF_KNN_cvb$ActualHitsLanded)
+
+sum_KNN_cvb <- sum(DF_KNN_cvb$predKNN_cvb==DF_KNN_cvb$ActualHitsLanded)
+
+accKNN_cvb <- (sum_KNN_cvb/length_KNN_cvb)
+
+accKNN_cvb
+```
+
+The KNN algorithm scored best with the target as a factor to predict instead of numeric, with a score of 85.5% accuracy.
+
+
+```{r}
+head(DF_KNN_cvb)
+```
+
+
+Now lets see how well this data will do in a few other algorithms: glm, rpart, and gbm. We have a factor version target and a numeric target with which to compare results.
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+glmMod2 <- train(TotLandsX1 ~ .,
+                method='glm', data=trainingSet)
+```
+
+```{r, error=FALSE, warning=FALSE, message=FALSE}
+predglm2 <- predict(glmMod2, testingSet)
+
+DF_glm2 <- data.frame(predglm2, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_glm2 <- length(DF_glm2$ActualHitsLanded)
+
+sum_glm2 <- sum(DF_glm2$predglm2==DF_glm2$ActualHitsLanded)
+
+accglm2 <- (sum_glm2/length_glm2)
+
+accglm2
+```
+
+
+```{r}
+head(DF_glm2)
+```
+
+
+```{r}
+DF_glm2$roundedPrediction <- ifelse(DF_glm2$predglm2<0,0,
+                            ifelse(DF_glm2$predglm2>3,3,
+                                   round(DF_glm2$predglm2,0)))
+DF_glm2$Correct <- ifelse(DF_glm2$ActualHitsLanded==DF_glm2$roundedPrediction,1,0)
+accuracy4 <- sum(DF_glm2$Correct)/length(DF_glm2$Correct)
+accuracy4
+```
+This generalized linear model scored 100% accuracy after adjusting the boundaries and rounding within those boundaries.
+
+
+```{r}
+head(DF_glm2)
+```
+
+
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+rpartMod <- train(TotLandsX1 ~ .,
+                method='rpart', data=trainingSet)
+```
+
+```{r, error=FALSE, warning=FALSE, message=FALSE}
+predrpart <- predict(rpartMod, testingSet)
+
+DF_rpart <- data.frame(predrpart, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_rpart <- length(DF_rpart$ActualHitsLanded)
+
+sum_rpart <- sum(DF_rpart$predrpart==DF_rpart$ActualHitsLanded)
+
+accrpart <- (sum_rpart/length_rpart)
+
+accrpart
+```
+
+The recursive partitioning trees algorithm scored a 96.6% accuracy without rounding within the boundary adjustments.
+
+
+```{r}
+head(DF_rpart)
+```
+
+Lets correct the boundaries and round within the boundaries to see if there are any improvements.
+```{r}
+DF_rpart$roundedPrediction <- ifelse(DF_rpart$predrpart<0,0,
+                            ifelse(DF_rpart$predrpart>3,3,
+                                   round(DF_rpart$predrpart,0)))
+DF_rpart$Correct <- ifelse(DF_rpart$ActualHitsLanded==DF_rpart$roundedPrediction,1,0)
+accuracy5 <- sum(DF_rpart$Correct)/length(DF_rpart$Correct)
+accuracy5
+```
+When adjusting the boundaries and rounding within those boundaries, the improvements were significant for the rpart alogorithm as the accuracy in prediction was 100%.
+
+
+```{r}
+head(DF_rpart)
+```
+
+Lets now use the gradient boosted model and compare results.
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+gbmMod <- train(TotLandsX1 ~ .,
+                method='gbm', data=trainingSet)
+```
+
+
+```{r, error=FALSE, warning=FALSE, message=FALSE}
+predgbm <- predict(gbmMod, testingSet)
+
+DF_gbm <- data.frame(predgbm, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_gbm <- length(DF_gbm$ActualHitsLanded)
+
+sum_gbm <- sum(DF_gbm$predgbm==DF_gbm$ActualHitsLanded)
+
+accgbm <- (sum_gbm/length_gbm)
+
+accgbm
+```
+
+```{r}
+head(DF_gbm)
+```
+
+
+```{r}
+DF_gbm$roundedPrediction <- ifelse(DF_gbm$predgbm<0,0,
+                            ifelse(DF_gbm$predgbm>3,3,
+                                   round(DF_gbm$predgbm,0)))
+DF_gbm$Correct <- ifelse(DF_gbm$ActualHitsLanded==DF_gbm$roundedPrediction,1,0)
+accuracy6 <- sum(DF_gbm$Correct)/length(DF_gbm$Correct)
+accuracy6
+```
+
+The gbm model scored 96.6% accuracy after adjusting the boundaries and rounding within those boundaries.
+
+```{r}
+head(DF_gbm)
+```
+
+
+That is it for the machine learning using the caret package of algorithms in R. Next we will compare python's random forest, gradient boosted models, naive bayes, and convolutional neural network and deep neural networks in predicting hits landed using the reticulate package in R to run python code.
+
+***
+***
+***
+
+# Machine Learning with Python
+
+
+```{r}
+library(reticulate)
+```
+```{r}
+conda_list(conda="auto")
+```
+
+
+
+```{r}
+use_condaenv(condaenv = "python36")
+```
+
+
+```{python}
+import pandas as pd 
+import matplotlib.pyplot as plt 
+from textblob import TextBlob 
+import sklearn 
+import numpy as np 
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer 
+from sklearn.naive_bayes import MultinomialNB 
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+import re
+import string
+import nltk 
+
+np.random.seed(47) 
+```
+
+
+Import our ML ready file to run the python algorithms on with sklearn.
+```{python}
+Amanda = pd.read_csv('Amanda_ml_ready.csv', encoding = 'unicode_escape') 
+print(Amanda.shape)
+```
+
+
+```{python}
+print(Amanda.columns)
+```
+
+```{python}
+print(Amanda.head())
+```
+
+```{python}
+print(Amanda.tail())
+```
+
+```{python}
+print(Amanda['TotLandsX1'].unique())
+```
+There are 4 classes to classify our hits landed in our testing set from the model we build.
+
+
+Reorder the rows as instances randomised to split into train and test sets of the data.
+```{python}
+import numpy as np
+
+Amanda = Amanda.reindex(np.random.permutation(Amanda.index))
+
+print(Amanda.head())
+```
+
+```{python}
+print(Amanda.tail())
+```
+
+
+There are 393 instances in this data, and 80% is about 314, the target is the hits landed by X1.
+```{python}
+# Split/splice into training ~ 80% and testing ~ 20%
+Amanda_train = Amanda[:314]
+Amanda_test = Amanda[314:]
+Amanda_hits_train = Amanda['TotLandsX1'][:314]
+Amanda_hits_test = Amanda['TotLandsX1'][314:]
+
+print(Amanda_train.shape)
+print(Amanda_test.shape)
+```
+```{python}
+Amanda_train['TotLandsX1'].unique()
+Amanda_test['TotLandsX1'].unique()
+```
+Only the training set has a 3 class, and without the testing set having a 3 class, the confusion matrix will only show the values 0,1, and 2 when analyzing the results of actual versus predicted values.
+
+
+# Sklearn's Multinomial Naive Bayes classifier
+```{python}
+mnb_Fit = MultinomialNB().fit(Amanda_train, Amanda_hits_train)
+```
+
+```{python}
+predictions = mnb_Fit.predict(Amanda_test)
+
+prd = pd.DataFrame(predictions)
+prd.columns=['predictions']
+prd.index=Amanda_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Amanda_hits_test],axis=1)
+print(pred)
+```
+```{python}
+pred['predictions'].unique()
+pred['TotLandsX1'].unique()
+```
+The 3 isn't in the predictions nor the test set. 
+
+```{python}
+print('accuracy', accuracy_score(Amanda_hits_test, predictions))
+```
+
+
+```{python}
+print('confusion matrix')
+print('rows=expected, cols=predicted')
+print(confusion_matrix(Amanda_hits_test, predictions))
+```
+We can see no 0s were classified from the 1s or 2s giving 100% precision for the zeros, but 4 1s and 27 2s were misclassified as 0s, making the recall `r 32/(32+4+27)` or 50.8% for the zeros. And there were 6 1s correctly identified, but 6 2s were misclassified as 1s for a 6/12 % recall on 1s, and 4 0s were misclassified as 1s as well as 2 2s for a precision of 6/(6+4+2) % precision on 1s. For the 2s, there were 2 correctly classified as a 2, but 2 1s were misclassified as a 2, and 6 1s misclassified as 2s and 27 0s misclassified as 2s. Overall the multinomial naive bayes classifier scored a 50.6% accuracy in prediction of hits landed for Amanda.
+
+# Sklearn's Random Forest and Gradient Boosting Classifier results
+
+```{python}
+
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.metrics import precision_recall_fscore_support as score
+import time
+
+```
+
+# Random Forest Classifier
+```{python}
+rf=RandomForestClassifier(n_estimators=150, max_depth=None, n_jobs=-1)
+start=time.time()
+rf_model=rf.fit(Amanda_train,Amanda_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time
+```
+
+
+```{python}
+start=time.time()
+y_pred=rf_model.predict(Amanda_test)
+end=time.time()
+pred_time=(end-start)
+pred_time
+```
+
+
+```{python}
+prd = pd.DataFrame(y_pred)
+prd.columns=['Predicted']
+
+prd.index=Amanda_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Amanda_hits_test],axis=1)
+print(pred)
+```
+
+
+```{python}
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print('accuracy', accuracy_score(Amanda_hits_test, y_pred))
+
+print('confusion matrix')
+print(confusion_matrix(Amanda_hits_test, y_pred))
+```
+The random forest classifier scored a 96.2% accuracy overall in prediction of hits landed, with almost 100% precision or 63/64 on the 0s, 100% recall on 0s, 11/13 on precision of 1s, and 11/12 recall on 1s, 100% precision on 2s, and 2/4 recall on 2s. The amount of time to predict was also fast as the model ran in parallel in building the trees.
+
+# Gradient Boosted Model
+```{python, echo=FALSE}
+gb=GradientBoostingClassifier(n_estimators=150,max_depth=11)
+start=time.time()
+gb_model=gb.fit(Amanda_train,Amanda_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time
+```
+
+
+```{python}
+start=time.time()
+y_pred=gb_model.predict(Amanda_test)
+end=time.time()
+pred_time=(end-start)
+pred_time
+```
+
+
+```{python}
+prd = pd.DataFrame(y_pred)
+prd.columns=['Predicted']
+
+prd.index=Amanda_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Amanda_hits_test],axis=1)
+print(pred)
+```
+
+
+```{python}
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print('accuracy', accuracy_score(Amanda_hits_test, y_pred))
+
+print('confusion matrix')
+print(confusion_matrix(Amanda_hits_test, y_pred))
+```
+The gradient boosting classifier scored 100% accuracy with 100% precision and 100% recall on all classes listed. Note that because there was only 1 instance of the 3 class in the training set, it wasn't enough data to predict any instances in the testing set as a 3, so that class was not part of the prediction. Lets see if there is any difference with using Convolutional Neural Networks (CNNs) AKA Deep NNs or DNNs.
+
+# Convolutional Neural Networks
+```{python}
+import numpy as np
+
+
+```
+
+
+```{python}
+Amanda2 = Amanda
+Amanda2
+```
+
+
+```{python}
+class_mapping = {label: idx for idx, label in enumerate(np.unique(Amanda2['TotLandsX1']))}
+class_mapping
+```
+
+
+```{python}
+Amanda_hits_test = pd.DataFrame(Amanda_hits_test)
+Amanda_hits_test.columns=['TotLandsX1']
+Amanda_hits_test.columns
+```
+
+```{python}
+Amanda_hits_test['TotLandsX1']=Amanda_hits_test['TotLandsX1'].map(class_mapping)
+Amanda_hits_test.head()
+```
+
+
+
+```{python}
+Amanda_hits_train=pd.DataFrame(Amanda_hits_train)
+Amanda_hits_train.columns=['TotLandsX1']
+Amanda_hits_train.columns
+```
+
+
+```{python}
+Amanda_hits_train['TotLandsX1']=Amanda_hits_train['TotLandsX1'].map(class_mapping)
+Amanda_hits_train.head()
+
+```
+
+
+```{python}
+Amanda_train.shape
+
+```
+
+
+RStudio isn't recognizing the module 'tensorflow' in my python environment named python36. This portion of the neural nets will stop here, because tensorflow isn't being recognized, even though 'pip list' in the conda environment says it is a module available and my modules. Reinstalling tensorflow had no change to this error. We aren't really using tensorflow, but keras. I switched to Keras, but had to change the user 'Documents' folder of '.keras' in the text file to 'theano' instead of 'tensorflow' to use this version of Keras instead of the TensorFlow version. Change this back if using tensorflow within Jupyter Notebook as it has worked there without problems. This is a recent problem that wasn't an issue 2 weeks ago. I also installed Tableau Public Desktop recently that could have interfered with tensorflow. Keras isn't working either inside RStudio using reticulate as a wrapper for python. The message said to install a compiler and it was done, but still not working. 
+
+```{python}
+import tensorflow as tf
+import tensorflow.contrib.keras as keras
+
+#optionally use import tensorflow.keras as keras when no longer experimental contributor package development
+
+#import keras
+
+np.random.seed(123)
+tf.set_random_seed(123)
+```
+
+
+```{python}
+
+model6 = keras.models.Sequential()
+
+model6.add(
+    keras.layers.Dense(
+        units=200,   #output units need to match next layer inputs 
+        input_dim=93, #number of features for input above says 93
+        kernel_initializer='glorot_uniform',# name of the guy behind Xavier Initialization; the biases to zero
+        bias_initializer='zeros',
+        activation='tanh'))
+
+model6.add(
+    keras.layers.Dense(
+        units=100,   #output matches next layer input 
+        input_dim=200, #input matches last layer's output
+        kernel_initializer='glorot_uniform',
+        bias_initializer='zeros',
+        activation='tanh'))
+
+model6.add(
+    keras.layers.Dense(
+        units=4,  #these are the number of class categories in our target  
+        input_dim=100,
+        kernel_initializer='glorot_uniform',
+        bias_initializer='zeros',
+        activation='softmax'))#will return the class membership probs summing to 1 of all class probs
+
+# these are hyperparameters that can be tuned if overfitting during training, or to get better accuracy
+sgd_optimizer = keras.optimizers.SGD( 
+        lr=0.001, decay=1e-7, momentum=.8)
+
+# categorical_crossentropy is used in multiclass classification instead of binary_crossentropy
+# to match the softmax function
+model6.compile(optimizer=sgd_optimizer,
+              loss='sparse_categorical_crossentropy')
+# it was 'categorical_crossentropy', but that expects binary matrices of 1s and 0s
+# it said to use sparse_categorical_crossentropy
+```
+
+```{python}
+model6
+```
+
+```{python}
+import time
+start=time.time()
+
+history6 = model6.fit(Amanda_train, Amanda_hits_train,
+                    batch_size=64, epochs=50,
+                    verbose=1, 
+                    validation_split=0.15) 
+end=time.time()
+fit_time=(end-start)
+print(start,end,fit_time)
+```
+
+
+```{python}
+y_train_pred6 = model6.predict_classes(Amanda_train, verbose=0)
+print('First 3 predictions: ', y_train_pred6[:3])
+```
+
+
+```{python}
+y_train_pred6 = model6.predict_classes(Amanda_train, 
+                                     verbose=0)
+```
+
+
+```{python}
+y_train_pred6 = pd.DataFrame(y_train_pred6)
+y_train_pred6.columns=['predicted']
+
+y_train6 = Amanda_hits_train
+y_train6 = pd.DataFrame(y_train6)
+y_train6.columns=['ActualHitsLandedbyX1']
+
+y_train_pred6.index=y_train6.index
+
+Train6=pd.concat([y_train6['ActualHitsLandedbyX1'],y_train_pred6['predicted']],axis=1)
+
+print(Train6)
+```
+
+
+```{python}
+y_test_pred6 = model6.predict_classes(Amanda_test, 
+                                    verbose=0)
+```
+
+
+```{python}
+y_test_pred6 = pd.DataFrame(y_test_pred6)
+y_test_pred6.columns=['predicted']
+
+y_test6 = Amanda_hits_test
+y_test6 = pd.DataFrame(y_test6)
+y_test6.columns=['ActualHitsLandedbyX1']
+
+y_test_pred6.index=y_test6.index
+
+Test6=pd.concat([y_test6['ActualHitsLandedbyX1'],y_test_pred6['predicted']],axis=1)
+
+print(Test6)
+```
+
+```{python}
+s = sum(Train6['ActualHitsLandedbyX1']==Train6['predicted'])
+l = len(Train6['ActualHitsLandedbyX1'])
+accTrain6 = s/l
+print('Training Correctly Predicted:',s,'Training Accuracy:',accTrain6,'\n')
+```
+
+```{python}
+print(confusion_matrix(Amanda_hits_train, y_train_pred6))
+
+```
+From the confusion matrix above, the rows=expected or actual, and columns are the predicted value. There were 5 zeros misclassified as 1s, 35 1s misclassified as 0s, 9 2s misclassified as 0s, and the only 3 was misclassified as 0. The precision for 0 is 257/(257+35+9+1) and the recall for 0s is 257/(257+5). The precision for 1 is 7/(7+5) and recall for 1 is 7/(7+35). The precision for 2 is 0/0 or NAN and recall for 2 is 0/9. The recall for 3 is 0/1 and the precision for 3 is 0/0 or NAN. At least the CNN accounted for the type 3 class.
+
+```{python}
+s = sum(Test6['ActualHitsLandedbyX1']==Test6['predicted'])
+l = len(Test6['ActualHitsLandedbyX1'])
+accTest6 = s/l
+print('Testing Correctly Predicted:',s,'Testing Accuracy:',accTest6)
+```
+
+```{python}
+print(confusion_matrix(Amanda_hits_test, y_test_pred6))
+
+```
+Since there weren't any 3 classes in the testing set, the confusion matrix shows there is also no expected 3 or predicted 3. In the test set, the class 2 was expected to have 4 but they were misclassified as 3 class 0s and 1 class 1. There were expected to be 12 class 1s, but they were all misclassified as class 0. For class 0, only 1 was misclassified as a class 1. 
+
+In accuracy of prediction for this data, the CNN algorithm takes longer to build, train, and is less accurate in prediction than all algorithms from the R and Python available modules and packages. But CNNs did show the class 3 in training. And we must also note, that the added wrestling features for this data could have greatly skewed the results because by not having that information or having it a zero when in fact the other 3 fighters did have ground work or wrestling with Amanda. We could retry this CNN but only using the data for Amanda's fight with Germaine. We excluded the notes field with Germaine to extract that subset when reading in the data. But we know it can be found by extracting it within R and using those indices before permutating the indices and partitioning the testing and training sets.
+```{r}
+AmandaWrestling <- Table10[Table10$Notes=='Germaine',]
+dim(AmandaWrestling)
+```
+```{r}
+head(AmandaWrestling[1:5,20:22])
+```
+
+```{python}
+Amanda3 = pd.read_csv('Amanda_ml_ready.csv', encoding = 'unicode_escape') 
+print(Amanda.shape)
+```
+```{python}
+Amanda4 = Amanda3[:231]
+Amanda4.shape
+```
+
+
+```{python}
+import numpy as np
+
+Amanda4 = Amanda4.reindex(np.random.permutation(Amanda4.index))
+
+print(Amanda4.head())
+```
+
+Split/splice into training ~ 80% and testing ~ 20%. With 231 samples, 80% is about 184.
+```{python}
+Amanda_train = Amanda4[:184]
+Amanda_test = Amanda4[184:]
+Amanda_hits_train = Amanda4['TotLandsX1'][:184]
+Amanda_hits_test = Amanda4['TotLandsX1'][184:]
+
+print(Amanda_train.shape)
+print(Amanda_test.shape)
+```
+
+Now we can run our CNN on this data that isn't missing information.
+
+```{python}
+Amanda_train['TotLandsX1'].unique()
+Amanda_test['TotLandsX1'].unique()
+```
+
+Aside: The fight with Germaine is the fight with 3 hits landed by Amanda. This was when on the ground, it looked like a possible TKO or technical knockout, but the referee didn't call it. Many hits were being landed by Amanda. She was hit in the face with a high knee in the stand up part of this round before going to the ground. Germaine stayed in the round and fight longer by having the open guard that she tried using her feet to kick off Amanda who pushed her legs aside and was able to land some hits, many hits in fact. 
+
+
+```{python}
+Amanda_hits_train=pd.DataFrame(Amanda_hits_train)
+Amanda_hits_train.columns=['TotLandsX1']
+Amanda_hits_train.columns
+```
+```{python}
+class_mapping = {label: idx for idx, label in enumerate(np.unique(Amanda4['TotLandsX1']))}
+class_mapping
+```
+
+```{python}
+Amanda_hits_train['TotLandsX1']=Amanda_hits_train['TotLandsX1'].map(class_mapping)
+Amanda_hits_train.head()
+
+```
+
+
+```{python}
+Amanda_train.shape
+
+```
+
+
+
+```{python}
+import tensorflow as tf
+import tensorflow.contrib.keras as keras
+
+#optionally use import tensorflow.keras as keras when no longer experimental contributor package development
+
+#import keras
+
+np.random.seed(123)
+tf.set_random_seed(123)
+```
+
+
+```{python}
+
+model6 = keras.models.Sequential()
+
+model6.add(
+    keras.layers.Dense(
+        units=200,   #output units need to match next layer inputs 
+        input_dim=93, #number of features for input above says 93
+        kernel_initializer='glorot_uniform',# name of the guy behind Xavier Initialization; the biases to zero
+        bias_initializer='zeros',
+        activation='tanh'))
+
+model6.add(
+    keras.layers.Dense(
+        units=100,   #output matches next layer input 
+        input_dim=200, #input matches last layer's output
+        kernel_initializer='glorot_uniform',
+        bias_initializer='zeros',
+        activation='tanh'))
+
+model6.add(
+    keras.layers.Dense(
+        units=4,  #these are the number of class categories in our target  
+        input_dim=100,
+        kernel_initializer='glorot_uniform',
+        bias_initializer='zeros',
+        activation='softmax'))#will return the class membership probs summing to 1 of all class probs
+
+# these are hyperparameters that can be tuned if overfitting during training, or to get better accuracy
+sgd_optimizer = keras.optimizers.SGD( 
+        lr=0.001, decay=1e-7, momentum=.8)
+
+# categorical_crossentropy is used in multiclass classification instead of binary_crossentropy
+# to match the softmax function
+model6.compile(optimizer=sgd_optimizer,
+              loss='sparse_categorical_crossentropy')
+# it was 'categorical_crossentropy', but that expects binary matrices of 1s and 0s
+# it said to use sparse_categorical_crossentropy
+```
+
+```{python}
+model6
+```
+
+```{python}
+import time
+start=time.time()
+
+history6 = model6.fit(Amanda_train, Amanda_hits_train,
+                    batch_size=64, epochs=50,
+                    verbose=1, 
+                    validation_split=0.15) 
+end=time.time()
+fit_time=(end-start)
+print(start,end,fit_time)
+```
+
+
+```{python}
+y_train_pred6 = model6.predict_classes(Amanda_train, verbose=0)
+print('First 3 predictions: ', y_train_pred6[:3])
+```
+
+
+```{python}
+y_train_pred6 = model6.predict_classes(Amanda_train, 
+                                     verbose=0)
+```
+
+
+```{python}
+y_train_pred6 = pd.DataFrame(y_train_pred6)
+y_train_pred6.columns=['predicted']
+
+y_train6 = Amanda_hits_train
+y_train6 = pd.DataFrame(y_train6)
+y_train6.columns=['ActualHitsLandedbyX1']
+
+y_train_pred6.index=y_train6.index
+
+Train6=pd.concat([y_train6['ActualHitsLandedbyX1'],y_train_pred6['predicted']],axis=1)
+
+print(Train6)
+```
+
+
+
+```{python}
+y_test_pred6 = model6.predict_classes(Amanda_test, 
+                                    verbose=0)
+```
+
+
+```{python}
+y_test_pred6 = pd.DataFrame(y_test_pred6)
+y_test_pred6.columns=['predicted']
+
+y_test6 = Amanda_hits_test
+y_test6 = pd.DataFrame(y_test6)
+y_test6.columns=['ActualHitsLandedbyX1']
+
+y_test_pred6.index=y_test6.index
+
+Test6=pd.concat([y_test6['ActualHitsLandedbyX1'],y_test_pred6['predicted']],axis=1)
+
+print(Test6)
+```
+
+```{python}
+s = sum(Train6['ActualHitsLandedbyX1']==Train6['predicted'])
+l = len(Train6['ActualHitsLandedbyX1'])
+accTrain6 = s/l
+print('Training Correctly Predicted:',s,'Training Accuracy:',accTrain6,'\n')
+```
+
+```{python}
+print(confusion_matrix(Amanda_hits_train, y_train_pred6))
+
+```
+
+
+```{python}
+s = sum(Test6['ActualHitsLandedbyX1']==Test6['predicted'])
+l = len(Test6['ActualHitsLandedbyX1'])
+accTest6 = s/l
+print('Testing Correctly Predicted:',s,'Testing Accuracy:',accTest6)
+```
+
+```{python}
+print(confusion_matrix(Amanda_hits_test, y_test_pred6))
+
+```
+
+When using the wrestling set applicable to only the fighter whose ground or wrestling features were accounted for, the testing accuracy improved from 72% to 85% in predicting hits landed using the DNN or CNN alternatively named so.
+
+In summary the best models were those that scored 100% accuracy in Python's TensorFlow Keras version for the gradient boosting classifier. In R the best models were the modified boundaries that were rounded to nearest class numeric value for hits landed by X1 on X2. Those R modules scored 100% for random forest, generalized linear models, and recursive partitioned trees. The gradient boosted model in R scored 96%. The caveat is that class 3 in our data only occured 1 time in all and was captured in the CNN model but not in our models that scored 100% in either scripting language. However, the recall and precision were 100% accurate for that class 3 in those models. 
+

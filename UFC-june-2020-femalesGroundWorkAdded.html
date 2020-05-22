@@ -364,7 +364,7 @@ summary {
 
 <h1 class="title toc-ignore">UFC ML actions and reactions females: Felicia Spencer</h1>
 <h4 class="author">Janis Corona</h4>
-<h4 class="date">5/18/2020</h4>
+<h4 class="date">5/18/2020-5/21/2020</h4>
 
 </div>
 
@@ -19451,6 +19451,2800 @@ dim(Table10)</code></pre>
 <hr />
 <hr />
 <hr />
+<div id="machine-learning-with-r-packages" class="section level1">
+<h1>Machine Learning with R packages</h1>
+<p>This section will test out these features in part to predict the target of X1 landing a hit or missing a hit. We have to exclude the features where X2 received a hit if the instance shows a hit landed, so the model learns well. Random forest, recursive partitioned trees, generalized linear models, knn, and gradient boosted models within the R packages of Caret will be used to see how well these features predict the accuracy in a hit landed. Note that we do have all wrestling features for this data set.</p>
+<pre class="r"><code>library(caret)</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<p>Make a table to predict the hit landed for X1 using all features except for the time, notes, X1 landed, X1 missed, X1 received, and X2 received features.</p>
+<pre class="r"><code>colnames(Table10)</code></pre>
+<pre><code>##   [1] &quot;Round&quot;                       &quot;SecondsIntoRound&quot;           
+##   [3] &quot;lastAction&quot;                  &quot;SecondsLastRoundAction&quot;     
+##   [5] &quot;cmTotHitsR.X1&quot;               &quot;cmTotHitsL.X1&quot;              
+##   [7] &quot;cmTotHitsM.X1&quot;               &quot;TotLandsX1&quot;                 
+##   [9] &quot;TotMissedX1&quot;                 &quot;TotReceivedX1&quot;              
+##  [11] &quot;cmTotHitsR.X2&quot;               &quot;cmTotHitsL.X2&quot;              
+##  [13] &quot;cmTotHitsM.X2&quot;               &quot;TotLandsX2&quot;                 
+##  [15] &quot;TotMissedX2&quot;                 &quot;TotReceivedX2&quot;              
+##  [17] &quot;Time&quot;                        &quot;FighterActionReactions.X1&quot;  
+##  [19] &quot;FightersActionsReactions.X2&quot; &quot;Notes&quot;                      
+##  [21] &quot;Crossl.X1&quot;                   &quot;Kneel.X1&quot;                   
+##  [23] &quot;Elbowl.X1&quot;                   &quot;Hookl.X1&quot;                   
+##  [25] &quot;Jabl.X1&quot;                     &quot;Kickl.X1&quot;                   
+##  [27] &quot;upperl.X1&quot;                   &quot;takedownl.X1&quot;               
+##  [29] &quot;hammerl.X1&quot;                  &quot;Cross2l.X1&quot;                 
+##  [31] &quot;Knee2l.X1&quot;                   &quot;Elbow2l.X1&quot;                 
+##  [33] &quot;Hook2l.X1&quot;                   &quot;Jab2l.X1&quot;                   
+##  [35] &quot;Kick2l.X1&quot;                   &quot;upper2l.X1&quot;                 
+##  [37] &quot;takedown2l.X1&quot;               &quot;hammer2l.X1&quot;                
+##  [39] &quot;Cross3l.X1&quot;                  &quot;Knee3l.X1&quot;                  
+##  [41] &quot;Elbow3l.X1&quot;                  &quot;Hook3l.X1&quot;                  
+##  [43] &quot;Jab3l.X1&quot;                    &quot;Kick3l.X1&quot;                  
+##  [45] &quot;upper3l.X1&quot;                  &quot;takedown3l.X1&quot;              
+##  [47] &quot;hammer3l.X1&quot;                 &quot;Crossl.X2&quot;                  
+##  [49] &quot;Kneel.X2&quot;                    &quot;Elbowl.X2&quot;                  
+##  [51] &quot;Hookl.X2&quot;                    &quot;Jabl.X2&quot;                    
+##  [53] &quot;Kickl.X2&quot;                    &quot;upperl.X2&quot;                  
+##  [55] &quot;takedownl.X2&quot;                &quot;hammerl.X2&quot;                 
+##  [57] &quot;Cross2l.X2&quot;                  &quot;Knee2l.X2&quot;                  
+##  [59] &quot;Elbow2l.X2&quot;                  &quot;Hook2l.X2&quot;                  
+##  [61] &quot;Jab2l.X2&quot;                    &quot;Kick2l.X2&quot;                  
+##  [63] &quot;upper2l.X2&quot;                  &quot;takedown2l.X2&quot;              
+##  [65] &quot;hammer2l.X2&quot;                 &quot;Cross3l.X2&quot;                 
+##  [67] &quot;Knee3l.X2&quot;                   &quot;Elbow3l.X2&quot;                 
+##  [69] &quot;Hook3l.X2&quot;                   &quot;Jab3l.X2&quot;                   
+##  [71] &quot;Kick3l.X2&quot;                   &quot;upper3l.X2&quot;                 
+##  [73] &quot;takedown3l.X2&quot;               &quot;hammer3l.X2&quot;                
+##  [75] &quot;Crossm.X1&quot;                   &quot;Kneem.X1&quot;                   
+##  [77] &quot;Elbowm.X1&quot;                   &quot;Hookm.X1&quot;                   
+##  [79] &quot;Jabm.X1&quot;                     &quot;Kickm.X1&quot;                   
+##  [81] &quot;upperm.X1&quot;                   &quot;takedownm.X1&quot;               
+##  [83] &quot;hammerm.X1&quot;                  &quot;Cross2m.X1&quot;                 
+##  [85] &quot;Knee2m.X1&quot;                   &quot;Elbow2m.X1&quot;                 
+##  [87] &quot;Hook2m.X1&quot;                   &quot;Jab2m.X1&quot;                   
+##  [89] &quot;Kick2m.X1&quot;                   &quot;upper2m.X1&quot;                 
+##  [91] &quot;takedown2m.X1&quot;               &quot;hammer2m.X1&quot;                
+##  [93] &quot;Cross3m.X1&quot;                  &quot;Knee3m.X1&quot;                  
+##  [95] &quot;Elbow3m.X1&quot;                  &quot;Hook3m.X1&quot;                  
+##  [97] &quot;Jab3m.X1&quot;                    &quot;Kick3m.X1&quot;                  
+##  [99] &quot;upper3m.X1&quot;                  &quot;takedown3m.X1&quot;              
+## [101] &quot;hammer3m.X1&quot;                 &quot;Crossm.X2&quot;                  
+## [103] &quot;Kneem.X2&quot;                    &quot;Elbowm.X2&quot;                  
+## [105] &quot;Hookm.X2&quot;                    &quot;Jabm.X2&quot;                    
+## [107] &quot;Kickm.X2&quot;                    &quot;upperm.X2&quot;                  
+## [109] &quot;takedownm.X2&quot;                &quot;hammerm.X2&quot;                 
+## [111] &quot;Cross2m.X2&quot;                  &quot;Knee2m.X2&quot;                  
+## [113] &quot;Elbow2m.X2&quot;                  &quot;Hook2m.X2&quot;                  
+## [115] &quot;Jab2m.X2&quot;                    &quot;Kick2m.X2&quot;                  
+## [117] &quot;upper2m.X2&quot;                  &quot;takedown2m.X2&quot;              
+## [119] &quot;hammer2m.X2&quot;                 &quot;Cross3m.X2&quot;                 
+## [121] &quot;Knee3m.X2&quot;                   &quot;Elbow3m.X2&quot;                 
+## [123] &quot;Hook3m.X2&quot;                   &quot;Jab3m.X2&quot;                   
+## [125] &quot;Kick3m.X2&quot;                   &quot;upper3m.X2&quot;                 
+## [127] &quot;takedown3m.X2&quot;               &quot;hammer3m.X2&quot;                
+## [129] &quot;Crossr.X1&quot;                   &quot;Kneer.X1&quot;                   
+## [131] &quot;Elbowr.X1&quot;                   &quot;Hookr.X1&quot;                   
+## [133] &quot;Jabr.X1&quot;                     &quot;Kickr.X1&quot;                   
+## [135] &quot;upperr.X1&quot;                   &quot;takedownr.X1&quot;               
+## [137] &quot;hammerr.X1&quot;                  &quot;Cross2r.X1&quot;                 
+## [139] &quot;Knee2r.X1&quot;                   &quot;Elbow2r.X1&quot;                 
+## [141] &quot;Hook2r.X1&quot;                   &quot;Jab2r.X1&quot;                   
+## [143] &quot;Kick2r.X1&quot;                   &quot;upper2r.X1&quot;                 
+## [145] &quot;takedown2r.X1&quot;               &quot;hammer2r.X1&quot;                
+## [147] &quot;Cross3r.X1&quot;                  &quot;Knee3r.X1&quot;                  
+## [149] &quot;Elbow3r.X1&quot;                  &quot;Hook3r.X1&quot;                  
+## [151] &quot;Jab3r.X1&quot;                    &quot;Kick3r.X1&quot;                  
+## [153] &quot;upper3r.X1&quot;                  &quot;takedown3r.X1&quot;              
+## [155] &quot;hammer3r.X1&quot;                 &quot;Crossr.X2&quot;                  
+## [157] &quot;Kneer.X2&quot;                    &quot;Elbowr.X2&quot;                  
+## [159] &quot;Hookr.X2&quot;                    &quot;Jabr.X2&quot;                    
+## [161] &quot;Kickr.X2&quot;                    &quot;upperr.X2&quot;                  
+## [163] &quot;takedownr.X2&quot;                &quot;hammerr.X2&quot;                 
+## [165] &quot;Cross2r.X2&quot;                  &quot;Knee2r.X2&quot;                  
+## [167] &quot;Elbow2r.X2&quot;                  &quot;Hook2r.X2&quot;                  
+## [169] &quot;Jab2r.X2&quot;                    &quot;Kick2r.X2&quot;                  
+## [171] &quot;upper2r.X2&quot;                  &quot;takedown2r.X2&quot;              
+## [173] &quot;hammer2r.X2&quot;                 &quot;Cross3r.X2&quot;                 
+## [175] &quot;Knee3r.X2&quot;                   &quot;Elbow3r.X2&quot;                 
+## [177] &quot;Hook3r.X2&quot;                   &quot;Jab3r.X2&quot;                   
+## [179] &quot;Kick3r.X2&quot;                   &quot;upper3r.X2&quot;                 
+## [181] &quot;takedown3r.X2&quot;               &quot;hammer3r.X2&quot;                
+## [183] &quot;holdingX1&quot;                   &quot;holdingX2&quot;                  
+## [185] &quot;breaksHoldX1&quot;                &quot;breaksHoldX2&quot;               
+## [187] &quot;caughtHoldX1&quot;                &quot;caughtHoldX2&quot;               
+## [189] &quot;lostHoldX1&quot;                  &quot;lostHoldX2&quot;                 
+## [191] &quot;muayThaiKickX1&quot;              &quot;muayThaiKickX2&quot;             
+## [193] &quot;pushKickX1&quot;                  &quot;pushKickX2&quot;                 
+## [195] &quot;totalHoldsX1&quot;                &quot;totalHoldsX2&quot;               
+## [197] &quot;totalLostHoldsX1&quot;            &quot;totalLostHoldsX2&quot;           
+## [199] &quot;totalCaughtHoldsX1&quot;          &quot;totalCaughtHoldsX2&quot;         
+## [201] &quot;totalBreakOutHoldsX1&quot;        &quot;totalBreakOutHoldsX2&quot;       
+## [203] &quot;totalMuayThaiKicksX1&quot;        &quot;totalMuayThaiKicksX2&quot;       
+## [205] &quot;totalPushKicksX1&quot;            &quot;totalPushKicksX2&quot;</code></pre>
+<pre class="r"><code>ML_table &lt;- Table10[,c(2:16,48:74,102:128,183:206)]
+str(ML_table)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    529 obs. of  93 variables:
+##  $ SecondsIntoRound      : num  4 5 9 11 13 19 20 23 27 28 ...
+##  $ lastAction            : num  0 4 5 9 11 13 19 20 23 27 ...
+##  $ SecondsLastRoundAction: num  4 1 4 2 2 6 1 3 4 1 ...
+##  $ cmTotHitsR.X1         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ cmTotHitsL.X1         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ cmTotHitsM.X1         : num  1 1 1 3 4 5 5 6 6 7 ...
+##  $ TotLandsX1            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TotMissedX1           : num  1 0 0 2 1 1 0 1 0 1 ...
+##  $ TotReceivedX1         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ cmTotHitsR.X2         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ cmTotHitsL.X2         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ cmTotHitsM.X2         : num  0 1 2 2 2 3 4 4 5 5 ...
+##  $ TotLandsX2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TotMissedX2           : num  0 1 1 0 0 1 1 0 1 0 ...
+##  $ TotReceivedX2         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Crossl.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Kneel.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Elbowl.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Hookl.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Jabl.X2               : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Kickl.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ upperl.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ takedownl.X2          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ hammerl.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Cross2l.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Knee2l.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Elbow2l.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Hook2l.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Jab2l.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Kick2l.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ upper2l.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ takedown2l.X2         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ hammer2l.X2           : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Cross3l.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Knee3l.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Elbow3l.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Hook3l.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Jab3l.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Kick3l.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ upper3l.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ takedown3l.X2         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ hammer3l.X2           : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Crossm.X2             : num  0 1 1 0 0 1 0 0 0 0 ...
+##  $ Kneem.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Elbowm.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Hookm.X2              : num  0 0 0 0 0 0 1 0 0 0 ...
+##  $ Jabm.X2               : num  0 0 0 0 0 0 0 0 1 0 ...
+##  $ Kickm.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ upperm.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ takedownm.X2          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ hammerm.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Cross2m.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Knee2m.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Elbow2m.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Hook2m.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Jab2m.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Kick2m.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ upper2m.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ takedown2m.X2         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ hammer2m.X2           : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Cross3m.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Knee3m.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Elbow3m.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Hook3m.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Jab3m.X2              : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Kick3m.X2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ upper3m.X2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ takedown3m.X2         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ hammer3m.X2           : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ holdingX1             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ holdingX2             : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ breaksHoldX1          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ breaksHoldX2          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ caughtHoldX1          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ caughtHoldX2          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ lostHoldX1            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ lostHoldX2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ muayThaiKickX1        : num  0 0 0 0 0 0 0 1 0 0 ...
+##  $ muayThaiKickX2        : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ pushKickX1            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ pushKickX2            : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalHoldsX1          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalHoldsX2          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalLostHoldsX1      : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalLostHoldsX2      : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalCaughtHoldsX1    : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalCaughtHoldsX2    : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalBreakOutHoldsX1  : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalBreakOutHoldsX2  : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalMuayThaiKicksX1  : num  0 0 0 0 0 0 0 1 1 1 ...
+##  $ totalMuayThaiKicksX2  : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalPushKicksX1      : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalPushKicksX2      : num  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<p>Write this table out to use in Python later. Its easier than selecting the columns in Python.</p>
+<pre class="r"><code>write.csv(ML_table, &#39;Felicia_ml_ready.csv&#39;, row.names=FALSE)</code></pre>
+<p>Our target variable is TotLandsX1 which will be a hit landed for X1 based on the other features that include the wrestling features of both X1 and X2, and actions of X2 for hits landed and missed to see how this can predict if X1 will land more hits based on the number of attempts on X1, the seconds holding and being held, the number of holds broken or lost, the seconds since last action by either X1 or X2, the seconds into the round, and cumulative totals for all landed, missed, and received hits for X1 and X2. Since all values are numeric, this will make it easier to classify the hit with linear regression as closer to zero or up to the max hits landed in an observation. We should see what that value is for the max number of hits landed in one second.</p>
+<pre class="r"><code>max(ML_table$TotLandsX1)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>This fighter, X1 or Felicia in this case, landed two hits at most in any second observed in the first round with one of three different fighters: Zarah, Megan, or Christiane.</p>
+<p>Lets split the data into a 70% training set and a 30% testing set.</p>
+<pre class="r"><code>set.seed(12345)
+inTrain &lt;- createDataPartition(y=ML_table$TotLandsX1, p=0.7, list=FALSE)
+
+trainingSet &lt;- ML_table[inTrain,]
+testingSet &lt;- ML_table[-inTrain,]</code></pre>
+<p>Lets get the dimensions of the testing and training set to see how many observations are in each subset of our data.</p>
+<pre class="r"><code>dim(testingSet)</code></pre>
+<pre><code>## [1] 158  93</code></pre>
+<pre class="r"><code>dim(trainingSet)</code></pre>
+<pre><code>## [1] 371  93</code></pre>
+<p>We could normalize these features to subtract the mean from each feature and divide by the number of samples or observations in each, but I won’t do that here. And actually this preprocessing can be done within each model using the parameters from the Caret R module. We will use python with the reticulate R package later to do this as well and compare results. We see that the training set has 371 samples and the testing set has 158 samples. Lets see how many of each total landed hits by X1 are in each subset.</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre class="r"><code>summaryLandedHitsX1 &lt;- trainingSet %&gt;% group_by(TotLandsX1) %&gt;% count(TotLandsX1)
+summaryLandedHitsX1</code></pre>
+<pre><code>## # A tibble: 3 x 2
+## # Groups:   TotLandsX1 [3]
+##   TotLandsX1     n
+##        &lt;dbl&gt; &lt;int&gt;
+## 1          0   330
+## 2          1    39
+## 3          2     2</code></pre>
+<p>There are 330 instances where no hits were landed by X1, 39 instances where 1 hit was landed by X1, and 2 instances where there were 2 hits landed by X1 in our training set that will build our varioud models to predict on the testing set.</p>
+<pre class="r"><code>summaryLandedHitsX1b &lt;- testingSet %&gt;% group_by(TotLandsX1) %&gt;% count(TotLandsX1)
+summaryLandedHitsX1b</code></pre>
+<pre><code>## # A tibble: 3 x 2
+## # Groups:   TotLandsX1 [3]
+##   TotLandsX1     n
+##        &lt;dbl&gt; &lt;int&gt;
+## 1          0   143
+## 2          1     9
+## 3          2     6</code></pre>
+<p>In our testing set, we will predict the hits landed by the model built on our training set to predict 143 instances that 0 hits landed, 9 instances where 1 hit was landed by X1, and 6 instances where 2 hits were landed by X1. We will probably lose precision on the instances where 2 hits were landed, because our model is only using 2 instances that actually had 2 hits landed when building it. The zeros will probably be accurate, and the 1s possibly as well. We will have to see which of our ML models based on the R Carets module perform the best as far as accuracy is concerned.</p>
+<p>Lets start with the random forest model using the boot method and also will be centering and scaling the features in our model. We will use the cv or cross validation which tests on subsets when training to build the model, and set classProbs to TRUE so that regression isn’t done on our numeric values, but classification for classes: 0,1,or 2.</p>
+<pre class="r"><code>rf_cv15 &lt;- train(TotLandsX1~., method=&#39;rf&#39;, 
+               na.action=na.pass,
+               data=(trainingSet),  preProc = c(&quot;center&quot;, &quot;scale&quot;),
+               trControl=trainControl(method=&#39;cv&#39;, classProbs = T), number=15)</code></pre>
+<pre class="r"><code>predRF_cv15 &lt;- predict(rf_cv15, testingSet)
+
+DF_cv15 &lt;- data.frame(predRF_cv15, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_cv15 &lt;- length(DF_cv15$ActualHitsLanded)
+
+sum_cv15 &lt;- sum(DF_cv15$predRF_boot==DF_cv15$ActualHitsLanded)
+
+accRF_cv15 &lt;- (sum_cv15/length_cv15)
+
+accRF_cv15</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_cv15,30)</code></pre>
+<pre><code>##       predRF_cv15 ActualHitsLanded
+## 2   -9.464651e-18                0
+## 4   -9.880985e-18                0
+## 11  -9.409140e-18                0
+## 19  -1.232348e-17                0
+## 20  -9.159340e-18                0
+## 22   4.000000e-03                0
+## 26   2.000000e-03                0
+## 28  -3.050338e-17                0
+## 29  -3.080869e-17                0
+## 30  -3.136380e-17                0
+## 33  -3.202993e-17                0
+## 39  -4.135581e-17                0
+## 43  -4.543588e-17                0
+## 45  -4.776735e-17                0
+## 48  -4.835021e-17                0
+## 50  -4.865552e-17                0
+## 54  -4.807266e-17                0
+## 64  -4.751755e-17                0
+## 69  -4.732326e-17                0
+## 70  -4.735101e-17                0
+## 84  -4.751755e-17                0
+## 85  -4.718448e-17                0
+## 87   2.000000e-03                0
+## 89  -4.493628e-17                0
+## 95  -4.474199e-17                0
+## 96  -4.463097e-17                0
+## 97   1.000000e+00                1
+## 99  -4.352074e-17                0
+## 100 -3.982925e-17                0
+## 102 -4.554690e-17                0</code></pre>
+<p>The values predicted are outside their class probabilities, probably due to the centered scaling or normalisaion.</p>
+<p>Lets try this again without preprocessing which will</p>
+<pre class="r"><code>rf_cv15b &lt;- train(TotLandsX1~., method=&#39;rf&#39;, 
+               na.action=na.pass,
+               data=(trainingSet),  #preProc = c(&quot;center&quot;, &quot;scale&quot;),
+               trControl=trainControl(method=&#39;cv&#39;, classProbs = T), number=15)</code></pre>
+<pre class="r"><code>predRF_cv15b &lt;- predict(rf_cv15b, testingSet)
+
+DF_cv15b &lt;- data.frame(predRF_cv15b, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_cv15b &lt;- length(DF_cv15b$ActualHitsLanded)
+
+sum_cv15b &lt;- sum(DF_cv15b$predRF_boot==DF_cv15b$ActualHitsLanded)
+
+accRF_cv15b &lt;- (sum_cv15b/length_cv15b)
+
+accRF_cv15b</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_cv15b,30)</code></pre>
+<pre><code>##      predRF_cv15b ActualHitsLanded
+## 2   -7.271961e-18                0
+## 4   -1.049161e-17                0
+## 11   4.000000e-03                0
+## 19  -1.124101e-17                0
+## 20   2.000000e-03                0
+## 22   4.000000e-03                0
+## 26   8.000000e-03                0
+## 28  -3.946843e-17                0
+## 29  -3.977374e-17                0
+## 30   2.000000e-03                0
+## 33  -4.238276e-17                0
+## 39  -5.886958e-17                0
+## 43  -6.572520e-17                0
+## 45  -6.802892e-17                0
+## 48  -7.077672e-17                0
+## 50  -7.199796e-17                0
+## 54  -7.255307e-17                0
+## 64  -7.560619e-17                0
+## 69  -7.557843e-17                0
+## 70  -7.530088e-17                0
+## 84  -7.505108e-17                0
+## 85  -7.494005e-17                0
+## 87  -7.463474e-17                0
+## 89  -7.444045e-17                0
+## 95  -7.124856e-17                0
+## 96  -7.124856e-17                0
+## 97   1.004500e+00                1
+## 99  -7.269185e-17                0
+## 100 -6.017409e-17                0
+## 102 -7.158163e-17                0</code></pre>
+<p>Lets add in an extra feature that will round these values to 0, 1, or 2 on both random forest models to get a realistic output. Even when not normalizing and using classProbs set to True, the classification is producing probability classes instead. Could be due to the numeric type of the target. Lets see if we change the numeric type to a factor if it classifies better. Or the same as our rounded features of the random forest models normalized and not normalized.</p>
+<pre class="r"><code>trainingSetFactor &lt;- trainingSet
+testingSetFactor &lt;- testingSet
+
+trainingSetFactor$TotLandsX1 &lt;- as.factor(paste(trainingSetFactor$TotLandsX1))
+testingSetFactor$TotLandsX1 &lt;- as.factor(paste(testingSetFactor$TotLandsX1))</code></pre>
+<pre class="r"><code>rf_cv15c &lt;- train(TotLandsX1~., method=&#39;rf&#39;, 
+               na.action=na.pass,
+               data=(trainingSetFactor),  #preProc = c(&quot;center&quot;, &quot;scale&quot;),
+               trControl=trainControl(method=&#39;cv&#39;), number=15)</code></pre>
+<pre class="r"><code>predRF_cv15c &lt;- predict(rf_cv15c, testingSetFactor)
+
+DF_cv15c &lt;- data.frame(predRF_cv15c, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_cv15c &lt;- length(DF_cv15c$ActualHitsLanded)
+
+sum_cv15c &lt;- sum(DF_cv15c$predRF_cv15c==DF_cv15c$ActualHitsLanded)
+
+accRF_cv15c &lt;- (sum_cv15c/length_cv15c)
+
+accRF_cv15c</code></pre>
+<pre><code>## [1] 0.9620253</code></pre>
+<pre class="r"><code>head(DF_cv15c,30)</code></pre>
+<pre><code>##    predRF_cv15c ActualHitsLanded
+## 1             0                0
+## 2             0                0
+## 3             0                0
+## 4             0                0
+## 5             0                0
+## 6             0                0
+## 7             0                0
+## 8             0                0
+## 9             0                0
+## 10            0                0
+## 11            0                0
+## 12            0                0
+## 13            0                0
+## 14            0                0
+## 15            0                0
+## 16            0                0
+## 17            0                0
+## 18            0                0
+## 19            0                0
+## 20            0                0
+## 21            0                0
+## 22            0                0
+## 23            0                0
+## 24            0                0
+## 25            0                0
+## 26            0                0
+## 27            1                1
+## 28            0                0
+## 29            0                0
+## 30            0                0</code></pre>
+<p>It did work better, because the accuracy went from 0 to 96% accuracy in predicting the hits landed correctly. Lets still add in the features to the previous random forest models to compare.</p>
+<pre class="r"><code>DF_cv15$roundedPrediction &lt;- ifelse(DF_cv15$predRF_cv15 &lt; 0, 0, 
+                                    ifelse(DF_cv15$predRF_cv15 &gt; 2, 2,
+                                           round(DF_cv15$predRF_cv15)
+                                           )
+                                    )
+DF_cv15$Correct &lt;- ifelse(DF_cv15$ActualHitsLanded==DF_cv15$roundedPrediction,1,0)
+accuracy1 &lt;- sum(DF_cv15$Correct)/length(DF_cv15$Correct)
+accuracy1</code></pre>
+<pre><code>## [1] 0.9683544</code></pre>
+<pre class="r"><code>head(DF_cv15)</code></pre>
+<pre><code>##      predRF_cv15 ActualHitsLanded roundedPrediction Correct
+## 2  -9.464651e-18                0                 0       1
+## 4  -9.880985e-18                0                 0       1
+## 11 -9.409140e-18                0                 0       1
+## 19 -1.232348e-17                0                 0       1
+## 20 -9.159340e-18                0                 0       1
+## 22  4.000000e-03                0                 0       1</code></pre>
+<p>The non normalized random forest model results when rounding to boundaries or closest class:</p>
+<pre class="r"><code>DF_cv15b$roundedPrediction &lt;- ifelse(DF_cv15b$predRF_cv15 &lt; 0, 0, 
+                                    ifelse(DF_cv15b$predRF_cv15 &gt; 2, 2,
+                                           round(DF_cv15b$predRF_cv15)
+                                           )
+                                    )
+DF_cv15b$Correct &lt;- ifelse(DF_cv15b$ActualHitsLanded==DF_cv15b$roundedPrediction,1,0)
+accuracy2 &lt;- sum(DF_cv15b$Correct)/length(DF_cv15b$Correct)
+accuracy2</code></pre>
+<pre><code>## [1] 0.9683544</code></pre>
+<pre class="r"><code>head(DF_cv15b)</code></pre>
+<pre><code>##     predRF_cv15b ActualHitsLanded roundedPrediction Correct
+## 2  -7.271961e-18                0                 0       1
+## 4  -1.049161e-17                0                 0       1
+## 11  4.000000e-03                0                 0       1
+## 19 -1.124101e-17                0                 0       1
+## 20  2.000000e-03                0                 0       1
+## 22  4.000000e-03                0                 0       1</code></pre>
+<p>When classifying with random forest on numeric classes then rounding to the closest boundaries and closest class after closest min or max boundary, the results were the same for normalized or non normalized random forest classification. And the results were better than using the random forest model to classify on numeric values that are actually integers to factors by .06%. Because the former models scored 96.8% accuracy and the latter model scored 96.2% accuracy on the test set.</p>
+<p>Next, we will use the k-nearest neighbor algorithm with the cv method to train.</p>
+<pre class="r"><code>knn_cv &lt;- train(TotLandsX1 ~ .,
+                method=&#39;knn&#39;,# preProcess=c(&#39;center&#39;,&#39;scale&#39;),
+                tuneLength=10, trControl=trainControl(method=&#39;cv&#39;),
+                data=trainingSet)</code></pre>
+<pre class="r"><code>predKNN_cv &lt;- predict(knn_cv, testingSet)
+
+DF_KNN_cv &lt;- data.frame(predKNN_cv, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_KNN_cv &lt;- length(DF_KNN_cv$ActualHitsLanded)
+
+sum_KNN_cv &lt;- sum(DF_KNN_cv$predKNN_cv==DF_KNN_cv$ActualHitsLanded)
+
+accKNN_cv &lt;- (sum_KNN_cv/length_KNN_cv)
+
+accKNN_cv</code></pre>
+<pre><code>## [1] 0.1329114</code></pre>
+<pre class="r"><code>head(DF_KNN_cv)</code></pre>
+<pre><code>##   predKNN_cv ActualHitsLanded
+## 1  0.1304348                0
+## 2  0.1304348                0
+## 3  0.1304348                0
+## 4  0.2173913                0
+## 5  0.2608696                0
+## 6  0.1739130                0</code></pre>
+<p>Lets add in the same features of rounded and correct fields to this table as well. As the predicted values are not integers.</p>
+<pre class="r"><code>DF_KNN_cv$roundedPrediction &lt;- ifelse(DF_KNN_cv$predKNN_cv&lt;0,0,
+                            ifelse(DF_KNN_cv$predKNN_cv&gt;2,2,
+                                   round(DF_KNN_cv$predKNN_cv,0)))
+DF_KNN_cv$Correct &lt;- ifelse(DF_KNN_cv$ActualHitsLanded==DF_KNN_cv$roundedPrediction,1,0)
+accuracy3 &lt;- sum(DF_KNN_cv$Correct)/length(DF_KNN_cv$Correct)
+accuracy3</code></pre>
+<pre><code>## [1] 0.9050633</code></pre>
+<p>Next, we will use the k-nearest neighbor algorithm with the cv method to train on the target as a factor instead of numeric.</p>
+<pre class="r"><code>knn_cvb &lt;- train(TotLandsX1 ~ .,
+                method=&#39;knn&#39;,# preProcess=c(&#39;center&#39;,&#39;scale&#39;),
+                tuneLength=10, trControl=trainControl(method=&#39;cv&#39;),
+                data=trainingSetFactor)</code></pre>
+<pre class="r"><code>predKNN_cvb &lt;- predict(knn_cvb, testingSetFactor)
+
+DF_KNN_cvb &lt;- data.frame(predKNN_cvb, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_KNN_cvb &lt;- length(DF_KNN_cvb$ActualHitsLanded)
+
+sum_KNN_cvb &lt;- sum(DF_KNN_cvb$predKNN_cvb==DF_KNN_cvb$ActualHitsLanded)
+
+accKNN_cvb &lt;- (sum_KNN_cvb/length_KNN_cvb)
+
+accKNN_cvb</code></pre>
+<pre><code>## [1] 0.9050633</code></pre>
+<p>The KNN algorithm didn’t score as high in accuracy for classifying the total hits landed by X1 in our testing set. But using the KNN to classify on the numeric data then rounding the results to the closest min or max boundaries if out of bounds and then rounding to the nearest number in our 3 classes of 0, 1, or 2 did score exactly the same at 90.5% accuracy.</p>
+<pre class="r"><code>head(DF_KNN_cvb)</code></pre>
+<pre><code>##   predKNN_cvb ActualHitsLanded
+## 1           0                0
+## 2           0                0
+## 3           0                0
+## 4           0                0
+## 5           0                0
+## 6           0                0</code></pre>
+<p>Now lets see how well this data will do in a few other algorithms: glm, rpart, and gbm. We have a factor version target and a numeric target with which to compare results.</p>
+<pre class="r"><code>glmMod2 &lt;- train(TotLandsX1 ~ .,
+                method=&#39;glm&#39;, data=trainingSet)</code></pre>
+<pre class="r"><code>predglm2 &lt;- predict(glmMod2, testingSet)
+
+DF_glm2 &lt;- data.frame(predglm2, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_glm2 &lt;- length(DF_glm2$ActualHitsLanded)
+
+sum_glm2 &lt;- sum(DF_glm2$predglm2==DF_glm2$ActualHitsLanded)
+
+accglm2 &lt;- (sum_glm2/length_glm2)
+
+accglm2</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_glm2)</code></pre>
+<pre><code>##        predglm2 ActualHitsLanded
+## 2   0.006779364                0
+## 4  -0.050934403                0
+## 11 -0.006285359                0
+## 19  0.004485202                0
+## 20  0.012384217                0
+## 22  0.114243060                0</code></pre>
+<pre class="r"><code>DF_glm2$roundedPrediction &lt;- ifelse(DF_glm2$predglm2&lt;0,0,
+                            ifelse(DF_glm2$predglm2&gt;2,2,
+                                   round(DF_glm2$predglm2,0)))
+DF_glm2$Correct &lt;- ifelse(DF_glm2$ActualHitsLanded==DF_glm2$roundedPrediction,1,0)
+accuracy4 &lt;- sum(DF_glm2$Correct)/length(DF_glm2$Correct)
+accuracy4</code></pre>
+<pre><code>## [1] 0.9683544</code></pre>
+<pre class="r"><code>head(DF_glm2)</code></pre>
+<pre><code>##        predglm2 ActualHitsLanded roundedPrediction Correct
+## 2   0.006779364                0                 0       1
+## 4  -0.050934403                0                 0       1
+## 11 -0.006285359                0                 0       1
+## 19  0.004485202                0                 0       1
+## 20  0.012384217                0                 0       1
+## 22  0.114243060                0                 0       1</code></pre>
+<p>The glm or generalized linear model algorithm when correcting for min/max boundaries and rounding the predicted result with the actual result scored 96.8% accuracy. This makes it in a tie with the two random forest models using the same boundary and rounded modifications on numeric classes when classifying the hits landed for each instance as a 0, 1, or 2.</p>
+<pre class="r"><code>rpartMod &lt;- train(TotLandsX1 ~ .,
+                method=&#39;rpart&#39;, data=trainingSet)</code></pre>
+<pre class="r"><code>predrpart &lt;- predict(rpartMod, testingSet)
+
+DF_rpart &lt;- data.frame(predrpart, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_rpart &lt;- length(DF_rpart$ActualHitsLanded)
+
+sum_rpart &lt;- sum(DF_rpart$predrpart==DF_rpart$ActualHitsLanded)
+
+accrpart &lt;- (sum_rpart/length_rpart)
+
+accrpart</code></pre>
+<pre><code>## [1] 0.9050633</code></pre>
+<pre class="r"><code>head(DF_rpart)</code></pre>
+<pre><code>##    predrpart ActualHitsLanded
+## 2          0                0
+## 4          0                0
+## 11         0                0
+## 19         0                0
+## 20         0                0
+## 22         0                0</code></pre>
+<p>The rpart algorithm scored as well as the KNN at 90.5% accuracy in prediction.</p>
+<pre class="r"><code>DF_rpart$roundedPrediction &lt;- ifelse(DF_rpart$predrpart&lt;0,0,
+                            ifelse(DF_rpart$predrpart&gt;2,2,
+                                   round(DF_rpart$predrpart,0)))
+DF_rpart$Correct &lt;- ifelse(DF_rpart$ActualHitsLanded==DF_rpart$roundedPrediction,1,0)
+accuracy5 &lt;- sum(DF_rpart$Correct)/length(DF_rpart$Correct)
+accuracy5</code></pre>
+<pre><code>## [1] 0.9620253</code></pre>
+<p>When correcting for min/max boundaries and rounding as a modification used on the other models the rpart model scored near 6% better in accuracy at 96.2%. But still not as good as our best models of glm and random forest classifications on numeric data.</p>
+<pre class="r"><code>head(DF_rpart)</code></pre>
+<pre><code>##    predrpart ActualHitsLanded roundedPrediction Correct
+## 2          0                0                 0       1
+## 4          0                0                 0       1
+## 11         0                0                 0       1
+## 19         0                0                 0       1
+## 20         0                0                 0       1
+## 22         0                0                 0       1</code></pre>
+<p>Lets look at the gradient boosted models or gbm model that uses the previous output to improve on a gradient and weights adjusted by the previous iteration. You will see a lengthly output of the process, but it shows how with each iteration the model tries to improve.</p>
+<pre class="r"><code>gbmMod &lt;- train(TotLandsX1 ~ .,
+                method=&#39;gbm&#39;, data=trainingSet)</code></pre>
+<pre><code>## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0745             nan     0.1000    0.0199
+##      2        0.0603             nan     0.1000    0.0115
+##      3        0.0489             nan     0.1000    0.0120
+##      4        0.0396             nan     0.1000    0.0084
+##      5        0.0321             nan     0.1000    0.0072
+##      6        0.0260             nan     0.1000    0.0055
+##      7        0.0210             nan     0.1000    0.0031
+##      8        0.0170             nan     0.1000    0.0044
+##      9        0.0138             nan     0.1000    0.0035
+##     10        0.0112             nan     0.1000    0.0029
+##     20        0.0014             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0745             nan     0.1000    0.0207
+##      2        0.0603             nan     0.1000    0.0141
+##      3        0.0489             nan     0.1000    0.0125
+##      4        0.0396             nan     0.1000    0.0093
+##      5        0.0321             nan     0.1000    0.0072
+##      6        0.0260             nan     0.1000    0.0047
+##      7        0.0210             nan     0.1000    0.0047
+##      8        0.0170             nan     0.1000    0.0042
+##      9        0.0138             nan     0.1000    0.0038
+##     10        0.0112             nan     0.1000    0.0031
+##     20        0.0014             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0745             nan     0.1000    0.0134
+##      2        0.0603             nan     0.1000    0.0135
+##      3        0.0489             nan     0.1000    0.0141
+##      4        0.0396             nan     0.1000    0.0093
+##      5        0.0321             nan     0.1000    0.0075
+##      6        0.0260             nan     0.1000    0.0064
+##      7        0.0210             nan     0.1000    0.0068
+##      8        0.0170             nan     0.1000    0.0045
+##      9        0.0138             nan     0.1000    0.0034
+##     10        0.0112             nan     0.1000    0.0031
+##     20        0.0014             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1007             nan     0.1000    0.0181
+##      2        0.0826             nan     0.1000    0.0176
+##      3        0.0684             nan     0.1000    0.0177
+##      4        0.0567             nan     0.1000    0.0096
+##      5        0.0470             nan     0.1000    0.0055
+##      6        0.0390             nan     0.1000    0.0085
+##      7        0.0328             nan     0.1000    0.0062
+##      8        0.0282             nan     0.1000    0.0045
+##      9        0.0249             nan     0.1000    0.0043
+##     10        0.0218             nan     0.1000    0.0032
+##     20        0.0091             nan     0.1000    0.0004
+##     40        0.0068             nan     0.1000   -0.0001
+##     60        0.0066             nan     0.1000    0.0000
+##     80        0.0065             nan     0.1000   -0.0001
+##    100        0.0065             nan     0.1000   -0.0000
+##    120        0.0063             nan     0.1000   -0.0000
+##    140        0.0063             nan     0.1000    0.0000
+##    150        0.0062             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1022             nan     0.1000    0.0211
+##      2        0.0846             nan     0.1000    0.0162
+##      3        0.0697             nan     0.1000    0.0132
+##      4        0.0578             nan     0.1000    0.0148
+##      5        0.0487             nan     0.1000    0.0093
+##      6        0.0405             nan     0.1000    0.0066
+##      7        0.0339             nan     0.1000    0.0059
+##      8        0.0286             nan     0.1000    0.0049
+##      9        0.0245             nan     0.1000    0.0051
+##     10        0.0210             nan     0.1000    0.0036
+##     20        0.0082             nan     0.1000    0.0003
+##     40        0.0062             nan     0.1000   -0.0001
+##     60        0.0056             nan     0.1000    0.0000
+##     80        0.0050             nan     0.1000   -0.0001
+##    100        0.0046             nan     0.1000   -0.0001
+##    120        0.0044             nan     0.1000   -0.0000
+##    140        0.0041             nan     0.1000   -0.0000
+##    150        0.0040             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1004             nan     0.1000    0.0200
+##      2        0.0814             nan     0.1000    0.0176
+##      3        0.0676             nan     0.1000    0.0157
+##      4        0.0557             nan     0.1000    0.0124
+##      5        0.0467             nan     0.1000    0.0103
+##      6        0.0390             nan     0.1000    0.0065
+##      7        0.0337             nan     0.1000    0.0054
+##      8        0.0282             nan     0.1000    0.0040
+##      9        0.0239             nan     0.1000    0.0043
+##     10        0.0209             nan     0.1000    0.0030
+##     20        0.0083             nan     0.1000    0.0005
+##     40        0.0060             nan     0.1000   -0.0002
+##     60        0.0052             nan     0.1000    0.0000
+##     80        0.0047             nan     0.1000    0.0000
+##    100        0.0042             nan     0.1000   -0.0001
+##    120        0.0037             nan     0.1000   -0.0000
+##    140        0.0034             nan     0.1000   -0.0000
+##    150        0.0033             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0928             nan     0.1000    0.0192
+##      2        0.0769             nan     0.1000    0.0195
+##      3        0.0633             nan     0.1000    0.0128
+##      4        0.0523             nan     0.1000    0.0103
+##      5        0.0425             nan     0.1000    0.0104
+##      6        0.0354             nan     0.1000    0.0069
+##      7        0.0297             nan     0.1000    0.0054
+##      8        0.0251             nan     0.1000    0.0044
+##      9        0.0211             nan     0.1000    0.0047
+##     10        0.0181             nan     0.1000    0.0032
+##     20        0.0064             nan     0.1000    0.0003
+##     40        0.0051             nan     0.1000   -0.0000
+##     60        0.0048             nan     0.1000   -0.0000
+##     80        0.0046             nan     0.1000   -0.0001
+##    100        0.0046             nan     0.1000   -0.0000
+##    120        0.0045             nan     0.1000   -0.0000
+##    140        0.0044             nan     0.1000   -0.0000
+##    150        0.0044             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0928             nan     0.1000    0.0198
+##      2        0.0763             nan     0.1000    0.0141
+##      3        0.0628             nan     0.1000    0.0132
+##      4        0.0525             nan     0.1000    0.0120
+##      5        0.0440             nan     0.1000    0.0079
+##      6        0.0364             nan     0.1000    0.0092
+##      7        0.0304             nan     0.1000    0.0059
+##      8        0.0256             nan     0.1000    0.0041
+##      9        0.0216             nan     0.1000    0.0045
+##     10        0.0188             nan     0.1000    0.0036
+##     20        0.0061             nan     0.1000    0.0004
+##     40        0.0044             nan     0.1000   -0.0001
+##     60        0.0041             nan     0.1000   -0.0000
+##     80        0.0039             nan     0.1000   -0.0000
+##    100        0.0037             nan     0.1000   -0.0001
+##    120        0.0034             nan     0.1000   -0.0000
+##    140        0.0033             nan     0.1000   -0.0000
+##    150        0.0032             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0929             nan     0.1000    0.0158
+##      2        0.0761             nan     0.1000    0.0184
+##      3        0.0621             nan     0.1000    0.0089
+##      4        0.0505             nan     0.1000    0.0101
+##      5        0.0419             nan     0.1000    0.0081
+##      6        0.0347             nan     0.1000    0.0078
+##      7        0.0291             nan     0.1000    0.0046
+##      8        0.0249             nan     0.1000    0.0045
+##      9        0.0215             nan     0.1000    0.0035
+##     10        0.0183             nan     0.1000    0.0029
+##     20        0.0060             nan     0.1000    0.0002
+##     40        0.0044             nan     0.1000   -0.0001
+##     60        0.0041             nan     0.1000   -0.0000
+##     80        0.0038             nan     0.1000   -0.0000
+##    100        0.0035             nan     0.1000   -0.0001
+##    120        0.0034             nan     0.1000   -0.0000
+##    140        0.0032             nan     0.1000   -0.0000
+##    150        0.0032             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0958             nan     0.1000    0.0268
+##      2        0.0794             nan     0.1000    0.0171
+##      3        0.0644             nan     0.1000    0.0191
+##      4        0.0535             nan     0.1000    0.0090
+##      5        0.0444             nan     0.1000    0.0089
+##      6        0.0382             nan     0.1000    0.0057
+##      7        0.0326             nan     0.1000    0.0060
+##      8        0.0273             nan     0.1000    0.0039
+##      9        0.0241             nan     0.1000    0.0036
+##     10        0.0206             nan     0.1000    0.0037
+##     20        0.0090             nan     0.1000    0.0004
+##     40        0.0069             nan     0.1000    0.0000
+##     60        0.0065             nan     0.1000   -0.0000
+##     80        0.0064             nan     0.1000   -0.0001
+##    100        0.0063             nan     0.1000   -0.0000
+##    120        0.0062             nan     0.1000   -0.0001
+##    140        0.0062             nan     0.1000   -0.0000
+##    150        0.0061             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0962             nan     0.1000    0.0221
+##      2        0.0797             nan     0.1000    0.0179
+##      3        0.0648             nan     0.1000    0.0138
+##      4        0.0542             nan     0.1000    0.0099
+##      5        0.0450             nan     0.1000    0.0086
+##      6        0.0381             nan     0.1000    0.0076
+##      7        0.0320             nan     0.1000    0.0059
+##      8        0.0270             nan     0.1000    0.0052
+##      9        0.0234             nan     0.1000    0.0039
+##     10        0.0201             nan     0.1000    0.0034
+##     20        0.0083             nan     0.1000    0.0005
+##     40        0.0061             nan     0.1000   -0.0000
+##     60        0.0055             nan     0.1000   -0.0000
+##     80        0.0051             nan     0.1000   -0.0000
+##    100        0.0048             nan     0.1000   -0.0001
+##    120        0.0046             nan     0.1000   -0.0000
+##    140        0.0043             nan     0.1000   -0.0000
+##    150        0.0042             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0946             nan     0.1000    0.0263
+##      2        0.0785             nan     0.1000    0.0169
+##      3        0.0637             nan     0.1000    0.0120
+##      4        0.0523             nan     0.1000    0.0125
+##      5        0.0447             nan     0.1000    0.0092
+##      6        0.0377             nan     0.1000    0.0088
+##      7        0.0315             nan     0.1000    0.0056
+##      8        0.0263             nan     0.1000    0.0035
+##      9        0.0220             nan     0.1000    0.0036
+##     10        0.0193             nan     0.1000    0.0028
+##     20        0.0079             nan     0.1000    0.0000
+##     40        0.0059             nan     0.1000   -0.0000
+##     60        0.0053             nan     0.1000    0.0000
+##     80        0.0047             nan     0.1000   -0.0001
+##    100        0.0042             nan     0.1000   -0.0000
+##    120        0.0039             nan     0.1000   -0.0000
+##    140        0.0035             nan     0.1000   -0.0000
+##    150        0.0034             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0842             nan     0.1000    0.0156
+##      2        0.0691             nan     0.1000    0.0142
+##      3        0.0562             nan     0.1000    0.0114
+##      4        0.0458             nan     0.1000    0.0073
+##      5        0.0379             nan     0.1000    0.0082
+##      6        0.0310             nan     0.1000    0.0060
+##      7        0.0258             nan     0.1000    0.0062
+##      8        0.0216             nan     0.1000    0.0051
+##      9        0.0178             nan     0.1000    0.0036
+##     10        0.0148             nan     0.1000    0.0027
+##     20        0.0041             nan     0.1000    0.0003
+##     40        0.0026             nan     0.1000   -0.0000
+##     60        0.0025             nan     0.1000   -0.0000
+##     80        0.0025             nan     0.1000   -0.0000
+##    100        0.0025             nan     0.1000   -0.0000
+##    120        0.0025             nan     0.1000   -0.0000
+##    140        0.0025             nan     0.1000   -0.0000
+##    150        0.0025             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0849             nan     0.1000    0.0200
+##      2        0.0697             nan     0.1000    0.0169
+##      3        0.0567             nan     0.1000    0.0109
+##      4        0.0467             nan     0.1000    0.0128
+##      5        0.0381             nan     0.1000    0.0073
+##      6        0.0309             nan     0.1000    0.0080
+##      7        0.0258             nan     0.1000    0.0060
+##      8        0.0216             nan     0.1000    0.0041
+##      9        0.0177             nan     0.1000    0.0037
+##     10        0.0146             nan     0.1000    0.0028
+##     20        0.0037             nan     0.1000    0.0003
+##     40        0.0024             nan     0.1000   -0.0000
+##     60        0.0023             nan     0.1000   -0.0000
+##     80        0.0021             nan     0.1000   -0.0000
+##    100        0.0020             nan     0.1000   -0.0000
+##    120        0.0020             nan     0.1000   -0.0000
+##    140        0.0020             nan     0.1000   -0.0000
+##    150        0.0019             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0849             nan     0.1000    0.0184
+##      2        0.0697             nan     0.1000    0.0150
+##      3        0.0565             nan     0.1000    0.0145
+##      4        0.0456             nan     0.1000    0.0132
+##      5        0.0371             nan     0.1000    0.0089
+##      6        0.0308             nan     0.1000    0.0071
+##      7        0.0257             nan     0.1000    0.0058
+##      8        0.0211             nan     0.1000    0.0045
+##      9        0.0178             nan     0.1000    0.0042
+##     10        0.0147             nan     0.1000    0.0029
+##     20        0.0040             nan     0.1000    0.0003
+##     40        0.0025             nan     0.1000   -0.0000
+##     60        0.0024             nan     0.1000   -0.0000
+##     80        0.0022             nan     0.1000   -0.0000
+##    100        0.0021             nan     0.1000   -0.0000
+##    120        0.0020             nan     0.1000   -0.0000
+##    140        0.0019             nan     0.1000   -0.0000
+##    150        0.0019             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0993             nan     0.1000    0.0216
+##      2        0.0823             nan     0.1000    0.0200
+##      3        0.0683             nan     0.1000    0.0164
+##      4        0.0565             nan     0.1000    0.0095
+##      5        0.0467             nan     0.1000    0.0099
+##      6        0.0393             nan     0.1000    0.0078
+##      7        0.0329             nan     0.1000    0.0054
+##      8        0.0276             nan     0.1000    0.0056
+##      9        0.0234             nan     0.1000    0.0031
+##     10        0.0198             nan     0.1000    0.0022
+##     20        0.0068             nan     0.1000    0.0004
+##     40        0.0049             nan     0.1000   -0.0001
+##     60        0.0048             nan     0.1000   -0.0000
+##     80        0.0047             nan     0.1000   -0.0000
+##    100        0.0046             nan     0.1000   -0.0000
+##    120        0.0046             nan     0.1000    0.0000
+##    140        0.0045             nan     0.1000   -0.0000
+##    150        0.0045             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0990             nan     0.1000    0.0268
+##      2        0.0812             nan     0.1000    0.0175
+##      3        0.0674             nan     0.1000    0.0166
+##      4        0.0550             nan     0.1000    0.0105
+##      5        0.0455             nan     0.1000    0.0089
+##      6        0.0379             nan     0.1000    0.0070
+##      7        0.0315             nan     0.1000    0.0076
+##      8        0.0261             nan     0.1000    0.0042
+##      9        0.0220             nan     0.1000    0.0046
+##     10        0.0186             nan     0.1000    0.0038
+##     20        0.0066             nan     0.1000    0.0004
+##     40        0.0045             nan     0.1000    0.0000
+##     60        0.0043             nan     0.1000   -0.0000
+##     80        0.0040             nan     0.1000   -0.0000
+##    100        0.0038             nan     0.1000   -0.0001
+##    120        0.0037             nan     0.1000   -0.0001
+##    140        0.0035             nan     0.1000   -0.0001
+##    150        0.0034             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1002             nan     0.1000    0.0179
+##      2        0.0822             nan     0.1000    0.0182
+##      3        0.0674             nan     0.1000    0.0172
+##      4        0.0546             nan     0.1000    0.0140
+##      5        0.0442             nan     0.1000    0.0099
+##      6        0.0373             nan     0.1000    0.0073
+##      7        0.0307             nan     0.1000    0.0056
+##      8        0.0262             nan     0.1000    0.0049
+##      9        0.0221             nan     0.1000    0.0049
+##     10        0.0186             nan     0.1000    0.0027
+##     20        0.0065             nan     0.1000    0.0004
+##     40        0.0047             nan     0.1000   -0.0001
+##     60        0.0042             nan     0.1000   -0.0000
+##     80        0.0039             nan     0.1000   -0.0001
+##    100        0.0036             nan     0.1000   -0.0000
+##    120        0.0034             nan     0.1000   -0.0000
+##    140        0.0033             nan     0.1000   -0.0000
+##    150        0.0032             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1304             nan     0.1000    0.0291
+##      2        0.1073             nan     0.1000    0.0242
+##      3        0.0893             nan     0.1000    0.0144
+##      4        0.0756             nan     0.1000    0.0148
+##      5        0.0639             nan     0.1000    0.0115
+##      6        0.0544             nan     0.1000    0.0094
+##      7        0.0461             nan     0.1000    0.0081
+##      8        0.0395             nan     0.1000    0.0061
+##      9        0.0347             nan     0.1000    0.0044
+##     10        0.0300             nan     0.1000    0.0049
+##     20        0.0139             nan     0.1000    0.0005
+##     40        0.0105             nan     0.1000   -0.0000
+##     60        0.0100             nan     0.1000   -0.0001
+##     80        0.0097             nan     0.1000    0.0000
+##    100        0.0092             nan     0.1000   -0.0001
+##    120        0.0089             nan     0.1000   -0.0002
+##    140        0.0084             nan     0.1000   -0.0000
+##    150        0.0081             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1318             nan     0.1000    0.0250
+##      2        0.1096             nan     0.1000    0.0230
+##      3        0.0904             nan     0.1000    0.0185
+##      4        0.0746             nan     0.1000    0.0167
+##      5        0.0622             nan     0.1000    0.0108
+##      6        0.0520             nan     0.1000    0.0113
+##      7        0.0447             nan     0.1000    0.0088
+##      8        0.0376             nan     0.1000    0.0060
+##      9        0.0322             nan     0.1000    0.0045
+##     10        0.0282             nan     0.1000    0.0040
+##     20        0.0122             nan     0.1000    0.0005
+##     40        0.0091             nan     0.1000   -0.0001
+##     60        0.0078             nan     0.1000   -0.0000
+##     80        0.0070             nan     0.1000   -0.0001
+##    100        0.0062             nan     0.1000   -0.0001
+##    120        0.0055             nan     0.1000   -0.0001
+##    140        0.0050             nan     0.1000    0.0001
+##    150        0.0048             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1299             nan     0.1000    0.0295
+##      2        0.1086             nan     0.1000    0.0237
+##      3        0.0912             nan     0.1000    0.0197
+##      4        0.0761             nan     0.1000    0.0157
+##      5        0.0641             nan     0.1000    0.0113
+##      6        0.0530             nan     0.1000    0.0089
+##      7        0.0456             nan     0.1000    0.0095
+##      8        0.0382             nan     0.1000    0.0066
+##      9        0.0324             nan     0.1000    0.0048
+##     10        0.0280             nan     0.1000    0.0042
+##     20        0.0122             nan     0.1000    0.0005
+##     40        0.0089             nan     0.1000   -0.0000
+##     60        0.0076             nan     0.1000   -0.0001
+##     80        0.0064             nan     0.1000   -0.0001
+##    100        0.0053             nan     0.1000    0.0000
+##    120        0.0046             nan     0.1000    0.0000
+##    140        0.0042             nan     0.1000   -0.0000
+##    150        0.0039             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0813             nan     0.1000    0.0198
+##      2        0.0659             nan     0.1000    0.0161
+##      3        0.0534             nan     0.1000    0.0094
+##      4        0.0432             nan     0.1000    0.0105
+##      5        0.0350             nan     0.1000    0.0075
+##      6        0.0284             nan     0.1000    0.0077
+##      7        0.0230             nan     0.1000    0.0052
+##      8        0.0186             nan     0.1000    0.0034
+##      9        0.0151             nan     0.1000    0.0028
+##     10        0.0122             nan     0.1000    0.0029
+##     20        0.0015             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0813             nan     0.1000    0.0190
+##      2        0.0659             nan     0.1000    0.0161
+##      3        0.0534             nan     0.1000    0.0125
+##      4        0.0432             nan     0.1000    0.0089
+##      5        0.0350             nan     0.1000    0.0075
+##      6        0.0284             nan     0.1000    0.0075
+##      7        0.0230             nan     0.1000    0.0047
+##      8        0.0186             nan     0.1000    0.0045
+##      9        0.0151             nan     0.1000    0.0031
+##     10        0.0122             nan     0.1000    0.0026
+##     20        0.0015             nan     0.1000    0.0004
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0813             nan     0.1000    0.0182
+##      2        0.0659             nan     0.1000    0.0148
+##      3        0.0534             nan     0.1000    0.0099
+##      4        0.0432             nan     0.1000    0.0093
+##      5        0.0350             nan     0.1000    0.0085
+##      6        0.0284             nan     0.1000    0.0072
+##      7        0.0230             nan     0.1000    0.0045
+##      8        0.0186             nan     0.1000    0.0038
+##      9        0.0151             nan     0.1000    0.0032
+##     10        0.0122             nan     0.1000    0.0030
+##     20        0.0015             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0848             nan     0.1000    0.0203
+##      2        0.0697             nan     0.1000    0.0148
+##      3        0.0574             nan     0.1000    0.0131
+##      4        0.0469             nan     0.1000    0.0085
+##      5        0.0377             nan     0.1000    0.0110
+##      6        0.0312             nan     0.1000    0.0049
+##      7        0.0267             nan     0.1000    0.0056
+##      8        0.0226             nan     0.1000    0.0036
+##      9        0.0190             nan     0.1000    0.0031
+##     10        0.0162             nan     0.1000    0.0015
+##     20        0.0064             nan     0.1000    0.0001
+##     40        0.0046             nan     0.1000   -0.0001
+##     60        0.0043             nan     0.1000   -0.0001
+##     80        0.0041             nan     0.1000    0.0000
+##    100        0.0038             nan     0.1000    0.0000
+##    120        0.0035             nan     0.1000   -0.0000
+##    140        0.0032             nan     0.1000    0.0000
+##    150        0.0031             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0848             nan     0.1000    0.0203
+##      2        0.0705             nan     0.1000    0.0142
+##      3        0.0573             nan     0.1000    0.0126
+##      4        0.0464             nan     0.1000    0.0088
+##      5        0.0382             nan     0.1000    0.0061
+##      6        0.0318             nan     0.1000    0.0068
+##      7        0.0271             nan     0.1000    0.0062
+##      8        0.0227             nan     0.1000    0.0054
+##      9        0.0192             nan     0.1000    0.0041
+##     10        0.0168             nan     0.1000    0.0030
+##     20        0.0060             nan     0.1000    0.0002
+##     40        0.0044             nan     0.1000   -0.0000
+##     60        0.0039             nan     0.1000   -0.0000
+##     80        0.0036             nan     0.1000    0.0000
+##    100        0.0028             nan     0.1000    0.0000
+##    120        0.0022             nan     0.1000    0.0000
+##    140        0.0020             nan     0.1000   -0.0000
+##    150        0.0017             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0858             nan     0.1000    0.0203
+##      2        0.0696             nan     0.1000    0.0156
+##      3        0.0573             nan     0.1000    0.0125
+##      4        0.0481             nan     0.1000    0.0121
+##      5        0.0394             nan     0.1000    0.0068
+##      6        0.0329             nan     0.1000    0.0060
+##      7        0.0281             nan     0.1000    0.0060
+##      8        0.0234             nan     0.1000    0.0059
+##      9        0.0196             nan     0.1000    0.0029
+##     10        0.0167             nan     0.1000    0.0017
+##     20        0.0060             nan     0.1000    0.0003
+##     40        0.0043             nan     0.1000    0.0000
+##     60        0.0035             nan     0.1000    0.0000
+##     80        0.0028             nan     0.1000    0.0001
+##    100        0.0024             nan     0.1000   -0.0000
+##    120        0.0020             nan     0.1000   -0.0000
+##    140        0.0017             nan     0.1000    0.0000
+##    150        0.0015             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0911             nan     0.1000    0.0191
+##      2        0.0765             nan     0.1000    0.0187
+##      3        0.0634             nan     0.1000    0.0165
+##      4        0.0526             nan     0.1000    0.0088
+##      5        0.0440             nan     0.1000    0.0067
+##      6        0.0361             nan     0.1000    0.0073
+##      7        0.0314             nan     0.1000    0.0053
+##      8        0.0266             nan     0.1000    0.0046
+##      9        0.0223             nan     0.1000    0.0035
+##     10        0.0194             nan     0.1000    0.0024
+##     20        0.0084             nan     0.1000    0.0001
+##     40        0.0067             nan     0.1000   -0.0000
+##     60        0.0064             nan     0.1000   -0.0001
+##     80        0.0063             nan     0.1000   -0.0000
+##    100        0.0062             nan     0.1000   -0.0000
+##    120        0.0062             nan     0.1000    0.0000
+##    140        0.0062             nan     0.1000   -0.0002
+##    150        0.0061             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0921             nan     0.1000    0.0158
+##      2        0.0764             nan     0.1000    0.0172
+##      3        0.0625             nan     0.1000    0.0155
+##      4        0.0523             nan     0.1000    0.0112
+##      5        0.0428             nan     0.1000    0.0085
+##      6        0.0349             nan     0.1000    0.0063
+##      7        0.0292             nan     0.1000    0.0062
+##      8        0.0250             nan     0.1000    0.0053
+##      9        0.0213             nan     0.1000    0.0040
+##     10        0.0188             nan     0.1000    0.0021
+##     20        0.0080             nan     0.1000    0.0003
+##     40        0.0060             nan     0.1000   -0.0000
+##     60        0.0055             nan     0.1000   -0.0001
+##     80        0.0051             nan     0.1000   -0.0000
+##    100        0.0047             nan     0.1000   -0.0000
+##    120        0.0043             nan     0.1000   -0.0000
+##    140        0.0041             nan     0.1000   -0.0000
+##    150        0.0038             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0928             nan     0.1000    0.0222
+##      2        0.0771             nan     0.1000    0.0143
+##      3        0.0634             nan     0.1000    0.0135
+##      4        0.0530             nan     0.1000    0.0098
+##      5        0.0440             nan     0.1000    0.0088
+##      6        0.0367             nan     0.1000    0.0071
+##      7        0.0303             nan     0.1000    0.0059
+##      8        0.0266             nan     0.1000    0.0039
+##      9        0.0223             nan     0.1000    0.0029
+##     10        0.0195             nan     0.1000    0.0031
+##     20        0.0085             nan     0.1000    0.0004
+##     40        0.0064             nan     0.1000   -0.0001
+##     60        0.0056             nan     0.1000   -0.0000
+##     80        0.0050             nan     0.1000   -0.0001
+##    100        0.0045             nan     0.1000    0.0000
+##    120        0.0040             nan     0.1000   -0.0000
+##    140        0.0038             nan     0.1000   -0.0000
+##    150        0.0036             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0849             nan     0.1000    0.0208
+##      2        0.0697             nan     0.1000    0.0182
+##      3        0.0565             nan     0.1000    0.0139
+##      4        0.0466             nan     0.1000    0.0123
+##      5        0.0385             nan     0.1000    0.0080
+##      6        0.0320             nan     0.1000    0.0074
+##      7        0.0266             nan     0.1000    0.0073
+##      8        0.0223             nan     0.1000    0.0047
+##      9        0.0184             nan     0.1000    0.0037
+##     10        0.0152             nan     0.1000    0.0029
+##     20        0.0041             nan     0.1000    0.0002
+##     40        0.0025             nan     0.1000   -0.0000
+##     60        0.0025             nan     0.1000   -0.0000
+##     80        0.0025             nan     0.1000    0.0000
+##    100        0.0024             nan     0.1000   -0.0000
+##    120        0.0023             nan     0.1000   -0.0000
+##    140        0.0023             nan     0.1000   -0.0000
+##    150        0.0022             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0849             nan     0.1000    0.0168
+##      2        0.0687             nan     0.1000    0.0185
+##      3        0.0565             nan     0.1000    0.0141
+##      4        0.0466             nan     0.1000    0.0094
+##      5        0.0385             nan     0.1000    0.0084
+##      6        0.0320             nan     0.1000    0.0085
+##      7        0.0266             nan     0.1000    0.0060
+##      8        0.0219             nan     0.1000    0.0031
+##      9        0.0180             nan     0.1000    0.0036
+##     10        0.0153             nan     0.1000    0.0036
+##     20        0.0042             nan     0.1000    0.0006
+##     40        0.0026             nan     0.1000   -0.0000
+##     60        0.0025             nan     0.1000   -0.0000
+##     80        0.0024             nan     0.1000   -0.0000
+##    100        0.0022             nan     0.1000   -0.0000
+##    120        0.0021             nan     0.1000   -0.0000
+##    140        0.0021             nan     0.1000   -0.0000
+##    150        0.0020             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0841             nan     0.1000    0.0157
+##      2        0.0684             nan     0.1000    0.0144
+##      3        0.0555             nan     0.1000    0.0136
+##      4        0.0458             nan     0.1000    0.0097
+##      5        0.0372             nan     0.1000    0.0079
+##      6        0.0304             nan     0.1000    0.0068
+##      7        0.0249             nan     0.1000    0.0047
+##      8        0.0208             nan     0.1000    0.0042
+##      9        0.0173             nan     0.1000    0.0028
+##     10        0.0146             nan     0.1000    0.0027
+##     20        0.0041             nan     0.1000    0.0003
+##     40        0.0024             nan     0.1000   -0.0000
+##     60        0.0023             nan     0.1000   -0.0000
+##     80        0.0023             nan     0.1000   -0.0000
+##    100        0.0022             nan     0.1000   -0.0000
+##    120        0.0021             nan     0.1000   -0.0000
+##    140        0.0020             nan     0.1000   -0.0000
+##    150        0.0019             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0656             nan     0.1000    0.0107
+##      2        0.0532             nan     0.1000    0.0114
+##      3        0.0431             nan     0.1000    0.0120
+##      4        0.0349             nan     0.1000    0.0084
+##      5        0.0283             nan     0.1000    0.0072
+##      6        0.0229             nan     0.1000    0.0064
+##      7        0.0185             nan     0.1000    0.0037
+##      8        0.0150             nan     0.1000    0.0042
+##      9        0.0122             nan     0.1000    0.0029
+##     10        0.0099             nan     0.1000    0.0020
+##     20        0.0012             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0656             nan     0.1000    0.0158
+##      2        0.0532             nan     0.1000    0.0141
+##      3        0.0431             nan     0.1000    0.0098
+##      4        0.0349             nan     0.1000    0.0084
+##      5        0.0283             nan     0.1000    0.0068
+##      6        0.0229             nan     0.1000    0.0061
+##      7        0.0185             nan     0.1000    0.0042
+##      8        0.0150             nan     0.1000    0.0040
+##      9        0.0122             nan     0.1000    0.0031
+##     10        0.0099             nan     0.1000    0.0020
+##     20        0.0012             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0656             nan     0.1000    0.0175
+##      2        0.0532             nan     0.1000    0.0128
+##      3        0.0431             nan     0.1000    0.0087
+##      4        0.0349             nan     0.1000    0.0093
+##      5        0.0283             nan     0.1000    0.0050
+##      6        0.0229             nan     0.1000    0.0055
+##      7        0.0185             nan     0.1000    0.0052
+##      8        0.0150             nan     0.1000    0.0030
+##      9        0.0122             nan     0.1000    0.0028
+##     10        0.0099             nan     0.1000    0.0024
+##     20        0.0012             nan     0.1000    0.0002
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1009             nan     0.1000    0.0241
+##      2        0.0827             nan     0.1000    0.0175
+##      3        0.0680             nan     0.1000    0.0147
+##      4        0.0562             nan     0.1000    0.0093
+##      5        0.0464             nan     0.1000    0.0104
+##      6        0.0385             nan     0.1000    0.0090
+##      7        0.0326             nan     0.1000    0.0067
+##      8        0.0270             nan     0.1000    0.0051
+##      9        0.0228             nan     0.1000    0.0040
+##     10        0.0198             nan     0.1000    0.0037
+##     20        0.0068             nan     0.1000    0.0005
+##     40        0.0049             nan     0.1000   -0.0001
+##     60        0.0048             nan     0.1000   -0.0000
+##     80        0.0046             nan     0.1000   -0.0000
+##    100        0.0046             nan     0.1000   -0.0001
+##    120        0.0045             nan     0.1000   -0.0001
+##    140        0.0044             nan     0.1000   -0.0000
+##    150        0.0044             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1000             nan     0.1000    0.0244
+##      2        0.0813             nan     0.1000    0.0168
+##      3        0.0675             nan     0.1000    0.0135
+##      4        0.0555             nan     0.1000    0.0146
+##      5        0.0458             nan     0.1000    0.0097
+##      6        0.0379             nan     0.1000    0.0081
+##      7        0.0316             nan     0.1000    0.0056
+##      8        0.0264             nan     0.1000    0.0049
+##      9        0.0222             nan     0.1000    0.0047
+##     10        0.0188             nan     0.1000    0.0037
+##     20        0.0063             nan     0.1000    0.0005
+##     40        0.0040             nan     0.1000   -0.0000
+##     60        0.0035             nan     0.1000    0.0001
+##     80        0.0032             nan     0.1000   -0.0000
+##    100        0.0028             nan     0.1000    0.0000
+##    120        0.0025             nan     0.1000   -0.0001
+##    140        0.0022             nan     0.1000   -0.0000
+##    150        0.0021             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1010             nan     0.1000    0.0184
+##      2        0.0836             nan     0.1000    0.0176
+##      3        0.0686             nan     0.1000    0.0149
+##      4        0.0556             nan     0.1000    0.0140
+##      5        0.0459             nan     0.1000    0.0094
+##      6        0.0380             nan     0.1000    0.0089
+##      7        0.0317             nan     0.1000    0.0057
+##      8        0.0271             nan     0.1000    0.0045
+##      9        0.0229             nan     0.1000    0.0040
+##     10        0.0193             nan     0.1000    0.0033
+##     20        0.0063             nan     0.1000    0.0004
+##     40        0.0039             nan     0.1000   -0.0000
+##     60        0.0031             nan     0.1000    0.0000
+##     80        0.0026             nan     0.1000    0.0000
+##    100        0.0024             nan     0.1000    0.0000
+##    120        0.0021             nan     0.1000   -0.0000
+##    140        0.0019             nan     0.1000   -0.0000
+##    150        0.0017             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0880             nan     0.1000    0.0214
+##      2        0.0713             nan     0.1000    0.0185
+##      3        0.0577             nan     0.1000    0.0140
+##      4        0.0468             nan     0.1000    0.0122
+##      5        0.0379             nan     0.1000    0.0082
+##      6        0.0307             nan     0.1000    0.0072
+##      7        0.0248             nan     0.1000    0.0047
+##      8        0.0201             nan     0.1000    0.0045
+##      9        0.0163             nan     0.1000    0.0041
+##     10        0.0132             nan     0.1000    0.0027
+##     20        0.0016             nan     0.1000    0.0004
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0880             nan     0.1000    0.0214
+##      2        0.0713             nan     0.1000    0.0148
+##      3        0.0577             nan     0.1000    0.0140
+##      4        0.0468             nan     0.1000    0.0130
+##      5        0.0379             nan     0.1000    0.0095
+##      6        0.0307             nan     0.1000    0.0080
+##      7        0.0248             nan     0.1000    0.0045
+##      8        0.0201             nan     0.1000    0.0058
+##      9        0.0163             nan     0.1000    0.0045
+##     10        0.0132             nan     0.1000    0.0031
+##     20        0.0016             nan     0.1000    0.0004
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0880             nan     0.1000    0.0237
+##      2        0.0713             nan     0.1000    0.0179
+##      3        0.0577             nan     0.1000    0.0140
+##      4        0.0468             nan     0.1000    0.0093
+##      5        0.0379             nan     0.1000    0.0092
+##      6        0.0307             nan     0.1000    0.0061
+##      7        0.0248             nan     0.1000    0.0049
+##      8        0.0201             nan     0.1000    0.0044
+##      9        0.0163             nan     0.1000    0.0037
+##     10        0.0132             nan     0.1000    0.0031
+##     20        0.0016             nan     0.1000    0.0004
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1157             nan     0.1000    0.0208
+##      2        0.0965             nan     0.1000    0.0191
+##      3        0.0795             nan     0.1000    0.0141
+##      4        0.0668             nan     0.1000    0.0152
+##      5        0.0554             nan     0.1000    0.0105
+##      6        0.0468             nan     0.1000    0.0082
+##      7        0.0386             nan     0.1000    0.0094
+##      8        0.0328             nan     0.1000    0.0050
+##      9        0.0285             nan     0.1000    0.0040
+##     10        0.0253             nan     0.1000    0.0039
+##     20        0.0116             nan     0.1000    0.0004
+##     40        0.0085             nan     0.1000   -0.0001
+##     60        0.0079             nan     0.1000   -0.0000
+##     80        0.0077             nan     0.1000   -0.0000
+##    100        0.0074             nan     0.1000   -0.0001
+##    120        0.0073             nan     0.1000   -0.0000
+##    140        0.0073             nan     0.1000    0.0000
+##    150        0.0072             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1149             nan     0.1000    0.0259
+##      2        0.0949             nan     0.1000    0.0181
+##      3        0.0788             nan     0.1000    0.0137
+##      4        0.0661             nan     0.1000    0.0151
+##      5        0.0539             nan     0.1000    0.0125
+##      6        0.0446             nan     0.1000    0.0093
+##      7        0.0367             nan     0.1000    0.0079
+##      8        0.0316             nan     0.1000    0.0040
+##      9        0.0276             nan     0.1000    0.0047
+##     10        0.0236             nan     0.1000    0.0032
+##     20        0.0087             nan     0.1000    0.0004
+##     40        0.0064             nan     0.1000   -0.0001
+##     60        0.0056             nan     0.1000   -0.0001
+##     80        0.0050             nan     0.1000   -0.0001
+##    100        0.0045             nan     0.1000   -0.0001
+##    120        0.0041             nan     0.1000   -0.0000
+##    140        0.0038             nan     0.1000   -0.0001
+##    150        0.0036             nan     0.1000   -0.0002
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1148             nan     0.1000    0.0298
+##      2        0.0943             nan     0.1000    0.0169
+##      3        0.0778             nan     0.1000    0.0172
+##      4        0.0641             nan     0.1000    0.0169
+##      5        0.0531             nan     0.1000    0.0096
+##      6        0.0445             nan     0.1000    0.0078
+##      7        0.0377             nan     0.1000    0.0068
+##      8        0.0320             nan     0.1000    0.0057
+##      9        0.0270             nan     0.1000    0.0043
+##     10        0.0236             nan     0.1000    0.0034
+##     20        0.0092             nan     0.1000    0.0007
+##     40        0.0062             nan     0.1000   -0.0001
+##     60        0.0052             nan     0.1000    0.0001
+##     80        0.0044             nan     0.1000   -0.0001
+##    100        0.0037             nan     0.1000   -0.0000
+##    120        0.0033             nan     0.1000    0.0000
+##    140        0.0029             nan     0.1000   -0.0000
+##    150        0.0028             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0841             nan     0.1000    0.0182
+##      2        0.0690             nan     0.1000    0.0161
+##      3        0.0568             nan     0.1000    0.0152
+##      4        0.0458             nan     0.1000    0.0138
+##      5        0.0379             nan     0.1000    0.0085
+##      6        0.0315             nan     0.1000    0.0062
+##      7        0.0257             nan     0.1000    0.0057
+##      8        0.0215             nan     0.1000    0.0042
+##      9        0.0178             nan     0.1000    0.0034
+##     10        0.0147             nan     0.1000    0.0027
+##     20        0.0041             nan     0.1000    0.0003
+##     40        0.0027             nan     0.1000   -0.0000
+##     60        0.0025             nan     0.1000   -0.0000
+##     80        0.0025             nan     0.1000   -0.0000
+##    100        0.0024             nan     0.1000   -0.0000
+##    120        0.0024             nan     0.1000   -0.0000
+##    140        0.0024             nan     0.1000   -0.0000
+##    150        0.0024             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0849             nan     0.1000    0.0232
+##      2        0.0697             nan     0.1000    0.0176
+##      3        0.0567             nan     0.1000    0.0114
+##      4        0.0467             nan     0.1000    0.0107
+##      5        0.0380             nan     0.1000    0.0087
+##      6        0.0311             nan     0.1000    0.0064
+##      7        0.0259             nan     0.1000    0.0056
+##      8        0.0213             nan     0.1000    0.0040
+##      9        0.0179             nan     0.1000    0.0046
+##     10        0.0148             nan     0.1000    0.0032
+##     20        0.0038             nan     0.1000    0.0003
+##     40        0.0024             nan     0.1000   -0.0000
+##     60        0.0023             nan     0.1000   -0.0000
+##     80        0.0022             nan     0.1000   -0.0000
+##    100        0.0022             nan     0.1000   -0.0000
+##    120        0.0021             nan     0.1000   -0.0000
+##    140        0.0020             nan     0.1000   -0.0000
+##    150        0.0020             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0838             nan     0.1000    0.0236
+##      2        0.0679             nan     0.1000    0.0160
+##      3        0.0559             nan     0.1000    0.0134
+##      4        0.0454             nan     0.1000    0.0097
+##      5        0.0369             nan     0.1000    0.0088
+##      6        0.0301             nan     0.1000    0.0068
+##      7        0.0251             nan     0.1000    0.0044
+##      8        0.0206             nan     0.1000    0.0044
+##      9        0.0174             nan     0.1000    0.0035
+##     10        0.0144             nan     0.1000    0.0030
+##     20        0.0040             nan     0.1000    0.0003
+##     40        0.0025             nan     0.1000   -0.0000
+##     60        0.0023             nan     0.1000   -0.0000
+##     80        0.0022             nan     0.1000   -0.0000
+##    100        0.0022             nan     0.1000   -0.0000
+##    120        0.0020             nan     0.1000   -0.0000
+##    140        0.0019             nan     0.1000   -0.0000
+##    150        0.0019             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1299             nan     0.1000    0.0275
+##      2        0.1079             nan     0.1000    0.0230
+##      3        0.0892             nan     0.1000    0.0137
+##      4        0.0736             nan     0.1000    0.0144
+##      5        0.0612             nan     0.1000    0.0137
+##      6        0.0516             nan     0.1000    0.0096
+##      7        0.0438             nan     0.1000    0.0074
+##      8        0.0373             nan     0.1000    0.0054
+##      9        0.0323             nan     0.1000    0.0049
+##     10        0.0290             nan     0.1000    0.0039
+##     20        0.0137             nan     0.1000    0.0006
+##     40        0.0100             nan     0.1000    0.0000
+##     60        0.0095             nan     0.1000   -0.0000
+##     80        0.0093             nan     0.1000   -0.0002
+##    100        0.0092             nan     0.1000    0.0000
+##    120        0.0089             nan     0.1000    0.0000
+##    140        0.0088             nan     0.1000    0.0000
+##    150        0.0088             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1309             nan     0.1000    0.0225
+##      2        0.1086             nan     0.1000    0.0226
+##      3        0.0888             nan     0.1000    0.0181
+##      4        0.0730             nan     0.1000    0.0164
+##      5        0.0615             nan     0.1000    0.0122
+##      6        0.0509             nan     0.1000    0.0094
+##      7        0.0438             nan     0.1000    0.0081
+##      8        0.0371             nan     0.1000    0.0063
+##      9        0.0325             nan     0.1000    0.0052
+##     10        0.0286             nan     0.1000    0.0051
+##     20        0.0105             nan     0.1000    0.0006
+##     40        0.0065             nan     0.1000    0.0001
+##     60        0.0053             nan     0.1000    0.0000
+##     80        0.0044             nan     0.1000    0.0000
+##    100        0.0040             nan     0.1000   -0.0000
+##    120        0.0036             nan     0.1000    0.0000
+##    140        0.0032             nan     0.1000   -0.0000
+##    150        0.0031             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1285             nan     0.1000    0.0279
+##      2        0.1076             nan     0.1000    0.0225
+##      3        0.0897             nan     0.1000    0.0172
+##      4        0.0737             nan     0.1000    0.0099
+##      5        0.0617             nan     0.1000    0.0146
+##      6        0.0509             nan     0.1000    0.0099
+##      7        0.0431             nan     0.1000    0.0087
+##      8        0.0380             nan     0.1000    0.0061
+##      9        0.0324             nan     0.1000    0.0051
+##     10        0.0281             nan     0.1000    0.0047
+##     20        0.0113             nan     0.1000    0.0006
+##     40        0.0070             nan     0.1000   -0.0001
+##     60        0.0054             nan     0.1000    0.0001
+##     80        0.0042             nan     0.1000    0.0000
+##    100        0.0034             nan     0.1000   -0.0000
+##    120        0.0029             nan     0.1000   -0.0001
+##    140        0.0026             nan     0.1000   -0.0000
+##    150        0.0024             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0936             nan     0.1000    0.0189
+##      2        0.0768             nan     0.1000    0.0168
+##      3        0.0621             nan     0.1000    0.0161
+##      4        0.0513             nan     0.1000    0.0104
+##      5        0.0426             nan     0.1000    0.0080
+##      6        0.0346             nan     0.1000    0.0088
+##      7        0.0295             nan     0.1000    0.0060
+##      8        0.0246             nan     0.1000    0.0039
+##      9        0.0203             nan     0.1000    0.0044
+##     10        0.0174             nan     0.1000    0.0031
+##     20        0.0065             nan     0.1000    0.0004
+##     40        0.0050             nan     0.1000   -0.0000
+##     60        0.0049             nan     0.1000   -0.0001
+##     80        0.0045             nan     0.1000   -0.0000
+##    100        0.0045             nan     0.1000   -0.0000
+##    120        0.0043             nan     0.1000   -0.0000
+##    140        0.0043             nan     0.1000   -0.0000
+##    150        0.0043             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0946             nan     0.1000    0.0181
+##      2        0.0776             nan     0.1000    0.0169
+##      3        0.0645             nan     0.1000    0.0143
+##      4        0.0526             nan     0.1000    0.0112
+##      5        0.0441             nan     0.1000    0.0106
+##      6        0.0368             nan     0.1000    0.0074
+##      7        0.0304             nan     0.1000    0.0051
+##      8        0.0257             nan     0.1000    0.0043
+##      9        0.0217             nan     0.1000    0.0038
+##     10        0.0185             nan     0.1000    0.0026
+##     20        0.0067             nan     0.1000    0.0001
+##     40        0.0046             nan     0.1000   -0.0000
+##     60        0.0042             nan     0.1000   -0.0000
+##     80        0.0039             nan     0.1000   -0.0000
+##    100        0.0036             nan     0.1000   -0.0000
+##    120        0.0034             nan     0.1000   -0.0000
+##    140        0.0032             nan     0.1000   -0.0000
+##    150        0.0031             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0940             nan     0.1000    0.0263
+##      2        0.0770             nan     0.1000    0.0158
+##      3        0.0641             nan     0.1000    0.0161
+##      4        0.0535             nan     0.1000    0.0100
+##      5        0.0449             nan     0.1000    0.0102
+##      6        0.0367             nan     0.1000    0.0071
+##      7        0.0306             nan     0.1000    0.0071
+##      8        0.0252             nan     0.1000    0.0050
+##      9        0.0210             nan     0.1000    0.0032
+##     10        0.0183             nan     0.1000    0.0032
+##     20        0.0061             nan     0.1000    0.0002
+##     40        0.0044             nan     0.1000   -0.0000
+##     60        0.0041             nan     0.1000   -0.0000
+##     80        0.0037             nan     0.1000   -0.0000
+##    100        0.0035             nan     0.1000   -0.0000
+##    120        0.0032             nan     0.1000   -0.0000
+##    140        0.0029             nan     0.1000   -0.0000
+##    150        0.0028             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0873             nan     0.1000    0.0205
+##      2        0.0727             nan     0.1000    0.0120
+##      3        0.0607             nan     0.1000    0.0121
+##      4        0.0505             nan     0.1000    0.0077
+##      5        0.0415             nan     0.1000    0.0072
+##      6        0.0353             nan     0.1000    0.0066
+##      7        0.0294             nan     0.1000    0.0067
+##      8        0.0254             nan     0.1000    0.0045
+##      9        0.0221             nan     0.1000    0.0040
+##     10        0.0194             nan     0.1000    0.0031
+##     20        0.0088             nan     0.1000    0.0003
+##     40        0.0068             nan     0.1000   -0.0000
+##     60        0.0066             nan     0.1000   -0.0000
+##     80        0.0065             nan     0.1000   -0.0000
+##    100        0.0064             nan     0.1000   -0.0001
+##    120        0.0063             nan     0.1000    0.0000
+##    140        0.0062             nan     0.1000    0.0000
+##    150        0.0062             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0875             nan     0.1000    0.0149
+##      2        0.0735             nan     0.1000    0.0143
+##      3        0.0605             nan     0.1000    0.0122
+##      4        0.0506             nan     0.1000    0.0119
+##      5        0.0433             nan     0.1000    0.0093
+##      6        0.0363             nan     0.1000    0.0062
+##      7        0.0310             nan     0.1000    0.0056
+##      8        0.0263             nan     0.1000    0.0041
+##      9        0.0226             nan     0.1000    0.0031
+##     10        0.0192             nan     0.1000    0.0026
+##     20        0.0082             nan     0.1000    0.0002
+##     40        0.0061             nan     0.1000    0.0000
+##     60        0.0054             nan     0.1000    0.0001
+##     80        0.0051             nan     0.1000   -0.0001
+##    100        0.0046             nan     0.1000   -0.0001
+##    120        0.0042             nan     0.1000   -0.0000
+##    140        0.0039             nan     0.1000   -0.0000
+##    150        0.0038             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0904             nan     0.1000    0.0187
+##      2        0.0743             nan     0.1000    0.0153
+##      3        0.0601             nan     0.1000    0.0113
+##      4        0.0511             nan     0.1000    0.0098
+##      5        0.0427             nan     0.1000    0.0067
+##      6        0.0361             nan     0.1000    0.0079
+##      7        0.0305             nan     0.1000    0.0048
+##      8        0.0255             nan     0.1000    0.0029
+##      9        0.0223             nan     0.1000    0.0033
+##     10        0.0192             nan     0.1000    0.0028
+##     20        0.0090             nan     0.1000    0.0004
+##     40        0.0065             nan     0.1000    0.0000
+##     60        0.0057             nan     0.1000   -0.0000
+##     80        0.0049             nan     0.1000   -0.0000
+##    100        0.0045             nan     0.1000   -0.0001
+##    120        0.0039             nan     0.1000   -0.0000
+##    140        0.0035             nan     0.1000    0.0000
+##    150        0.0033             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0912             nan     0.1000    0.0259
+##      2        0.0739             nan     0.1000    0.0142
+##      3        0.0599             nan     0.1000    0.0120
+##      4        0.0485             nan     0.1000    0.0113
+##      5        0.0393             nan     0.1000    0.0089
+##      6        0.0318             nan     0.1000    0.0085
+##      7        0.0258             nan     0.1000    0.0062
+##      8        0.0209             nan     0.1000    0.0056
+##      9        0.0169             nan     0.1000    0.0035
+##     10        0.0137             nan     0.1000    0.0029
+##     20        0.0017             nan     0.1000    0.0005
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0912             nan     0.1000    0.0206
+##      2        0.0739             nan     0.1000    0.0173
+##      3        0.0599             nan     0.1000    0.0135
+##      4        0.0485             nan     0.1000    0.0134
+##      5        0.0393             nan     0.1000    0.0098
+##      6        0.0318             nan     0.1000    0.0080
+##      7        0.0258             nan     0.1000    0.0062
+##      8        0.0209             nan     0.1000    0.0045
+##      9        0.0169             nan     0.1000    0.0034
+##     10        0.0137             nan     0.1000    0.0029
+##     20        0.0017             nan     0.1000    0.0003
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0912             nan     0.1000    0.0236
+##      2        0.0739             nan     0.1000    0.0173
+##      3        0.0599             nan     0.1000    0.0170
+##      4        0.0485             nan     0.1000    0.0126
+##      5        0.0393             nan     0.1000    0.0092
+##      6        0.0318             nan     0.1000    0.0082
+##      7        0.0258             nan     0.1000    0.0060
+##      8        0.0209             nan     0.1000    0.0054
+##      9        0.0169             nan     0.1000    0.0045
+##     10        0.0137             nan     0.1000    0.0031
+##     20        0.0017             nan     0.1000    0.0005
+##     40        0.0000             nan     0.1000    0.0000
+##     60        0.0000             nan     0.1000    0.0000
+##     80        0.0000             nan     0.1000    0.0000
+##    100        0.0000             nan     0.1000    0.0000
+##    120        0.0000             nan     0.1000    0.0000
+##    140        0.0000             nan     0.1000    0.0000
+##    150        0.0000             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1064             nan     0.1000    0.0185
+##      2        0.0874             nan     0.1000    0.0169
+##      3        0.0719             nan     0.1000    0.0142
+##      4        0.0587             nan     0.1000    0.0123
+##      5        0.0492             nan     0.1000    0.0106
+##      6        0.0416             nan     0.1000    0.0070
+##      7        0.0342             nan     0.1000    0.0070
+##      8        0.0289             nan     0.1000    0.0053
+##      9        0.0250             nan     0.1000    0.0041
+##     10        0.0214             nan     0.1000    0.0036
+##     20        0.0091             nan     0.1000    0.0004
+##     40        0.0069             nan     0.1000    0.0000
+##     60        0.0065             nan     0.1000    0.0000
+##     80        0.0063             nan     0.1000   -0.0000
+##    100        0.0062             nan     0.1000   -0.0001
+##    120        0.0061             nan     0.1000   -0.0000
+##    140        0.0060             nan     0.1000   -0.0000
+##    150        0.0060             nan     0.1000   -0.0002
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1050             nan     0.1000    0.0262
+##      2        0.0857             nan     0.1000    0.0191
+##      3        0.0703             nan     0.1000    0.0164
+##      4        0.0588             nan     0.1000    0.0104
+##      5        0.0487             nan     0.1000    0.0095
+##      6        0.0409             nan     0.1000    0.0077
+##      7        0.0342             nan     0.1000    0.0059
+##      8        0.0289             nan     0.1000    0.0040
+##      9        0.0245             nan     0.1000    0.0040
+##     10        0.0213             nan     0.1000    0.0033
+##     20        0.0082             nan     0.1000    0.0006
+##     40        0.0056             nan     0.1000    0.0000
+##     60        0.0049             nan     0.1000   -0.0001
+##     80        0.0045             nan     0.1000   -0.0000
+##    100        0.0040             nan     0.1000   -0.0000
+##    120        0.0037             nan     0.1000   -0.0000
+##    140        0.0034             nan     0.1000   -0.0000
+##    150        0.0033             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1048             nan     0.1000    0.0226
+##      2        0.0859             nan     0.1000    0.0162
+##      3        0.0711             nan     0.1000    0.0174
+##      4        0.0591             nan     0.1000    0.0133
+##      5        0.0487             nan     0.1000    0.0117
+##      6        0.0417             nan     0.1000    0.0084
+##      7        0.0354             nan     0.1000    0.0065
+##      8        0.0296             nan     0.1000    0.0063
+##      9        0.0259             nan     0.1000    0.0050
+##     10        0.0225             nan     0.1000    0.0038
+##     20        0.0080             nan     0.1000    0.0004
+##     40        0.0059             nan     0.1000    0.0000
+##     60        0.0048             nan     0.1000    0.0000
+##     80        0.0042             nan     0.1000   -0.0000
+##    100        0.0039             nan     0.1000   -0.0001
+##    120        0.0035             nan     0.1000    0.0000
+##    140        0.0032             nan     0.1000   -0.0000
+##    150        0.0030             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1036             nan     0.1000    0.0235
+##      2        0.0858             nan     0.1000    0.0182
+##      3        0.0697             nan     0.1000    0.0153
+##      4        0.0582             nan     0.1000    0.0122
+##      5        0.0474             nan     0.1000    0.0108
+##      6        0.0401             nan     0.1000    0.0076
+##      7        0.0334             nan     0.1000    0.0049
+##      8        0.0287             nan     0.1000    0.0051
+##      9        0.0249             nan     0.1000    0.0036
+##     10        0.0215             nan     0.1000    0.0030
+##     20        0.0096             nan     0.1000    0.0005
+##     40        0.0069             nan     0.1000    0.0000
+##     60        0.0067             nan     0.1000   -0.0000
+##     80        0.0066             nan     0.1000    0.0000
+##    100        0.0066             nan     0.1000   -0.0001
+##    120        0.0066             nan     0.1000   -0.0000
+##    140        0.0065             nan     0.1000   -0.0002
+##    150        0.0064             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1033             nan     0.1000    0.0232
+##      2        0.0863             nan     0.1000    0.0187
+##      3        0.0712             nan     0.1000    0.0122
+##      4        0.0576             nan     0.1000    0.0123
+##      5        0.0474             nan     0.1000    0.0112
+##      6        0.0399             nan     0.1000    0.0081
+##      7        0.0332             nan     0.1000    0.0064
+##      8        0.0280             nan     0.1000    0.0052
+##      9        0.0241             nan     0.1000    0.0037
+##     10        0.0208             nan     0.1000    0.0035
+##     20        0.0076             nan     0.1000    0.0002
+##     40        0.0056             nan     0.1000   -0.0001
+##     60        0.0053             nan     0.1000    0.0000
+##     80        0.0049             nan     0.1000    0.0000
+##    100        0.0045             nan     0.1000   -0.0000
+##    120        0.0043             nan     0.1000   -0.0000
+##    140        0.0040             nan     0.1000   -0.0000
+##    150        0.0039             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1046             nan     0.1000    0.0242
+##      2        0.0855             nan     0.1000    0.0180
+##      3        0.0701             nan     0.1000    0.0150
+##      4        0.0584             nan     0.1000    0.0110
+##      5        0.0480             nan     0.1000    0.0083
+##      6        0.0402             nan     0.1000    0.0061
+##      7        0.0341             nan     0.1000    0.0064
+##      8        0.0290             nan     0.1000    0.0055
+##      9        0.0254             nan     0.1000    0.0036
+##     10        0.0217             nan     0.1000    0.0033
+##     20        0.0086             nan     0.1000    0.0005
+##     40        0.0058             nan     0.1000   -0.0000
+##     60        0.0050             nan     0.1000    0.0001
+##     80        0.0046             nan     0.1000   -0.0000
+##    100        0.0043             nan     0.1000   -0.0000
+##    120        0.0039             nan     0.1000   -0.0000
+##    140        0.0037             nan     0.1000   -0.0000
+##    150        0.0035             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0852             nan     0.1000    0.0157
+##      2        0.0709             nan     0.1000    0.0144
+##      3        0.0600             nan     0.1000    0.0133
+##      4        0.0511             nan     0.1000    0.0110
+##      5        0.0422             nan     0.1000    0.0095
+##      6        0.0349             nan     0.1000    0.0085
+##      7        0.0295             nan     0.1000    0.0047
+##      8        0.0255             nan     0.1000    0.0045
+##      9        0.0220             nan     0.1000    0.0024
+##     10        0.0193             nan     0.1000    0.0034
+##     20        0.0088             nan     0.1000    0.0003
+##     40        0.0066             nan     0.1000   -0.0000
+##     60        0.0063             nan     0.1000    0.0000
+##     80        0.0062             nan     0.1000   -0.0000
+##    100        0.0059             nan     0.1000   -0.0000
+##    120        0.0057             nan     0.1000    0.0000
+##    140        0.0055             nan     0.1000   -0.0000
+##    150        0.0054             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0860             nan     0.1000    0.0178
+##      2        0.0724             nan     0.1000    0.0146
+##      3        0.0605             nan     0.1000    0.0108
+##      4        0.0501             nan     0.1000    0.0097
+##      5        0.0429             nan     0.1000    0.0092
+##      6        0.0359             nan     0.1000    0.0069
+##      7        0.0301             nan     0.1000    0.0055
+##      8        0.0261             nan     0.1000    0.0038
+##      9        0.0221             nan     0.1000    0.0028
+##     10        0.0195             nan     0.1000    0.0029
+##     20        0.0089             nan     0.1000    0.0002
+##     40        0.0065             nan     0.1000   -0.0001
+##     60        0.0062             nan     0.1000   -0.0001
+##     80        0.0053             nan     0.1000   -0.0001
+##    100        0.0047             nan     0.1000   -0.0000
+##    120        0.0043             nan     0.1000   -0.0000
+##    140        0.0039             nan     0.1000   -0.0000
+##    150        0.0038             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0861             nan     0.1000    0.0160
+##      2        0.0724             nan     0.1000    0.0159
+##      3        0.0604             nan     0.1000    0.0127
+##      4        0.0508             nan     0.1000    0.0093
+##      5        0.0424             nan     0.1000    0.0070
+##      6        0.0352             nan     0.1000    0.0076
+##      7        0.0307             nan     0.1000    0.0053
+##      8        0.0263             nan     0.1000    0.0029
+##      9        0.0229             nan     0.1000    0.0035
+##     10        0.0201             nan     0.1000    0.0033
+##     20        0.0090             nan     0.1000    0.0004
+##     40        0.0065             nan     0.1000   -0.0001
+##     60        0.0060             nan     0.1000   -0.0002
+##     80        0.0056             nan     0.1000   -0.0001
+##    100        0.0049             nan     0.1000   -0.0001
+##    120        0.0044             nan     0.1000    0.0000
+##    140        0.0041             nan     0.1000   -0.0000
+##    150        0.0039             nan     0.1000   -0.0002
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0692             nan     0.1000    0.0125
+##      2        0.0559             nan     0.1000    0.0154
+##      3        0.0454             nan     0.1000    0.0091
+##      4        0.0368             nan     0.1000    0.0094
+##      5        0.0306             nan     0.1000    0.0050
+##      6        0.0256             nan     0.1000    0.0052
+##      7        0.0215             nan     0.1000    0.0051
+##      8        0.0176             nan     0.1000    0.0039
+##      9        0.0146             nan     0.1000    0.0024
+##     10        0.0122             nan     0.1000    0.0019
+##     20        0.0036             nan     0.1000    0.0002
+##     40        0.0025             nan     0.1000   -0.0000
+##     60        0.0025             nan     0.1000   -0.0000
+##     80        0.0025             nan     0.1000   -0.0000
+##    100        0.0024             nan     0.1000   -0.0000
+##    120        0.0024             nan     0.1000   -0.0000
+##    140        0.0024             nan     0.1000   -0.0000
+##    150        0.0024             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0692             nan     0.1000    0.0168
+##      2        0.0563             nan     0.1000    0.0076
+##      3        0.0465             nan     0.1000    0.0121
+##      4        0.0379             nan     0.1000    0.0065
+##      5        0.0315             nan     0.1000    0.0062
+##      6        0.0257             nan     0.1000    0.0060
+##      7        0.0210             nan     0.1000    0.0051
+##      8        0.0177             nan     0.1000    0.0029
+##      9        0.0150             nan     0.1000    0.0035
+##     10        0.0125             nan     0.1000    0.0021
+##     20        0.0037             nan     0.1000    0.0002
+##     40        0.0025             nan     0.1000   -0.0000
+##     60        0.0023             nan     0.1000   -0.0000
+##     80        0.0021             nan     0.1000   -0.0000
+##    100        0.0021             nan     0.1000   -0.0000
+##    120        0.0020             nan     0.1000   -0.0000
+##    140        0.0020             nan     0.1000   -0.0000
+##    150        0.0020             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0684             nan     0.1000    0.0121
+##      2        0.0563             nan     0.1000    0.0128
+##      3        0.0458             nan     0.1000    0.0092
+##      4        0.0374             nan     0.1000    0.0059
+##      5        0.0304             nan     0.1000    0.0072
+##      6        0.0254             nan     0.1000    0.0068
+##      7        0.0213             nan     0.1000    0.0044
+##      8        0.0180             nan     0.1000    0.0035
+##      9        0.0152             nan     0.1000    0.0024
+##     10        0.0130             nan     0.1000    0.0026
+##     20        0.0039             nan     0.1000    0.0003
+##     40        0.0025             nan     0.1000   -0.0000
+##     60        0.0024             nan     0.1000   -0.0000
+##     80        0.0023             nan     0.1000   -0.0000
+##    100        0.0022             nan     0.1000   -0.0000
+##    120        0.0021             nan     0.1000    0.0000
+##    140        0.0020             nan     0.1000   -0.0000
+##    150        0.0020             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1232             nan     0.1000    0.0257
+##      2        0.1025             nan     0.1000    0.0222
+##      3        0.0846             nan     0.1000    0.0139
+##      4        0.0694             nan     0.1000    0.0161
+##      5        0.0578             nan     0.1000    0.0132
+##      6        0.0485             nan     0.1000    0.0103
+##      7        0.0403             nan     0.1000    0.0068
+##      8        0.0342             nan     0.1000    0.0055
+##      9        0.0293             nan     0.1000    0.0040
+##     10        0.0257             nan     0.1000    0.0032
+##     20        0.0120             nan     0.1000    0.0005
+##     40        0.0092             nan     0.1000    0.0000
+##     60        0.0088             nan     0.1000   -0.0000
+##     80        0.0085             nan     0.1000   -0.0000
+##    100        0.0083             nan     0.1000   -0.0003
+##    120        0.0081             nan     0.1000    0.0000
+##    140        0.0079             nan     0.1000   -0.0000
+##    150        0.0079             nan     0.1000   -0.0001
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1226             nan     0.1000    0.0282
+##      2        0.1011             nan     0.1000    0.0190
+##      3        0.0836             nan     0.1000    0.0174
+##      4        0.0689             nan     0.1000    0.0168
+##      5        0.0562             nan     0.1000    0.0131
+##      6        0.0462             nan     0.1000    0.0112
+##      7        0.0401             nan     0.1000    0.0073
+##      8        0.0332             nan     0.1000    0.0070
+##      9        0.0285             nan     0.1000    0.0050
+##     10        0.0250             nan     0.1000    0.0036
+##     20        0.0104             nan     0.1000    0.0004
+##     40        0.0076             nan     0.1000    0.0001
+##     60        0.0070             nan     0.1000   -0.0000
+##     80        0.0065             nan     0.1000   -0.0001
+##    100        0.0060             nan     0.1000   -0.0000
+##    120        0.0053             nan     0.1000    0.0000
+##    140        0.0048             nan     0.1000   -0.0000
+##    150        0.0046             nan     0.1000    0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.1228             nan     0.1000    0.0291
+##      2        0.1016             nan     0.1000    0.0217
+##      3        0.0851             nan     0.1000    0.0152
+##      4        0.0699             nan     0.1000    0.0144
+##      5        0.0588             nan     0.1000    0.0127
+##      6        0.0500             nan     0.1000    0.0089
+##      7        0.0425             nan     0.1000    0.0095
+##      8        0.0360             nan     0.1000    0.0071
+##      9        0.0302             nan     0.1000    0.0056
+##     10        0.0262             nan     0.1000    0.0039
+##     20        0.0110             nan     0.1000    0.0006
+##     40        0.0078             nan     0.1000    0.0000
+##     60        0.0068             nan     0.1000   -0.0000
+##     80        0.0060             nan     0.1000    0.0000
+##    100        0.0054             nan     0.1000   -0.0001
+##    120        0.0049             nan     0.1000   -0.0001
+##    140        0.0044             nan     0.1000   -0.0000
+##    150        0.0041             nan     0.1000   -0.0000
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.0912             nan     0.1000    0.0217
+##      2        0.0750             nan     0.1000    0.0162
+##      3        0.0624             nan     0.1000    0.0150
+##      4        0.0509             nan     0.1000    0.0158
+##      5        0.0422             nan     0.1000    0.0087
+##      6        0.0347             nan     0.1000    0.0055
+##      7        0.0291             nan     0.1000    0.0046
+##      8        0.0249             nan     0.1000    0.0043
+##      9        0.0215             nan     0.1000    0.0043
+##     10        0.0183             nan     0.1000    0.0038
+##     20        0.0067             nan     0.1000    0.0004
+##     40        0.0047             nan     0.1000   -0.0001
+##     50        0.0045             nan     0.1000   -0.0001</code></pre>
+<pre class="r"><code>predgbm &lt;- predict(gbmMod, testingSet)
+
+DF_gbm &lt;- data.frame(predgbm, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_gbm &lt;- length(DF_gbm$ActualHitsLanded)
+
+sum_gbm &lt;- sum(DF_gbm$predgbm==DF_gbm$ActualHitsLanded)
+
+accgbm &lt;- (sum_gbm/length_gbm)
+
+accgbm</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_gbm)</code></pre>
+<pre><code>##         predgbm ActualHitsLanded
+## 1  4.208414e-03                0
+## 2  4.208414e-03                0
+## 3  4.208414e-03                0
+## 4 -4.576709e-04                0
+## 5 -4.576709e-04                0
+## 6 -3.408523e-05                0</code></pre>
+<pre class="r"><code>DF_gbm$roundedPrediction &lt;- ifelse(DF_gbm$predgbm&lt;0,0,
+                            ifelse(DF_gbm$predgbm&gt;2,2,
+                                   round(DF_gbm$predgbm,0)))
+DF_gbm$Correct &lt;- ifelse(DF_gbm$ActualHitsLanded==DF_gbm$roundedPrediction,1,0)
+accuracy6 &lt;- sum(DF_gbm$Correct)/length(DF_gbm$Correct)
+accuracy6</code></pre>
+<pre><code>## [1] 0.9620253</code></pre>
+<p>When correcting for min/max boundaries and rounding to closest numeric class of 0, 1, or 2, the gbm algorithm scored as well as the modified rpart model at 96.2% accuracty in prediction. This model is also not the best for this data, but as good as the random forest classifier on the target feature as a factor instead of numeric.</p>
+<pre class="r"><code>head(DF_gbm)</code></pre>
+<pre><code>##         predgbm ActualHitsLanded roundedPrediction Correct
+## 1  4.208414e-03                0                 0       1
+## 2  4.208414e-03                0                 0       1
+## 3  4.208414e-03                0                 0       1
+## 4 -4.576709e-04                0                 0       1
+## 5 -4.576709e-04                0                 0       1
+## 6 -3.408523e-05                0                 0       1</code></pre>
+<p>That is it for the machine learning using the caret package of algorithms in R. Next we will compare python’s random forest, gradient boosted models, naive bayes, and convolutional neural network and deep neural networks in predicting hits landed using the reticulate package in R to run python code.</p>
+<hr />
+<hr />
+<hr />
+<pre class="r"><code>library(reticulate)</code></pre>
+<pre><code>## Warning: package &#39;reticulate&#39; was built under R version 3.6.3</code></pre>
+<pre class="r"><code>conda_list(conda = &quot;auto&quot;) </code></pre>
+<pre><code>##           name                                                  python
+## 1    Anaconda2                     C:\\Users\\m\\Anaconda2\\python.exe
+## 2    djangoenv    C:\\Users\\m\\Anaconda2\\envs\\djangoenv\\python.exe
+## 3     python36     C:\\Users\\m\\Anaconda2\\envs\\python36\\python.exe
+## 4     python37     C:\\Users\\m\\Anaconda2\\envs\\python37\\python.exe
+## 5 r-reticulate C:\\Users\\m\\Anaconda2\\envs\\r-reticulate\\python.exe</code></pre>
+<pre class="r"><code>use_condaenv(condaenv = &quot;python36&quot;)</code></pre>
+<pre class="python"><code>import pandas as pd 
+import matplotlib.pyplot as plt 
+from textblob import TextBlob 
+import sklearn 
+import numpy as np 
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer 
+from sklearn.naive_bayes import MultinomialNB 
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+import re
+import string
+import nltk 
+
+np.random.seed(47) </code></pre>
+<p>Import our ML ready file to run the python algorithms on with sklearn.</p>
+<pre class="python"><code>Felicia = pd.read_csv(&#39;Felicia_ml_ready.csv&#39;, encoding = &#39;unicode_escape&#39;) 
+print(Felicia.shape)</code></pre>
+<pre><code>## (529, 93)</code></pre>
+<pre class="python"><code>print(Felicia.columns)</code></pre>
+<pre><code>## Index([&#39;SecondsIntoRound&#39;, &#39;lastAction&#39;, &#39;SecondsLastRoundAction&#39;,
+##        &#39;cmTotHitsR.X1&#39;, &#39;cmTotHitsL.X1&#39;, &#39;cmTotHitsM.X1&#39;, &#39;TotLandsX1&#39;,
+##        &#39;TotMissedX1&#39;, &#39;TotReceivedX1&#39;, &#39;cmTotHitsR.X2&#39;, &#39;cmTotHitsL.X2&#39;,
+##        &#39;cmTotHitsM.X2&#39;, &#39;TotLandsX2&#39;, &#39;TotMissedX2&#39;, &#39;TotReceivedX2&#39;,
+##        &#39;Crossl.X2&#39;, &#39;Kneel.X2&#39;, &#39;Elbowl.X2&#39;, &#39;Hookl.X2&#39;, &#39;Jabl.X2&#39;, &#39;Kickl.X2&#39;,
+##        &#39;upperl.X2&#39;, &#39;takedownl.X2&#39;, &#39;hammerl.X2&#39;, &#39;Cross2l.X2&#39;, &#39;Knee2l.X2&#39;,
+##        &#39;Elbow2l.X2&#39;, &#39;Hook2l.X2&#39;, &#39;Jab2l.X2&#39;, &#39;Kick2l.X2&#39;, &#39;upper2l.X2&#39;,
+##        &#39;takedown2l.X2&#39;, &#39;hammer2l.X2&#39;, &#39;Cross3l.X2&#39;, &#39;Knee3l.X2&#39;, &#39;Elbow3l.X2&#39;,
+##        &#39;Hook3l.X2&#39;, &#39;Jab3l.X2&#39;, &#39;Kick3l.X2&#39;, &#39;upper3l.X2&#39;, &#39;takedown3l.X2&#39;,
+##        &#39;hammer3l.X2&#39;, &#39;Crossm.X2&#39;, &#39;Kneem.X2&#39;, &#39;Elbowm.X2&#39;, &#39;Hookm.X2&#39;,
+##        &#39;Jabm.X2&#39;, &#39;Kickm.X2&#39;, &#39;upperm.X2&#39;, &#39;takedownm.X2&#39;, &#39;hammerm.X2&#39;,
+##        &#39;Cross2m.X2&#39;, &#39;Knee2m.X2&#39;, &#39;Elbow2m.X2&#39;, &#39;Hook2m.X2&#39;, &#39;Jab2m.X2&#39;,
+##        &#39;Kick2m.X2&#39;, &#39;upper2m.X2&#39;, &#39;takedown2m.X2&#39;, &#39;hammer2m.X2&#39;, &#39;Cross3m.X2&#39;,
+##        &#39;Knee3m.X2&#39;, &#39;Elbow3m.X2&#39;, &#39;Hook3m.X2&#39;, &#39;Jab3m.X2&#39;, &#39;Kick3m.X2&#39;,
+##        &#39;upper3m.X2&#39;, &#39;takedown3m.X2&#39;, &#39;hammer3m.X2&#39;, &#39;holdingX1&#39;, &#39;holdingX2&#39;,
+##        &#39;breaksHoldX1&#39;, &#39;breaksHoldX2&#39;, &#39;caughtHoldX1&#39;, &#39;caughtHoldX2&#39;,
+##        &#39;lostHoldX1&#39;, &#39;lostHoldX2&#39;, &#39;muayThaiKickX1&#39;, &#39;muayThaiKickX2&#39;,
+##        &#39;pushKickX1&#39;, &#39;pushKickX2&#39;, &#39;totalHoldsX1&#39;, &#39;totalHoldsX2&#39;,
+##        &#39;totalLostHoldsX1&#39;, &#39;totalLostHoldsX2&#39;, &#39;totalCaughtHoldsX1&#39;,
+##        &#39;totalCaughtHoldsX2&#39;, &#39;totalBreakOutHoldsX1&#39;, &#39;totalBreakOutHoldsX2&#39;,
+##        &#39;totalMuayThaiKicksX1&#39;, &#39;totalMuayThaiKicksX2&#39;, &#39;totalPushKicksX1&#39;,
+##        &#39;totalPushKicksX2&#39;],
+##       dtype=&#39;object&#39;)</code></pre>
+<pre class="python"><code>print(Felicia.head())</code></pre>
+<pre><code>##    SecondsIntoRound  lastAction  ...  totalPushKicksX1  totalPushKicksX2
+## 0                 4           0  ...                 0                 0
+## 1                 5           4  ...                 0                 0
+## 2                 9           5  ...                 0                 0
+## 3                11           9  ...                 0                 0
+## 4                13          11  ...                 0                 0
+## 
+## [5 rows x 93 columns]</code></pre>
+<pre class="python"><code>print(Felicia.tail())</code></pre>
+<pre><code>##      SecondsIntoRound  lastAction  ...  totalPushKicksX1  totalPushKicksX2
+## 524               295         294  ...                 2                 0
+## 525               296         295  ...                 2                 0
+## 526               297         296  ...                 2                 0
+## 527               298         297  ...                 2                 0
+## 528               299         298  ...                 2                 0
+## 
+## [5 rows x 93 columns]</code></pre>
+<pre class="python"><code>print(Felicia[&#39;TotLandsX1&#39;].unique())</code></pre>
+<pre><code>## [0 1 2]</code></pre>
+<p>Reorder the rows as instances randomised to split into train and test sets of the data.</p>
+<pre class="python"><code>import numpy as np
+
+Felicia = Felicia.reindex(np.random.permutation(Felicia.index))
+
+print(Felicia.head())</code></pre>
+<pre><code>##      SecondsIntoRound  lastAction  ...  totalPushKicksX1  totalPushKicksX2
+## 274               124         123  ...                 3                 0
+## 453               196         187  ...                 2                 0
+## 470               241         240  ...                 2                 0
+## 146               194         193  ...                 1                 0
+## 208                56          55  ...                 3                 0
+## 
+## [5 rows x 93 columns]</code></pre>
+<pre class="python"><code>print(Felicia.tail())</code></pre>
+<pre><code>##      SecondsIntoRound  lastAction  ...  totalPushKicksX1  totalPushKicksX2
+## 59                107         106  ...                 1                 0
+## 23                 70          69  ...                 1                 0
+## 264               114         113  ...                 3                 0
+## 327               177         176  ...                 3                 0
+## 135               183         182  ...                 1                 0
+## 
+## [5 rows x 93 columns]</code></pre>
+<p>There are 529 instances in this data, and 80% is about 424, the target is the hits landed by X1.</p>
+<pre class="python"><code># Split/splice into training ~ 80% and testing ~ 20%
+Felicia_train = Felicia[:424]
+Felicia_test = Felicia[424:]
+Felicia_hits_train = Felicia[&#39;TotLandsX1&#39;][:424]
+Felicia_hits_test = Felicia[&#39;TotLandsX1&#39;][424:]
+
+print(Felicia_train.shape)</code></pre>
+<pre><code>## (424, 93)</code></pre>
+<pre class="python"><code>print(Felicia_test.shape)</code></pre>
+<pre><code>## (105, 93)</code></pre>
+</div>
+<div id="sklearns-multinomial-naive-bayes-classifier" class="section level1">
+<h1>Sklearn’s Multinomial Naive Bayes classifier</h1>
+<pre class="python"><code>mnb_Fit = MultinomialNB().fit(Felicia_train, Felicia_hits_train)</code></pre>
+<pre class="python"><code>predictions = mnb_Fit.predict(Felicia_test)
+
+prd = pd.DataFrame(predictions)
+prd.columns=[&#39;predictions&#39;]
+prd.index=Felicia_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Felicia_hits_test],axis=1)
+print(pred)</code></pre>
+<pre><code>##      predictions  TotLandsX1
+## 30             0           0
+## 95             1           0
+## 72             1           0
+## 41             0           0
+## 490            0           0
+## ..           ...         ...
+## 59             1           1
+## 23             1           1
+## 264            2           0
+## 327            2           0
+## 135            1           0
+## 
+## [105 rows x 2 columns]</code></pre>
+<pre class="python"><code>print(&#39;accuracy&#39;, accuracy_score(Felicia_hits_test, predictions))</code></pre>
+<pre><code>## accuracy 0.45714285714285713</code></pre>
+<pre class="python"><code>print(&#39;confusion matrix&#39;)</code></pre>
+<pre><code>## confusion matrix</code></pre>
+<pre class="python"><code>print(&#39;rows=expected, cols=predicted&#39;)</code></pre>
+<pre><code>## rows=expected, cols=predicted</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, predictions))</code></pre>
+<pre><code>## [[40 26 26]
+##  [ 3  8  2]
+##  [ 0  0  0]]</code></pre>
+<p>Think of the recall as the rows that all expected instances need to be found and those outside the correct value reduce the ‘recall’ of the test. Also, think of the columns as the predicted that mean those predicted that value in the same column reduce the precision.</p>
+<p>The seed wasn’t set, and setting it in numpy didn’t work, because the output is different. In tensorflow it works when we get to that CNN.</p>
+<p>So we can see for 0 hits landed it expected 47, misidentified a 1 hit landed as 0 for 47/48 precision accuracy, and misidentified 17 1 hits and 30 2 hits as a 0 hits landed with a recall of 47/(47+17+30) accuracy. The 2s were mostly classified incorrectly as 0s when they were 2s, and the 1s were correctly identified for 8 instances on the test set but 17 were classified incorrectly as 0s and 2 classes that weren’t a 1 were also classified as a 1. This model for multinomial naive bayes scored the 0s accurately but misclassified the 1s by about one third and the 2s were misclassified as 0s or 1 1/32 for very inaccurate results.</p>
+</div>
+<div id="sklearns-random-forest-and-gradient-boosting-classifier-results" class="section level1">
+<h1>Sklearn’s Random Forest and Gradient Boosting Classifier results</h1>
+<pre class="python"><code>
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.metrics import precision_recall_fscore_support as score
+import time</code></pre>
+</div>
+<div id="random-forest-classifier" class="section level1">
+<h1>Random Forest Classifier</h1>
+<pre class="python"><code>rf=RandomForestClassifier(n_estimators=150, max_depth=None, n_jobs=-1)
+start=time.time()
+rf_model=rf.fit(Felicia_train,Felicia_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time</code></pre>
+<pre><code>## 0.41956019401550293</code></pre>
+<pre class="python"><code>start=time.time()
+y_pred=rf_model.predict(Felicia_test)
+end=time.time()
+pred_time=(end-start)
+pred_time</code></pre>
+<pre><code>## 0.1351783275604248</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(y_pred)
+prd.columns=[&#39;Predicted&#39;]
+
+prd.index=Felicia_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Felicia_hits_test],axis=1)
+print(pred)</code></pre>
+<pre><code>##      Predicted  TotLandsX1
+## 30           0           0
+## 95           0           0
+## 72           0           0
+## 41           0           0
+## 490          0           0
+## ..         ...         ...
+## 59           1           1
+## 23           1           1
+## 264          0           0
+## 327          0           0
+## 135          0           0
+## 
+## [105 rows x 2 columns]</code></pre>
+<pre class="python"><code>from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print(&#39;accuracy&#39;, accuracy_score(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## accuracy 1.0</code></pre>
+<pre class="python"><code>print(&#39;confusion matrix&#39;)</code></pre>
+<pre><code>## confusion matrix</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## [[92  0]
+##  [ 0 13]]</code></pre>
+<p>Random Forest scored 100% accuracy in predicting a hit landed in our test set. All 94 0 hits landed were identified and none of the other classes for 1 or 2 hits landed were incorrectly identified as 0, same for the 1s and the 2s. It was also unbelievably faster than I thought it would take.</p>
+</div>
+<div id="gradient-boosted-model" class="section level1">
+<h1>Gradient Boosted Model</h1>
+<pre class="python"><code>gb=GradientBoostingClassifier(n_estimators=150,max_depth=11)
+start=time.time()
+gb_model=gb.fit(Felicia_train,Felicia_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time</code></pre>
+<pre><code>## 0.5491065979003906</code></pre>
+<pre class="python"><code>start=time.time()
+y_pred=gb_model.predict(Felicia_test)
+end=time.time()
+pred_time=(end-start)
+pred_time</code></pre>
+<pre><code>## 0.06101536750793457</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(y_pred)
+prd.columns=[&#39;Predicted&#39;]
+
+prd.index=Felicia_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Felicia_hits_test],axis=1)
+print(pred)</code></pre>
+<pre><code>##      Predicted  TotLandsX1
+## 30           0           0
+## 95           0           0
+## 72           0           0
+## 41           0           0
+## 490          0           0
+## ..         ...         ...
+## 59           1           1
+## 23           1           1
+## 264          0           0
+## 327          0           0
+## 135          0           0
+## 
+## [105 rows x 2 columns]</code></pre>
+<pre class="python"><code>from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print(&#39;accuracy&#39;, accuracy_score(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## accuracy 1.0</code></pre>
+<pre class="python"><code>print(&#39;confusion matrix&#39;)</code></pre>
+<pre><code>## confusion matrix</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## [[92  0]
+##  [ 0 13]]</code></pre>
+<p>The gradient boosted model scored 100% accuracy on the test set in predicting hits landed as did the previous algorithm, random forest classifier.</p>
+<p>Lets use convolutional neural nets now. To see if any difference. The last two sklearn model were fast and the best in accuracy as they both scored 100% on the test sets used.</p>
+</div>
+<div id="convolutional-neural-networks" class="section level1">
+<h1>Convolutional Neural Networks</h1>
+<pre class="python"><code>import numpy as np
+</code></pre>
+<pre class="python"><code>Felicia2 = Felicia
+Felicia2</code></pre>
+<pre><code>##      SecondsIntoRound  lastAction  ...  totalPushKicksX1  totalPushKicksX2
+## 274               124         123  ...                 3                 0
+## 453               196         187  ...                 2                 0
+## 470               241         240  ...                 2                 0
+## 146               194         193  ...                 1                 0
+## 208                56          55  ...                 3                 0
+## ..                ...         ...  ...               ...               ...
+## 59                107         106  ...                 1                 0
+## 23                 70          69  ...                 1                 0
+## 264               114         113  ...                 3                 0
+## 327               177         176  ...                 3                 0
+## 135               183         182  ...                 1                 0
+## 
+## [529 rows x 93 columns]</code></pre>
+<pre class="python"><code>class_mapping = {label: idx for idx, label in enumerate(np.unique(Felicia2[&#39;TotLandsX1&#39;]))}
+class_mapping</code></pre>
+<pre><code>## {0: 0, 1: 1, 2: 2}</code></pre>
+<pre class="python"><code>Felicia_hits_test = pd.DataFrame(Felicia_hits_test)
+Felicia_hits_test.columns=[&#39;TotLandsX1&#39;]
+Felicia_hits_test.columns</code></pre>
+<pre><code>## Index([&#39;TotLandsX1&#39;], dtype=&#39;object&#39;)</code></pre>
+<pre class="python"><code>Felicia_hits_test[&#39;TotLandsX1&#39;]=Felicia_hits_test[&#39;TotLandsX1&#39;].map(class_mapping)
+Felicia_hits_test.head()</code></pre>
+<pre><code>##      TotLandsX1
+## 30            0
+## 95            0
+## 72            0
+## 41            0
+## 490           0</code></pre>
+<pre class="python"><code>Felicia_hits_train=pd.DataFrame(Felicia_hits_train)
+Felicia_hits_train.columns=[&#39;TotLandsX1&#39;]
+Felicia_hits_train.columns</code></pre>
+<pre><code>## Index([&#39;TotLandsX1&#39;], dtype=&#39;object&#39;)</code></pre>
+<pre class="python"><code>Felicia_hits_train[&#39;TotLandsX1&#39;]=Felicia_hits_train[&#39;TotLandsX1&#39;].map(class_mapping)
+Felicia_hits_train.head()</code></pre>
+<pre><code>##      TotLandsX1
+## 274           0
+## 453           0
+## 470           0
+## 146           0
+## 208           0</code></pre>
+<pre class="python"><code>Felicia_train.shape</code></pre>
+<pre><code>## (424, 93)</code></pre>
+<p>RStudio isn’t recognizing the module ‘tensorflow’ in my python environment named python36. This portion of the neural nets will stop here, because tensorflow isn’t being recognized, even though ‘pip list’ in the conda environment says it is a module available and my modules.</p>
+<pre class="python"><code>import tensorflow as tf
+import tensorflow.contrib.keras as keras
+#optionally use import tensorflow.keras as keras when no longer experimental contributor package development
+
+np.random.seed(123)
+tf.set_random_seed(123)</code></pre>
+<pre class="python"><code>
+model6 = keras.models.Sequential()
+
+model6.add(
+    keras.layers.Dense(
+        units=200,   #output units need to match next layer inputs 
+        input_dim=93, #number of features for input above says 93
+        kernel_initializer=&#39;glorot_uniform&#39;,# name of the guy behind Xavier Initialization; the biases to zero
+        bias_initializer=&#39;zeros&#39;,
+        activation=&#39;tanh&#39;))</code></pre>
+<pre><code>## WARNING: Logging before flag parsing goes to stderr.
+## W0522 12:19:25.489040  8780 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Call initializer instance with the dtype argument instead of passing it to the constructor</code></pre>
+<pre class="python"><code>model6.add(
+    keras.layers.Dense(
+        units=100,   #output matches next layer input 
+        input_dim=200, #input matches last layer&#39;s output
+        kernel_initializer=&#39;glorot_uniform&#39;,
+        bias_initializer=&#39;zeros&#39;,
+        activation=&#39;tanh&#39;))
+
+model6.add(
+    keras.layers.Dense(
+        units=100,   #output matches next layer input 
+        input_dim=100, #input matches last layer&#39;s output
+        kernel_initializer=&#39;glorot_uniform&#39;,
+        bias_initializer=&#39;zeros&#39;,
+        activation=&#39;tanh&#39;))
+
+model6.add(
+    keras.layers.Dense(
+        units=100,   #output matches next layer input 
+        input_dim=100, #input matches last layer&#39;s output
+        kernel_initializer=&#39;glorot_uniform&#39;,
+        bias_initializer=&#39;zeros&#39;,
+        activation=&#39;relu&#39;))
+
+
+model6.add(
+    keras.layers.Dense(
+        units=3,  #these are the number of class categories in our target  
+        input_dim=100,
+        kernel_initializer=&#39;glorot_uniform&#39;,
+        bias_initializer=&#39;zeros&#39;,
+        activation=&#39;softmax&#39;))#will return the class membership probs summing to 1 of all class probs
+
+# these are hyperparameters that can be tuned if overfitting during training, or to get better accuracy
+sgd_optimizer = keras.optimizers.SGD( 
+        lr=0.001, decay=1e-7, momentum=.8)
+
+# categorical_crossentropy is used in multiclass classification instead of binary_crossentropy
+# to match the softmax function
+model6.compile(optimizer=sgd_optimizer,
+              loss=&#39;sparse_categorical_crossentropy&#39;)
+# it was &#39;categorical_crossentropy&#39;, but that expects binary matrices of 1s and 0s
+# it said to use sparse_categorical_crossentropy</code></pre>
+<pre class="python"><code>import time
+start=time.time()
+
+history6 = model6.fit(Felicia_train, Felicia_hits_train,
+                    batch_size=64, epochs=50,
+                    verbose=1, 
+                    validation_split=0.15) </code></pre>
+<pre><code>## Train on 360 samples, validate on 64 samples
+## Epoch 1/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 6s - loss: 1.2403
+## 128/360 [=========&gt;....................] - ETA: 2s - loss: 1.2117
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 1.1205
+## 360/360 [==============================] - 2s 6ms/sample - loss: 1.0405 - val_loss: 0.7544
+## Epoch 2/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.7713
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.7039
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.6243
+## 360/360 [==============================] - 0s 737us/sample - loss: 0.5912 - val_loss: 0.5205
+## Epoch 3/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5375
+## 360/360 [==============================] - 0s 175us/sample - loss: 0.4279 - val_loss: 0.4615
+## Epoch 4/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3164
+## 360/360 [==============================] - 0s 100us/sample - loss: 0.3909 - val_loss: 0.4509
+## Epoch 5/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3217
+## 360/360 [==============================] - 0s 112us/sample - loss: 0.3801 - val_loss: 0.4466
+## Epoch 6/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2802
+## 360/360 [==============================] - 0s 105us/sample - loss: 0.3755 - val_loss: 0.4418
+## Epoch 7/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5323
+## 360/360 [==============================] - 0s 111us/sample - loss: 0.3721 - val_loss: 0.4380
+## Epoch 8/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4635
+## 360/360 [==============================] - 0s 108us/sample - loss: 0.3684 - val_loss: 0.4339
+## Epoch 9/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3672
+## 360/360 [==============================] - 0s 121us/sample - loss: 0.3659 - val_loss: 0.4309
+## Epoch 10/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2358
+## 360/360 [==============================] - 0s 87us/sample - loss: 0.3641 - val_loss: 0.4287
+## Epoch 11/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2748
+## 360/360 [==============================] - 0s 147us/sample - loss: 0.3619 - val_loss: 0.4252
+## Epoch 12/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3216
+## 360/360 [==============================] - 0s 130us/sample - loss: 0.3603 - val_loss: 0.4235
+## Epoch 13/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.6510
+## 360/360 [==============================] - 0s 102us/sample - loss: 0.3598 - val_loss: 0.4208
+## Epoch 14/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2737
+## 360/360 [==============================] - 0s 117us/sample - loss: 0.3585 - val_loss: 0.4214
+## Epoch 15/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5129
+## 360/360 [==============================] - 0s 59us/sample - loss: 0.3574 - val_loss: 0.4184
+## Epoch 16/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3436
+## 360/360 [==============================] - 0s 155us/sample - loss: 0.3563 - val_loss: 0.4165
+## Epoch 17/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3930
+## 360/360 [==============================] - 0s 76us/sample - loss: 0.3552 - val_loss: 0.4163
+## Epoch 18/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2251
+## 360/360 [==============================] - 0s 178us/sample - loss: 0.3546 - val_loss: 0.4163
+## Epoch 19/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2975
+## 360/360 [==============================] - 0s 53us/sample - loss: 0.3538 - val_loss: 0.4148
+## Epoch 20/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3490
+## 360/360 [==============================] - 0s 145us/sample - loss: 0.3530 - val_loss: 0.4145
+## Epoch 21/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4889
+## 360/360 [==============================] - 0s 87us/sample - loss: 0.3524 - val_loss: 0.4132
+## Epoch 22/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.1808
+## 360/360 [==============================] - 0s 144us/sample - loss: 0.3519 - val_loss: 0.4135
+## Epoch 23/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3315
+## 360/360 [==============================] - 0s 117us/sample - loss: 0.3507 - val_loss: 0.4119
+## Epoch 24/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4058
+## 360/360 [==============================] - 0s 113us/sample - loss: 0.3506 - val_loss: 0.4117
+## Epoch 25/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3070
+## 360/360 [==============================] - 0s 122us/sample - loss: 0.3497 - val_loss: 0.4105
+## Epoch 26/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3591
+## 360/360 [==============================] - 0s 63us/sample - loss: 0.3492 - val_loss: 0.4092
+## Epoch 27/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4457
+## 360/360 [==============================] - 0s 155us/sample - loss: 0.3488 - val_loss: 0.4086
+## Epoch 28/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2228
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3700
+## 360/360 [==============================] - 0s 225us/sample - loss: 0.3487 - val_loss: 0.4086
+## Epoch 29/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3994
+## 360/360 [==============================] - 0s 75us/sample - loss: 0.3477 - val_loss: 0.4092
+## Epoch 30/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3742
+## 360/360 [==============================] - 0s 144us/sample - loss: 0.3475 - val_loss: 0.4072
+## Epoch 31/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4225
+## 360/360 [==============================] - 0s 102us/sample - loss: 0.3470 - val_loss: 0.4074
+## Epoch 32/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3406
+## 360/360 [==============================] - 0s 153us/sample - loss: 0.3465 - val_loss: 0.4057
+## Epoch 33/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4032
+## 360/360 [==============================] - 0s 115us/sample - loss: 0.3462 - val_loss: 0.4055
+## Epoch 34/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4878
+## 360/360 [==============================] - 0s 86us/sample - loss: 0.3463 - val_loss: 0.4051
+## Epoch 35/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3586
+## 360/360 [==============================] - 0s 127us/sample - loss: 0.3454 - val_loss: 0.4059
+## Epoch 36/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3464
+## 360/360 [==============================] - 0s 96us/sample - loss: 0.3450 - val_loss: 0.4038
+## Epoch 37/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4677
+## 360/360 [==============================] - 0s 120us/sample - loss: 0.3449 - val_loss: 0.4017
+## Epoch 38/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4847
+## 360/360 [==============================] - 0s 59us/sample - loss: 0.3442 - val_loss: 0.4035
+## Epoch 39/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3054
+## 360/360 [==============================] - 0s 153us/sample - loss: 0.3442 - val_loss: 0.3997
+## Epoch 40/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2718
+## 360/360 [==============================] - 0s 78us/sample - loss: 0.3435 - val_loss: 0.4012
+## Epoch 41/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2187
+## 360/360 [==============================] - 0s 141us/sample - loss: 0.3427 - val_loss: 0.4004
+## Epoch 42/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5298
+## 360/360 [==============================] - 0s 148us/sample - loss: 0.3430 - val_loss: 0.3989
+## Epoch 43/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2686
+## 360/360 [==============================] - 0s 111us/sample - loss: 0.3419 - val_loss: 0.3999
+## Epoch 44/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3953
+## 360/360 [==============================] - 0s 111us/sample - loss: 0.3417 - val_loss: 0.3999
+## Epoch 45/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4485
+## 360/360 [==============================] - 0s 86us/sample - loss: 0.3412 - val_loss: 0.3990
+## Epoch 46/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3610
+## 360/360 [==============================] - 0s 130us/sample - loss: 0.3411 - val_loss: 0.3972
+## Epoch 47/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2954
+## 360/360 [==============================] - 0s 101us/sample - loss: 0.3404 - val_loss: 0.3974
+## Epoch 48/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3725
+## 360/360 [==============================] - 0s 115us/sample - loss: 0.3402 - val_loss: 0.3978
+## Epoch 49/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3237
+## 360/360 [==============================] - 0s 71us/sample - loss: 0.3397 - val_loss: 0.3975
+## Epoch 50/50
+## 
+##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2536
+## 360/360 [==============================] - 0s 145us/sample - loss: 0.3393 - val_loss: 0.3972</code></pre>
+<pre class="python"><code>end=time.time()
+fit_time=(end-start)
+print(start,end,fit_time)</code></pre>
+<pre><code>## 1590175166.6873393 1590175171.7704842 5.083144903182983</code></pre>
+<pre class="python"><code>y_train_pred6 = model6.predict_classes(Felicia_train, verbose=0)
+print(&#39;First 3 predictions: &#39;, y_train_pred6[:3])</code></pre>
+<pre><code>## First 3 predictions:  [0 0 0]</code></pre>
+<pre class="python"><code>y_train_pred6 = model6.predict_classes(Felicia_train, 
+                                     verbose=0)</code></pre>
+<pre class="python"><code>y_train_pred6 = pd.DataFrame(y_train_pred6)
+y_train_pred6.columns=[&#39;predicted&#39;]
+
+y_train6 = Felicia_hits_train
+y_train6 = pd.DataFrame(y_train6)
+y_train6.columns=[&#39;ActualHitsLandedbyX1&#39;]
+
+y_train_pred6.index=y_train6.index
+
+Train6=pd.concat([y_train6[&#39;ActualHitsLandedbyX1&#39;],y_train_pred6[&#39;predicted&#39;]],axis=1)
+
+print(Train6)</code></pre>
+<pre><code>##      ActualHitsLandedbyX1  predicted
+## 274                     0          0
+## 453                     0          0
+## 470                     0          0
+## 146                     0          0
+## 208                     0          0
+## ..                    ...        ...
+## 374                     0          0
+## 103                     0          0
+## 480                     0          0
+## 342                     0          0
+## 221                     0          0
+## 
+## [424 rows x 2 columns]</code></pre>
+<pre class="python"><code>y_test_pred6 = model6.predict_classes(Felicia_test, 
+                                    verbose=0)</code></pre>
+<pre class="python"><code>y_test_pred6 = pd.DataFrame(y_test_pred6)
+y_test_pred6.columns=[&#39;predicted&#39;]
+
+y_test6 = Felicia_hits_test
+y_test6 = pd.DataFrame(y_test6)
+y_test6.columns=[&#39;ActualHitsLandedbyX1&#39;]
+
+y_test_pred6.index=y_test6.index
+
+Test6=pd.concat([y_test6[&#39;ActualHitsLandedbyX1&#39;],y_test_pred6[&#39;predicted&#39;]],axis=1)
+
+print(Test6)</code></pre>
+<pre><code>##      ActualHitsLandedbyX1  predicted
+## 30                      0          0
+## 95                      0          0
+## 72                      0          0
+## 41                      0          0
+## 490                     0          0
+## ..                    ...        ...
+## 59                      1          0
+## 23                      1          0
+## 264                     0          0
+## 327                     0          0
+## 135                     0          0
+## 
+## [105 rows x 2 columns]</code></pre>
+<pre class="python"><code>s = sum(Train6[&#39;ActualHitsLandedbyX1&#39;]==Train6[&#39;predicted&#39;])
+l = len(Train6[&#39;ActualHitsLandedbyX1&#39;])
+accTrain6 = s/l
+print(&#39;Training Correctly Predicted:&#39;,s,&#39;Training Accuracy:&#39;,accTrain6,&#39;\n&#39;)</code></pre>
+<pre><code>## Training Correctly Predicted: 381 Training Accuracy: 0.8985849056603774</code></pre>
+<pre class="python"><code>y_train_pred6[&#39;predicted&#39;].unique()</code></pre>
+<pre><code>## array([0], dtype=int64)</code></pre>
+<pre class="python"><code>Felicia_hits_train[&#39;ActualHitsLandedbyX1&#39;].unique()</code></pre>
+<pre><code>## array([0, 2, 1], dtype=int64)</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_train, y_train_pred6))</code></pre>
+<pre><code>## [[381   0   0]
+##  [ 35   0   0]
+##  [  8   0   0]]</code></pre>
+<p>The training set with validation training for our CNN model only predicted 0 for all possible classes. The accuracy was 89.85% with this run. In it a 3X3 array for the confusion matrix was printed. There were 381 correctly predicted class 0 hits landed, but all 35 class 1 hits landed were predicted to be 0 and all class 2 hits landed were predicted to be 0.</p>
+<pre class="python"><code>s = sum(Test6[&#39;ActualHitsLandedbyX1&#39;]==Test6[&#39;predicted&#39;])
+l = len(Test6[&#39;ActualHitsLandedbyX1&#39;])
+accTest6 = s/l
+print(&#39;Testing Correctly Predicted:&#39;,s,&#39;Testing Accuracy:&#39;,accTest6)</code></pre>
+<pre><code>## Testing Correctly Predicted: 92 Testing Accuracy: 0.8761904761904762</code></pre>
+<pre class="python"><code>y_test_pred6[&#39;predicted&#39;].unique()</code></pre>
+<pre><code>## array([0], dtype=int64)</code></pre>
+<pre class="python"><code>Felicia_hits_test[&#39;ActualHitsLandedbyX1&#39;].unique()</code></pre>
+<pre><code>## array([0, 1], dtype=int64)</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, y_test_pred6))</code></pre>
+<pre><code>## [[92  0]
+##  [13  0]]</code></pre>
+<p>In our CNN model when using it to predict on our testing set, it again predicted all 0s for the class in hits landed by X1, but only had class 0 and class 1 to predict. All 13 class 1 hits landed were misclassified as 0 hits landed.</p>
+<p>In summary, the best accuracy in prediction were the Random Forest and Gradient Boosted classifiers in Sklearn of Python and the modified boundaries and rounded class numeric values within those boundaries for the R Caret algorithms random forest and generalized linear models at 96.8% and rpart and gbm with 96.2%.</p>
+<p>Later we will put this together to test the accuracy of another fighter or make predictions on hits landed when we switch out Nunez with X2 and run the machine learning models of our best catch accuracy in prediction to see who is more likely to land hits in their upcoming fight June 2, 2020.</p>
+</div>
 
 
 
