@@ -21592,17 +21592,11 @@ accuracy6</code></pre>
 ## 5 r-reticulate C:\\Users\\m\\Anaconda2\\envs\\r-reticulate\\python.exe</code></pre>
 <pre class="r"><code>use_condaenv(condaenv = &quot;python36&quot;)</code></pre>
 <pre class="python"><code>import pandas as pd 
-import matplotlib.pyplot as plt 
-from textblob import TextBlob 
 import sklearn 
 import numpy as np 
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer 
 from sklearn.naive_bayes import MultinomialNB 
-from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
 
-import re
-import string
-import nltk 
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
 
 np.random.seed(47) </code></pre>
 <p>Import our ML ready file to run the python algorithms on with sklearn.</p>
@@ -21741,13 +21735,13 @@ rf_model=rf.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.41956019401550293</code></pre>
+<pre><code>## 0.4112377166748047</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=rf_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.1351783275604248</code></pre>
+<pre><code>## 0.14951086044311523</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -21787,13 +21781,13 @@ gb_model=gb.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.5491065979003906</code></pre>
+<pre><code>## 0.6453018188476562</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=gb_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.06101536750793457</code></pre>
+<pre><code>## 0.031007051467895508</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -21893,7 +21887,7 @@ model6.add(
         bias_initializer=&#39;zeros&#39;,
         activation=&#39;tanh&#39;))</code></pre>
 <pre><code>## WARNING: Logging before flag parsing goes to stderr.
-## W0522 12:19:25.489040  8780 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+## W0523 11:02:42.208872 11208 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
 ## Instructions for updating:
 ## Call initializer instance with the dtype argument instead of passing it to the constructor</code></pre>
 <pre class="python"><code>model6.add(
@@ -21950,212 +21944,207 @@ history6 = model6.fit(Felicia_train, Felicia_hits_train,
 ## Epoch 1/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 6s - loss: 1.2403
-## 128/360 [=========&gt;....................] - ETA: 2s - loss: 1.2117
-## 256/360 [====================&gt;.........] - ETA: 0s - loss: 1.1205
-## 360/360 [==============================] - 2s 6ms/sample - loss: 1.0405 - val_loss: 0.7544
+## 360/360 [==============================] - 2s 4ms/sample - loss: 1.0405 - val_loss: 0.7544
 ## Epoch 2/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.7713
-## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.7039
-## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.6243
-## 360/360 [==============================] - 0s 737us/sample - loss: 0.5912 - val_loss: 0.5205
+## 360/360 [==============================] - 0s 124us/sample - loss: 0.5912 - val_loss: 0.5205
 ## Epoch 3/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5375
-## 360/360 [==============================] - 0s 175us/sample - loss: 0.4279 - val_loss: 0.4615
+## 360/360 [==============================] - 0s 64us/sample - loss: 0.4279 - val_loss: 0.4615
 ## Epoch 4/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3164
-## 360/360 [==============================] - 0s 100us/sample - loss: 0.3909 - val_loss: 0.4509
+## 360/360 [==============================] - 0s 43us/sample - loss: 0.3909 - val_loss: 0.4509
 ## Epoch 5/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3217
-## 360/360 [==============================] - 0s 112us/sample - loss: 0.3801 - val_loss: 0.4466
+## 360/360 [==============================] - 0s 116us/sample - loss: 0.3801 - val_loss: 0.4466
 ## Epoch 6/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2802
-## 360/360 [==============================] - 0s 105us/sample - loss: 0.3755 - val_loss: 0.4418
+## 360/360 [==============================] - 0s 29us/sample - loss: 0.3755 - val_loss: 0.4418
 ## Epoch 7/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5323
-## 360/360 [==============================] - 0s 111us/sample - loss: 0.3721 - val_loss: 0.4380
+## 360/360 [==============================] - 0s 74us/sample - loss: 0.3721 - val_loss: 0.4380
 ## Epoch 8/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4635
-## 360/360 [==============================] - 0s 108us/sample - loss: 0.3684 - val_loss: 0.4339
+## 360/360 [==============================] - 0s 66us/sample - loss: 0.3684 - val_loss: 0.4339
 ## Epoch 9/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3672
-## 360/360 [==============================] - 0s 121us/sample - loss: 0.3659 - val_loss: 0.4309
+## 360/360 [==============================] - 0s 43us/sample - loss: 0.3659 - val_loss: 0.4309
 ## Epoch 10/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2358
-## 360/360 [==============================] - 0s 87us/sample - loss: 0.3641 - val_loss: 0.4287
+## 360/360 [==============================] - 0s 100us/sample - loss: 0.3641 - val_loss: 0.4287
 ## Epoch 11/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2748
-## 360/360 [==============================] - 0s 147us/sample - loss: 0.3619 - val_loss: 0.4252
+## 360/360 [==============================] - 0s 78us/sample - loss: 0.3619 - val_loss: 0.4252
 ## Epoch 12/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3216
-## 360/360 [==============================] - 0s 130us/sample - loss: 0.3603 - val_loss: 0.4235
+## 360/360 [==============================] - 0s 69us/sample - loss: 0.3603 - val_loss: 0.4235
 ## Epoch 13/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.6510
-## 360/360 [==============================] - 0s 102us/sample - loss: 0.3598 - val_loss: 0.4208
+## 360/360 [==============================] - 0s 77us/sample - loss: 0.3598 - val_loss: 0.4208
 ## Epoch 14/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2737
-## 360/360 [==============================] - 0s 117us/sample - loss: 0.3585 - val_loss: 0.4214
+## 360/360 [==============================] - 0s 43us/sample - loss: 0.3585 - val_loss: 0.4214
 ## Epoch 15/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5129
-## 360/360 [==============================] - 0s 59us/sample - loss: 0.3574 - val_loss: 0.4184
+## 360/360 [==============================] - 0s 97us/sample - loss: 0.3574 - val_loss: 0.4184
 ## Epoch 16/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3436
-## 360/360 [==============================] - 0s 155us/sample - loss: 0.3563 - val_loss: 0.4165
+## 360/360 [==============================] - 0s 83us/sample - loss: 0.3563 - val_loss: 0.4165
 ## Epoch 17/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3930
-## 360/360 [==============================] - 0s 76us/sample - loss: 0.3552 - val_loss: 0.4163
+## 360/360 [==============================] - 0s 48us/sample - loss: 0.3552 - val_loss: 0.4163
 ## Epoch 18/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2251
-## 360/360 [==============================] - 0s 178us/sample - loss: 0.3546 - val_loss: 0.4163
+## 360/360 [==============================] - 0s 43us/sample - loss: 0.3546 - val_loss: 0.4163
 ## Epoch 19/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2975
-## 360/360 [==============================] - 0s 53us/sample - loss: 0.3538 - val_loss: 0.4148
+## 360/360 [==============================] - 0s 117us/sample - loss: 0.3538 - val_loss: 0.4148
 ## Epoch 20/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3490
-## 360/360 [==============================] - 0s 145us/sample - loss: 0.3530 - val_loss: 0.4145
+## 360/360 [==============================] - 0s 111us/sample - loss: 0.3530 - val_loss: 0.4145
 ## Epoch 21/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4889
-## 360/360 [==============================] - 0s 87us/sample - loss: 0.3524 - val_loss: 0.4132
+## 360/360 [==============================] - 0s 82us/sample - loss: 0.3524 - val_loss: 0.4132
 ## Epoch 22/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.1808
-## 360/360 [==============================] - 0s 144us/sample - loss: 0.3519 - val_loss: 0.4135
+## 360/360 [==============================] - 0s 63us/sample - loss: 0.3519 - val_loss: 0.4135
 ## Epoch 23/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3315
-## 360/360 [==============================] - 0s 117us/sample - loss: 0.3507 - val_loss: 0.4119
+## 360/360 [==============================] - 0s 79us/sample - loss: 0.3507 - val_loss: 0.4119
 ## Epoch 24/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4058
-## 360/360 [==============================] - 0s 113us/sample - loss: 0.3506 - val_loss: 0.4117
+## 360/360 [==============================] - 0s 58us/sample - loss: 0.3506 - val_loss: 0.4117
 ## Epoch 25/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3070
-## 360/360 [==============================] - 0s 122us/sample - loss: 0.3497 - val_loss: 0.4105
+## 360/360 [==============================] - 0s 87us/sample - loss: 0.3497 - val_loss: 0.4105
 ## Epoch 26/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3591
-## 360/360 [==============================] - 0s 63us/sample - loss: 0.3492 - val_loss: 0.4092
+## 360/360 [==============================] - 0s 43us/sample - loss: 0.3492 - val_loss: 0.4092
 ## Epoch 27/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4457
-## 360/360 [==============================] - 0s 155us/sample - loss: 0.3488 - val_loss: 0.4086
+## 360/360 [==============================] - 0s 115us/sample - loss: 0.3488 - val_loss: 0.4086
 ## Epoch 28/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2228
-## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3700
-## 360/360 [==============================] - 0s 225us/sample - loss: 0.3487 - val_loss: 0.4086
+## 360/360 [==============================] - 0s 75us/sample - loss: 0.3487 - val_loss: 0.4086
 ## Epoch 29/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3994
-## 360/360 [==============================] - 0s 75us/sample - loss: 0.3477 - val_loss: 0.4092
+## 360/360 [==============================] - 0s 76us/sample - loss: 0.3477 - val_loss: 0.4092
 ## Epoch 30/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3742
-## 360/360 [==============================] - 0s 144us/sample - loss: 0.3475 - val_loss: 0.4072
+## 360/360 [==============================] - 0s 72us/sample - loss: 0.3475 - val_loss: 0.4072
 ## Epoch 31/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4225
-## 360/360 [==============================] - 0s 102us/sample - loss: 0.3470 - val_loss: 0.4074
+## 360/360 [==============================] - 0s 64us/sample - loss: 0.3470 - val_loss: 0.4074
 ## Epoch 32/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3406
-## 360/360 [==============================] - 0s 153us/sample - loss: 0.3465 - val_loss: 0.4057
+## 360/360 [==============================] - 0s 78us/sample - loss: 0.3465 - val_loss: 0.4057
 ## Epoch 33/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4032
-## 360/360 [==============================] - 0s 115us/sample - loss: 0.3462 - val_loss: 0.4055
+## 360/360 [==============================] - 0s 75us/sample - loss: 0.3462 - val_loss: 0.4055
 ## Epoch 34/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4878
-## 360/360 [==============================] - 0s 86us/sample - loss: 0.3463 - val_loss: 0.4051
+## 360/360 [==============================] - 0s 100us/sample - loss: 0.3463 - val_loss: 0.4051
 ## Epoch 35/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3586
-## 360/360 [==============================] - 0s 127us/sample - loss: 0.3454 - val_loss: 0.4059
+## 360/360 [==============================] - 0s 86us/sample - loss: 0.3454 - val_loss: 0.4059
 ## Epoch 36/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3464
-## 360/360 [==============================] - 0s 96us/sample - loss: 0.3450 - val_loss: 0.4038
+## 360/360 [==============================] - 0s 46us/sample - loss: 0.3450 - val_loss: 0.4038
 ## Epoch 37/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4677
-## 360/360 [==============================] - 0s 120us/sample - loss: 0.3449 - val_loss: 0.4017
+## 360/360 [==============================] - 0s 87us/sample - loss: 0.3449 - val_loss: 0.4017
 ## Epoch 38/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4847
-## 360/360 [==============================] - 0s 59us/sample - loss: 0.3442 - val_loss: 0.4035
+## 360/360 [==============================] - 0s 75us/sample - loss: 0.3442 - val_loss: 0.4035
 ## Epoch 39/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3054
-## 360/360 [==============================] - 0s 153us/sample - loss: 0.3442 - val_loss: 0.3997
+## 360/360 [==============================] - 0s 62us/sample - loss: 0.3442 - val_loss: 0.3997
 ## Epoch 40/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2718
-## 360/360 [==============================] - 0s 78us/sample - loss: 0.3435 - val_loss: 0.4012
+## 360/360 [==============================] - 0s 87us/sample - loss: 0.3435 - val_loss: 0.4012
 ## Epoch 41/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2187
-## 360/360 [==============================] - 0s 141us/sample - loss: 0.3427 - val_loss: 0.4004
+## 360/360 [==============================] - 0s 52us/sample - loss: 0.3427 - val_loss: 0.4004
 ## Epoch 42/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5298
-## 360/360 [==============================] - 0s 148us/sample - loss: 0.3430 - val_loss: 0.3989
+## 360/360 [==============================] - 0s 43us/sample - loss: 0.3430 - val_loss: 0.3989
 ## Epoch 43/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2686
-## 360/360 [==============================] - 0s 111us/sample - loss: 0.3419 - val_loss: 0.3999
+## 360/360 [==============================] - 0s 115us/sample - loss: 0.3419 - val_loss: 0.3999
 ## Epoch 44/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3953
-## 360/360 [==============================] - 0s 111us/sample - loss: 0.3417 - val_loss: 0.3999
+## 360/360 [==============================] - 0s 69us/sample - loss: 0.3417 - val_loss: 0.3999
 ## Epoch 45/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4485
-## 360/360 [==============================] - 0s 86us/sample - loss: 0.3412 - val_loss: 0.3990
+## 360/360 [==============================] - 0s 47us/sample - loss: 0.3412 - val_loss: 0.3990
 ## Epoch 46/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3610
-## 360/360 [==============================] - 0s 130us/sample - loss: 0.3411 - val_loss: 0.3972
+## 360/360 [==============================] - 0s 98us/sample - loss: 0.3411 - val_loss: 0.3972
 ## Epoch 47/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2954
-## 360/360 [==============================] - 0s 101us/sample - loss: 0.3404 - val_loss: 0.3974
+## 360/360 [==============================] - 0s 36us/sample - loss: 0.3404 - val_loss: 0.3974
 ## Epoch 48/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3725
-## 360/360 [==============================] - 0s 115us/sample - loss: 0.3402 - val_loss: 0.3978
+## 360/360 [==============================] - 0s 87us/sample - loss: 0.3402 - val_loss: 0.3978
 ## Epoch 49/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3237
-## 360/360 [==============================] - 0s 71us/sample - loss: 0.3397 - val_loss: 0.3975
+## 360/360 [==============================] - 0s 91us/sample - loss: 0.3397 - val_loss: 0.3975
 ## Epoch 50/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2536
-## 360/360 [==============================] - 0s 145us/sample - loss: 0.3393 - val_loss: 0.3972</code></pre>
+## 360/360 [==============================] - 0s 52us/sample - loss: 0.3393 - val_loss: 0.3972</code></pre>
 <pre class="python"><code>end=time.time()
 fit_time=(end-start)
 print(start,end,fit_time)</code></pre>
-<pre><code>## 1590175166.6873393 1590175171.7704842 5.083144903182983</code></pre>
+<pre><code>## 1590256962.7397294 1590256966.2886696 3.5489401817321777</code></pre>
 <pre class="python"><code>y_train_pred6 = model6.predict_classes(Felicia_train, verbose=0)
 print(&#39;First 3 predictions: &#39;, y_train_pred6[:3])</code></pre>
 <pre><code>## First 3 predictions:  [0 0 0]</code></pre>
@@ -22244,6 +22233,1358 @@ print(&#39;Testing Correctly Predicted:&#39;,s,&#39;Testing Accuracy:&#39;,accTe
 <p>In our CNN model when using it to predict on our testing set, it again predicted all 0s for the class in hits landed by X1, but only had class 0 and class 1 to predict. All 13 class 1 hits landed were misclassified as 0 hits landed.</p>
 <p>In summary, the best accuracy in prediction were the Random Forest and Gradient Boosted classifiers in Sklearn of Python and the modified boundaries and rounded class numeric values within those boundaries for the R Caret algorithms random forest and generalized linear models at 96.8% and rpart and gbm with 96.2%.</p>
 <p>Later we will put this together to test the accuracy of another fighter or make predictions on hits landed when we switch out Nunez with X2 and run the machine learning models of our best catch accuracy in prediction to see who is more likely to land hits in their upcoming fight June 2, 2020.</p>
+<hr />
+</div>
+<div id="predicting-who-has-the-most-hits-landed-in-two-separate-data-tables-of-x1" class="section level1">
+<h1>Predicting who has the most hits landed in two separate data tables of X1</h1>
+<p>In this section we will use Felicia’s hits as X1, but substitute in the X2 fighter with Amanda’s table as x1, using R instead of Python.</p>
+<p>Lets read in Amanda’s table with all fights and Felicia’s ML ready table.</p>
+<pre class="r"><code>AmandaML &lt;- read.csv(&#39;Nunez4Fights_addedFeatures.csv&#39;, header=T, sep=&#39;,&#39;, na.strings=c(&#39;&#39;,&#39; &#39;,&#39;NA&#39;))
+FeliciaML &lt;- read.csv(&#39;Felicia_ml_ready.csv&#39;, sep=&#39;,&#39;, header=T, na.strings=c(&#39;&#39;,&#39; &#39;,&#39;NA&#39;))</code></pre>
+<pre class="r"><code>colnames(AmandaML)</code></pre>
+<pre><code>##   [1] &quot;Round&quot;                       &quot;SecondsIntoRound&quot;           
+##   [3] &quot;lastAction&quot;                  &quot;SecondsLastRoundAction&quot;     
+##   [5] &quot;cmTotHitsR.X1&quot;               &quot;cmTotHitsL.X1&quot;              
+##   [7] &quot;cmTotHitsM.X1&quot;               &quot;TotLandsX1&quot;                 
+##   [9] &quot;TotMissedX1&quot;                 &quot;TotReceivedX1&quot;              
+##  [11] &quot;cmTotHitsR.X2&quot;               &quot;cmTotHitsL.X2&quot;              
+##  [13] &quot;cmTotHitsM.X2&quot;               &quot;TotLandsX2&quot;                 
+##  [15] &quot;TotMissedX2&quot;                 &quot;TotReceivedX2&quot;              
+##  [17] &quot;Time&quot;                        &quot;FighterActionReactions.X1&quot;  
+##  [19] &quot;FightersActionsReactions.X2&quot; &quot;Notes&quot;                      
+##  [21] &quot;Crossl.X1&quot;                   &quot;Kneel.X1&quot;                   
+##  [23] &quot;Elbowl.X1&quot;                   &quot;Hookl.X1&quot;                   
+##  [25] &quot;Jabl.X1&quot;                     &quot;Kickl.X1&quot;                   
+##  [27] &quot;upperl.X1&quot;                   &quot;takedownl.X1&quot;               
+##  [29] &quot;hammerl.X1&quot;                  &quot;Cross2l.X1&quot;                 
+##  [31] &quot;Knee2l.X1&quot;                   &quot;Elbow2l.X1&quot;                 
+##  [33] &quot;Hook2l.X1&quot;                   &quot;Jab2l.X1&quot;                   
+##  [35] &quot;Kick2l.X1&quot;                   &quot;upper2l.X1&quot;                 
+##  [37] &quot;takedown2l.X1&quot;               &quot;hammer2l.X1&quot;                
+##  [39] &quot;Cross3l.X1&quot;                  &quot;Knee3l.X1&quot;                  
+##  [41] &quot;Elbow3l.X1&quot;                  &quot;Hook3l.X1&quot;                  
+##  [43] &quot;Jab3l.X1&quot;                    &quot;Kick3l.X1&quot;                  
+##  [45] &quot;upper3l.X1&quot;                  &quot;takedown3l.X1&quot;              
+##  [47] &quot;hammer3l.X1&quot;                 &quot;Crossl.X2&quot;                  
+##  [49] &quot;Kneel.X2&quot;                    &quot;Elbowl.X2&quot;                  
+##  [51] &quot;Hookl.X2&quot;                    &quot;Jabl.X2&quot;                    
+##  [53] &quot;Kickl.X2&quot;                    &quot;upperl.X2&quot;                  
+##  [55] &quot;takedownl.X2&quot;                &quot;hammerl.X2&quot;                 
+##  [57] &quot;Cross2l.X2&quot;                  &quot;Knee2l.X2&quot;                  
+##  [59] &quot;Elbow2l.X2&quot;                  &quot;Hook2l.X2&quot;                  
+##  [61] &quot;Jab2l.X2&quot;                    &quot;Kick2l.X2&quot;                  
+##  [63] &quot;upper2l.X2&quot;                  &quot;takedown2l.X2&quot;              
+##  [65] &quot;hammer2l.X2&quot;                 &quot;Cross3l.X2&quot;                 
+##  [67] &quot;Knee3l.X2&quot;                   &quot;Elbow3l.X2&quot;                 
+##  [69] &quot;Hook3l.X2&quot;                   &quot;Jab3l.X2&quot;                   
+##  [71] &quot;Kick3l.X2&quot;                   &quot;upper3l.X2&quot;                 
+##  [73] &quot;takedown3l.X2&quot;               &quot;hammer3l.X2&quot;                
+##  [75] &quot;Crossm.X1&quot;                   &quot;Kneem.X1&quot;                   
+##  [77] &quot;Elbowm.X1&quot;                   &quot;Hookm.X1&quot;                   
+##  [79] &quot;Jabm.X1&quot;                     &quot;Kickm.X1&quot;                   
+##  [81] &quot;upperm.X1&quot;                   &quot;takedownm.X1&quot;               
+##  [83] &quot;hammerm.X1&quot;                  &quot;Cross2m.X1&quot;                 
+##  [85] &quot;Knee2m.X1&quot;                   &quot;Elbow2m.X1&quot;                 
+##  [87] &quot;Hook2m.X1&quot;                   &quot;Jab2m.X1&quot;                   
+##  [89] &quot;Kick2m.X1&quot;                   &quot;upper2m.X1&quot;                 
+##  [91] &quot;takedown2m.X1&quot;               &quot;hammer2m.X1&quot;                
+##  [93] &quot;Cross3m.X1&quot;                  &quot;Knee3m.X1&quot;                  
+##  [95] &quot;Elbow3m.X1&quot;                  &quot;Hook3m.X1&quot;                  
+##  [97] &quot;Jab3m.X1&quot;                    &quot;Kick3m.X1&quot;                  
+##  [99] &quot;upper3m.X1&quot;                  &quot;takedown3m.X1&quot;              
+## [101] &quot;hammer3m.X1&quot;                 &quot;Crossm.X2&quot;                  
+## [103] &quot;Kneem.X2&quot;                    &quot;Elbowm.X2&quot;                  
+## [105] &quot;Hookm.X2&quot;                    &quot;Jabm.X2&quot;                    
+## [107] &quot;Kickm.X2&quot;                    &quot;upperm.X2&quot;                  
+## [109] &quot;takedownm.X2&quot;                &quot;hammerm.X2&quot;                 
+## [111] &quot;Cross2m.X2&quot;                  &quot;Knee2m.X2&quot;                  
+## [113] &quot;Elbow2m.X2&quot;                  &quot;Hook2m.X2&quot;                  
+## [115] &quot;Jab2m.X2&quot;                    &quot;Kick2m.X2&quot;                  
+## [117] &quot;upper2m.X2&quot;                  &quot;takedown2m.X2&quot;              
+## [119] &quot;hammer2m.X2&quot;                 &quot;Cross3m.X2&quot;                 
+## [121] &quot;Knee3m.X2&quot;                   &quot;Elbow3m.X2&quot;                 
+## [123] &quot;Hook3m.X2&quot;                   &quot;Jab3m.X2&quot;                   
+## [125] &quot;Kick3m.X2&quot;                   &quot;upper3m.X2&quot;                 
+## [127] &quot;takedown3m.X2&quot;               &quot;hammer3m.X2&quot;                
+## [129] &quot;Crossr.X1&quot;                   &quot;Kneer.X1&quot;                   
+## [131] &quot;Elbowr.X1&quot;                   &quot;Hookr.X1&quot;                   
+## [133] &quot;Jabr.X1&quot;                     &quot;Kickr.X1&quot;                   
+## [135] &quot;upperr.X1&quot;                   &quot;takedownr.X1&quot;               
+## [137] &quot;hammerr.X1&quot;                  &quot;Cross2r.X1&quot;                 
+## [139] &quot;Knee2r.X1&quot;                   &quot;Elbow2r.X1&quot;                 
+## [141] &quot;Hook2r.X1&quot;                   &quot;Jab2r.X1&quot;                   
+## [143] &quot;Kick2r.X1&quot;                   &quot;upper2r.X1&quot;                 
+## [145] &quot;takedown2r.X1&quot;               &quot;hammer2r.X1&quot;                
+## [147] &quot;Cross3r.X1&quot;                  &quot;Knee3r.X1&quot;                  
+## [149] &quot;Elbow3r.X1&quot;                  &quot;Hook3r.X1&quot;                  
+## [151] &quot;Jab3r.X1&quot;                    &quot;Kick3r.X1&quot;                  
+## [153] &quot;upper3r.X1&quot;                  &quot;takedown3r.X1&quot;              
+## [155] &quot;hammer3r.X1&quot;                 &quot;Crossr.X2&quot;                  
+## [157] &quot;Kneer.X2&quot;                    &quot;Elbowr.X2&quot;                  
+## [159] &quot;Hookr.X2&quot;                    &quot;Jabr.X2&quot;                    
+## [161] &quot;Kickr.X2&quot;                    &quot;upperr.X2&quot;                  
+## [163] &quot;takedownr.X2&quot;                &quot;hammerr.X2&quot;                 
+## [165] &quot;Cross2r.X2&quot;                  &quot;Knee2r.X2&quot;                  
+## [167] &quot;Elbow2r.X2&quot;                  &quot;Hook2r.X2&quot;                  
+## [169] &quot;Jab2r.X2&quot;                    &quot;Kick2r.X2&quot;                  
+## [171] &quot;upper2r.X2&quot;                  &quot;takedown2r.X2&quot;              
+## [173] &quot;hammer2r.X2&quot;                 &quot;Cross3r.X2&quot;                 
+## [175] &quot;Knee3r.X2&quot;                   &quot;Elbow3r.X2&quot;                 
+## [177] &quot;Hook3r.X2&quot;                   &quot;Jab3r.X2&quot;                   
+## [179] &quot;Kick3r.X2&quot;                   &quot;upper3r.X2&quot;                 
+## [181] &quot;takedown3r.X2&quot;               &quot;hammer3r.X2&quot;                
+## [183] &quot;holdingX1&quot;                   &quot;holdingX2&quot;                  
+## [185] &quot;breaksHoldX1&quot;                &quot;breaksHoldX2&quot;               
+## [187] &quot;caughtHoldX1&quot;                &quot;caughtHoldX2&quot;               
+## [189] &quot;lostHoldX1&quot;                  &quot;lostHoldX2&quot;                 
+## [191] &quot;muayThaiKickX1&quot;              &quot;muayThaiKickX2&quot;             
+## [193] &quot;pushKickX1&quot;                  &quot;pushKickX2&quot;                 
+## [195] &quot;openGuardKickX1&quot;             &quot;openGuardKickX2&quot;            
+## [197] &quot;totalHoldsX1&quot;                &quot;totalHoldsX2&quot;               
+## [199] &quot;totalLostHoldsX1&quot;            &quot;totalLostHoldsX2&quot;           
+## [201] &quot;totalCaughtHoldsX1&quot;          &quot;totalCaughtHoldsX2&quot;         
+## [203] &quot;totalBreakOutHoldsX1&quot;        &quot;totalBreakOutHoldsX2&quot;       
+## [205] &quot;totalMuayThaiKicksX1&quot;        &quot;totalMuayThaiKicksX2&quot;       
+## [207] &quot;totalPushKicksX1&quot;            &quot;totalPushKicksX2&quot;           
+## [209] &quot;totalopenguardKicksX1&quot;       &quot;totalopenguardKicksX2&quot;</code></pre>
+<p>All columns of X2 in AmandaML have ‘X2’ in them, so we can grab only Amanda’s columns from her data by only selecting her opponent, X2, and removing it from her data table, except for the TotLandsX2 (column 14) because we want to switch that as TotLandsX1 for comparing Felicia to Germaine in Amanda’s fight and as a placeholder to predict the outcome when Felicia is substituted for Germaine as an opponent. We will rename column 14 as ‘OPPONENT_Landed’ and rename it after gathering are neccessary columns to TotLandsX1 as a placeholder for Felicia’s predicted hits landed against Amanda as X2.</p>
+<pre class="r"><code>colnames(AmandaML)[14] &lt;- &#39;OPPONENT_LANDED&#39;
+
+X2amanda &lt;- grep(&#39;X2&#39;,colnames(AmandaML))
+X2amanda</code></pre>
+<pre><code>##   [1]  11  12  13  15  16  19  48  49  50  51  52  53  54  55  56  57  58  59
+##  [19]  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74 102 103 104
+##  [37] 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122
+##  [55] 123 124 125 126 127 128 156 157 158 159 160 161 162 163 164 165 166 167
+##  [73] 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 184 186 188
+##  [91] 190 192 194 196 198 200 202 204 206 208 210</code></pre>
+<pre class="r"><code>AmandaX1 &lt;- AmandaML[,-X2amanda]
+colnames(AmandaX1)</code></pre>
+<pre><code>##   [1] &quot;Round&quot;                     &quot;SecondsIntoRound&quot;         
+##   [3] &quot;lastAction&quot;                &quot;SecondsLastRoundAction&quot;   
+##   [5] &quot;cmTotHitsR.X1&quot;             &quot;cmTotHitsL.X1&quot;            
+##   [7] &quot;cmTotHitsM.X1&quot;             &quot;TotLandsX1&quot;               
+##   [9] &quot;TotMissedX1&quot;               &quot;TotReceivedX1&quot;            
+##  [11] &quot;OPPONENT_LANDED&quot;           &quot;Time&quot;                     
+##  [13] &quot;FighterActionReactions.X1&quot; &quot;Notes&quot;                    
+##  [15] &quot;Crossl.X1&quot;                 &quot;Kneel.X1&quot;                 
+##  [17] &quot;Elbowl.X1&quot;                 &quot;Hookl.X1&quot;                 
+##  [19] &quot;Jabl.X1&quot;                   &quot;Kickl.X1&quot;                 
+##  [21] &quot;upperl.X1&quot;                 &quot;takedownl.X1&quot;             
+##  [23] &quot;hammerl.X1&quot;                &quot;Cross2l.X1&quot;               
+##  [25] &quot;Knee2l.X1&quot;                 &quot;Elbow2l.X1&quot;               
+##  [27] &quot;Hook2l.X1&quot;                 &quot;Jab2l.X1&quot;                 
+##  [29] &quot;Kick2l.X1&quot;                 &quot;upper2l.X1&quot;               
+##  [31] &quot;takedown2l.X1&quot;             &quot;hammer2l.X1&quot;              
+##  [33] &quot;Cross3l.X1&quot;                &quot;Knee3l.X1&quot;                
+##  [35] &quot;Elbow3l.X1&quot;                &quot;Hook3l.X1&quot;                
+##  [37] &quot;Jab3l.X1&quot;                  &quot;Kick3l.X1&quot;                
+##  [39] &quot;upper3l.X1&quot;                &quot;takedown3l.X1&quot;            
+##  [41] &quot;hammer3l.X1&quot;               &quot;Crossm.X1&quot;                
+##  [43] &quot;Kneem.X1&quot;                  &quot;Elbowm.X1&quot;                
+##  [45] &quot;Hookm.X1&quot;                  &quot;Jabm.X1&quot;                  
+##  [47] &quot;Kickm.X1&quot;                  &quot;upperm.X1&quot;                
+##  [49] &quot;takedownm.X1&quot;              &quot;hammerm.X1&quot;               
+##  [51] &quot;Cross2m.X1&quot;                &quot;Knee2m.X1&quot;                
+##  [53] &quot;Elbow2m.X1&quot;                &quot;Hook2m.X1&quot;                
+##  [55] &quot;Jab2m.X1&quot;                  &quot;Kick2m.X1&quot;                
+##  [57] &quot;upper2m.X1&quot;                &quot;takedown2m.X1&quot;            
+##  [59] &quot;hammer2m.X1&quot;               &quot;Cross3m.X1&quot;               
+##  [61] &quot;Knee3m.X1&quot;                 &quot;Elbow3m.X1&quot;               
+##  [63] &quot;Hook3m.X1&quot;                 &quot;Jab3m.X1&quot;                 
+##  [65] &quot;Kick3m.X1&quot;                 &quot;upper3m.X1&quot;               
+##  [67] &quot;takedown3m.X1&quot;             &quot;hammer3m.X1&quot;              
+##  [69] &quot;Crossr.X1&quot;                 &quot;Kneer.X1&quot;                 
+##  [71] &quot;Elbowr.X1&quot;                 &quot;Hookr.X1&quot;                 
+##  [73] &quot;Jabr.X1&quot;                   &quot;Kickr.X1&quot;                 
+##  [75] &quot;upperr.X1&quot;                 &quot;takedownr.X1&quot;             
+##  [77] &quot;hammerr.X1&quot;                &quot;Cross2r.X1&quot;               
+##  [79] &quot;Knee2r.X1&quot;                 &quot;Elbow2r.X1&quot;               
+##  [81] &quot;Hook2r.X1&quot;                 &quot;Jab2r.X1&quot;                 
+##  [83] &quot;Kick2r.X1&quot;                 &quot;upper2r.X1&quot;               
+##  [85] &quot;takedown2r.X1&quot;             &quot;hammer2r.X1&quot;              
+##  [87] &quot;Cross3r.X1&quot;                &quot;Knee3r.X1&quot;                
+##  [89] &quot;Elbow3r.X1&quot;                &quot;Hook3r.X1&quot;                
+##  [91] &quot;Jab3r.X1&quot;                  &quot;Kick3r.X1&quot;                
+##  [93] &quot;upper3r.X1&quot;                &quot;takedown3r.X1&quot;            
+##  [95] &quot;hammer3r.X1&quot;               &quot;holdingX1&quot;                
+##  [97] &quot;breaksHoldX1&quot;              &quot;caughtHoldX1&quot;             
+##  [99] &quot;lostHoldX1&quot;                &quot;muayThaiKickX1&quot;           
+## [101] &quot;pushKickX1&quot;                &quot;openGuardKickX1&quot;          
+## [103] &quot;totalHoldsX1&quot;              &quot;totalLostHoldsX1&quot;         
+## [105] &quot;totalCaughtHoldsX1&quot;        &quot;totalBreakOutHoldsX1&quot;     
+## [107] &quot;totalMuayThaiKicksX1&quot;      &quot;totalPushKicksX1&quot;         
+## [109] &quot;totalopenguardKicksX1&quot;</code></pre>
+<p>We can now substitute the ‘X1’ for ‘X2’ so that Amanda will be X2 to compare to Felicia as X1.</p>
+<pre class="r"><code>colnames(AmandaX1) &lt;- gsub(&#39;X1&#39;,&#39;X2&#39;,colnames(AmandaX1))
+colnames(AmandaX1)</code></pre>
+<pre><code>##   [1] &quot;Round&quot;                     &quot;SecondsIntoRound&quot;         
+##   [3] &quot;lastAction&quot;                &quot;SecondsLastRoundAction&quot;   
+##   [5] &quot;cmTotHitsR.X2&quot;             &quot;cmTotHitsL.X2&quot;            
+##   [7] &quot;cmTotHitsM.X2&quot;             &quot;TotLandsX2&quot;               
+##   [9] &quot;TotMissedX2&quot;               &quot;TotReceivedX2&quot;            
+##  [11] &quot;OPPONENT_LANDED&quot;           &quot;Time&quot;                     
+##  [13] &quot;FighterActionReactions.X2&quot; &quot;Notes&quot;                    
+##  [15] &quot;Crossl.X2&quot;                 &quot;Kneel.X2&quot;                 
+##  [17] &quot;Elbowl.X2&quot;                 &quot;Hookl.X2&quot;                 
+##  [19] &quot;Jabl.X2&quot;                   &quot;Kickl.X2&quot;                 
+##  [21] &quot;upperl.X2&quot;                 &quot;takedownl.X2&quot;             
+##  [23] &quot;hammerl.X2&quot;                &quot;Cross2l.X2&quot;               
+##  [25] &quot;Knee2l.X2&quot;                 &quot;Elbow2l.X2&quot;               
+##  [27] &quot;Hook2l.X2&quot;                 &quot;Jab2l.X2&quot;                 
+##  [29] &quot;Kick2l.X2&quot;                 &quot;upper2l.X2&quot;               
+##  [31] &quot;takedown2l.X2&quot;             &quot;hammer2l.X2&quot;              
+##  [33] &quot;Cross3l.X2&quot;                &quot;Knee3l.X2&quot;                
+##  [35] &quot;Elbow3l.X2&quot;                &quot;Hook3l.X2&quot;                
+##  [37] &quot;Jab3l.X2&quot;                  &quot;Kick3l.X2&quot;                
+##  [39] &quot;upper3l.X2&quot;                &quot;takedown3l.X2&quot;            
+##  [41] &quot;hammer3l.X2&quot;               &quot;Crossm.X2&quot;                
+##  [43] &quot;Kneem.X2&quot;                  &quot;Elbowm.X2&quot;                
+##  [45] &quot;Hookm.X2&quot;                  &quot;Jabm.X2&quot;                  
+##  [47] &quot;Kickm.X2&quot;                  &quot;upperm.X2&quot;                
+##  [49] &quot;takedownm.X2&quot;              &quot;hammerm.X2&quot;               
+##  [51] &quot;Cross2m.X2&quot;                &quot;Knee2m.X2&quot;                
+##  [53] &quot;Elbow2m.X2&quot;                &quot;Hook2m.X2&quot;                
+##  [55] &quot;Jab2m.X2&quot;                  &quot;Kick2m.X2&quot;                
+##  [57] &quot;upper2m.X2&quot;                &quot;takedown2m.X2&quot;            
+##  [59] &quot;hammer2m.X2&quot;               &quot;Cross3m.X2&quot;               
+##  [61] &quot;Knee3m.X2&quot;                 &quot;Elbow3m.X2&quot;               
+##  [63] &quot;Hook3m.X2&quot;                 &quot;Jab3m.X2&quot;                 
+##  [65] &quot;Kick3m.X2&quot;                 &quot;upper3m.X2&quot;               
+##  [67] &quot;takedown3m.X2&quot;             &quot;hammer3m.X2&quot;              
+##  [69] &quot;Crossr.X2&quot;                 &quot;Kneer.X2&quot;                 
+##  [71] &quot;Elbowr.X2&quot;                 &quot;Hookr.X2&quot;                 
+##  [73] &quot;Jabr.X2&quot;                   &quot;Kickr.X2&quot;                 
+##  [75] &quot;upperr.X2&quot;                 &quot;takedownr.X2&quot;             
+##  [77] &quot;hammerr.X2&quot;                &quot;Cross2r.X2&quot;               
+##  [79] &quot;Knee2r.X2&quot;                 &quot;Elbow2r.X2&quot;               
+##  [81] &quot;Hook2r.X2&quot;                 &quot;Jab2r.X2&quot;                 
+##  [83] &quot;Kick2r.X2&quot;                 &quot;upper2r.X2&quot;               
+##  [85] &quot;takedown2r.X2&quot;             &quot;hammer2r.X2&quot;              
+##  [87] &quot;Cross3r.X2&quot;                &quot;Knee3r.X2&quot;                
+##  [89] &quot;Elbow3r.X2&quot;                &quot;Hook3r.X2&quot;                
+##  [91] &quot;Jab3r.X2&quot;                  &quot;Kick3r.X2&quot;                
+##  [93] &quot;upper3r.X2&quot;                &quot;takedown3r.X2&quot;            
+##  [95] &quot;hammer3r.X2&quot;               &quot;holdingX2&quot;                
+##  [97] &quot;breaksHoldX2&quot;              &quot;caughtHoldX2&quot;             
+##  [99] &quot;lostHoldX2&quot;                &quot;muayThaiKickX2&quot;           
+## [101] &quot;pushKickX2&quot;                &quot;openGuardKickX2&quot;          
+## [103] &quot;totalHoldsX2&quot;              &quot;totalLostHoldsX2&quot;         
+## [105] &quot;totalCaughtHoldsX2&quot;        &quot;totalBreakOutHoldsX2&quot;     
+## [107] &quot;totalMuayThaiKicksX2&quot;      &quot;totalPushKicksX2&quot;         
+## [109] &quot;totalopenguardKicksX2&quot;</code></pre>
+<p>Lets only keep her fight with Germaine, since it’s the only one that Amanda’s wrestling actions were recorded. And all of Felicia’s were recorded.</p>
+<pre class="r"><code>germaine &lt;- grep(&#39;Germaine&#39;, AmandaX1$Notes)
+AmandaX2 &lt;- AmandaX1[germaine,]
+AmandaX2[,14]</code></pre>
+<pre><code>##   [1] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##   [9] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [17] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [25] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [33] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [41] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [49] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [57] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [65] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [73] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [81] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [89] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+##  [97] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [105] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [113] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [121] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [129] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [137] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [145] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [153] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [161] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [169] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [177] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [185] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [193] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [201] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [209] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [217] Germaine Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## [225] Germaine Germaine Germaine Germaine Germaine Germaine Germaine
+## Levels: Germaine Pennington Rousey Tate</code></pre>
+<p>We should remove the TotReceivedX2 column from this ML table, because it is multicollinear with TotLandsX1 our target, and could be why some of the ML programs scored 100% accuracy.</p>
+<pre class="r"><code>colnames(FeliciaML)</code></pre>
+<pre><code>##  [1] &quot;SecondsIntoRound&quot;       &quot;lastAction&quot;             &quot;SecondsLastRoundAction&quot;
+##  [4] &quot;cmTotHitsR.X1&quot;          &quot;cmTotHitsL.X1&quot;          &quot;cmTotHitsM.X1&quot;         
+##  [7] &quot;TotLandsX1&quot;             &quot;TotMissedX1&quot;            &quot;TotReceivedX1&quot;         
+## [10] &quot;cmTotHitsR.X2&quot;          &quot;cmTotHitsL.X2&quot;          &quot;cmTotHitsM.X2&quot;         
+## [13] &quot;TotLandsX2&quot;             &quot;TotMissedX2&quot;            &quot;TotReceivedX2&quot;         
+## [16] &quot;Crossl.X2&quot;              &quot;Kneel.X2&quot;               &quot;Elbowl.X2&quot;             
+## [19] &quot;Hookl.X2&quot;               &quot;Jabl.X2&quot;                &quot;Kickl.X2&quot;              
+## [22] &quot;upperl.X2&quot;              &quot;takedownl.X2&quot;           &quot;hammerl.X2&quot;            
+## [25] &quot;Cross2l.X2&quot;             &quot;Knee2l.X2&quot;              &quot;Elbow2l.X2&quot;            
+## [28] &quot;Hook2l.X2&quot;              &quot;Jab2l.X2&quot;               &quot;Kick2l.X2&quot;             
+## [31] &quot;upper2l.X2&quot;             &quot;takedown2l.X2&quot;          &quot;hammer2l.X2&quot;           
+## [34] &quot;Cross3l.X2&quot;             &quot;Knee3l.X2&quot;              &quot;Elbow3l.X2&quot;            
+## [37] &quot;Hook3l.X2&quot;              &quot;Jab3l.X2&quot;               &quot;Kick3l.X2&quot;             
+## [40] &quot;upper3l.X2&quot;             &quot;takedown3l.X2&quot;          &quot;hammer3l.X2&quot;           
+## [43] &quot;Crossm.X2&quot;              &quot;Kneem.X2&quot;               &quot;Elbowm.X2&quot;             
+## [46] &quot;Hookm.X2&quot;               &quot;Jabm.X2&quot;                &quot;Kickm.X2&quot;              
+## [49] &quot;upperm.X2&quot;              &quot;takedownm.X2&quot;           &quot;hammerm.X2&quot;            
+## [52] &quot;Cross2m.X2&quot;             &quot;Knee2m.X2&quot;              &quot;Elbow2m.X2&quot;            
+## [55] &quot;Hook2m.X2&quot;              &quot;Jab2m.X2&quot;               &quot;Kick2m.X2&quot;             
+## [58] &quot;upper2m.X2&quot;             &quot;takedown2m.X2&quot;          &quot;hammer2m.X2&quot;           
+## [61] &quot;Cross3m.X2&quot;             &quot;Knee3m.X2&quot;              &quot;Elbow3m.X2&quot;            
+## [64] &quot;Hook3m.X2&quot;              &quot;Jab3m.X2&quot;               &quot;Kick3m.X2&quot;             
+## [67] &quot;upper3m.X2&quot;             &quot;takedown3m.X2&quot;          &quot;hammer3m.X2&quot;           
+## [70] &quot;holdingX1&quot;              &quot;holdingX2&quot;              &quot;breaksHoldX1&quot;          
+## [73] &quot;breaksHoldX2&quot;           &quot;caughtHoldX1&quot;           &quot;caughtHoldX2&quot;          
+## [76] &quot;lostHoldX1&quot;             &quot;lostHoldX2&quot;             &quot;muayThaiKickX1&quot;        
+## [79] &quot;muayThaiKickX2&quot;         &quot;pushKickX1&quot;             &quot;pushKickX2&quot;            
+## [82] &quot;totalHoldsX1&quot;           &quot;totalHoldsX2&quot;           &quot;totalLostHoldsX1&quot;      
+## [85] &quot;totalLostHoldsX2&quot;       &quot;totalCaughtHoldsX1&quot;     &quot;totalCaughtHoldsX2&quot;    
+## [88] &quot;totalBreakOutHoldsX1&quot;   &quot;totalBreakOutHoldsX2&quot;   &quot;totalMuayThaiKicksX1&quot;  
+## [91] &quot;totalMuayThaiKicksX2&quot;   &quot;totalPushKicksX1&quot;       &quot;totalPushKicksX2&quot;</code></pre>
+<pre class="r"><code>FeliciaML2 &lt;- FeliciaML[,-15]
+colnames(FeliciaML2)</code></pre>
+<pre><code>##  [1] &quot;SecondsIntoRound&quot;       &quot;lastAction&quot;             &quot;SecondsLastRoundAction&quot;
+##  [4] &quot;cmTotHitsR.X1&quot;          &quot;cmTotHitsL.X1&quot;          &quot;cmTotHitsM.X1&quot;         
+##  [7] &quot;TotLandsX1&quot;             &quot;TotMissedX1&quot;            &quot;TotReceivedX1&quot;         
+## [10] &quot;cmTotHitsR.X2&quot;          &quot;cmTotHitsL.X2&quot;          &quot;cmTotHitsM.X2&quot;         
+## [13] &quot;TotLandsX2&quot;             &quot;TotMissedX2&quot;            &quot;Crossl.X2&quot;             
+## [16] &quot;Kneel.X2&quot;               &quot;Elbowl.X2&quot;              &quot;Hookl.X2&quot;              
+## [19] &quot;Jabl.X2&quot;                &quot;Kickl.X2&quot;               &quot;upperl.X2&quot;             
+## [22] &quot;takedownl.X2&quot;           &quot;hammerl.X2&quot;             &quot;Cross2l.X2&quot;            
+## [25] &quot;Knee2l.X2&quot;              &quot;Elbow2l.X2&quot;             &quot;Hook2l.X2&quot;             
+## [28] &quot;Jab2l.X2&quot;               &quot;Kick2l.X2&quot;              &quot;upper2l.X2&quot;            
+## [31] &quot;takedown2l.X2&quot;          &quot;hammer2l.X2&quot;            &quot;Cross3l.X2&quot;            
+## [34] &quot;Knee3l.X2&quot;              &quot;Elbow3l.X2&quot;             &quot;Hook3l.X2&quot;             
+## [37] &quot;Jab3l.X2&quot;               &quot;Kick3l.X2&quot;              &quot;upper3l.X2&quot;            
+## [40] &quot;takedown3l.X2&quot;          &quot;hammer3l.X2&quot;            &quot;Crossm.X2&quot;             
+## [43] &quot;Kneem.X2&quot;               &quot;Elbowm.X2&quot;              &quot;Hookm.X2&quot;              
+## [46] &quot;Jabm.X2&quot;                &quot;Kickm.X2&quot;               &quot;upperm.X2&quot;             
+## [49] &quot;takedownm.X2&quot;           &quot;hammerm.X2&quot;             &quot;Cross2m.X2&quot;            
+## [52] &quot;Knee2m.X2&quot;              &quot;Elbow2m.X2&quot;             &quot;Hook2m.X2&quot;             
+## [55] &quot;Jab2m.X2&quot;               &quot;Kick2m.X2&quot;              &quot;upper2m.X2&quot;            
+## [58] &quot;takedown2m.X2&quot;          &quot;hammer2m.X2&quot;            &quot;Cross3m.X2&quot;            
+## [61] &quot;Knee3m.X2&quot;              &quot;Elbow3m.X2&quot;             &quot;Hook3m.X2&quot;             
+## [64] &quot;Jab3m.X2&quot;               &quot;Kick3m.X2&quot;              &quot;upper3m.X2&quot;            
+## [67] &quot;takedown3m.X2&quot;          &quot;hammer3m.X2&quot;            &quot;holdingX1&quot;             
+## [70] &quot;holdingX2&quot;              &quot;breaksHoldX1&quot;           &quot;breaksHoldX2&quot;          
+## [73] &quot;caughtHoldX1&quot;           &quot;caughtHoldX2&quot;           &quot;lostHoldX1&quot;            
+## [76] &quot;lostHoldX2&quot;             &quot;muayThaiKickX1&quot;         &quot;muayThaiKickX2&quot;        
+## [79] &quot;pushKickX1&quot;             &quot;pushKickX2&quot;             &quot;totalHoldsX1&quot;          
+## [82] &quot;totalHoldsX2&quot;           &quot;totalLostHoldsX1&quot;       &quot;totalLostHoldsX2&quot;      
+## [85] &quot;totalCaughtHoldsX1&quot;     &quot;totalCaughtHoldsX2&quot;     &quot;totalBreakOutHoldsX1&quot;  
+## [88] &quot;totalBreakOutHoldsX2&quot;   &quot;totalMuayThaiKicksX1&quot;   &quot;totalMuayThaiKicksX2&quot;  
+## [91] &quot;totalPushKicksX1&quot;       &quot;totalPushKicksX2&quot;</code></pre>
+<p>Lets get the X2 columns we want from Amanda as X2’s data table.</p>
+<pre class="r"><code>listFX2 &lt;- grep(&#39;X2&#39;,colnames(FeliciaML2))
+listFX2b &lt;- colnames(FeliciaML2)[listFX2]
+listFX2b</code></pre>
+<pre><code>##  [1] &quot;cmTotHitsR.X2&quot;        &quot;cmTotHitsL.X2&quot;        &quot;cmTotHitsM.X2&quot;       
+##  [4] &quot;TotLandsX2&quot;           &quot;TotMissedX2&quot;          &quot;Crossl.X2&quot;           
+##  [7] &quot;Kneel.X2&quot;             &quot;Elbowl.X2&quot;            &quot;Hookl.X2&quot;            
+## [10] &quot;Jabl.X2&quot;              &quot;Kickl.X2&quot;             &quot;upperl.X2&quot;           
+## [13] &quot;takedownl.X2&quot;         &quot;hammerl.X2&quot;           &quot;Cross2l.X2&quot;          
+## [16] &quot;Knee2l.X2&quot;            &quot;Elbow2l.X2&quot;           &quot;Hook2l.X2&quot;           
+## [19] &quot;Jab2l.X2&quot;             &quot;Kick2l.X2&quot;            &quot;upper2l.X2&quot;          
+## [22] &quot;takedown2l.X2&quot;        &quot;hammer2l.X2&quot;          &quot;Cross3l.X2&quot;          
+## [25] &quot;Knee3l.X2&quot;            &quot;Elbow3l.X2&quot;           &quot;Hook3l.X2&quot;           
+## [28] &quot;Jab3l.X2&quot;             &quot;Kick3l.X2&quot;            &quot;upper3l.X2&quot;          
+## [31] &quot;takedown3l.X2&quot;        &quot;hammer3l.X2&quot;          &quot;Crossm.X2&quot;           
+## [34] &quot;Kneem.X2&quot;             &quot;Elbowm.X2&quot;            &quot;Hookm.X2&quot;            
+## [37] &quot;Jabm.X2&quot;              &quot;Kickm.X2&quot;             &quot;upperm.X2&quot;           
+## [40] &quot;takedownm.X2&quot;         &quot;hammerm.X2&quot;           &quot;Cross2m.X2&quot;          
+## [43] &quot;Knee2m.X2&quot;            &quot;Elbow2m.X2&quot;           &quot;Hook2m.X2&quot;           
+## [46] &quot;Jab2m.X2&quot;             &quot;Kick2m.X2&quot;            &quot;upper2m.X2&quot;          
+## [49] &quot;takedown2m.X2&quot;        &quot;hammer2m.X2&quot;          &quot;Cross3m.X2&quot;          
+## [52] &quot;Knee3m.X2&quot;            &quot;Elbow3m.X2&quot;           &quot;Hook3m.X2&quot;           
+## [55] &quot;Jab3m.X2&quot;             &quot;Kick3m.X2&quot;            &quot;upper3m.X2&quot;          
+## [58] &quot;takedown3m.X2&quot;        &quot;hammer3m.X2&quot;          &quot;holdingX2&quot;           
+## [61] &quot;breaksHoldX2&quot;         &quot;caughtHoldX2&quot;         &quot;lostHoldX2&quot;          
+## [64] &quot;muayThaiKickX2&quot;       &quot;pushKickX2&quot;           &quot;totalHoldsX2&quot;        
+## [67] &quot;totalLostHoldsX2&quot;     &quot;totalCaughtHoldsX2&quot;   &quot;totalBreakOutHoldsX2&quot;
+## [70] &quot;totalMuayThaiKicksX2&quot; &quot;totalPushKicksX2&quot;</code></pre>
+<p>We want to keep the other information that involves the round, seconds in the round, last action, seconds last round action, and time to combine with the data of Felicia’s when predicting hits landed based on the features we have chosen earlier. We have to get rid of the received hits of X2 and keep the features other than X2’s information. They have ‘r.X2’ in the name, the columns we want removed in Amanda’s data.</p>
+<pre class="r"><code>listAX2c &lt;- colnames(AmandaX1)
+listAX2c</code></pre>
+<pre><code>##   [1] &quot;Round&quot;                     &quot;SecondsIntoRound&quot;         
+##   [3] &quot;lastAction&quot;                &quot;SecondsLastRoundAction&quot;   
+##   [5] &quot;cmTotHitsR.X2&quot;             &quot;cmTotHitsL.X2&quot;            
+##   [7] &quot;cmTotHitsM.X2&quot;             &quot;TotLandsX2&quot;               
+##   [9] &quot;TotMissedX2&quot;               &quot;TotReceivedX2&quot;            
+##  [11] &quot;OPPONENT_LANDED&quot;           &quot;Time&quot;                     
+##  [13] &quot;FighterActionReactions.X2&quot; &quot;Notes&quot;                    
+##  [15] &quot;Crossl.X2&quot;                 &quot;Kneel.X2&quot;                 
+##  [17] &quot;Elbowl.X2&quot;                 &quot;Hookl.X2&quot;                 
+##  [19] &quot;Jabl.X2&quot;                   &quot;Kickl.X2&quot;                 
+##  [21] &quot;upperl.X2&quot;                 &quot;takedownl.X2&quot;             
+##  [23] &quot;hammerl.X2&quot;                &quot;Cross2l.X2&quot;               
+##  [25] &quot;Knee2l.X2&quot;                 &quot;Elbow2l.X2&quot;               
+##  [27] &quot;Hook2l.X2&quot;                 &quot;Jab2l.X2&quot;                 
+##  [29] &quot;Kick2l.X2&quot;                 &quot;upper2l.X2&quot;               
+##  [31] &quot;takedown2l.X2&quot;             &quot;hammer2l.X2&quot;              
+##  [33] &quot;Cross3l.X2&quot;                &quot;Knee3l.X2&quot;                
+##  [35] &quot;Elbow3l.X2&quot;                &quot;Hook3l.X2&quot;                
+##  [37] &quot;Jab3l.X2&quot;                  &quot;Kick3l.X2&quot;                
+##  [39] &quot;upper3l.X2&quot;                &quot;takedown3l.X2&quot;            
+##  [41] &quot;hammer3l.X2&quot;               &quot;Crossm.X2&quot;                
+##  [43] &quot;Kneem.X2&quot;                  &quot;Elbowm.X2&quot;                
+##  [45] &quot;Hookm.X2&quot;                  &quot;Jabm.X2&quot;                  
+##  [47] &quot;Kickm.X2&quot;                  &quot;upperm.X2&quot;                
+##  [49] &quot;takedownm.X2&quot;              &quot;hammerm.X2&quot;               
+##  [51] &quot;Cross2m.X2&quot;                &quot;Knee2m.X2&quot;                
+##  [53] &quot;Elbow2m.X2&quot;                &quot;Hook2m.X2&quot;                
+##  [55] &quot;Jab2m.X2&quot;                  &quot;Kick2m.X2&quot;                
+##  [57] &quot;upper2m.X2&quot;                &quot;takedown2m.X2&quot;            
+##  [59] &quot;hammer2m.X2&quot;               &quot;Cross3m.X2&quot;               
+##  [61] &quot;Knee3m.X2&quot;                 &quot;Elbow3m.X2&quot;               
+##  [63] &quot;Hook3m.X2&quot;                 &quot;Jab3m.X2&quot;                 
+##  [65] &quot;Kick3m.X2&quot;                 &quot;upper3m.X2&quot;               
+##  [67] &quot;takedown3m.X2&quot;             &quot;hammer3m.X2&quot;              
+##  [69] &quot;Crossr.X2&quot;                 &quot;Kneer.X2&quot;                 
+##  [71] &quot;Elbowr.X2&quot;                 &quot;Hookr.X2&quot;                 
+##  [73] &quot;Jabr.X2&quot;                   &quot;Kickr.X2&quot;                 
+##  [75] &quot;upperr.X2&quot;                 &quot;takedownr.X2&quot;             
+##  [77] &quot;hammerr.X2&quot;                &quot;Cross2r.X2&quot;               
+##  [79] &quot;Knee2r.X2&quot;                 &quot;Elbow2r.X2&quot;               
+##  [81] &quot;Hook2r.X2&quot;                 &quot;Jab2r.X2&quot;                 
+##  [83] &quot;Kick2r.X2&quot;                 &quot;upper2r.X2&quot;               
+##  [85] &quot;takedown2r.X2&quot;             &quot;hammer2r.X2&quot;              
+##  [87] &quot;Cross3r.X2&quot;                &quot;Knee3r.X2&quot;                
+##  [89] &quot;Elbow3r.X2&quot;                &quot;Hook3r.X2&quot;                
+##  [91] &quot;Jab3r.X2&quot;                  &quot;Kick3r.X2&quot;                
+##  [93] &quot;upper3r.X2&quot;                &quot;takedown3r.X2&quot;            
+##  [95] &quot;hammer3r.X2&quot;               &quot;holdingX2&quot;                
+##  [97] &quot;breaksHoldX2&quot;              &quot;caughtHoldX2&quot;             
+##  [99] &quot;lostHoldX2&quot;                &quot;muayThaiKickX2&quot;           
+## [101] &quot;pushKickX2&quot;                &quot;openGuardKickX2&quot;          
+## [103] &quot;totalHoldsX2&quot;              &quot;totalLostHoldsX2&quot;         
+## [105] &quot;totalCaughtHoldsX2&quot;        &quot;totalBreakOutHoldsX2&quot;     
+## [107] &quot;totalMuayThaiKicksX2&quot;      &quot;totalPushKicksX2&quot;         
+## [109] &quot;totalopenguardKicksX2&quot;</code></pre>
+<pre class="r"><code>listAX2d &lt;- grep(&#39;r.X2&#39;,listAX2c)
+listAX2e &lt;- listAX2c[-listAX2d]
+listAX2e</code></pre>
+<pre><code>##  [1] &quot;Round&quot;                     &quot;SecondsIntoRound&quot;         
+##  [3] &quot;lastAction&quot;                &quot;SecondsLastRoundAction&quot;   
+##  [5] &quot;cmTotHitsR.X2&quot;             &quot;cmTotHitsL.X2&quot;            
+##  [7] &quot;cmTotHitsM.X2&quot;             &quot;TotLandsX2&quot;               
+##  [9] &quot;TotMissedX2&quot;               &quot;TotReceivedX2&quot;            
+## [11] &quot;OPPONENT_LANDED&quot;           &quot;Time&quot;                     
+## [13] &quot;FighterActionReactions.X2&quot; &quot;Notes&quot;                    
+## [15] &quot;Crossl.X2&quot;                 &quot;Kneel.X2&quot;                 
+## [17] &quot;Elbowl.X2&quot;                 &quot;Hookl.X2&quot;                 
+## [19] &quot;Jabl.X2&quot;                   &quot;Kickl.X2&quot;                 
+## [21] &quot;upperl.X2&quot;                 &quot;takedownl.X2&quot;             
+## [23] &quot;hammerl.X2&quot;                &quot;Cross2l.X2&quot;               
+## [25] &quot;Knee2l.X2&quot;                 &quot;Elbow2l.X2&quot;               
+## [27] &quot;Hook2l.X2&quot;                 &quot;Jab2l.X2&quot;                 
+## [29] &quot;Kick2l.X2&quot;                 &quot;upper2l.X2&quot;               
+## [31] &quot;takedown2l.X2&quot;             &quot;hammer2l.X2&quot;              
+## [33] &quot;Cross3l.X2&quot;                &quot;Knee3l.X2&quot;                
+## [35] &quot;Elbow3l.X2&quot;                &quot;Hook3l.X2&quot;                
+## [37] &quot;Jab3l.X2&quot;                  &quot;Kick3l.X2&quot;                
+## [39] &quot;upper3l.X2&quot;                &quot;takedown3l.X2&quot;            
+## [41] &quot;hammer3l.X2&quot;               &quot;Crossm.X2&quot;                
+## [43] &quot;Kneem.X2&quot;                  &quot;Elbowm.X2&quot;                
+## [45] &quot;Hookm.X2&quot;                  &quot;Jabm.X2&quot;                  
+## [47] &quot;Kickm.X2&quot;                  &quot;upperm.X2&quot;                
+## [49] &quot;takedownm.X2&quot;              &quot;hammerm.X2&quot;               
+## [51] &quot;Cross2m.X2&quot;                &quot;Knee2m.X2&quot;                
+## [53] &quot;Elbow2m.X2&quot;                &quot;Hook2m.X2&quot;                
+## [55] &quot;Jab2m.X2&quot;                  &quot;Kick2m.X2&quot;                
+## [57] &quot;upper2m.X2&quot;                &quot;takedown2m.X2&quot;            
+## [59] &quot;hammer2m.X2&quot;               &quot;Cross3m.X2&quot;               
+## [61] &quot;Knee3m.X2&quot;                 &quot;Elbow3m.X2&quot;               
+## [63] &quot;Hook3m.X2&quot;                 &quot;Jab3m.X2&quot;                 
+## [65] &quot;Kick3m.X2&quot;                 &quot;upper3m.X2&quot;               
+## [67] &quot;takedown3m.X2&quot;             &quot;hammer3m.X2&quot;              
+## [69] &quot;holdingX2&quot;                 &quot;breaksHoldX2&quot;             
+## [71] &quot;caughtHoldX2&quot;              &quot;lostHoldX2&quot;               
+## [73] &quot;muayThaiKickX2&quot;            &quot;pushKickX2&quot;               
+## [75] &quot;openGuardKickX2&quot;           &quot;totalHoldsX2&quot;             
+## [77] &quot;totalLostHoldsX2&quot;          &quot;totalCaughtHoldsX2&quot;       
+## [79] &quot;totalBreakOutHoldsX2&quot;      &quot;totalMuayThaiKicksX2&quot;     
+## [81] &quot;totalPushKicksX2&quot;          &quot;totalopenguardKicksX2&quot;</code></pre>
+<p>We should remove the total recieved hits by X2, round, time, notes, and action/reactions columns as well from Amanda’s data.</p>
+<pre class="r"><code>listAX2f &lt;- listAX2e[-c(1,10,12:14)]
+AmandaX2b &lt;- AmandaX2[,listAX2f]
+colnames(AmandaX2b)</code></pre>
+<pre><code>##  [1] &quot;SecondsIntoRound&quot;       &quot;lastAction&quot;             &quot;SecondsLastRoundAction&quot;
+##  [4] &quot;cmTotHitsR.X2&quot;          &quot;cmTotHitsL.X2&quot;          &quot;cmTotHitsM.X2&quot;         
+##  [7] &quot;TotLandsX2&quot;             &quot;TotMissedX2&quot;            &quot;OPPONENT_LANDED&quot;       
+## [10] &quot;Crossl.X2&quot;              &quot;Kneel.X2&quot;               &quot;Elbowl.X2&quot;             
+## [13] &quot;Hookl.X2&quot;               &quot;Jabl.X2&quot;                &quot;Kickl.X2&quot;              
+## [16] &quot;upperl.X2&quot;              &quot;takedownl.X2&quot;           &quot;hammerl.X2&quot;            
+## [19] &quot;Cross2l.X2&quot;             &quot;Knee2l.X2&quot;              &quot;Elbow2l.X2&quot;            
+## [22] &quot;Hook2l.X2&quot;              &quot;Jab2l.X2&quot;               &quot;Kick2l.X2&quot;             
+## [25] &quot;upper2l.X2&quot;             &quot;takedown2l.X2&quot;          &quot;hammer2l.X2&quot;           
+## [28] &quot;Cross3l.X2&quot;             &quot;Knee3l.X2&quot;              &quot;Elbow3l.X2&quot;            
+## [31] &quot;Hook3l.X2&quot;              &quot;Jab3l.X2&quot;               &quot;Kick3l.X2&quot;             
+## [34] &quot;upper3l.X2&quot;             &quot;takedown3l.X2&quot;          &quot;hammer3l.X2&quot;           
+## [37] &quot;Crossm.X2&quot;              &quot;Kneem.X2&quot;               &quot;Elbowm.X2&quot;             
+## [40] &quot;Hookm.X2&quot;               &quot;Jabm.X2&quot;                &quot;Kickm.X2&quot;              
+## [43] &quot;upperm.X2&quot;              &quot;takedownm.X2&quot;           &quot;hammerm.X2&quot;            
+## [46] &quot;Cross2m.X2&quot;             &quot;Knee2m.X2&quot;              &quot;Elbow2m.X2&quot;            
+## [49] &quot;Hook2m.X2&quot;              &quot;Jab2m.X2&quot;               &quot;Kick2m.X2&quot;             
+## [52] &quot;upper2m.X2&quot;             &quot;takedown2m.X2&quot;          &quot;hammer2m.X2&quot;           
+## [55] &quot;Cross3m.X2&quot;             &quot;Knee3m.X2&quot;              &quot;Elbow3m.X2&quot;            
+## [58] &quot;Hook3m.X2&quot;              &quot;Jab3m.X2&quot;               &quot;Kick3m.X2&quot;             
+## [61] &quot;upper3m.X2&quot;             &quot;takedown3m.X2&quot;          &quot;hammer3m.X2&quot;           
+## [64] &quot;holdingX2&quot;              &quot;breaksHoldX2&quot;           &quot;caughtHoldX2&quot;          
+## [67] &quot;lostHoldX2&quot;             &quot;muayThaiKickX2&quot;         &quot;pushKickX2&quot;            
+## [70] &quot;openGuardKickX2&quot;        &quot;totalHoldsX2&quot;           &quot;totalLostHoldsX2&quot;      
+## [73] &quot;totalCaughtHoldsX2&quot;     &quot;totalBreakOutHoldsX2&quot;   &quot;totalMuayThaiKicksX2&quot;  
+## [76] &quot;totalPushKicksX2&quot;       &quot;totalopenguardKicksX2&quot;</code></pre>
+<p>We removed the wrestling holds of X1 from the table of Amanda’s because we are assuming those holds wouldn’t align with Felicia’s actions or reactions, and so we must also remove the X1 holds from Felicia’s table and exclude these features in predicting hits landed by Felicia when up against Amanda’s actions as X2. We want to exclude all columns with ‘X1’ except TotLandsX1 that is column 7 listed as the 4th index of columns with ‘X1’.</p>
+<pre class="r"><code>colnames(FeliciaML2)</code></pre>
+<pre><code>##  [1] &quot;SecondsIntoRound&quot;       &quot;lastAction&quot;             &quot;SecondsLastRoundAction&quot;
+##  [4] &quot;cmTotHitsR.X1&quot;          &quot;cmTotHitsL.X1&quot;          &quot;cmTotHitsM.X1&quot;         
+##  [7] &quot;TotLandsX1&quot;             &quot;TotMissedX1&quot;            &quot;TotReceivedX1&quot;         
+## [10] &quot;cmTotHitsR.X2&quot;          &quot;cmTotHitsL.X2&quot;          &quot;cmTotHitsM.X2&quot;         
+## [13] &quot;TotLandsX2&quot;             &quot;TotMissedX2&quot;            &quot;Crossl.X2&quot;             
+## [16] &quot;Kneel.X2&quot;               &quot;Elbowl.X2&quot;              &quot;Hookl.X2&quot;              
+## [19] &quot;Jabl.X2&quot;                &quot;Kickl.X2&quot;               &quot;upperl.X2&quot;             
+## [22] &quot;takedownl.X2&quot;           &quot;hammerl.X2&quot;             &quot;Cross2l.X2&quot;            
+## [25] &quot;Knee2l.X2&quot;              &quot;Elbow2l.X2&quot;             &quot;Hook2l.X2&quot;             
+## [28] &quot;Jab2l.X2&quot;               &quot;Kick2l.X2&quot;              &quot;upper2l.X2&quot;            
+## [31] &quot;takedown2l.X2&quot;          &quot;hammer2l.X2&quot;            &quot;Cross3l.X2&quot;            
+## [34] &quot;Knee3l.X2&quot;              &quot;Elbow3l.X2&quot;             &quot;Hook3l.X2&quot;             
+## [37] &quot;Jab3l.X2&quot;               &quot;Kick3l.X2&quot;              &quot;upper3l.X2&quot;            
+## [40] &quot;takedown3l.X2&quot;          &quot;hammer3l.X2&quot;            &quot;Crossm.X2&quot;             
+## [43] &quot;Kneem.X2&quot;               &quot;Elbowm.X2&quot;              &quot;Hookm.X2&quot;              
+## [46] &quot;Jabm.X2&quot;                &quot;Kickm.X2&quot;               &quot;upperm.X2&quot;             
+## [49] &quot;takedownm.X2&quot;           &quot;hammerm.X2&quot;             &quot;Cross2m.X2&quot;            
+## [52] &quot;Knee2m.X2&quot;              &quot;Elbow2m.X2&quot;             &quot;Hook2m.X2&quot;             
+## [55] &quot;Jab2m.X2&quot;               &quot;Kick2m.X2&quot;              &quot;upper2m.X2&quot;            
+## [58] &quot;takedown2m.X2&quot;          &quot;hammer2m.X2&quot;            &quot;Cross3m.X2&quot;            
+## [61] &quot;Knee3m.X2&quot;              &quot;Elbow3m.X2&quot;             &quot;Hook3m.X2&quot;             
+## [64] &quot;Jab3m.X2&quot;               &quot;Kick3m.X2&quot;              &quot;upper3m.X2&quot;            
+## [67] &quot;takedown3m.X2&quot;          &quot;hammer3m.X2&quot;            &quot;holdingX1&quot;             
+## [70] &quot;holdingX2&quot;              &quot;breaksHoldX1&quot;           &quot;breaksHoldX2&quot;          
+## [73] &quot;caughtHoldX1&quot;           &quot;caughtHoldX2&quot;           &quot;lostHoldX1&quot;            
+## [76] &quot;lostHoldX2&quot;             &quot;muayThaiKickX1&quot;         &quot;muayThaiKickX2&quot;        
+## [79] &quot;pushKickX1&quot;             &quot;pushKickX2&quot;             &quot;totalHoldsX1&quot;          
+## [82] &quot;totalHoldsX2&quot;           &quot;totalLostHoldsX1&quot;       &quot;totalLostHoldsX2&quot;      
+## [85] &quot;totalCaughtHoldsX1&quot;     &quot;totalCaughtHoldsX2&quot;     &quot;totalBreakOutHoldsX1&quot;  
+## [88] &quot;totalBreakOutHoldsX2&quot;   &quot;totalMuayThaiKicksX1&quot;   &quot;totalMuayThaiKicksX2&quot;  
+## [91] &quot;totalPushKicksX1&quot;       &quot;totalPushKicksX2&quot;</code></pre>
+<pre class="r"><code>listFa &lt;- grep(&#39;X1&#39;,colnames(FeliciaML2))
+listFa</code></pre>
+<pre><code>##  [1]  4  5  6  7  8  9 69 71 73 75 77 79 81 83 85 87 89 91</code></pre>
+<pre class="r"><code>listFb &lt;- listFa[-4]
+listFb</code></pre>
+<pre><code>##  [1]  4  5  6  8  9 69 71 73 75 77 79 81 83 85 87 89 91</code></pre>
+<pre class="r"><code>FeliciaML3 &lt;- FeliciaML2[,-listFb]
+colnames(FeliciaML3)</code></pre>
+<pre><code>##  [1] &quot;SecondsIntoRound&quot;       &quot;lastAction&quot;             &quot;SecondsLastRoundAction&quot;
+##  [4] &quot;TotLandsX1&quot;             &quot;cmTotHitsR.X2&quot;          &quot;cmTotHitsL.X2&quot;         
+##  [7] &quot;cmTotHitsM.X2&quot;          &quot;TotLandsX2&quot;             &quot;TotMissedX2&quot;           
+## [10] &quot;Crossl.X2&quot;              &quot;Kneel.X2&quot;               &quot;Elbowl.X2&quot;             
+## [13] &quot;Hookl.X2&quot;               &quot;Jabl.X2&quot;                &quot;Kickl.X2&quot;              
+## [16] &quot;upperl.X2&quot;              &quot;takedownl.X2&quot;           &quot;hammerl.X2&quot;            
+## [19] &quot;Cross2l.X2&quot;             &quot;Knee2l.X2&quot;              &quot;Elbow2l.X2&quot;            
+## [22] &quot;Hook2l.X2&quot;              &quot;Jab2l.X2&quot;               &quot;Kick2l.X2&quot;             
+## [25] &quot;upper2l.X2&quot;             &quot;takedown2l.X2&quot;          &quot;hammer2l.X2&quot;           
+## [28] &quot;Cross3l.X2&quot;             &quot;Knee3l.X2&quot;              &quot;Elbow3l.X2&quot;            
+## [31] &quot;Hook3l.X2&quot;              &quot;Jab3l.X2&quot;               &quot;Kick3l.X2&quot;             
+## [34] &quot;upper3l.X2&quot;             &quot;takedown3l.X2&quot;          &quot;hammer3l.X2&quot;           
+## [37] &quot;Crossm.X2&quot;              &quot;Kneem.X2&quot;               &quot;Elbowm.X2&quot;             
+## [40] &quot;Hookm.X2&quot;               &quot;Jabm.X2&quot;                &quot;Kickm.X2&quot;              
+## [43] &quot;upperm.X2&quot;              &quot;takedownm.X2&quot;           &quot;hammerm.X2&quot;            
+## [46] &quot;Cross2m.X2&quot;             &quot;Knee2m.X2&quot;              &quot;Elbow2m.X2&quot;            
+## [49] &quot;Hook2m.X2&quot;              &quot;Jab2m.X2&quot;               &quot;Kick2m.X2&quot;             
+## [52] &quot;upper2m.X2&quot;             &quot;takedown2m.X2&quot;          &quot;hammer2m.X2&quot;           
+## [55] &quot;Cross3m.X2&quot;             &quot;Knee3m.X2&quot;              &quot;Elbow3m.X2&quot;            
+## [58] &quot;Hook3m.X2&quot;              &quot;Jab3m.X2&quot;               &quot;Kick3m.X2&quot;             
+## [61] &quot;upper3m.X2&quot;             &quot;takedown3m.X2&quot;          &quot;hammer3m.X2&quot;           
+## [64] &quot;holdingX2&quot;              &quot;breaksHoldX2&quot;           &quot;caughtHoldX2&quot;          
+## [67] &quot;lostHoldX2&quot;             &quot;muayThaiKickX2&quot;         &quot;pushKickX2&quot;            
+## [70] &quot;totalHoldsX2&quot;           &quot;totalLostHoldsX2&quot;       &quot;totalCaughtHoldsX2&quot;    
+## [73] &quot;totalBreakOutHoldsX2&quot;   &quot;totalMuayThaiKicksX2&quot;   &quot;totalPushKicksX2&quot;</code></pre>
+<pre class="r"><code>colnames(AmandaX2b)</code></pre>
+<pre><code>##  [1] &quot;SecondsIntoRound&quot;       &quot;lastAction&quot;             &quot;SecondsLastRoundAction&quot;
+##  [4] &quot;cmTotHitsR.X2&quot;          &quot;cmTotHitsL.X2&quot;          &quot;cmTotHitsM.X2&quot;         
+##  [7] &quot;TotLandsX2&quot;             &quot;TotMissedX2&quot;            &quot;OPPONENT_LANDED&quot;       
+## [10] &quot;Crossl.X2&quot;              &quot;Kneel.X2&quot;               &quot;Elbowl.X2&quot;             
+## [13] &quot;Hookl.X2&quot;               &quot;Jabl.X2&quot;                &quot;Kickl.X2&quot;              
+## [16] &quot;upperl.X2&quot;              &quot;takedownl.X2&quot;           &quot;hammerl.X2&quot;            
+## [19] &quot;Cross2l.X2&quot;             &quot;Knee2l.X2&quot;              &quot;Elbow2l.X2&quot;            
+## [22] &quot;Hook2l.X2&quot;              &quot;Jab2l.X2&quot;               &quot;Kick2l.X2&quot;             
+## [25] &quot;upper2l.X2&quot;             &quot;takedown2l.X2&quot;          &quot;hammer2l.X2&quot;           
+## [28] &quot;Cross3l.X2&quot;             &quot;Knee3l.X2&quot;              &quot;Elbow3l.X2&quot;            
+## [31] &quot;Hook3l.X2&quot;              &quot;Jab3l.X2&quot;               &quot;Kick3l.X2&quot;             
+## [34] &quot;upper3l.X2&quot;             &quot;takedown3l.X2&quot;          &quot;hammer3l.X2&quot;           
+## [37] &quot;Crossm.X2&quot;              &quot;Kneem.X2&quot;               &quot;Elbowm.X2&quot;             
+## [40] &quot;Hookm.X2&quot;               &quot;Jabm.X2&quot;                &quot;Kickm.X2&quot;              
+## [43] &quot;upperm.X2&quot;              &quot;takedownm.X2&quot;           &quot;hammerm.X2&quot;            
+## [46] &quot;Cross2m.X2&quot;             &quot;Knee2m.X2&quot;              &quot;Elbow2m.X2&quot;            
+## [49] &quot;Hook2m.X2&quot;              &quot;Jab2m.X2&quot;               &quot;Kick2m.X2&quot;             
+## [52] &quot;upper2m.X2&quot;             &quot;takedown2m.X2&quot;          &quot;hammer2m.X2&quot;           
+## [55] &quot;Cross3m.X2&quot;             &quot;Knee3m.X2&quot;              &quot;Elbow3m.X2&quot;            
+## [58] &quot;Hook3m.X2&quot;              &quot;Jab3m.X2&quot;               &quot;Kick3m.X2&quot;             
+## [61] &quot;upper3m.X2&quot;             &quot;takedown3m.X2&quot;          &quot;hammer3m.X2&quot;           
+## [64] &quot;holdingX2&quot;              &quot;breaksHoldX2&quot;           &quot;caughtHoldX2&quot;          
+## [67] &quot;lostHoldX2&quot;             &quot;muayThaiKickX2&quot;         &quot;pushKickX2&quot;            
+## [70] &quot;openGuardKickX2&quot;        &quot;totalHoldsX2&quot;           &quot;totalLostHoldsX2&quot;      
+## [73] &quot;totalCaughtHoldsX2&quot;     &quot;totalBreakOutHoldsX2&quot;   &quot;totalMuayThaiKicksX2&quot;  
+## [76] &quot;totalPushKicksX2&quot;       &quot;totalopenguardKicksX2&quot;</code></pre>
+<p>We also need to remove the open guard kicks, that were exclusive only to Amanda’s fight with Germaine, and not in Felicia’s table. Note that Felicia also likes to do flying elbows and we didn’t add that feature to her table nor Amanda’s table, but it was included as a hit landed/missed for elbow as is. Also, change the placeholder for X1 hits landed to TotLandsX1. Also, reorder so that TotLandsX1 is before cmTotHitsR.X2 in column order to align with Felicia’s data table.</p>
+<pre class="r"><code>list3 &lt;- grep(&#39;open&#39;, colnames(AmandaX2b))
+AmandaX2c &lt;- AmandaX2b[,-list3]
+colnames(AmandaX2c)[9] &lt;- &#39;TotLandsX1&#39;
+AmandaX2d &lt;- AmandaX2c[,c(1:3,9,4:8,10:75)]
+colnames(AmandaX2d)</code></pre>
+<pre><code>##  [1] &quot;SecondsIntoRound&quot;       &quot;lastAction&quot;             &quot;SecondsLastRoundAction&quot;
+##  [4] &quot;TotLandsX1&quot;             &quot;cmTotHitsR.X2&quot;          &quot;cmTotHitsL.X2&quot;         
+##  [7] &quot;cmTotHitsM.X2&quot;          &quot;TotLandsX2&quot;             &quot;TotMissedX2&quot;           
+## [10] &quot;Crossl.X2&quot;              &quot;Kneel.X2&quot;               &quot;Elbowl.X2&quot;             
+## [13] &quot;Hookl.X2&quot;               &quot;Jabl.X2&quot;                &quot;Kickl.X2&quot;              
+## [16] &quot;upperl.X2&quot;              &quot;takedownl.X2&quot;           &quot;hammerl.X2&quot;            
+## [19] &quot;Cross2l.X2&quot;             &quot;Knee2l.X2&quot;              &quot;Elbow2l.X2&quot;            
+## [22] &quot;Hook2l.X2&quot;              &quot;Jab2l.X2&quot;               &quot;Kick2l.X2&quot;             
+## [25] &quot;upper2l.X2&quot;             &quot;takedown2l.X2&quot;          &quot;hammer2l.X2&quot;           
+## [28] &quot;Cross3l.X2&quot;             &quot;Knee3l.X2&quot;              &quot;Elbow3l.X2&quot;            
+## [31] &quot;Hook3l.X2&quot;              &quot;Jab3l.X2&quot;               &quot;Kick3l.X2&quot;             
+## [34] &quot;upper3l.X2&quot;             &quot;takedown3l.X2&quot;          &quot;hammer3l.X2&quot;           
+## [37] &quot;Crossm.X2&quot;              &quot;Kneem.X2&quot;               &quot;Elbowm.X2&quot;             
+## [40] &quot;Hookm.X2&quot;               &quot;Jabm.X2&quot;                &quot;Kickm.X2&quot;              
+## [43] &quot;upperm.X2&quot;              &quot;takedownm.X2&quot;           &quot;hammerm.X2&quot;            
+## [46] &quot;Cross2m.X2&quot;             &quot;Knee2m.X2&quot;              &quot;Elbow2m.X2&quot;            
+## [49] &quot;Hook2m.X2&quot;              &quot;Jab2m.X2&quot;               &quot;Kick2m.X2&quot;             
+## [52] &quot;upper2m.X2&quot;             &quot;takedown2m.X2&quot;          &quot;hammer2m.X2&quot;           
+## [55] &quot;Cross3m.X2&quot;             &quot;Knee3m.X2&quot;              &quot;Elbow3m.X2&quot;            
+## [58] &quot;Hook3m.X2&quot;              &quot;Jab3m.X2&quot;               &quot;Kick3m.X2&quot;             
+## [61] &quot;upper3m.X2&quot;             &quot;takedown3m.X2&quot;          &quot;hammer3m.X2&quot;           
+## [64] &quot;holdingX2&quot;              &quot;breaksHoldX2&quot;           &quot;caughtHoldX2&quot;          
+## [67] &quot;lostHoldX2&quot;             &quot;muayThaiKickX2&quot;         &quot;pushKickX2&quot;            
+## [70] &quot;totalHoldsX2&quot;           &quot;totalLostHoldsX2&quot;       &quot;totalCaughtHoldsX2&quot;    
+## [73] &quot;totalBreakOutHoldsX2&quot;   &quot;totalMuayThaiKicksX2&quot;   &quot;totalPushKicksX2&quot;</code></pre>
+<p>Lets check that the columns are aligned the same.</p>
+<pre class="r"><code>colnames(AmandaX2d)==colnames(FeliciaML3)</code></pre>
+<pre><code>##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [31] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [46] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [61] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<p>They are aligned the same, so we will make Felicia’s table the training set, and Amanda’s data table the testing set to see how Felicia’s actions compare to Amanda’s. We will use the best performing ML algorithms in R and Python. Note that we need to validate the data in training the model of Felicia’s actions and reactions with our new set of features but keeping the same target feature of hits landed of Felicia’s. We errored earlier in evaluating the algorithms on Felicia when including the total hits received by X2, a multicollinear (identical or identical partial units to each other i.e. x1=(1/3)x2 or x1=x2) vector or feature to our target of TotHitsLandX1 some of the decision tree algorithms might have picked up on this hence their fast computation time and near or at 100% accuracy in prediction. We will rerun those algorithms adjusting for the new data table that omits that multicollinear variable.</p>
+<p>First lets save the data as we want them to recall them later with ease.</p>
+<pre class="r"><code>TrainingSetFelicia &lt;- FeliciaML3
+TestingSetAmanda &lt;- AmandaX2d</code></pre>
+<p>Lets write these tables out to use in python’s ML algorithms later.</p>
+<pre class="r"><code>write.csv(TrainingSetFelicia,&#39;FeliciaM-asX2-L-v2.csv&#39;,row.names=FALSE)
+write.csv(TestingSetAmanda,&#39;AmandaML-asX1-v2.csv&#39;, row.names=FALSE)</code></pre>
+<pre class="r"><code>dim(TrainingSetFelicia)</code></pre>
+<pre><code>## [1] 529  75</code></pre>
+<pre class="r"><code>dim(TestingSetAmanda)</code></pre>
+<pre><code>## [1] 231  75</code></pre>
+<pre class="r"><code>231/529</code></pre>
+<pre><code>## [1] 0.436673</code></pre>
+<p>The ratio of samples to build the training model is about 56 to 44 training to testing split. This is only as a comparison. Where we will just sum up the hits landed as predicted by Felicia’s training model to the sum of hits landed as the actual hits landed by Amanda’s opponent Germaine. We have that actual value already as follows:</p>
+<pre class="r"><code>AmandasOpponentsHitsLanded &lt;- sum(TestingSetAmanda$TotLandsX1)
+AmandasOpponentsHitsLanded</code></pre>
+<pre><code>## [1] 13</code></pre>
+<p>So, for this data there are 13 hits landed by the opponent we are comparing Felicia’s predicted hits landed to, after building her prediction model.</p>
+<p>Lets split the data into a 70% training set and a 30% testing set.</p>
+<pre class="r"><code>set.seed(12345)
+inTrain &lt;- createDataPartition(y=TrainingSetFelicia$TotLandsX1, p=0.7, list=FALSE)
+
+trainingSet &lt;- TrainingSetFelicia[inTrain,]
+testingSet &lt;- TrainingSetFelicia[-inTrain,]</code></pre>
+<p>Lets get the dimensions of the testing and training set to see how many observations are in each subset of our data.</p>
+<pre class="r"><code>dim(testingSet)</code></pre>
+<pre><code>## [1] 158  75</code></pre>
+<pre class="r"><code>dim(trainingSet)</code></pre>
+<pre><code>## [1] 371  75</code></pre>
+<pre class="r"><code>library(caret)</code></pre>
+<p>We will test the random forest model of R’s caret package used earlier to score 96.8% accuracy.</p>
+<pre class="r"><code>rf_cv15 &lt;- train(TotLandsX1~., method=&#39;rf&#39;, 
+               na.action=na.pass,
+               data=(trainingSet),  preProc = c(&quot;center&quot;, &quot;scale&quot;),
+               trControl=trainControl(method=&#39;cv&#39;, classProbs = T), number=15)</code></pre>
+<pre class="r"><code>predRF_cv15 &lt;- predict(rf_cv15, testingSet)
+
+DF_cv15 &lt;- data.frame(predRF_cv15, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_cv15 &lt;- length(DF_cv15$ActualHitsLanded)
+
+sum_cv15 &lt;- sum(DF_cv15$predRF_boot==DF_cv15$ActualHitsLanded)
+
+accRF_cv15 &lt;- (sum_cv15/length_cv15)
+
+accRF_cv15</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_cv15,30)</code></pre>
+<pre><code>##     predRF_cv15 ActualHitsLanded
+## 2     0.1154049                0
+## 4     0.1273436                0
+## 11    0.1159029                0
+## 19    0.1212142                0
+## 20    0.1079231                0
+## 22    0.1211210                0
+## 26    0.1223981                0
+## 28    0.1161997                0
+## 29    0.1163701                0
+## 30    0.1163701                0
+## 33    0.1131449                0
+## 39    0.1127840                0
+## 43    0.1117226                0
+## 45    0.1117226                0
+## 48    0.1117226                0
+## 50    0.1117226                0
+## 54    0.1117226                0
+## 64    0.1143172                0
+## 69    0.1141623                0
+## 70    0.1141623                0
+## 84    0.1134518                0
+## 85    0.1134518                0
+## 87    0.1135843                0
+## 89    0.1148826                0
+## 95    0.1191483                0
+## 96    0.1173503                0
+## 97    0.1173503                1
+## 99    0.1158176                0
+## 100   0.1214371                0
+## 102   0.1173503                0</code></pre>
+<pre class="r"><code>DF_cv15$roundedPrediction &lt;- ifelse(DF_cv15$predRF_cv15 &lt; 0, 0, 
+                                    ifelse(DF_cv15$predRF_cv15 &gt; 2, 2,
+                                           round(DF_cv15$predRF_cv15)
+                                           )
+                                    )
+DF_cv15$Correct &lt;- ifelse(DF_cv15$ActualHitsLanded==DF_cv15$roundedPrediction,1,0)
+accuracy1 &lt;- sum(DF_cv15$Correct)/length(DF_cv15$Correct)
+accuracy1</code></pre>
+<pre><code>## [1] 0.9050633</code></pre>
+<pre class="r"><code>head(DF_cv15)</code></pre>
+<pre><code>##    predRF_cv15 ActualHitsLanded roundedPrediction Correct
+## 2    0.1154049                0                 0       1
+## 4    0.1273436                0                 0       1
+## 11   0.1159029                0                 0       1
+## 19   0.1212142                0                 0       1
+## 20   0.1079231                0                 0       1
+## 22   0.1211210                0                 0       1</code></pre>
+<p>Now we’ll test the generalized linear model of R’s caret package that also scored 96.8% after modifications for boundaries and rounding.</p>
+<pre class="r"><code>glmMod2 &lt;- train(TotLandsX1 ~ .,
+                method=&#39;glm&#39;, data=trainingSet)</code></pre>
+<pre class="r"><code>predglm2 &lt;- predict(glmMod2, testingSet)
+
+DF_glm2 &lt;- data.frame(predglm2, ActualHitsLanded=testingSet$TotLandsX1)
+
+length_glm2 &lt;- length(DF_glm2$ActualHitsLanded)
+
+sum_glm2 &lt;- sum(DF_glm2$predglm2==DF_glm2$ActualHitsLanded)
+
+accglm2 &lt;- (sum_glm2/length_glm2)
+
+accglm2</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_glm2)</code></pre>
+<pre><code>##      predglm2 ActualHitsLanded
+## 2  -0.1043763                0
+## 4   0.1044623                0
+## 11 -0.0188745                0
+## 19  0.4053709                0
+## 20  0.1050554                0
+## 22  0.2850252                0</code></pre>
+<pre class="r"><code>DF_glm2$roundedPrediction &lt;- ifelse(DF_glm2$predglm2&lt;0,0,
+                            ifelse(DF_glm2$predglm2&gt;2,2,
+                                   round(DF_glm2$predglm2,0)))
+DF_glm2$Correct &lt;- ifelse(DF_glm2$ActualHitsLanded==DF_glm2$roundedPrediction,1,0)
+accuracy4 &lt;- sum(DF_glm2$Correct)/length(DF_glm2$Correct)
+accuracy4</code></pre>
+<pre><code>## [1] 0.8987342</code></pre>
+<pre class="r"><code>head(DF_glm2)</code></pre>
+<pre><code>##      predglm2 ActualHitsLanded roundedPrediction Correct
+## 2  -0.1043763                0                 0       1
+## 4   0.1044623                0                 0       1
+## 11 -0.0188745                0                 0       1
+## 19  0.4053709                0                 0       1
+## 20  0.1050554                0                 0       1
+## 22  0.2850252                0                 0       1</code></pre>
+<p>With our adjusted data when validating the prediction of hits landed for Felicia in the reduced and corrected feature data, the Random Forest and Generalized Linear Models scored 90.5% and 89.9% accuracy in prediction respectively.</p>
+<p>Now, lets use the random forest and gradient boosted models of python’s sklearn package to test the new data of Felicia’s when comparing actions to Amanda’s later.</p>
+<pre class="r"><code>library(reticulate)</code></pre>
+<pre class="r"><code>conda_list(conda = &quot;auto&quot;) </code></pre>
+<pre><code>##           name                                                  python
+## 1    Anaconda2                     C:\\Users\\m\\Anaconda2\\python.exe
+## 2    djangoenv    C:\\Users\\m\\Anaconda2\\envs\\djangoenv\\python.exe
+## 3     python36     C:\\Users\\m\\Anaconda2\\envs\\python36\\python.exe
+## 4     python37     C:\\Users\\m\\Anaconda2\\envs\\python37\\python.exe
+## 5 r-reticulate C:\\Users\\m\\Anaconda2\\envs\\r-reticulate\\python.exe</code></pre>
+<pre class="r"><code>use_condaenv(condaenv = &quot;python36&quot;)</code></pre>
+<pre class="python"><code>import pandas as pd 
+import sklearn 
+import numpy as np 
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+np.random.seed(47) </code></pre>
+<p>Import our ML ready file to run the python algorithms on with sklearn.</p>
+<pre class="python"><code>Felicia = pd.read_csv(&#39;FeliciaM-asX2-L-v2.csv&#39;, encoding = &#39;unicode_escape&#39;) 
+print(Felicia.shape)</code></pre>
+<pre><code>## (529, 75)</code></pre>
+<pre class="python"><code>print(Felicia.columns)</code></pre>
+<pre><code>## Index([&#39;SecondsIntoRound&#39;, &#39;lastAction&#39;, &#39;SecondsLastRoundAction&#39;,
+##        &#39;TotLandsX1&#39;, &#39;cmTotHitsR.X2&#39;, &#39;cmTotHitsL.X2&#39;, &#39;cmTotHitsM.X2&#39;,
+##        &#39;TotLandsX2&#39;, &#39;TotMissedX2&#39;, &#39;Crossl.X2&#39;, &#39;Kneel.X2&#39;, &#39;Elbowl.X2&#39;,
+##        &#39;Hookl.X2&#39;, &#39;Jabl.X2&#39;, &#39;Kickl.X2&#39;, &#39;upperl.X2&#39;, &#39;takedownl.X2&#39;,
+##        &#39;hammerl.X2&#39;, &#39;Cross2l.X2&#39;, &#39;Knee2l.X2&#39;, &#39;Elbow2l.X2&#39;, &#39;Hook2l.X2&#39;,
+##        &#39;Jab2l.X2&#39;, &#39;Kick2l.X2&#39;, &#39;upper2l.X2&#39;, &#39;takedown2l.X2&#39;, &#39;hammer2l.X2&#39;,
+##        &#39;Cross3l.X2&#39;, &#39;Knee3l.X2&#39;, &#39;Elbow3l.X2&#39;, &#39;Hook3l.X2&#39;, &#39;Jab3l.X2&#39;,
+##        &#39;Kick3l.X2&#39;, &#39;upper3l.X2&#39;, &#39;takedown3l.X2&#39;, &#39;hammer3l.X2&#39;, &#39;Crossm.X2&#39;,
+##        &#39;Kneem.X2&#39;, &#39;Elbowm.X2&#39;, &#39;Hookm.X2&#39;, &#39;Jabm.X2&#39;, &#39;Kickm.X2&#39;, &#39;upperm.X2&#39;,
+##        &#39;takedownm.X2&#39;, &#39;hammerm.X2&#39;, &#39;Cross2m.X2&#39;, &#39;Knee2m.X2&#39;, &#39;Elbow2m.X2&#39;,
+##        &#39;Hook2m.X2&#39;, &#39;Jab2m.X2&#39;, &#39;Kick2m.X2&#39;, &#39;upper2m.X2&#39;, &#39;takedown2m.X2&#39;,
+##        &#39;hammer2m.X2&#39;, &#39;Cross3m.X2&#39;, &#39;Knee3m.X2&#39;, &#39;Elbow3m.X2&#39;, &#39;Hook3m.X2&#39;,
+##        &#39;Jab3m.X2&#39;, &#39;Kick3m.X2&#39;, &#39;upper3m.X2&#39;, &#39;takedown3m.X2&#39;, &#39;hammer3m.X2&#39;,
+##        &#39;holdingX2&#39;, &#39;breaksHoldX2&#39;, &#39;caughtHoldX2&#39;, &#39;lostHoldX2&#39;,
+##        &#39;muayThaiKickX2&#39;, &#39;pushKickX2&#39;, &#39;totalHoldsX2&#39;, &#39;totalLostHoldsX2&#39;,
+##        &#39;totalCaughtHoldsX2&#39;, &#39;totalBreakOutHoldsX2&#39;, &#39;totalMuayThaiKicksX2&#39;,
+##        &#39;totalPushKicksX2&#39;],
+##       dtype=&#39;object&#39;)</code></pre>
+<pre class="python"><code>print(Felicia.head())</code></pre>
+<pre><code>##    SecondsIntoRound  lastAction  ...  totalMuayThaiKicksX2  totalPushKicksX2
+## 0                 4           0  ...                     0                 0
+## 1                 5           4  ...                     0                 0
+## 2                 9           5  ...                     0                 0
+## 3                11           9  ...                     0                 0
+## 4                13          11  ...                     0                 0
+## 
+## [5 rows x 75 columns]</code></pre>
+<pre class="python"><code>print(Felicia.tail())</code></pre>
+<pre><code>##      SecondsIntoRound  lastAction  ...  totalMuayThaiKicksX2  totalPushKicksX2
+## 524               295         294  ...                     9                 0
+## 525               296         295  ...                     9                 0
+## 526               297         296  ...                     9                 0
+## 527               298         297  ...                     9                 0
+## 528               299         298  ...                     9                 0
+## 
+## [5 rows x 75 columns]</code></pre>
+<pre class="python"><code>print(Felicia[&#39;TotLandsX1&#39;].unique())</code></pre>
+<pre><code>## [0 1 2]</code></pre>
+<p>Reorder the rows as instances randomised to split into train and test sets of the data.</p>
+<pre class="python"><code>import numpy as np
+
+Felicia = Felicia.reindex(np.random.permutation(Felicia.index))
+
+print(Felicia.head())</code></pre>
+<pre><code>##      SecondsIntoRound  lastAction  ...  totalMuayThaiKicksX2  totalPushKicksX2
+## 274               124         123  ...                     0                 0
+## 453               196         187  ...                     7                 0
+## 470               241         240  ...                     9                 0
+## 146               194         193  ...                     0                 0
+## 208                56          55  ...                     0                 0
+## 
+## [5 rows x 75 columns]</code></pre>
+<pre class="python"><code>print(Felicia.tail())</code></pre>
+<pre><code>##      SecondsIntoRound  lastAction  ...  totalMuayThaiKicksX2  totalPushKicksX2
+## 59                107         106  ...                     0                 0
+## 23                 70          69  ...                     0                 0
+## 264               114         113  ...                     0                 0
+## 327               177         176  ...                     0                 0
+## 135               183         182  ...                     0                 0
+## 
+## [5 rows x 75 columns]</code></pre>
+<p>There are 529 instances in this data, and 80% is about 424, the target is the hits landed by X1.</p>
+<pre class="python"><code># Split/splice into training ~ 80% and testing ~ 20%
+Felicia_train = Felicia[:424]
+Felicia_test = Felicia[424:]
+Felicia_hits_train = Felicia[&#39;TotLandsX1&#39;][:424]
+Felicia_hits_test = Felicia[&#39;TotLandsX1&#39;][424:]
+
+print(Felicia_train.shape)</code></pre>
+<pre><code>## (424, 75)</code></pre>
+<pre class="python"><code>print(Felicia_test.shape)</code></pre>
+<pre><code>## (105, 75)</code></pre>
+<p>Python’s Sklearn’s Random Forest and Gradient Boosting Classifier results</p>
+<pre class="python"><code>
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.metrics import precision_recall_fscore_support as score
+import time</code></pre>
+</div>
+<div id="random-forest-classifier-1" class="section level1">
+<h1>Random Forest Classifier</h1>
+<pre class="python"><code>rf=RandomForestClassifier(n_estimators=150, max_depth=None, n_jobs=-1)
+start=time.time()
+rf_model=rf.fit(Felicia_train,Felicia_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time</code></pre>
+<pre><code>## 0.3938119411468506</code></pre>
+<pre class="python"><code>start=time.time()
+y_pred=rf_model.predict(Felicia_test)
+end=time.time()
+pred_time=(end-start)
+pred_time</code></pre>
+<pre><code>## 0.13974833488464355</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(y_pred)
+prd.columns=[&#39;Predicted&#39;]
+
+prd.index=Felicia_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Felicia_hits_test],axis=1)
+print(pred)</code></pre>
+<pre><code>##      Predicted  TotLandsX1
+## 30           0           0
+## 95           0           0
+## 72           0           0
+## 41           0           0
+## 490          0           0
+## ..         ...         ...
+## 59           1           1
+## 23           1           1
+## 264          0           0
+## 327          0           0
+## 135          0           0
+## 
+## [105 rows x 2 columns]</code></pre>
+<pre class="python"><code>accuracy_Felicia_valid_RF = sum(pred[&#39;Predicted&#39;]==pred[&#39;TotLandsX1&#39;])/len(pred[&#39;Predicted&#39;])
+accuracy_Felicia_valid_RF</code></pre>
+<pre><code>## 0.9904761904761905</code></pre>
+<p>The python Random Forest Classifier scored 99% accuracy in prediction for Felicia’s actions and reactions. This is a great measure and score to compare her model to Amanda’s later.</p>
+<pre class="python"><code>from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print(&#39;accuracy&#39;, accuracy_score(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## accuracy 0.9904761904761905</code></pre>
+<pre class="python"><code>print(&#39;confusion matrix&#39;)</code></pre>
+<pre><code>## confusion matrix</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## [[92  0]
+##  [ 1 12]]</code></pre>
+<p>The above confusion matrix for the random forest classifier for Felicia shows that there weren’t any class 2 in the testing set, and that 12/13 1s were classified correctly and that all 0s were classified correctly but that one 1 value for hits landed was classified as a 0 hits landed. The rows are the expected or actual values and the columns are the predicted values in order top to bottom or left to right as lowest to highest value numerically.</p>
+<p>Python’s Sklearn’s Gradient Boosted Model</p>
+<pre class="python"><code>gb=GradientBoostingClassifier(n_estimators=150,max_depth=11)
+start=time.time()
+gb_model=gb.fit(Felicia_train,Felicia_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time</code></pre>
+<pre><code>## 0.46225547790527344</code></pre>
+<pre class="python"><code>start=time.time()
+y_pred=gb_model.predict(Felicia_test)
+end=time.time()
+pred_time=(end-start)
+pred_time</code></pre>
+<pre><code>## 0.03301215171813965</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(y_pred)
+prd.columns=[&#39;Predicted&#39;]
+
+prd.index=Felicia_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Felicia_hits_test],axis=1)
+print(pred)</code></pre>
+<pre><code>##      Predicted  TotLandsX1
+## 30           0           0
+## 95           0           0
+## 72           0           0
+## 41           0           0
+## 490          0           0
+## ..         ...         ...
+## 59           1           1
+## 23           1           1
+## 264          0           0
+## 327          0           0
+## 135          0           0
+## 
+## [105 rows x 2 columns]</code></pre>
+<pre class="python"><code>accuracy_Felicia_valid_GB = sum(pred[&#39;Predicted&#39;]==pred[&#39;TotLandsX1&#39;])/len(pred[&#39;Predicted&#39;])
+accuracy_Felicia_valid_GB</code></pre>
+<pre><code>## 1.0</code></pre>
+<p>The python Gradient Boosted Classifier scored 100% accuracy in prediction for Felicia’s actions and reactions. This is a great measure and score to compare her model to Amanda’s later.</p>
+<pre class="python"><code>from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print(&#39;accuracy&#39;, accuracy_score(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## accuracy 1.0</code></pre>
+<pre class="python"><code>print(&#39;confusion matrix&#39;)</code></pre>
+<pre><code>## confusion matrix</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## [[92  0]
+##  [ 0 13]]</code></pre>
+<p>Now that we have validated our model and show that our new limited data of Felicia’s actions and reactions are 90-100% accurate using R we scored 90% with random forest and generalized linear modeling, and with Python we scored 99-100% with random forest and gradient boosted classifiers, we can start comparing how well Felicia would do when facing Amanda as an opponent.</p>
+<hr />
+</div>
+<div id="comparing-felicias-actions-to-a-fight-with-amanda" class="section level1">
+<h1>Comparing Felicia’s actions to a fight with Amanda</h1>
+<p>We are going to use R to show the predictions of hit landed for Felicia against Amanda using random forest and glm as we just did in validating Felicia’s prediction model.</p>
+<pre class="r"><code># library(caret)</code></pre>
+<p>We will test the random forest model of R’s caret package used earlier to score 96.8% accuracy.</p>
+<pre class="r"><code>rf_cv15 &lt;- train(TotLandsX1~., method=&#39;rf&#39;, 
+               na.action=na.pass,
+               data=(TrainingSetFelicia),  preProc = c(&quot;center&quot;, &quot;scale&quot;),
+               trControl=trainControl(method=&#39;cv&#39;, classProbs = T), number=15)</code></pre>
+<pre class="r"><code>predRF_cv15 &lt;- predict(rf_cv15, TestingSetAmanda)
+
+DF_cv15 &lt;- data.frame(predRF_cv15, ActualHitsLanded=TestingSetAmanda$TotLandsX1)
+
+length_cv15 &lt;- length(DF_cv15$ActualHitsLanded)
+
+sum_cv15 &lt;- sum(DF_cv15$predRF_boot==DF_cv15$ActualHitsLanded)
+
+accRF_cv15 &lt;- (sum_cv15/length_cv15)
+
+accRF_cv15</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_cv15,30)</code></pre>
+<pre><code>##    predRF_cv15 ActualHitsLanded
+## 1   0.13117920                0
+## 2   0.11432451                0
+## 3   0.12668851                0
+## 4   0.12997718                0
+## 5   0.11149705                0
+## 6   0.10345997                1
+## 7   0.10615724                0
+## 8   0.12194363                1
+## 9   0.12180125                0
+## 10  0.12189502                0
+## 11  0.12189502                0
+## 12  0.12419176                0
+## 13  0.12014195                0
+## 14  0.11222695                0
+## 15  0.12017917                0
+## 16  0.13461567                0
+## 17  0.09863531                0
+## 18  0.10762622                0
+## 19  0.11633216                0
+## 20  0.11062021                0
+## 21  0.11578408                0
+## 22  0.11515224                0
+## 23  0.11493792                0
+## 24  0.11493792                0
+## 25  0.11493792                0
+## 26  0.11493792                0
+## 27  0.11493792                0
+## 28  0.11493792                0
+## 29  0.11493792                0
+## 30  0.10738488                0</code></pre>
+<pre class="r"><code>DF_cv15$roundedPrediction &lt;- ifelse(DF_cv15$predRF_cv15 &lt; 0, 0, 
+                                    ifelse(DF_cv15$predRF_cv15 &gt; 2, 2,
+                                           round(DF_cv15$predRF_cv15)
+                                           )
+                                    )
+DF_cv15$Correct &lt;- ifelse(DF_cv15$ActualHitsLanded==DF_cv15$roundedPrediction,1,0)
+accuracy1 &lt;- sum(DF_cv15$Correct)/length(DF_cv15$Correct)
+accuracy1</code></pre>
+<pre><code>## [1] 0.965368</code></pre>
+<pre class="r"><code>head(DF_cv15)</code></pre>
+<pre><code>##   predRF_cv15 ActualHitsLanded roundedPrediction Correct
+## 1   0.1311792                0                 0       1
+## 2   0.1143245                0                 0       1
+## 3   0.1266885                0                 0       1
+## 4   0.1299772                0                 0       1
+## 5   0.1114970                0                 0       1
+## 6   0.1034600                1                 0       0</code></pre>
+<pre class="r"><code>sum(DF_cv15$roundedPrediction)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>unique(DF_cv15$roundedPrediction)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p>Even though the prediction accuracy for Felicia’s hits landed compared to Amanda’s opponent Germaine scored a 96% accuracy with random forest, it predicted all hits landed by Felicia to be 0. And recall that the hits landed by Germaine were 13/231. So, it looks like our model using R’s random forest for Felicia’s training model has a 90% chance that Felicia’s hits landed when compared to hits landed by Germaine to Amanda of 96% chance of not landing one hit. Germaine and Felicia do have different fighting styles as Germaine’s was mostly on the ground.</p>
+<p>Lets see how the generalized linear model scores Felicia’s hits landed with Amanda, or how it predicts a hit landed by Felicia.</p>
+<pre class="r"><code>glmMod2 &lt;- train(TotLandsX1 ~ .,
+                method=&#39;glm&#39;, data=TrainingSetFelicia)</code></pre>
+<pre class="r"><code>predglm2 &lt;- predict(glmMod2, TestingSetAmanda)
+
+DF_glm2 &lt;- data.frame(predglm2, ActualHitsLanded=TestingSetAmanda$TotLandsX1)
+
+length_glm2 &lt;- length(DF_glm2$ActualHitsLanded)
+
+sum_glm2 &lt;- sum(DF_glm2$predglm2==DF_glm2$ActualHitsLanded)
+
+accglm2 &lt;- (sum_glm2/length_glm2)
+
+accglm2</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>head(DF_glm2)</code></pre>
+<pre><code>##       predglm2 ActualHitsLanded
+## 1  0.087128987                0
+## 2 -0.070072193                0
+## 3  0.048109374                0
+## 4  0.124529280                0
+## 5  0.003080329                0
+## 6 -0.135513966                1</code></pre>
+<pre class="r"><code>DF_glm2$roundedPrediction &lt;- ifelse(DF_glm2$predglm2&lt;0,0,
+                            ifelse(DF_glm2$predglm2&gt;2,2,
+                                   round(DF_glm2$predglm2,0)))
+DF_glm2$Correct &lt;- ifelse(DF_glm2$ActualHitsLanded==DF_glm2$roundedPrediction,1,0)
+accuracy4 &lt;- sum(DF_glm2$Correct)/length(DF_glm2$Correct)
+accuracy4</code></pre>
+<pre><code>## [1] 0.961039</code></pre>
+<pre class="r"><code>head(DF_glm2)</code></pre>
+<pre><code>##       predglm2 ActualHitsLanded roundedPrediction Correct
+## 1  0.087128987                0                 0       1
+## 2 -0.070072193                0                 0       1
+## 3  0.048109374                0                 0       1
+## 4  0.124529280                0                 0       1
+## 5  0.003080329                0                 0       1
+## 6 -0.135513966                1                 0       0</code></pre>
+<pre class="r"><code>sum(DF_glm2$roundedPrediction)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>unique(DF_glm2$roundedPrediction)</code></pre>
+<pre><code>## [1] 0 1</code></pre>
+<p>The GLM model scored 96% accuracy in prediction, similarly as with random forest, but in this model it predicted one instance where Felicia will land a hit out of 231. Lets see what instance that is.</p>
+<pre class="r"><code>hit &lt;- DF_glm2$roundedPrediction==1
+FeliciaHit &lt;- TestingSetAmanda[hit,]
+FeliciaHit</code></pre>
+<pre><code>##    SecondsIntoRound lastAction SecondsLastRoundAction TotLandsX1 cmTotHitsR.X2
+## 32               88         87                      1          0             2
+##    cmTotHitsL.X2 cmTotHitsM.X2 TotLandsX2 TotMissedX2 Crossl.X2 Kneel.X2
+## 32             4            14          0           2         0        0
+##    Elbowl.X2 Hookl.X2 Jabl.X2 Kickl.X2 upperl.X2 takedownl.X2 hammerl.X2
+## 32         0        0       0        0         0            0          0
+##    Cross2l.X2 Knee2l.X2 Elbow2l.X2 Hook2l.X2 Jab2l.X2 Kick2l.X2 upper2l.X2
+## 32          0         0          0         0        0         0          0
+##    takedown2l.X2 hammer2l.X2 Cross3l.X2 Knee3l.X2 Elbow3l.X2 Hook3l.X2 Jab3l.X2
+## 32             0           0          0         0          0         0        0
+##    Kick3l.X2 upper3l.X2 takedown3l.X2 hammer3l.X2 Crossm.X2 Kneem.X2 Elbowm.X2
+## 32         0          0             0           0         0        1         0
+##    Hookm.X2 Jabm.X2 Kickm.X2 upperm.X2 takedownm.X2 hammerm.X2 Cross2m.X2
+## 32        1       0        0         0            0          0          0
+##    Knee2m.X2 Elbow2m.X2 Hook2m.X2 Jab2m.X2 Kick2m.X2 upper2m.X2 takedown2m.X2
+## 32         0          0         0        0         0          0             0
+##    hammer2m.X2 Cross3m.X2 Knee3m.X2 Elbow3m.X2 Hook3m.X2 Jab3m.X2 Kick3m.X2
+## 32           0          0         0          0         0        0         0
+##    upper3m.X2 takedown3m.X2 hammer3m.X2 holdingX2 breaksHoldX2 caughtHoldX2
+## 32          0             0           0         1            0            1
+##    lostHoldX2 muayThaiKickX2 pushKickX2 totalHoldsX2 totalLostHoldsX2
+## 32          0              0          0            6                1
+##    totalCaughtHoldsX2 totalBreakOutHoldsX2 totalMuayThaiKicksX2
+## 32                 10                    1                    5
+##    totalPushKicksX2
+## 32                0</code></pre>
+<p>It looks like the prediciton of one hit landed by Felicia is not an actual hit landed by Germaine against Amanda. But under the conditions that Amanda lands no hits that second, 88 seconds into the round, with an accumulated 14 hits by Amanda missed and 4 hits landed by Amanda and a cumulative total of 2 hits recieved by Amanda (from 2 hits landed by opponent), and 1 second since an action taken by either fighter, as well as a knee and hook missed by Amanda and holding some part of the body while being caught in a hold of some sort, Amanda having had 6 holds up to 88 seconds in the round, and Amanda having lost 1 of those holds, Amanda having been caught in 10 holds and broken out of 1 hold, attempted 5 muay thai kicks and 0 push kicks. Lets see what those holds are that Amanda is in and that Germaine was in, that the predictive model is predicting Felicia to land a hit. It is the instance 88 seconds into the round with Germaine from Amanda’s data that included the notes and action notes of each fighter. In this exact data table X1 is Amanda, and that’s who’s actions we’re interested in.</p>
+<pre class="r"><code>AllElseEqual &lt;- subset(AmandaML, AmandaML$SecondsIntoRound==88 &amp; AmandaML$Notes==&#39;Germaine&#39;)
+AllElseEqual$FighterActionReactions.X1</code></pre>
+<pre><code>## [1] caught in open guard hold continues and misses downward R hook to head while pushing and twisting L and holding L knee hold continues
+## 155 Levels:  holding side control hold continues ...</code></pre>
+<pre class="r"><code>AllElseEqual$FightersActionsReactions.X2</code></pre>
+<pre><code>## [1] holding open guard hold continues and caught in L knee hold
+## 139 Levels: attempting to get up with opponent and do a waste takedown against cage and caught in guillotine hold ...</code></pre>
+<p>So, when Amanda is caught in an open guard and holding opponent’s Left knee and also misses a downward Right hook to the head of her opponent (Germaine) the glm model predicts that Felicia would react unlike Germaine and will land a hit. Because Germaine didn’t actually land a hit in this instance but based on Felicia’s model we trained, it predicts Felicia would land a hit without specifying which one. Interesting. Now, lets see how Python compares the fight between Felicia and Amanda.</p>
+<p>Python models to predict hits landed for Felicia against Amanda.</p>
+<pre class="r"><code>library(reticulate)</code></pre>
+<pre class="r"><code>conda_list(conda = &quot;auto&quot;) </code></pre>
+<pre><code>##           name                                                  python
+## 1    Anaconda2                     C:\\Users\\m\\Anaconda2\\python.exe
+## 2    djangoenv    C:\\Users\\m\\Anaconda2\\envs\\djangoenv\\python.exe
+## 3     python36     C:\\Users\\m\\Anaconda2\\envs\\python36\\python.exe
+## 4     python37     C:\\Users\\m\\Anaconda2\\envs\\python37\\python.exe
+## 5 r-reticulate C:\\Users\\m\\Anaconda2\\envs\\r-reticulate\\python.exe</code></pre>
+<pre class="r"><code>use_condaenv(condaenv = &quot;python36&quot;)</code></pre>
+<pre class="python"><code>import pandas as pd 
+import sklearn 
+import numpy as np 
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+np.random.seed(47) </code></pre>
+<p>Import our ML ready file to run the python algorithms on with sklearn.</p>
+<pre class="python"><code>TrainingSetFelicia = pd.read_csv(&#39;FeliciaM-asX2-L-v2.csv&#39;, encoding = &#39;unicode_escape&#39;) 
+print(TrainingSetFelicia.shape)</code></pre>
+<pre><code>## (529, 75)</code></pre>
+<pre class="python"><code>TestingSetAmanda = pd.read_csv(&#39;AmandaML-asX1-v2.csv&#39;, encoding=&#39;unicode_escape&#39;)
+print(TestingSetAmanda.shape)</code></pre>
+<pre><code>## (231, 75)</code></pre>
+<pre class="python"><code>Felicia_train = TrainingSetFelicia
+Felicia_test = TestingSetAmanda
+Felicia_hits_train = TrainingSetFelicia[&#39;TotLandsX1&#39;]
+Felicia_hits_test = TestingSetAmanda[&#39;TotLandsX1&#39;]
+
+print(Felicia_train.shape)</code></pre>
+<pre><code>## (529, 75)</code></pre>
+<pre class="python"><code>print(Felicia_test.shape)</code></pre>
+<pre><code>## (231, 75)</code></pre>
+<p>Python’s Sklearn’s Random Forest and Gradient Boosting Classifier results</p>
+<pre class="python"><code>
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.metrics import precision_recall_fscore_support as score
+import time</code></pre>
+</div>
+<div id="random-forest-classifier-2" class="section level1">
+<h1>Random Forest Classifier</h1>
+<pre class="python"><code>rf=RandomForestClassifier(n_estimators=150, max_depth=None, n_jobs=-1)
+start=time.time()
+rf_model=rf.fit(Felicia_train,Felicia_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time</code></pre>
+<pre><code>## 0.47223711013793945</code></pre>
+<pre class="python"><code>start=time.time()
+y_pred=rf_model.predict(Felicia_test)
+end=time.time()
+pred_time=(end-start)
+pred_time</code></pre>
+<pre><code>## 0.16494250297546387</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(y_pred)
+prd.columns=[&#39;Predicted&#39;]
+
+prd.index=Felicia_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Felicia_hits_test],axis=1)
+print(pred)</code></pre>
+<pre><code>##      Predicted  TotLandsX1
+## 0            0           0
+## 1            0           0
+## 2            0           0
+## 3            0           0
+## 4            0           0
+## ..         ...         ...
+## 226          0           0
+## 227          0           0
+## 228          0           0
+## 229          0           0
+## 230          0           0
+## 
+## [231 rows x 2 columns]</code></pre>
+<pre class="python"><code>accuracy_Felicia_valid_RF = sum(pred[&#39;Predicted&#39;]==pred[&#39;TotLandsX1&#39;])/len(pred[&#39;Predicted&#39;])
+accuracy_Felicia_valid_RF</code></pre>
+<pre><code>## 0.9783549783549783</code></pre>
+<p>The python Random Forest Classifier scored 97.8% accuracy in prediction for Felicia’s actions and reactions.</p>
+<pre class="python"><code>from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print(&#39;accuracy&#39;, accuracy_score(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## accuracy 0.9783549783549783</code></pre>
+<pre class="python"><code>print(&#39;confusion matrix&#39;)</code></pre>
+<pre><code>## confusion matrix</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## [[223   0   0]
+##  [  0   3   0]
+##  [  0   5   0]]</code></pre>
+<p>All 0 hits were predicted to be 0, all 1 hits were predicted to be 1s, but all 2 hits landed were predicted to be 1 hit landed. There were 13 total hits by Germaine that we are predicting if Felicia will land any hits as actions compared to the actions of Amanda when they compete against each other. This model predicted that Felicia will also land 13 hits but they aren’t all the exact same instances that Germaine landed her hits against Amanda. Lets see which instances those are.</p>
+<pre class="python"><code>hitsPredicted = pred[pred[&#39;Predicted&#39;]&gt;0]
+hitsPredicted</code></pre>
+<pre><code>##     Predicted  TotLandsX1
+## 5           1           1
+## 7           1           1
+## 51          1           1
+## 57          1           2
+## 58          1           2
+## 60          1           2
+## 62          1           2
+## 65          1           2</code></pre>
+<pre class="python"><code>rows = hitsPredicted.index
+rows</code></pre>
+<pre><code>## Int64Index([5, 7, 51, 57, 58, 60, 62, 65], dtype=&#39;int64&#39;)</code></pre>
+<pre class="python"><code>TestingSetAmanda.shape</code></pre>
+<pre><code>## (231, 75)</code></pre>
+<pre class="python"><code>TestingSetAmanda.iloc[rows]</code></pre>
+<pre><code>##     SecondsIntoRound  lastAction  ...  totalMuayThaiKicksX2  totalPushKicksX2
+## 5                 19          18  ...                     3                 0
+## 7                 34          31  ...                     4                 0
+## 51               111         109  ...                     5                 1
+## 57               117         116  ...                     5                 1
+## 58               118         117  ...                     5                 1
+## 60               120         119  ...                     5                 1
+## 62               122         121  ...                     5                 1
+## 65               125         124  ...                     5                 1
+## 
+## [8 rows x 75 columns]</code></pre>
+<p>Lets look at these indices in the R version of the table with the action notes as descriptive information.</p>
+<pre class="r"><code>predHitsPyRF &lt;- c(5, 7, 51, 57, 58, 60, 62, 65)
+AmandaML[predHitsPyRF,19]</code></pre>
+<pre><code>## [1] &lt;NA&gt;                                                                                                                                          
+## [2] &lt;NA&gt;                                                                                                                                          
+## [3] holds L ft of opponent after stepping back from upward kicks                                                                                  
+## [4] caught in R arm hold and holding upper body hold continues                                                                                    
+## [5] lands R knee to upper L leg of opponent while holding opponent against the cage and caught in R arm hold and holding upper body hold continues
+## [6] caught in R arm hold and holding upper body hold continues                                                                                    
+## [7] caught in R arm hold and holding upper body hold continues                                                                                    
+## [8] caught in R arm hold and holding upper body hold continues                                                                                    
+## 139 Levels: attempting to get up with opponent and do a waste takedown against cage and caught in guillotine hold ...</code></pre>
+<p>From the above data, we can see that Python’s sklearn’s random forest predicts that when X1 as Felicia is against X2 as Amanda under the above circumstances Felicia will land a hit. Amanda is open stand up, Felicia is in open guard trying to kick Amanda off of her, Amanda is holding Felicia’s upper body and Felicia is holding Amanda’s Right arm, Amanda is holding Felicia’s upper body and Felicia is holding Amanda’s R arm, and when Amanda holds Felicia against the cage holding her upper body and Felicia is holding her right arm then Felicia will land a Right knee to the upper leg of Amanda.</p>
+<p>Now lets see how the gradient boosting classifier predicts hits landed for Felicia against Amanda.</p>
+<pre class="python"><code>gb=GradientBoostingClassifier(n_estimators=150,max_depth=11)
+start=time.time()
+gb_model=gb.fit(Felicia_train,Felicia_hits_train)
+end=time.time()
+fit_time=(end-start)
+fit_time</code></pre>
+<pre><code>## 0.8038060665130615</code></pre>
+<pre class="python"><code>start=time.time()
+y_pred=gb_model.predict(Felicia_test)
+end=time.time()
+pred_time=(end-start)
+pred_time</code></pre>
+<pre><code>## 0.03201031684875488</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(y_pred)
+prd.columns=[&#39;Predicted&#39;]
+
+prd.index=Felicia_hits_test.index
+pred=pd.concat([pd.DataFrame(prd),Felicia_hits_test],axis=1)
+print(pred)</code></pre>
+<pre><code>##      Predicted  TotLandsX1
+## 0            0           0
+## 1            0           0
+## 2            0           0
+## 3            0           0
+## 4            0           0
+## ..         ...         ...
+## 226          0           0
+## 227          0           0
+## 228          0           0
+## 229          0           0
+## 230          0           0
+## 
+## [231 rows x 2 columns]</code></pre>
+<pre class="python"><code>accuracy_Felicia_valid_GB = sum(pred[&#39;Predicted&#39;]==pred[&#39;TotLandsX1&#39;])/len(pred[&#39;Predicted&#39;])
+accuracy_Felicia_valid_GB</code></pre>
+<pre><code>## 1.0</code></pre>
+<p>The python Gradient Boosted Classifier scored 100% accuracy in prediction for Felicia’s actions and reactions.</p>
+<pre class="python"><code>from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix 
+
+print(&#39;accuracy&#39;, accuracy_score(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## accuracy 1.0</code></pre>
+<pre class="python"><code>print(&#39;confusion matrix&#39;)</code></pre>
+<pre><code>## confusion matrix</code></pre>
+<pre class="python"><code>print(confusion_matrix(Felicia_hits_test, y_pred))</code></pre>
+<pre><code>## [[223   0   0]
+##  [  0   3   0]
+##  [  0   0   5]]</code></pre>
+<p>We can see that the predicted 0s, 1s, and 2s, of hits landed per second by Felicia are the same predicted hits landed by Germaine against Amanda. The gradient boosted model was able to correctly predict all the 2 hits per second landed that the random forest classifier didn’t. This says that the Gradient Boosted Classifer thinks Amanda’s hits against her three opponents’ actions will be identical to the same type of actions Germaine had when fighting Amanda.</p>
+<pre class="python"><code>hitsPredicted = pred[pred[&#39;Predicted&#39;]==1]
+hitsPredicted</code></pre>
+<pre><code>##     Predicted  TotLandsX1
+## 5           1           1
+## 7           1           1
+## 51          1           1</code></pre>
+<pre class="python"><code>hitsPredicted2 = pred[pred[&#39;Predicted&#39;]==2]
+hitsPredicted2</code></pre>
+<pre><code>##     Predicted  TotLandsX1
+## 57          2           2
+## 58          2           2
+## 60          2           2
+## 62          2           2
+## 65          2           2</code></pre>
+<pre class="python"><code>rows = hitsPredicted.index
+rows</code></pre>
+<pre><code>## Int64Index([5, 7, 51], dtype=&#39;int64&#39;)</code></pre>
+<pre class="python"><code>rows2 = hitsPredicted2.index
+rows2</code></pre>
+<pre><code>## Int64Index([57, 58, 60, 62, 65], dtype=&#39;int64&#39;)</code></pre>
+<pre class="python"><code>TestingSetAmanda.iloc[rows]</code></pre>
+<pre><code>##     SecondsIntoRound  lastAction  ...  totalMuayThaiKicksX2  totalPushKicksX2
+## 5                 19          18  ...                     3                 0
+## 7                 34          31  ...                     4                 0
+## 51               111         109  ...                     5                 1
+## 
+## [3 rows x 75 columns]</code></pre>
+<pre class="python"><code>TestingSetAmanda.iloc[rows2]</code></pre>
+<pre><code>##     SecondsIntoRound  lastAction  ...  totalMuayThaiKicksX2  totalPushKicksX2
+## 57               117         116  ...                     5                 1
+## 58               118         117  ...                     5                 1
+## 60               120         119  ...                     5                 1
+## 62               122         121  ...                     5                 1
+## 65               125         124  ...                     5                 1
+## 
+## [5 rows x 75 columns]</code></pre>
+<p>The following circumstances or conditions are for Amanda, when under these conditions, it is predicted that Felicia will land 1 hit per second.</p>
+<pre class="r"><code>predHits1PyGB &lt;- c(5, 7, 51)
+AmandaML[predHits1PyGB,19]</code></pre>
+<pre><code>## [1] &lt;NA&gt;                                                        
+## [2] &lt;NA&gt;                                                        
+## [3] holds L ft of opponent after stepping back from upward kicks
+## 139 Levels: attempting to get up with opponent and do a waste takedown against cage and caught in guillotine hold ...</code></pre>
+<p>The following actions/reactions are for Amanda, when Amanda is under these similar circumstances Felicia is predicted to land 2 hits per second.</p>
+<pre class="r"><code>predHits2PyGB &lt;- c(57, 58, 60, 62, 65)
+AmandaML[predHits2PyGB,19]</code></pre>
+<pre><code>## [1] caught in R arm hold and holding upper body hold continues                                                                                    
+## [2] lands R knee to upper L leg of opponent while holding opponent against the cage and caught in R arm hold and holding upper body hold continues
+## [3] caught in R arm hold and holding upper body hold continues                                                                                    
+## [4] caught in R arm hold and holding upper body hold continues                                                                                    
+## [5] caught in R arm hold and holding upper body hold continues                                                                                    
+## 139 Levels: attempting to get up with opponent and do a waste takedown against cage and caught in guillotine hold ...</code></pre>
+<p>That was interesting to see how these models predicted that Felicia Spencer would do against her opponent in the upcoming June 2, 2020 fight with Amanda Nunez. Given the data we have on Felicia we trained a model to test on her fighter reaction with 3 fighters’ first round fights with Felicia, and then tested those reactions with 90-100% accuracy in prediction. We then used those models to test how well they would predict Felicia to react with a successful landed hit against the actions of Amanda. It looks like the sklearn Gradient Boosted classifier thinks that Amanda is 100% similar to Germaine’s reactions against Amanda for hits landed, sklearn’s random forest thinks she is 97% similar but not going to land as many fast hits per second as Germaine. And for Random forest in R’s caret package, it predicts Felicia will not land any hits in her fight with Amanda while the generalized linear models R caret package predicts she will land one hit against Amanda if she is on her back in open guard where Amanda misses a Right hook to Felicia’s head and while Amanda is holding Felicia’s Left knee in her open guard.</p>
+<p>There is more that could be done to do action by action of the most actions used, and predict one of those actions being used or landed based on Amanda’s actions, and a great number of variations of this model could predict likely results. We can have fun assuming this model works and see how the fight plays out. These fighters could be learning from their mistakes and the others’ previous fights available of their opponent to master the others weaknesses much like modifications and tuned parameter variations of our models to improve hits landed and go for their desired outcome. Outcomes weren’t recorded for this ML project, but Amanda won against Germaine after five rounds as a unanimous decision when she almost had a technical knockout in the first round of Germaine but the referee didn’t call it. And the Felicia fights ended in her victory over Zarah and Megan in submissions of a Rear Naked Choke or RNC in the first round and a unanimous decision loss to Christiane Cyborg after all five rounds of five minutes each.</p>
 </div>
 
 
