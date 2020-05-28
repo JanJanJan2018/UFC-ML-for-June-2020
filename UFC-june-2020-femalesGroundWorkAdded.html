@@ -21735,13 +21735,13 @@ rf_model=rf.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.4112377166748047</code></pre>
+<pre><code>## 1.399090051651001</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=rf_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.14951086044311523</code></pre>
+<pre><code>## 0.2519187927246094</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -21781,13 +21781,13 @@ gb_model=gb.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.6453018188476562</code></pre>
+<pre><code>## 0.6513597965240479</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=gb_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.031007051467895508</code></pre>
+<pre><code>## 0.03400874137878418</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -21887,7 +21887,7 @@ model6.add(
         bias_initializer=&#39;zeros&#39;,
         activation=&#39;tanh&#39;))</code></pre>
 <pre><code>## WARNING: Logging before flag parsing goes to stderr.
-## W0523 11:02:42.208872 11208 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+## W0528 08:40:54.751217 16084 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
 ## Instructions for updating:
 ## Call initializer instance with the dtype argument instead of passing it to the constructor</code></pre>
 <pre class="python"><code>model6.add(
@@ -21943,208 +21943,289 @@ history6 = model6.fit(Felicia_train, Felicia_hits_train,
 <pre><code>## Train on 360 samples, validate on 64 samples
 ## Epoch 1/50
 ## 
-##  64/360 [====&gt;.........................] - ETA: 6s - loss: 1.2403
-## 360/360 [==============================] - 2s 4ms/sample - loss: 1.0405 - val_loss: 0.7544
+##  64/360 [====&gt;.........................] - ETA: 8s - loss: 1.2403
+## 128/360 [=========&gt;....................] - ETA: 3s - loss: 1.2117
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 1.1205
+## 360/360 [==============================] - 2s 6ms/sample - loss: 1.0405 - val_loss: 0.7544
 ## Epoch 2/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.7713
-## 360/360 [==============================] - 0s 124us/sample - loss: 0.5912 - val_loss: 0.5205
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.7039
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.6243
+## 360/360 [==============================] - 0s 714us/sample - loss: 0.5912 - val_loss: 0.5205
 ## Epoch 3/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5375
-## 360/360 [==============================] - 0s 64us/sample - loss: 0.4279 - val_loss: 0.4615
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.4433
+## 360/360 [==============================] - 0s 420us/sample - loss: 0.4279 - val_loss: 0.4615
 ## Epoch 4/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3164
-## 360/360 [==============================] - 0s 43us/sample - loss: 0.3909 - val_loss: 0.4509
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3959
+## 360/360 [==============================] - 0s 472us/sample - loss: 0.3909 - val_loss: 0.4509
 ## Epoch 5/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3217
-## 360/360 [==============================] - 0s 116us/sample - loss: 0.3801 - val_loss: 0.4466
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3536
+## 360/360 [==============================] - 0s 441us/sample - loss: 0.3801 - val_loss: 0.4466
 ## Epoch 6/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2802
-## 360/360 [==============================] - 0s 29us/sample - loss: 0.3755 - val_loss: 0.4418
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3517
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3559
+## 360/360 [==============================] - 0s 621us/sample - loss: 0.3755 - val_loss: 0.4418
 ## Epoch 7/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5323
-## 360/360 [==============================] - 0s 74us/sample - loss: 0.3721 - val_loss: 0.4380
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.4329
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3740
+## 360/360 [==============================] - 0s 729us/sample - loss: 0.3721 - val_loss: 0.4380
 ## Epoch 8/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4635
-## 360/360 [==============================] - 0s 66us/sample - loss: 0.3684 - val_loss: 0.4339
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.4202
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3772
+## 360/360 [==============================] - 0s 647us/sample - loss: 0.3684 - val_loss: 0.4339
 ## Epoch 9/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3672
-## 360/360 [==============================] - 0s 43us/sample - loss: 0.3659 - val_loss: 0.4309
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3832
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3802
+## 360/360 [==============================] - 0s 930us/sample - loss: 0.3659 - val_loss: 0.4309
 ## Epoch 10/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2358
-## 360/360 [==============================] - 0s 100us/sample - loss: 0.3641 - val_loss: 0.4287
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3189
+## 360/360 [==============================] - 0s 413us/sample - loss: 0.3641 - val_loss: 0.4287
 ## Epoch 11/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2748
-## 360/360 [==============================] - 0s 78us/sample - loss: 0.3619 - val_loss: 0.4252
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3657
+## 360/360 [==============================] - 0s 445us/sample - loss: 0.3619 - val_loss: 0.4252
 ## Epoch 12/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3216
-## 360/360 [==============================] - 0s 69us/sample - loss: 0.3603 - val_loss: 0.4235
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3705
+## 360/360 [==============================] - 0s 430us/sample - loss: 0.3603 - val_loss: 0.4235
 ## Epoch 13/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.6510
-## 360/360 [==============================] - 0s 77us/sample - loss: 0.3598 - val_loss: 0.4208
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.4132
+## 360/360 [==============================] - 0s 464us/sample - loss: 0.3598 - val_loss: 0.4208
 ## Epoch 14/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2737
-## 360/360 [==============================] - 0s 43us/sample - loss: 0.3585 - val_loss: 0.4214
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.2934
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3355
+## 360/360 [==============================] - 0s 649us/sample - loss: 0.3585 - val_loss: 0.4214
 ## Epoch 15/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5129
-## 360/360 [==============================] - 0s 97us/sample - loss: 0.3574 - val_loss: 0.4184
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3667
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3446
+## 360/360 [==============================] - 0s 694us/sample - loss: 0.3574 - val_loss: 0.4184
 ## Epoch 16/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3436
-## 360/360 [==============================] - 0s 83us/sample - loss: 0.3563 - val_loss: 0.4165
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3101
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3584
+## 360/360 [==============================] - 0s 743us/sample - loss: 0.3563 - val_loss: 0.4165
 ## Epoch 17/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3930
-## 360/360 [==============================] - 0s 48us/sample - loss: 0.3552 - val_loss: 0.4163
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3530
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3536
+## 360/360 [==============================] - 0s 557us/sample - loss: 0.3552 - val_loss: 0.4163
 ## Epoch 18/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2251
-## 360/360 [==============================] - 0s 43us/sample - loss: 0.3546 - val_loss: 0.4163
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3205
+## 360/360 [==============================] - 0s 420us/sample - loss: 0.3546 - val_loss: 0.4163
 ## Epoch 19/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2975
-## 360/360 [==============================] - 0s 117us/sample - loss: 0.3538 - val_loss: 0.4148
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3068
+## 360/360 [==============================] - 0s 421us/sample - loss: 0.3538 - val_loss: 0.4148
 ## Epoch 20/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3490
-## 360/360 [==============================] - 0s 111us/sample - loss: 0.3530 - val_loss: 0.4145
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3314
+## 360/360 [==============================] - 0s 410us/sample - loss: 0.3530 - val_loss: 0.4145
 ## Epoch 21/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4889
-## 360/360 [==============================] - 0s 82us/sample - loss: 0.3524 - val_loss: 0.4132
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.3699
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3692
+## 360/360 [==============================] - 0s 646us/sample - loss: 0.3524 - val_loss: 0.4132
 ## Epoch 22/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.1808
-## 360/360 [==============================] - 0s 63us/sample - loss: 0.3519 - val_loss: 0.4135
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.2795
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3378
+## 360/360 [==============================] - 0s 646us/sample - loss: 0.3519 - val_loss: 0.4135
 ## Epoch 23/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3315
-## 360/360 [==============================] - 0s 79us/sample - loss: 0.3507 - val_loss: 0.4119
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.3672
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3540
+## 360/360 [==============================] - 0s 758us/sample - loss: 0.3507 - val_loss: 0.4119
 ## Epoch 24/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4058
-## 360/360 [==============================] - 0s 58us/sample - loss: 0.3506 - val_loss: 0.4117
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3403
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3413
+## 360/360 [==============================] - 0s 681us/sample - loss: 0.3506 - val_loss: 0.4117
 ## Epoch 25/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3070
-## 360/360 [==============================] - 0s 87us/sample - loss: 0.3497 - val_loss: 0.4105
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3471
+## 360/360 [==============================] - 0s 414us/sample - loss: 0.3497 - val_loss: 0.4105
 ## Epoch 26/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3591
-## 360/360 [==============================] - 0s 43us/sample - loss: 0.3492 - val_loss: 0.4092
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.3677
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3373
+## 360/360 [==============================] - 0s 731us/sample - loss: 0.3492 - val_loss: 0.4092
 ## Epoch 27/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4457
-## 360/360 [==============================] - 0s 115us/sample - loss: 0.3488 - val_loss: 0.4086
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3639
+## 360/360 [==============================] - 0s 426us/sample - loss: 0.3488 - val_loss: 0.4086
 ## Epoch 28/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2228
-## 360/360 [==============================] - 0s 75us/sample - loss: 0.3487 - val_loss: 0.4086
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3820
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3700
+## 360/360 [==============================] - 0s 614us/sample - loss: 0.3487 - val_loss: 0.4086
 ## Epoch 29/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3994
-## 360/360 [==============================] - 0s 76us/sample - loss: 0.3477 - val_loss: 0.4092
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3186
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3438
+## 360/360 [==============================] - 0s 789us/sample - loss: 0.3477 - val_loss: 0.4092
 ## Epoch 30/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3742
-## 360/360 [==============================] - 0s 72us/sample - loss: 0.3475 - val_loss: 0.4072
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.4057
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3694
+## 360/360 [==============================] - 0s 735us/sample - loss: 0.3475 - val_loss: 0.4072
 ## Epoch 31/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4225
-## 360/360 [==============================] - 0s 64us/sample - loss: 0.3470 - val_loss: 0.4074
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3411
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3646
+## 360/360 [==============================] - 0s 642us/sample - loss: 0.3470 - val_loss: 0.4074
 ## Epoch 32/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3406
-## 360/360 [==============================] - 0s 78us/sample - loss: 0.3465 - val_loss: 0.4057
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.4074
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3793
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3610
+## 360/360 [==============================] - 0s 877us/sample - loss: 0.3465 - val_loss: 0.4057
 ## Epoch 33/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4032
-## 360/360 [==============================] - 0s 75us/sample - loss: 0.3462 - val_loss: 0.4055
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3458
+## 360/360 [==============================] - 0s 475us/sample - loss: 0.3462 - val_loss: 0.4055
 ## Epoch 34/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4878
-## 360/360 [==============================] - 0s 100us/sample - loss: 0.3463 - val_loss: 0.4051
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3956
+## 360/360 [==============================] - 0s 406us/sample - loss: 0.3463 - val_loss: 0.4051
 ## Epoch 35/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3586
-## 360/360 [==============================] - 0s 86us/sample - loss: 0.3454 - val_loss: 0.4059
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3148
+## 360/360 [==============================] - 0s 469us/sample - loss: 0.3454 - val_loss: 0.4059
 ## Epoch 36/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3464
-## 360/360 [==============================] - 0s 46us/sample - loss: 0.3450 - val_loss: 0.4038
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.4149
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3423
+## 360/360 [==============================] - 0s 743us/sample - loss: 0.3450 - val_loss: 0.4038
 ## Epoch 37/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4677
-## 360/360 [==============================] - 0s 87us/sample - loss: 0.3449 - val_loss: 0.4017
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3750
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3440
+## 360/360 [==============================] - 0s 683us/sample - loss: 0.3449 - val_loss: 0.4017
 ## Epoch 38/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4847
-## 360/360 [==============================] - 0s 75us/sample - loss: 0.3442 - val_loss: 0.4035
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3223
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3392
+## 360/360 [==============================] - 0s 640us/sample - loss: 0.3442 - val_loss: 0.4035
 ## Epoch 39/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3054
-## 360/360 [==============================] - 0s 62us/sample - loss: 0.3442 - val_loss: 0.3997
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.4180
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3995
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3507
+## 360/360 [==============================] - 0s 819us/sample - loss: 0.3442 - val_loss: 0.3997
 ## Epoch 40/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2718
-## 360/360 [==============================] - 0s 87us/sample - loss: 0.3435 - val_loss: 0.4012
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3103
+## 360/360 [==============================] - 0s 448us/sample - loss: 0.3435 - val_loss: 0.4012
 ## Epoch 41/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2187
-## 360/360 [==============================] - 0s 52us/sample - loss: 0.3427 - val_loss: 0.4004
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.2902
+## 360/360 [==============================] - 0s 412us/sample - loss: 0.3427 - val_loss: 0.4004
 ## Epoch 42/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.5298
-## 360/360 [==============================] - 0s 43us/sample - loss: 0.3430 - val_loss: 0.3989
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.4267
+## 360/360 [==============================] - 0s 429us/sample - loss: 0.3430 - val_loss: 0.3989
 ## Epoch 43/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2686
-## 360/360 [==============================] - 0s 115us/sample - loss: 0.3419 - val_loss: 0.3999
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3963
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3376
+## 360/360 [==============================] - 0s 679us/sample - loss: 0.3419 - val_loss: 0.3999
 ## Epoch 44/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3953
-## 360/360 [==============================] - 0s 69us/sample - loss: 0.3417 - val_loss: 0.3999
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3810
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3470
+## 360/360 [==============================] - 0s 747us/sample - loss: 0.3417 - val_loss: 0.3999
 ## Epoch 45/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.4485
-## 360/360 [==============================] - 0s 47us/sample - loss: 0.3412 - val_loss: 0.3990
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3644
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3454
+## 360/360 [==============================] - 0s 652us/sample - loss: 0.3412 - val_loss: 0.3990
 ## Epoch 46/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3610
-## 360/360 [==============================] - 0s 98us/sample - loss: 0.3411 - val_loss: 0.3972
+## 128/360 [=========&gt;....................] - ETA: 0s - loss: 0.3946
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3581
+## 360/360 [==============================] - 0s 694us/sample - loss: 0.3411 - val_loss: 0.3972
 ## Epoch 47/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2954
-## 360/360 [==============================] - 0s 36us/sample - loss: 0.3404 - val_loss: 0.3974
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3470
+## 360/360 [==============================] - 0s 486us/sample - loss: 0.3404 - val_loss: 0.3974
 ## Epoch 48/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3725
-## 360/360 [==============================] - 0s 87us/sample - loss: 0.3402 - val_loss: 0.3978
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3647
+## 360/360 [==============================] - 0s 376us/sample - loss: 0.3402 - val_loss: 0.3978
 ## Epoch 49/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.3237
-## 360/360 [==============================] - 0s 91us/sample - loss: 0.3397 - val_loss: 0.3975
+## 192/360 [===============&gt;..............] - ETA: 0s - loss: 0.3086
+## 360/360 [==============================] - 0s 537us/sample - loss: 0.3397 - val_loss: 0.3975
 ## Epoch 50/50
 ## 
 ##  64/360 [====&gt;.........................] - ETA: 0s - loss: 0.2536
-## 360/360 [==============================] - 0s 52us/sample - loss: 0.3393 - val_loss: 0.3972</code></pre>
+## 256/360 [====================&gt;.........] - ETA: 0s - loss: 0.3235
+## 320/360 [=========================&gt;....] - ETA: 0s - loss: 0.3298
+## 360/360 [==============================] - 0s 496us/sample - loss: 0.3393 - val_loss: 0.3972</code></pre>
 <pre class="python"><code>end=time.time()
 fit_time=(end-start)
 print(start,end,fit_time)</code></pre>
-<pre><code>## 1590256962.7397294 1590256966.2886696 3.5489401817321777</code></pre>
+<pre><code>## 1590680455.403094 1590680468.721302 13.31820797920227</code></pre>
 <pre class="python"><code>y_train_pred6 = model6.predict_classes(Felicia_train, verbose=0)
 print(&#39;First 3 predictions: &#39;, y_train_pred6[:3])</code></pre>
 <pre><code>## First 3 predictions:  [0 0 0]</code></pre>
@@ -23106,13 +23187,13 @@ rf_model=rf.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.3938119411468506</code></pre>
+<pre><code>## 0.513810396194458</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=rf_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.13974833488464355</code></pre>
+<pre><code>## 0.2555067539215088</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -23154,13 +23235,13 @@ gb_model=gb.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.46225547790527344</code></pre>
+<pre><code>## 0.6853897571563721</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=gb_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.03301215171813965</code></pre>
+<pre><code>## 0.06401610374450684</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -23399,13 +23480,13 @@ rf_model=rf.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.47223711013793945</code></pre>
+<pre><code>## 0.39334535598754883</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=rf_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.16494250297546387</code></pre>
+<pre><code>## 0.16477632522583008</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -23489,13 +23570,13 @@ gb_model=gb.fit(Felicia_train,Felicia_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.8038060665130615</code></pre>
+<pre><code>## 0.5254030227661133</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=gb_model.predict(Felicia_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.03201031684875488</code></pre>
+<pre><code>## 0.051012516021728516</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -23585,6 +23666,898 @@ AmandaML[predHits2PyGB,19]</code></pre>
 ## 139 Levels: attempting to get up with opponent and do a waste takedown against cage and caught in guillotine hold ...</code></pre>
 <p>That was interesting to see how these models predicted that Felicia Spencer would do against her opponent in the upcoming June 2, 2020 fight with Amanda Nunez. Given the data we have on Felicia we trained a model to test on her fighter reaction with 3 fighters’ first round fights with Felicia, and then tested those reactions with 90-100% accuracy in prediction. We then used those models to test how well they would predict Felicia to react with a successful landed hit against the actions of Amanda. It looks like the sklearn Gradient Boosted classifier thinks that Amanda is 100% similar to Germaine’s reactions against Amanda for hits landed, sklearn’s random forest thinks she is 97% similar but not going to land as many fast hits per second as Germaine. And for Random forest in R’s caret package, it predicts Felicia will not land any hits in her fight with Amanda while the generalized linear models R caret package predicts she will land one hit against Amanda if she is on her back in open guard where Amanda misses a Right hook to Felicia’s head and while Amanda is holding Felicia’s Left knee in her open guard.</p>
 <p>There is more that could be done to do action by action of the most actions used, and predict one of those actions being used or landed based on Amanda’s actions, and a great number of variations of this model could predict likely results. We can have fun assuming this model works and see how the fight plays out. These fighters could be learning from their mistakes and the others’ previous fights available of their opponent to master the others weaknesses much like modifications and tuned parameter variations of our models to improve hits landed and go for their desired outcome. Outcomes weren’t recorded for this ML project, but Amanda won against Germaine after five rounds as a unanimous decision when she almost had a technical knockout in the first round of Germaine but the referee didn’t call it. And the Felicia fights ended in her victory over Zarah and Megan in submissions of a Rear Naked Choke or RNC in the first round and a unanimous decision loss to Christiane Cyborg after all five rounds of five minutes each.</p>
+<hr />
+<hr />
+<hr />
+<p>I want to add another technique to use in analyzing this fighter, Felicia Spencer, using her actions and hits landed only in a script obtained from Sebastian Raschka in his book, ‘Python: Machine Learning’ - chapter 16 on Recursive Neural Networks. This script is exactly the code used in this chapter but modified for this data using his two projects to predict sentiment on IMDB movie reviews and to predict a script up to a set amount of characters based on the input string characters. This book is available in a Kindle version that was used.</p>
+</div>
+<div id="recursive-neural-networks-rnns" class="section level1">
+<h1>Recursive Neural Networks (RNNs)</h1>
+<pre class="r"><code>library(reticulate)</code></pre>
+<pre class="r"><code>conda_list(conda = &quot;auto&quot;) </code></pre>
+<pre><code>##           name                                                  python
+## 1    Anaconda2                     C:\\Users\\m\\Anaconda2\\python.exe
+## 2    djangoenv    C:\\Users\\m\\Anaconda2\\envs\\djangoenv\\python.exe
+## 3     python36     C:\\Users\\m\\Anaconda2\\envs\\python36\\python.exe
+## 4     python37     C:\\Users\\m\\Anaconda2\\envs\\python37\\python.exe
+## 5 r-reticulate C:\\Users\\m\\Anaconda2\\envs\\r-reticulate\\python.exe</code></pre>
+<pre class="r"><code>use_condaenv(condaenv = &quot;python36&quot;)</code></pre>
+<p>We are using the same Felicia Spencer data file, but changed the name of TotLandsX1 to sentiment, and the name of the FighterActionsReactionsX1 to review. This file is also in github, modified outside of R and Python as ‘2columnsSpencer.csv’ and the NAs were also removed.</p>
+<pre class="python"><code>import pyprind
+import pandas as pd
+from string import punctuation
+import re
+import numpy as np
+
+
+df = pd.read_csv(&#39;2columnsSpencer.csv&#39;, encoding=&#39;utf-8&#39;)
+print(df.head(10))</code></pre>
+<pre><code>##                             review  sentiment
+## 0                     missed L jab          0
+## 1     missed R cross, missed L jab          0
+## 2                     missed L jab          0
+## 3                  missed R cross           0
+## 4      missed L mt kick to low leg          0
+## 5                   misses R cross          0
+## 6                     misses L jab          0
+## 7  lands R push kick to upper body          1
+## 8    lands L mt kick to inside leg          1
+## 9             misses L jab to face          0</code></pre>
+<pre class="python"><code>df.shape</code></pre>
+<pre><code>## (497, 2)</code></pre>
+<pre class="python"><code>type(df[&#39;review&#39;])</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.series.Series&#39;&gt;</code></pre>
+<pre class="python"><code>## Separate words and 
+## count each word&#39;s occurrence
+
+
+from collections import Counter
+
+
+counts = Counter()
+pbar = pyprind.ProgBar(len(df[&#39;review&#39;]),
+                       title=&#39;Counting words occurences&#39;)</code></pre>
+<pre><code>## Counting words occurences</code></pre>
+<pre class="python"><code>for i,review in enumerate(df[&#39;review&#39;]):
+    text = &#39;&#39;.join([c if c not in punctuation else &#39; &#39;+c+&#39; &#39; \
+                    for c in review]).lower()
+    df.loc[i,&#39;review&#39;] = text
+    pbar.update()
+    counts.update(text.split())</code></pre>
+<pre><code>## 
+0% [#                             ] 100% | ETA: 00:00:01
+0% [##                            ] 100% | ETA: 00:00:01
+0% [###                           ] 100% | ETA: 00:00:00
+0% [####                          ] 100% | ETA: 00:00:00
+0% [#####                         ] 100% | ETA: 00:00:00
+0% [######                        ] 100% | ETA: 00:00:00
+0% [#######                       ] 100% | ETA: 00:00:00
+0% [########                      ] 100% | ETA: 00:00:00
+0% [#########                     ] 100% | ETA: 00:00:00
+0% [##########                    ] 100% | ETA: 00:00:00
+0% [###########                   ] 100% | ETA: 00:00:00
+0% [############                  ] 100% | ETA: 00:00:00
+0% [#############                 ] 100% | ETA: 00:00:00
+0% [##############                ] 100% | ETA: 00:00:00
+0% [###############               ] 100% | ETA: 00:00:00
+0% [################              ] 100% | ETA: 00:00:00
+0% [#################             ] 100% | ETA: 00:00:00
+0% [##################            ] 100% | ETA: 00:00:00
+0% [###################           ] 100% | ETA: 00:00:00
+0% [####################          ] 100% | ETA: 00:00:00
+0% [#####################         ] 100% | ETA: 00:00:00
+0% [######################        ] 100% | ETA: 00:00:00
+0% [#######################       ] 100% | ETA: 00:00:00
+0% [########################      ] 100% | ETA: 00:00:00
+0% [#########################     ] 100% | ETA: 00:00:00
+0% [##########################    ] 100% | ETA: 00:00:00
+0% [###########################   ] 100% | ETA: 00:00:00
+0% [############################  ] 100% | ETA: 00:00:00
+0% [############################# ] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+## Total time elapsed: 00:00:00</code></pre>
+<pre class="python"><code>## Create a mapping:
+## Map each unique word to an integer
+
+word_counts = sorted(counts, key=counts.get, reverse=True)
+print(word_counts[:5])</code></pre>
+<pre><code>## [&#39;hold&#39;, &#39;holding&#39;, &#39;continues&#39;, &#39;r&#39;, &#39;and&#39;]</code></pre>
+<pre class="python"><code>word_to_int = {word: ii for ii, word in enumerate(word_counts, 1)}
+
+
+mapped_reviews = []
+pbar = pyprind.ProgBar(len(df[&#39;review&#39;]),
+                       title=&#39;Map reviews to ints&#39;)</code></pre>
+<pre><code>## Map reviews to ints</code></pre>
+<pre class="python"><code>for review in df[&#39;review&#39;]:
+    mapped_reviews.append([word_to_int[word] for word in review.split()])
+    pbar.update()</code></pre>
+<pre><code>## 
+0% [#                             ] 100% | ETA: 00:00:00
+0% [##                            ] 100% | ETA: 00:00:00
+0% [###                           ] 100% | ETA: 00:00:00
+0% [####                          ] 100% | ETA: 00:00:00
+0% [#####                         ] 100% | ETA: 00:00:00
+0% [######                        ] 100% | ETA: 00:00:00
+0% [#######                       ] 100% | ETA: 00:00:00
+0% [########                      ] 100% | ETA: 00:00:00
+0% [#########                     ] 100% | ETA: 00:00:00
+0% [##########                    ] 100% | ETA: 00:00:00
+0% [###########                   ] 100% | ETA: 00:00:00
+0% [############                  ] 100% | ETA: 00:00:00
+0% [#############                 ] 100% | ETA: 00:00:00
+0% [##############                ] 100% | ETA: 00:00:00
+0% [###############               ] 100% | ETA: 00:00:00
+0% [################              ] 100% | ETA: 00:00:00
+0% [#################             ] 100% | ETA: 00:00:00
+0% [##################            ] 100% | ETA: 00:00:00
+0% [###################           ] 100% | ETA: 00:00:00
+0% [####################          ] 100% | ETA: 00:00:00
+0% [#####################         ] 100% | ETA: 00:00:00
+0% [######################        ] 100% | ETA: 00:00:00
+0% [#######################       ] 100% | ETA: 00:00:00
+0% [########################      ] 100% | ETA: 00:00:00
+0% [#########################     ] 100% | ETA: 00:00:00
+0% [##########################    ] 100% | ETA: 00:00:00
+0% [###########################   ] 100% | ETA: 00:00:00
+0% [############################  ] 100% | ETA: 00:00:00
+0% [############################# ] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+## Total time elapsed: 00:00:00</code></pre>
+<pre class="python"><code>len(mapped_reviews)</code></pre>
+<pre><code>## 497</code></pre>
+<pre class="python"><code>sequence_length = 200  ## sequence length (or T in our formulas)
+sequences = np.zeros((len(mapped_reviews), sequence_length), dtype=int)
+for i, row in enumerate(mapped_reviews):
+    review_arr = np.array(row)
+    sequences[i, -len(row):] = review_arr[-sequence_length:]</code></pre>
+<pre class="python"><code>sequences.shape</code></pre>
+<pre><code>## (497, 200)</code></pre>
+<pre class="python"><code>## Define fixed-length sequences:
+## Use the last 200 elements of each sequence
+## if sequence length &lt; 200: left-pad with zeros
+
+sequence_length = 200  ## sequence length (or T in our formulas)
+sequences = np.zeros((len(mapped_reviews), sequence_length), dtype=int)
+for i, row in enumerate(mapped_reviews):
+    review_arr = np.array(row)
+    sequences[i, -len(row):] = review_arr[-sequence_length:]
+
+X_train = sequences[:347, :]
+y_train = df.loc[:347, &#39;sentiment&#39;].values
+X_test = sequences[347:, :] 
+#the number of samples has to be divisible exactly by batch size or predictions will be cut off, if test #samples are 147 and batch size 15, the predictions will only have 135 samples
+y_test = df.loc[347:, &#39;sentiment&#39;].values
+
+
+np.random.seed(123) # for reproducibility
+
+## Function to generate minibatches:
+def create_batch_generator(x, y=None, batch_size=64):
+    n_batches = len(x)//batch_size
+    x= x[:n_batches*batch_size]
+    if y is not None:
+        y = y[:n_batches*batch_size]
+    for ii in range(0, len(x), batch_size):
+        if y is not None:
+            yield x[ii:ii+batch_size], y[ii:ii+batch_size]
+        else:
+            yield x[ii:ii+batch_size]</code></pre>
+<pre class="python"><code>import tensorflow as tf
+
+
+class SentimentRNN(object):
+    def __init__(self, n_words, seq_len=200,
+                 lstm_size=256, num_layers=1, batch_size=64,
+                 learning_rate=0.0001, embed_size=200):
+        self.n_words = n_words
+        self.seq_len = seq_len
+        self.lstm_size = lstm_size   ## number of hidden units
+        self.num_layers = num_layers
+        self.batch_size = batch_size
+        self.learning_rate = learning_rate
+        self.embed_size = embed_size
+
+        self.g = tf.Graph()
+        with self.g.as_default():
+            tf.set_random_seed(123)
+            self.build()
+            self.saver = tf.train.Saver()
+            self.init_op = tf.global_variables_initializer()
+
+    def build(self):
+        ## Define the placeholders
+        tf_x = tf.placeholder(tf.int32,
+                    shape=(self.batch_size, self.seq_len),
+                    name=&#39;tf_x&#39;)
+        tf_y = tf.placeholder(tf.float32,
+                    shape=(self.batch_size),
+                    name=&#39;tf_y&#39;)
+        tf_keepprob = tf.placeholder(tf.float32,
+                    name=&#39;tf_keepprob&#39;)
+        ## Create the embedding layer
+        embedding = tf.Variable(
+                    tf.random_uniform(
+                        (self.n_words, self.embed_size),
+                        minval=-1, maxval=1),
+                    name=&#39;embedding&#39;)
+        embed_x = tf.nn.embedding_lookup(
+                    embedding, tf_x, 
+                    name=&#39;embeded_x&#39;)
+
+        ## Define LSTM cell and stack them together
+        cells = tf.contrib.rnn.MultiRNNCell(
+                [tf.contrib.rnn.DropoutWrapper(
+                   tf.contrib.rnn.BasicLSTMCell(self.lstm_size),
+                   output_keep_prob=tf_keepprob)
+                 for i in range(self.num_layers)])
+
+        ## Define the initial state:
+        self.initial_state = cells.zero_state(
+                 self.batch_size, tf.float32)
+        print(&#39;  &lt;&lt; initial state &gt;&gt; &#39;, self.initial_state)
+
+        lstm_outputs, self.final_state = tf.nn.dynamic_rnn(
+                 cells, embed_x,
+                 initial_state=self.initial_state)
+        ## Note: lstm_outputs shape: 
+        ##  [batch_size, max_time, cells.output_size]
+        print(&#39;\n  &lt;&lt; lstm_output   &gt;&gt; &#39;, lstm_outputs)
+        print(&#39;\n  &lt;&lt; final state   &gt;&gt; &#39;, self.final_state)
+
+        ## Apply a FC layer after on top of RNN output:
+        logits = tf.layers.dense(
+                 inputs=lstm_outputs[:, -1],
+                 units=1, activation=None,
+                 name=&#39;logits&#39;)
+        
+        logits = tf.squeeze(logits, name=&#39;logits_squeezed&#39;)
+        print (&#39;\n  &lt;&lt; logits        &gt;&gt; &#39;, logits)
+        
+        y_proba = tf.nn.sigmoid(logits, name=&#39;probabilities&#39;)
+        predictions = {
+            &#39;probabilities&#39;: y_proba,
+            &#39;labels&#39; : tf.cast(tf.round(y_proba), tf.int32,
+                 name=&#39;labels&#39;)
+        }
+        print(&#39;\n  &lt;&lt; predictions   &gt;&gt; &#39;, predictions)
+
+        ## Define the cost function
+        cost = tf.reduce_mean(
+                 tf.nn.sigmoid_cross_entropy_with_logits(
+                 labels=tf_y, logits=logits),
+                 name=&#39;cost&#39;)
+        
+        ## Define the optimizer
+        optimizer = tf.train.AdamOptimizer(self.learning_rate)
+        train_op = optimizer.minimize(cost, name=&#39;train_op&#39;)
+
+    def train(self, X_train, y_train, num_epochs):
+        with tf.Session(graph=self.g) as sess:
+            sess.run(self.init_op)
+            iteration = 1
+            for epoch in range(num_epochs):
+                state = sess.run(self.initial_state)
+                
+                for batch_x, batch_y in create_batch_generator(
+                            X_train, y_train, self.batch_size):
+                    feed = {&#39;tf_x:0&#39;: batch_x,
+                            &#39;tf_y:0&#39;: batch_y,
+                            &#39;tf_keepprob:0&#39;: 0.5,
+                            self.initial_state : state}
+                    loss, _, state = sess.run(
+                            [&#39;cost:0&#39;, &#39;train_op&#39;, 
+                             self.final_state],
+                            feed_dict=feed)
+
+                    if iteration % 20 == 0:
+                        print(&quot;Epoch: %d/%d Iteration: %d &quot;
+                              &quot;| Train loss: %.5f&quot; % (
+                               epoch + 1, num_epochs,
+                               iteration, loss))
+
+                    iteration +=1
+                if (epoch+1)%10 == 0:
+                    self.saver.save(sess,
+                        &quot;model/sentiment-%d.ckpt&quot; % epoch)
+
+    def predict(self, X_data, return_proba=False):
+        preds = []
+        with tf.Session(graph = self.g) as sess:
+            self.saver.restore(
+                sess, tf.train.latest_checkpoint(&#39;model/&#39;))
+            test_state = sess.run(self.initial_state)
+            for ii, batch_x in enumerate(
+                create_batch_generator(
+                    X_data, None, batch_size=self.batch_size), 1):
+                feed = {&#39;tf_x:0&#39; : batch_x,
+                        &#39;tf_keepprob:0&#39;: 1.0,
+                        self.initial_state : test_state}
+                if return_proba:
+                    pred, test_state = sess.run(
+                        [&#39;probabilities:0&#39;, self.final_state],
+                        feed_dict=feed)
+                else:
+                    pred, test_state = sess.run(
+                        [&#39;labels:0&#39;, self.final_state],
+                        feed_dict=feed)
+                    
+                preds.append(pred)
+                
+        return np.concatenate(preds)</code></pre>
+<pre class="python"><code>## Train:
+
+n_words = max(list(word_to_int.values())) + 1
+
+rnn = SentimentRNN(n_words=n_words, 
+                   seq_len=sequence_length,
+                   embed_size=256, 
+                   lstm_size=128, 
+                   num_layers=1, 
+# batch_size has to divide evenly into the number of testing set samples, or some samples will be removed
+                   batch_size=15,
+                   learning_rate=0.001)</code></pre>
+<pre><code>##   &lt;&lt; initial state &gt;&gt;  (LSTMStateTuple(c=&lt;tf.Tensor &#39;MultiRNNCellZeroState/DropoutWrapperZeroState/BasicLSTMCellZeroState/zeros:0&#39; shape=(15, 128) dtype=float32&gt;, h=&lt;tf.Tensor &#39;MultiRNNCellZeroState/DropoutWrapperZeroState/BasicLSTMCellZeroState/zeros_1:0&#39; shape=(15, 128) dtype=float32&gt;),)
+## 
+##   &lt;&lt; lstm_output   &gt;&gt;  Tensor(&quot;rnn/transpose_1:0&quot;, shape=(15, 200, 128), dtype=float32)
+## 
+##   &lt;&lt; final state   &gt;&gt;  (LSTMStateTuple(c=&lt;tf.Tensor &#39;rnn/while/Exit_3:0&#39; shape=(15, 128) dtype=float32&gt;, h=&lt;tf.Tensor &#39;rnn/while/Exit_4:0&#39; shape=(15, 128) dtype=float32&gt;),)
+## 
+##   &lt;&lt; logits        &gt;&gt;  Tensor(&quot;logits_squeezed:0&quot;, shape=(15,), dtype=float32)
+## 
+##   &lt;&lt; predictions   &gt;&gt;  {&#39;probabilities&#39;: &lt;tf.Tensor &#39;probabilities:0&#39; shape=(15,) dtype=float32&gt;, &#39;labels&#39;: &lt;tf.Tensor &#39;labels:0&#39; shape=(15,) dtype=int32&gt;}
+## 
+## W0528 08:46:01.902913 16084 deprecation.py:323] From &lt;string&gt;:45: BasicLSTMCell.__init__ (from tensorflow.python.ops.rnn_cell_impl) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## This class is equivalent as tf.keras.layers.LSTMCell, and will be replaced by that in Tensorflow 2.0.
+## W0528 08:46:01.913917 16084 deprecation.py:323] From &lt;string&gt;:45: MultiRNNCell.__init__ (from tensorflow.python.ops.rnn_cell_impl) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## This class is equivalent as tf.keras.layers.StackedRNNCells, and will be replaced by that in Tensorflow 2.0.
+## W0528 08:46:01.951609 16084 deprecation.py:323] From &lt;string&gt;:54: dynamic_rnn (from tensorflow.python.ops.rnn) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Please use `keras.layers.RNN(cell)`, which is equivalent to this API
+## W0528 08:46:02.730317 16084 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\rnn_cell_impl.py:738: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Call initializer instance with the dtype argument instead of passing it to the constructor
+## W0528 08:46:03.655428 16084 deprecation.py:323] From &lt;string&gt;:64: dense (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Use keras.layers.dense instead.
+## W0528 08:46:04.304435 16084 deprecation.py:323] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.&lt;locals&gt;.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Use tf.where in 2.0, which has the same broadcast rule as np.where</code></pre>
+<pre class="python"><code>rnn.train(X_train, y_train, num_epochs=5)</code></pre>
+<pre><code>## Epoch: 1/5 Iteration: 20 | Train loss: 0.09227
+## Epoch: 2/5 Iteration: 40 | Train loss: 0.02640
+## Epoch: 3/5 Iteration: 60 | Train loss: 0.07121
+## Epoch: 4/5 Iteration: 80 | Train loss: 0.19046
+## Epoch: 5/5 Iteration: 100 | Train loss: -0.77173</code></pre>
+<pre class="python"><code>X_test.shape</code></pre>
+<pre><code>## (150, 200)</code></pre>
+<pre class="python"><code>y_test</code></pre>
+<pre><code>## array([0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+##        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=int64)</code></pre>
+<pre class="python"><code>y_test.shape</code></pre>
+<pre><code>## (150,)</code></pre>
+<pre class="python"><code>X_test</code></pre>
+<pre><code>## array([[ 0,  0,  0, ..., 13, 17, 22],
+##        [ 0,  0,  0, ..., 32,  4, 28],
+##        [ 0,  0,  0, ..., 26, 17, 22],
+##        ...,
+##        [ 0,  0,  0, ...,  4, 10,  1],
+##        [ 0,  0,  0, ...,  4, 10,  1],
+##        [ 0,  0,  0, ...,  4, 10,  1]])</code></pre>
+<pre class="python"><code>## Test: 
+preds = rnn.predict(X_test)</code></pre>
+<pre><code>## W0528 08:50:51.029401 16084 deprecation.py:323] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\training\saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Use standard file APIs to check for files with this prefix.</code></pre>
+<pre class="python"><code>y_true = y_test[:len(preds)]
+print(&#39;Test Acc.: %.3f&#39; % (
+      np.sum(preds == y_true) / len(y_true)))</code></pre>
+<pre><code>## Test Acc.: 1.000</code></pre>
+<pre class="python"><code>preds</code></pre>
+<pre><code>## array([0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+##        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])</code></pre>
+<pre class="python"><code>preds.shape</code></pre>
+<pre><code>## (150,)</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(preds)
+prd.columns=[&#39;Predicted&#39;]
+type(prd)</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</code></pre>
+<pre class="python"><code>prd</code></pre>
+<pre><code>##      Predicted
+## 0            0
+## 1            0
+## 2            1
+## 3            0
+## 4            1
+## ..         ...
+## 145          0
+## 146          0
+## 147          0
+## 148          0
+## 149          0
+## 
+## [150 rows x 1 columns]</code></pre>
+<pre class="python"><code>true = pd.DataFrame(y_test)
+true.columns=[&#39;trueValue&#39;]
+prd.index=true.index
+pred=pd.concat([pd.DataFrame(prd),true],axis=1)
+print(pred)</code></pre>
+<pre><code>##      Predicted  trueValue
+## 0            0          0
+## 1            0          0
+## 2            1          1
+## 3            0          0
+## 4            1          1
+## ..         ...        ...
+## 145          0          0
+## 146          0          0
+## 147          0          0
+## 148          0          0
+## 149          0          0
+## 
+## [150 rows x 2 columns]</code></pre>
+<pre class="python"><code>## Get probabilities:
+proba = rnn.predict(X_test, return_proba=True)</code></pre>
+<pre class="python"><code>proba</code></pre>
+<pre><code>## array([2.6762486e-05, 5.9038401e-05, 1.0000000e+00, 2.0533800e-05,
+##        9.9999988e-01, 9.0688467e-05, 4.7385693e-05, 7.7486038e-07,
+##        2.1755695e-06, 2.1755695e-06, 1.0000000e+00, 2.1755695e-06,
+##        2.1780613e-06, 2.1780636e-06, 2.1780636e-06, 2.1159649e-06,
+##        2.1159649e-06, 1.0000000e+00, 1.0000000e+00, 2.1755695e-06,
+##        2.1755695e-06, 2.1159649e-06, 1.0000000e+00, 2.1159649e-06,
+##        2.1159649e-06, 2.2053719e-06, 2.1159649e-06, 1.0000000e+00,
+##        2.1780593e-06, 2.1780572e-06, 2.1755695e-06, 2.1159649e-06,
+##        1.0000000e+00, 2.1755695e-06, 2.1159649e-06, 2.1159649e-06,
+##        2.1755695e-06, 2.1755695e-06, 2.1159649e-06, 1.0000000e+00,
+##        2.1159649e-06, 2.1159649e-06, 2.1781987e-06, 8.9368143e-07,
+##        2.1780593e-06, 2.1159649e-06, 2.1159649e-06, 2.1159649e-06,
+##        2.1755695e-06, 2.1159649e-06, 3.2484531e-06, 1.8775463e-06,
+##        1.7881393e-06, 1.7881393e-06, 1.8775463e-06, 1.7881393e-06,
+##        1.7881393e-06, 1.8755559e-06, 1.8755542e-06, 4.7560457e-06,
+##        2.1159649e-06, 1.0000000e+00, 1.0000000e+00, 8.6426735e-07,
+##        3.2782555e-07, 3.7491322e-05, 3.2535195e-04, 3.2535195e-04,
+##        3.2380223e-04, 1.3351440e-05, 7.7012479e-03, 4.4822693e-05,
+##        8.9176938e-06, 1.7723907e-05, 1.3380422e-05, 2.7856231e-04,
+##        3.5762787e-07, 3.0198693e-04, 2.7856231e-04, 1.0000000e+00,
+##        1.0000000e+00, 3.7491322e-05, 3.7491322e-05, 2.7856231e-04,
+##        1.5795231e-06, 1.3113022e-06, 1.2516975e-06, 1.3055668e-06,
+##        4.8880929e-07, 4.8880975e-07, 4.4703484e-07, 4.7683716e-07,
+##        1.0000000e+00, 4.4703484e-07, 4.4703484e-07, 4.4703484e-07,
+##        4.7683716e-07, 4.4703484e-07, 4.4703484e-07, 3.7252903e-06,
+##        4.4703484e-07, 4.7683716e-07, 4.8881208e-07, 4.8881304e-07,
+##        1.0000000e+00, 1.8179417e-06, 4.7683716e-07, 4.7683716e-07,
+##        4.7683716e-07, 4.7683716e-07, 4.7683716e-07, 4.7683716e-07,
+##        4.7683716e-07, 4.7683716e-07, 4.7683716e-07, 4.7683716e-07,
+##        4.7683716e-07, 4.8881304e-07, 4.8881304e-07, 4.8885590e-07,
+##        4.7683716e-07, 4.7683716e-07, 4.7683716e-07, 4.7683716e-07,
+##        4.7683716e-07, 5.3644180e-07, 1.0000000e+00, 2.0039082e-04,
+##        4.7683716e-07, 4.7683716e-07, 5.3644180e-07, 4.7683716e-07,
+##        4.8881304e-07, 4.8881350e-07, 4.8881304e-07, 4.7683716e-07,
+##        4.7683716e-07, 4.7683716e-07, 4.7683716e-07, 5.3644180e-07,
+##        4.7683716e-07, 4.7683716e-07, 4.7683716e-07, 4.7683716e-07,
+##        4.7683716e-07, 4.7683716e-07, 4.7683716e-07, 4.8881304e-07,
+##        4.8881304e-07, 4.8881304e-07], dtype=float32)</code></pre>
+<pre class="python"><code>proba.shape</code></pre>
+<pre><code>## (150,)</code></pre>
+<hr />
+<hr />
+<hr />
+<p>This next RNN will make an attempt to predict the text as a limited output based on the actions over sequential data of instances for Felicia Spencer as a text document.</p>
+<pre class="python"><code>import numpy as np
+
+
+## Reading and processing text
+with open(&#39;2columnsSpencer.txt&#39;, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f: 
+    text=f.read()</code></pre>
+<pre class="python"><code>text</code></pre>
+<pre><code>## &quot;missed L jab\nmissed R cross, missed L jab\nmissed L jab\nmissed R cross \nmissed L mt kick to low leg\nmisses R cross\nmisses L jab\nlands R push kick to upper body\nlands L mt kick to inside leg\nmisses L jab to face\nmissed R cross\nmisses attempted clinch\nmisses L hook\nmisses L jab to face\nmisses L mt kick to upper body and caught in L foot hold\nbreaks L foot hold\nlands L jab to body\nmisses body takedown\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nholding upper body hold starts and caught in L arm hold\nbreaks L arm hold and caught in R arm hold while holding upper body continues\ncaught in R arm hold while holding upper body hold\ncaught in R arm hold while holding upper body hold\nlands L knee to back of L leg while caught in R arm hold while holding upper body hold\ncaught in R arm hold while holding upper body hold\ncaught in R arm hold while holding upper body hold\ncaught in R arm hold while holding upper body hold\ncaught in R arm hold while holding upper body hold\ncaught in R arm hold while holding upper body hold\ncaught in R arm hold while holding upper body hold\nlands judo type takedown while caught in R arm hold and while holding upper body\nmount attempt and holding full mount hold starts\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\nlands L hook to head while caught in R arm hold and holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\ncaught in R arm hold while holding full mount hold\nbreaks R arm hold while holding full mount hold\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nlands elbow to face holding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nlands R hook to face holding full mount hold continues\nholding full mount hold continues\ncaught in body hold and holding full mount hold continues\nbreaks body hold and holding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\ncaught in body hold and holding full mount hold continues\ncaught in body hold and holding full mount hold continues\nbreaks body hold and lands L elbow to face and holding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nlands L cross to face and holding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues and lands R elbow to face, lands R elbow to face \nlands R elbow to face and holding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nlands L elbow to face and holding full mount hold continues\nlands L elbow to face and holding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nlands L cross to face and holding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nloses full mount hold and holding side mount hold starts\nholding side mount hold continues\nholding back mount hold starts and loses side mount hold\nholding back mount hold continues\nholding back mount hold continues\nmisses L hook to face holding back mount hold continues\nloses back mount hold and holding full mount hold starts\nholding full mount hold on top and caught in upper body hold\nholding full mount hold on top and caught in upper body hold\nlands R hook to face holding full mount hold continues and caught in upper body hold\nlands R hook to face holding full mount hold continues and caught in upper body hold\nlands L elbow to face holding full mount hold continues and caught in upper body hold\nlands L elbow to face holding full mount hold continues and caught in upper body hold\nholding full mount hold continues and caught in upper body hold\nloses full mount hold and holding side control mount starts and breaks upper body hold\nholding side mount hold continues\nholding side mount hold continues\nlands L hammer to face holding side mount hold continues\nholding side mount hold continues\nholding side mount hold continues\nloses side mount hold and holding full mount hold starts\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold continues\nholding full mount hold lands R hook to face\nholding full mount hold lands R hook to face\nholding full mount hold\nholding full mount hold lands L hook to face\nholding full mount hold lands L hook to face\nholding full mount hold\nholding full mount hold\nholding full mount hold misses L elbow to face\nholding full mount hold misses L elbow to face, misses L elbow to face\nTKO referree stoppage\ntesting L push kick\ntesting L mt kick to low leg\nmisses L push kick\nlands R cross\nmisses L mt kick to face, misses R cross\nmisses R push kick\nmisses upper body takedown and holding upper body hold starts\nlands L knee to body holding upper body hold continues\nholding upper body hold continues\nholding upper body hold continues\nholding upper body hold continues\nholding upper body hold continues\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\npushes against cage holding upper body hold continues and caught in R arm hold\nlands R knee to L leg holding upper body hold continues and caught in R arm hold, lands L knee to inner leg \nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nlands R knee to inner leg holding upper body hold continues and caught in R arm hold, lands L knee to inner leg\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nlands R knee to inner leg and holding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nlands R knee to outer leg and holding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nbreaks R arm hold and loses upper body hold\nlands judo type takedown\nmoves out attempting a ground takedown flip\nholding under shoulders and upper body hold starts on ground\nholding upper body continues\nholding upper body continues\njumps on back losing upper body hold and holding back mount hold starts\nsinks feet in thighs while holding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues and holding L underarm choke hold starts\nholding back mount hold continues\nflips forward taking the back, lands on side holding back mount hold continues and holding L underarm choke hold continues\ngrabs under arms holding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and holding L underarm choke hold continues\nholding back mount hold continues and loses L underarm choke hold\nholding back mount hold\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount hold and holding R underarm choke hold starts\nholding back mount continues on top from on back\nholding back mount\nloses back mount hold and holding side mount hold starts\nholding side mount hold continues\nmisses elbow holding side mount hold continues\nholding side mount hold continues\nloses side mount hold and holding back mount hold starts\nholding back mount hold continues\nholding back mount hold continues\nlands R hammer hit holding back mount hold continues, lands R hammer hit\nlands R hammer hit holding back mount hold continues, lands R hammer hit\nholding back mount hold\nholding back mount hold\nholding back mount hold\nloses back mount hold and holding back hold starts\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nholding back hold continues\nlands R hook holding back hold continues, lands R hook\nlands R hook holding back hold continues, lands R hook\nloses back hold and holding back mount hold starts\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nlands R hook holding back mount hold continues, lands R hook\nlands R hook holding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues\nholding back mount hold continues and holding neck hold starts\nlands R hook holding back mount hold continues and holding neck hold continues\nlands R hook holding back mount hold continues and holding neck hold continues\nholding back mount hold continues and holding neck hold continues\nholding back mount hold continues and holding neck hold continues\nholding back mount hold continues and holding neck hold continues\nholding back mount hold continues and holding neck hold continues\nholding neck choke hold starts while holding back mount hold continues and loses neck hold\nholding neck choke hold starts while holding back mount hold continues\nholding neck choke hold starts while holding back mount hold continues\nholding neck choke hold starts while holding back mount hold continues\nholding neck choke hold starts while holding back mount hold continues\nholding neck choke hold starts while holding back mount hold continues\nwins by submission\nmissed R cross\nmissed R cross\nlands R mt kick\ngrabs leg, misses single leg takedown\nmissed L knee to body, missed L to face\nmissed R cross\nlands flying elbow to face\nmissed R cross to face\nlands R push kick\ngrabs head against cage\npushes against cage\nmisses takedown holding upper bodyhold starts and caught in R arm hold\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nlands L knee to inner R upper leg while caught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nlands R knee to inner R leg caught in R arm hold and holding upper body hold continues\nlands R knee to inner R leg caught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nlands R knee to inner R leg caught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nlands R knee to inner R leg caught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nlands R knee to outer L leg caught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nlands R knee to inner R leg caught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ngets up holding upper body hold continues and caught in R arm hold\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nbreaks R arm hold caught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\ncaught in L arm hold and holding upper body hold continues\nbreaks L arm hold and caught in R arm hold while holding upper body hold continues\ncaught in R arm hold and holding upper body hold continues\nlands R knee to inner R leg and caught in R arm hold and holding upper body hold continues\nlands L hook to head and caught in R arm hold and holding upper body hold continues\nbreaks R arm hold and loses upper body hold\nmisses L hook to face\nmisses R cross\nfalls\nfalls\ngets up\nmisses L jab\nmisses flying elbow to face, misses R uppercut to face\nmisses attempted clinch\nmisses R push kick\nmisses R jab\nmisses L jab\nmisses attempted takedown\nmisses L hook to face\nmisses takedown\nmisses attempted takedown\nlands L flying elbow to face \nlands R elbow to face\nmisses R cross\nmisses R cross\nmisses attempted takedown\nholding upper body hold starts\nholding upper body hold continues\nholding upper body hold continues\nholding upper body hold continues\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nlands R knee to inner R leg and caught in R arm hold and holding upper body hold continues\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nmisses backwards upward elbow to face while holding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nlands R knee to inner R leg holding upper body hold continues and caught in R arm hold\nmisses single leg takedown attempt while holding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nlands R knee to inner R leg holding upper body hold continues and caught in R arm hold\npulls off opponent&#39;s R hand blocking airway with L hand while holding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\nholding upper body hold continues and caught in R arm hold\n&quot;</code></pre>
+<pre class="python"><code>chars = set(text)
+char2int = {ch:i for i,ch in enumerate(chars)}
+int2char = dict(enumerate(chars))
+text_ints = np.array([char2int[ch] for ch in text], 
+                     dtype=np.int32)</code></pre>
+<pre class="python"><code>def reshape_data(sequence, batch_size, num_steps):
+    tot_batch_length = batch_size * num_steps
+    num_batches = int(len(sequence) / tot_batch_length)
+    if num_batches*tot_batch_length + 1 &gt; len(sequence):
+        num_batches = num_batches - 1
+    ## Truncate the sequence at the end to get rid of 
+    ## remaining charcaters that do not make a full batch
+    x = sequence[0 : num_batches*tot_batch_length]
+    y = sequence[1 : num_batches*tot_batch_length + 1]
+    ## Split x &amp; y into a list batches of sequences: 
+    x_batch_splits = np.split(x, batch_size)
+    y_batch_splits = np.split(y, batch_size)
+    ## Stack the batches together
+    ## batch_size x tot_batch_length
+    x = np.stack(x_batch_splits)
+    y = np.stack(y_batch_splits)
+    
+    return x, y
+
+## Testing:
+train_x, train_y = reshape_data(text_ints, 64, 10)
+print(train_x.shape)</code></pre>
+<pre><code>## (64, 390)</code></pre>
+<pre class="python"><code>print(train_x[0, :10])</code></pre>
+<pre><code>## [14 11 15 15 20 23  4  7  4 26]</code></pre>
+<pre class="python"><code>print(train_y[0, :10])</code></pre>
+<pre><code>## [11 15 15 20 23  4  7  4 26  6]</code></pre>
+<pre class="python"><code>print(&#39;&#39;.join(int2char[i] for i in train_x[0, :50]))</code></pre>
+<pre><code>## missed L jab
+## missed R cross, missed L jab
+## missed L</code></pre>
+<pre class="python"><code>np.random.seed(123)
+
+def create_batch_generator(data_x, data_y, num_steps):
+    batch_size, tot_batch_length = data_x.shape    
+    num_batches = int(tot_batch_length/num_steps)
+    for b in range(num_batches):
+        yield (data_x[:, b*num_steps: (b+1)*num_steps], 
+               data_y[:, b*num_steps: (b+1)*num_steps])
+        
+bgen = create_batch_generator(train_x[:,:100], train_y[:,:100], 15)
+for b in bgen:
+    print(b[0].shape, b[1].shape, end=&#39;  &#39;)
+    print(&#39;&#39;.join(int2char[i] for i in b[0][0,:]).replace(&#39;\n&#39;, &#39;*&#39;), &#39;    &#39;,
+          &#39;&#39;.join(int2char[i] for i in b[1][0,:]).replace(&#39;\n&#39;, &#39;*&#39;))</code></pre>
+<pre><code>## (64, 15) (64, 15)  missed L jab*mi      issed L jab*mis
+## (64, 15) (64, 15)  ssed R cross, m      sed R cross, mi
+## (64, 15) (64, 15)  issed L jab*mis      ssed L jab*miss
+## (64, 15) (64, 15)  sed L jab*misse      ed L jab*missed
+## (64, 15) (64, 15)  d R cross *miss       R cross *misse
+## (64, 15) (64, 15)  ed L mt kick to      d L mt kick to</code></pre>
+<pre class="python"><code>import tensorflow as tf
+import os
+
+class CharRNN(object):
+    def __init__(self, num_classes, batch_size=64, 
+                 num_steps=100, lstm_size=128, 
+                 num_layers=1, learning_rate=0.001, 
+                 keep_prob=0.5, grad_clip=5, 
+                 sampling=False):
+        self.num_classes = num_classes
+        self.batch_size = batch_size
+        self.num_steps = num_steps
+        self.lstm_size = lstm_size
+        self.num_layers = num_layers
+        self.learning_rate = learning_rate
+        self.keep_prob = keep_prob
+        self.grad_clip = grad_clip
+        
+        self.g = tf.Graph()
+        with self.g.as_default():
+            tf.set_random_seed(123)
+
+            self.build(sampling=sampling)
+            self.saver = tf.train.Saver()
+            self.init_op = tf.global_variables_initializer()
+            
+    def build(self, sampling):
+        if sampling == True:
+            batch_size, num_steps = 1, 1
+        else:
+            batch_size = self.batch_size
+            num_steps = self.num_steps
+
+        tf_x = tf.placeholder(tf.int32, 
+                              shape=[batch_size, num_steps], 
+                              name=&#39;tf_x&#39;)
+        tf_y = tf.placeholder(tf.int32, 
+                              shape=[batch_size, num_steps], 
+                              name=&#39;tf_y&#39;)
+        tf_keepprob = tf.placeholder(tf.float32, 
+                              name=&#39;tf_keepprob&#39;)
+
+        # One-hot encoding:
+        x_onehot = tf.one_hot(tf_x, depth=self.num_classes)
+        y_onehot = tf.one_hot(tf_y, depth=self.num_classes)
+
+        ### Build the multi-layer RNN cells
+        cells = tf.contrib.rnn.MultiRNNCell(
+            [tf.contrib.rnn.DropoutWrapper(
+                tf.contrib.rnn.BasicLSTMCell(self.lstm_size), 
+                output_keep_prob=tf_keepprob) 
+            for _ in range(self.num_layers)])
+        
+        ## Define the initial state
+        self.initial_state = cells.zero_state(
+                    batch_size, tf.float32)
+
+        ## Run each sequence step through the RNN 
+        lstm_outputs, self.final_state = tf.nn.dynamic_rnn(
+                    cells, x_onehot, 
+                    initial_state=self.initial_state)
+        
+        print(&#39;  &lt;&lt; lstm_outputs  &gt;&gt;&#39;, lstm_outputs)
+
+        seq_output_reshaped = tf.reshape(
+                    lstm_outputs, 
+                    shape=[-1, self.lstm_size],
+                    name=&#39;seq_output_reshaped&#39;)
+
+        logits = tf.layers.dense(
+                    inputs=seq_output_reshaped, 
+                    units=self.num_classes,
+                    activation=None,
+                    name=&#39;logits&#39;)
+
+        proba = tf.nn.softmax(
+                    logits, 
+                    name=&#39;probabilities&#39;)
+        print(proba)
+
+        y_reshaped = tf.reshape(
+                    y_onehot, 
+                    shape=[-1, self.num_classes],
+                    name=&#39;y_reshaped&#39;)
+        cost = tf.reduce_mean(
+                    tf.nn.softmax_cross_entropy_with_logits(
+                        logits=logits, 
+                        labels=y_reshaped),
+                    name=&#39;cost&#39;)
+
+        # Gradient clipping to avoid &quot;exploding gradients&quot;
+        tvars = tf.trainable_variables()
+        grads, _ = tf.clip_by_global_norm(
+                    tf.gradients(cost, tvars), 
+                    self.grad_clip)
+        optimizer = tf.train.AdamOptimizer(self.learning_rate)
+        train_op = optimizer.apply_gradients(
+                    zip(grads, tvars),
+                    name=&#39;train_op&#39;)
+        
+    def train(self, train_x, train_y, 
+              num_epochs, ckpt_dir=&#39;./model/&#39;):
+        ## Create the checkpoint directory
+        ## if does not exists
+        if not os.path.exists(ckpt_dir):
+            os.mkdir(ckpt_dir)
+            
+        with tf.Session(graph=self.g) as sess:
+            sess.run(self.init_op)
+
+            n_batches = int(train_x.shape[1]/self.num_steps)
+            iterations = n_batches * num_epochs
+            for epoch in range(num_epochs):
+
+                # Train network
+                new_state = sess.run(self.initial_state)
+                loss = 0
+                ## Minibatch generator:
+                bgen = create_batch_generator(
+                        train_x, train_y, self.num_steps)
+                for b, (batch_x, batch_y) in enumerate(bgen, 1):
+                    iteration = epoch*n_batches + b
+                    
+                    feed = {&#39;tf_x:0&#39;: batch_x,
+                            &#39;tf_y:0&#39;: batch_y,
+                            &#39;tf_keepprob:0&#39;: self.keep_prob,
+                            self.initial_state : new_state}
+                    batch_cost, _, new_state = sess.run(
+                            [&#39;cost:0&#39;, &#39;train_op&#39;, 
+                                self.final_state],
+                            feed_dict=feed)
+                    if iteration % 10 == 0:
+                        print(&#39;Epoch %d/%d Iteration %d&#39;
+                              &#39;| Training loss: %.4f&#39; % (
+                              epoch + 1, num_epochs, 
+                              iteration, batch_cost))
+
+                ## Save the trained model    
+                self.saver.save(
+                        sess, os.path.join(
+                            ckpt_dir, &#39;language_modeling.ckpt&#39;))
+                              
+                              
+                
+    def sample(self, output_length, 
+               ckpt_dir, starter_seq=&quot;The &quot;):
+        observed_seq = [ch for ch in starter_seq]        
+        with tf.Session(graph=self.g) as sess:
+            self.saver.restore(
+                sess, 
+                tf.train.latest_checkpoint(ckpt_dir))
+            ## 1: run the model using the starter sequence
+            new_state = sess.run(self.initial_state)
+            for ch in starter_seq:
+                x = np.zeros((1, 1))
+                x[0,0] = char2int[ch]
+                feed = {&#39;tf_x:0&#39;: x,
+                        &#39;tf_keepprob:0&#39;: 1.0,
+                        self.initial_state: new_state}
+                proba, new_state = sess.run(
+                        [&#39;probabilities:0&#39;, self.final_state], 
+                        feed_dict=feed)
+
+            ch_id = get_top_char(proba, len(chars))
+            observed_seq.append(int2char[ch_id])
+            
+            ## 2: run the model using the updated observed_seq
+            for i in range(output_length):
+                x[0,0] = ch_id
+                feed = {&#39;tf_x:0&#39;: x,
+                        &#39;tf_keepprob:0&#39;: 1.0,
+                        self.initial_state: new_state}
+                proba, new_state = sess.run(
+                        [&#39;probabilities:0&#39;, self.final_state], 
+                        feed_dict=feed)
+
+                ch_id = get_top_char(proba, len(chars))
+                observed_seq.append(int2char[ch_id])
+
+        return &#39;&#39;.join(observed_seq)</code></pre>
+<pre class="python"><code>def get_top_char(probas, char_size, top_n=5):
+    p = np.squeeze(probas)
+    p[np.argsort(p)[:-top_n]] = 0.0
+    p = p / np.sum(p)
+    ch_id = np.random.choice(char_size, 1, p=p)[0]
+    return ch_id</code></pre>
+<pre class="python"><code>batch_size = 64
+num_steps = 100 
+train_x, train_y = reshape_data(text_ints, 
+                                batch_size, 
+                                num_steps)
+
+rnn = CharRNN(num_classes=len(chars), batch_size=batch_size)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(64, 100, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(6400, 32), dtype=float32)
+## 
+## W0528 08:51:14.293642 16084 deprecation.py:323] From &lt;string&gt;:85: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## 
+## Future major versions of TensorFlow will allow gradients to flow
+## into the labels input on backprop by default.
+## 
+## See `tf.nn.softmax_cross_entropy_with_logits_v2`.</code></pre>
+<pre class="python"><code>rnn.train(train_x, train_y, 
+          num_epochs=100,
+          #if you don&#39;t have this checkpoint directory, it is made to store results
+          ckpt_dir=&#39;./model-100/&#39;) </code></pre>
+<pre><code>## Epoch 4/100 Iteration 10| Training loss: 3.2197
+## Epoch 7/100 Iteration 20| Training loss: 3.0128
+## Epoch 10/100 Iteration 30| Training loss: 2.9582
+## Epoch 14/100 Iteration 40| Training loss: 2.9453
+## Epoch 17/100 Iteration 50| Training loss: 2.8356
+## Epoch 20/100 Iteration 60| Training loss: 2.7651
+## Epoch 24/100 Iteration 70| Training loss: 2.7066
+## Epoch 27/100 Iteration 80| Training loss: 2.4829
+## Epoch 30/100 Iteration 90| Training loss: 2.3698
+## Epoch 34/100 Iteration 100| Training loss: 2.2667
+## Epoch 37/100 Iteration 110| Training loss: 1.9694
+## Epoch 40/100 Iteration 120| Training loss: 1.8873
+## Epoch 44/100 Iteration 130| Training loss: 1.8310
+## Epoch 47/100 Iteration 140| Training loss: 1.5265
+## Epoch 50/100 Iteration 150| Training loss: 1.5308
+## Epoch 54/100 Iteration 160| Training loss: 1.5079
+## Epoch 57/100 Iteration 170| Training loss: 1.2340
+## Epoch 60/100 Iteration 180| Training loss: 1.2520
+## Epoch 64/100 Iteration 190| Training loss: 1.2860
+## Epoch 67/100 Iteration 200| Training loss: 1.0275
+## Epoch 70/100 Iteration 210| Training loss: 1.0687
+## Epoch 74/100 Iteration 220| Training loss: 1.1252
+## Epoch 77/100 Iteration 230| Training loss: 0.8629
+## Epoch 80/100 Iteration 240| Training loss: 0.9240
+## Epoch 84/100 Iteration 250| Training loss: 0.9973
+## Epoch 87/100 Iteration 260| Training loss: 0.7609
+## Epoch 90/100 Iteration 270| Training loss: 0.8086
+## Epoch 94/100 Iteration 280| Training loss: 0.9098
+## Epoch 97/100 Iteration 290| Training loss: 0.6763
+## Epoch 100/100 Iteration 300| Training loss: 0.7251</code></pre>
+<pre class="python"><code>np.random.seed(123)
+rnn = CharRNN(len(chars), sampling=True)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(1, 1, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(1, 32), dtype=float32)</code></pre>
+<pre class="python"><code>print(rnn.sample(ckpt_dir=&#39;./model-100/&#39;, 
+                 output_length=500))</code></pre>
+<pre><code>## The cotinuger had acahhhdind R ann  arm hold hold snuers ads holding Rppperrbboyy hold hold cnttinue holding uull mount hotl aadts and hold nn holl conutnues aad caugh tin  auk hold
+## holding bpld coukt hold cnntinuhs hold cg unutt and
+## holdingg uped bold contintes
+## aned hod ing bac mouun  hold cndtinues hodd aug holding full oold holdssguerr mobym hold colninus bade holding full  mont hold
+## sans hhd  ontinue coldiuuues hod cotntingss aar hold cnughold naam hold
+## and holdinn R ard hold cnuuuet  nnd bcdshau</code></pre>
+<pre class="python"><code>## run for 200 epochs
+batch_size = 64
+num_steps = 100 
+
+rnn = CharRNN(num_classes=len(chars), batch_size=batch_size)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(64, 100, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(6400, 32), dtype=float32)</code></pre>
+<pre class="python"><code>rnn.train(train_x, train_y, 
+          num_epochs=200,
+          ckpt_dir=&#39;./model-200/&#39;)</code></pre>
+<pre><code>## Epoch 4/200 Iteration 10| Training loss: 3.2172
+## Epoch 7/200 Iteration 20| Training loss: 3.0124
+## Epoch 10/200 Iteration 30| Training loss: 2.9576
+## Epoch 14/200 Iteration 40| Training loss: 2.9452
+## Epoch 17/200 Iteration 50| Training loss: 2.8366
+## Epoch 20/200 Iteration 60| Training loss: 2.7720
+## Epoch 24/200 Iteration 70| Training loss: 2.7072
+## Epoch 27/200 Iteration 80| Training loss: 2.5115
+## Epoch 30/200 Iteration 90| Training loss: 2.3933
+## Epoch 34/200 Iteration 100| Training loss: 2.2851
+## Epoch 37/200 Iteration 110| Training loss: 2.0054
+## Epoch 40/200 Iteration 120| Training loss: 1.9141
+## Epoch 44/200 Iteration 130| Training loss: 1.8469
+## Epoch 47/200 Iteration 140| Training loss: 1.5454
+## Epoch 50/200 Iteration 150| Training loss: 1.5338
+## Epoch 54/200 Iteration 160| Training loss: 1.5176
+## Epoch 57/200 Iteration 170| Training loss: 1.2411
+## Epoch 60/200 Iteration 180| Training loss: 1.2567
+## Epoch 64/200 Iteration 190| Training loss: 1.2836
+## Epoch 67/200 Iteration 200| Training loss: 1.0280
+## Epoch 70/200 Iteration 210| Training loss: 1.0752
+## Epoch 74/200 Iteration 220| Training loss: 1.1231
+## Epoch 77/200 Iteration 230| Training loss: 0.8614
+## Epoch 80/200 Iteration 240| Training loss: 0.9250
+## Epoch 84/200 Iteration 250| Training loss: 0.9939
+## Epoch 87/200 Iteration 260| Training loss: 0.7587
+## Epoch 90/200 Iteration 270| Training loss: 0.8056
+## Epoch 94/200 Iteration 280| Training loss: 0.8981
+## Epoch 97/200 Iteration 290| Training loss: 0.6600
+## Epoch 100/200 Iteration 300| Training loss: 0.7264
+## Epoch 104/200 Iteration 310| Training loss: 0.8183
+## Epoch 107/200 Iteration 320| Training loss: 0.5950
+## Epoch 110/200 Iteration 330| Training loss: 0.6600
+## Epoch 114/200 Iteration 340| Training loss: 0.7615
+## Epoch 117/200 Iteration 350| Training loss: 0.5359
+## Epoch 120/200 Iteration 360| Training loss: 0.5880
+## Epoch 124/200 Iteration 370| Training loss: 0.7083
+## Epoch 127/200 Iteration 380| Training loss: 0.4892
+## Epoch 130/200 Iteration 390| Training loss: 0.5403
+## Epoch 134/200 Iteration 400| Training loss: 0.6656
+## Epoch 137/200 Iteration 410| Training loss: 0.4578
+## Epoch 140/200 Iteration 420| Training loss: 0.5025
+## Epoch 144/200 Iteration 430| Training loss: 0.6201
+## Epoch 147/200 Iteration 440| Training loss: 0.4282
+## Epoch 150/200 Iteration 450| Training loss: 0.4731
+## Epoch 154/200 Iteration 460| Training loss: 0.5919
+## Epoch 157/200 Iteration 470| Training loss: 0.3930
+## Epoch 160/200 Iteration 480| Training loss: 0.4395
+## Epoch 164/200 Iteration 490| Training loss: 0.5546
+## Epoch 167/200 Iteration 500| Training loss: 0.3691
+## Epoch 170/200 Iteration 510| Training loss: 0.4128
+## Epoch 174/200 Iteration 520| Training loss: 0.5341
+## Epoch 177/200 Iteration 530| Training loss: 0.3492
+## Epoch 180/200 Iteration 540| Training loss: 0.3915
+## Epoch 184/200 Iteration 550| Training loss: 0.5111
+## Epoch 187/200 Iteration 560| Training loss: 0.3380
+## Epoch 190/200 Iteration 570| Training loss: 0.3659
+## Epoch 194/200 Iteration 580| Training loss: 0.4892
+## Epoch 197/200 Iteration 590| Training loss: 0.3154
+## Epoch 200/200 Iteration 600| Training loss: 0.3333</code></pre>
+<pre class="python"><code>del rnn
+
+np.random.seed(123)
+rnn = CharRNN(len(chars), sampling=True)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(1, 1, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(1, 32), dtype=float32)</code></pre>
+<pre class="python"><code>print(rnn.sample(ckpt_dir=&#39;./model-200/&#39;, 
+                 output_length=500))</code></pre>
+<pre><code>## The coket lnd starts
+## holding back mount hold and holding R underarm choke hold
+## startss hold
+## ng fuld mount hold continues
+## holding full mount hold continues
+## holding back mount hold continues
+## holding bbckk hokd cottinues
+## holding back mount hold couttinues and cangho in R arm hold
+## holding baud mount hold ant holding back mount hold starts and holding back mount hold ant holding back mount hold holding back moutt hold starss and holding back mount hold continues
+## holding back mougt hold continues,h alding</code></pre>
 </div>
 
 
