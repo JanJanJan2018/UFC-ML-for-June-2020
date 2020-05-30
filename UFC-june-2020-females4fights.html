@@ -17572,13 +17572,13 @@ rf_model=rf.fit(Amanda_train,Amanda_hits_train)
 end=time.time()
 fit_time=(end-start)
 fit_time</code></pre>
-<pre><code>## 0.5507051944732666</code></pre>
+<pre><code>## 0.4859297275543213</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=rf_model.predict(Amanda_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.13362598419189453</code></pre>
+<pre><code>## 0.13497400283813477</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -17613,13 +17613,13 @@ print(&#39;accuracy&#39;, accuracy_score(Amanda_hits_test, y_pred))</code></pre>
 </div>
 <div id="gradient-boosted-model" class="section level1">
 <h1>Gradient Boosted Model</h1>
-<pre><code>## 0.8021931648254395</code></pre>
+<pre><code>## 0.5709183216094971</code></pre>
 <pre class="python"><code>start=time.time()
 y_pred=gb_model.predict(Amanda_test)
 end=time.time()
 pred_time=(end-start)
 pred_time</code></pre>
-<pre><code>## 0.05201411247253418</code></pre>
+<pre><code>## 0.043633222579956055</code></pre>
 <pre class="python"><code>prd = pd.DataFrame(y_pred)
 prd.columns=[&#39;Predicted&#39;]
 
@@ -17722,7 +17722,7 @@ model6.add(
         bias_initializer=&#39;zeros&#39;,
         activation=&#39;tanh&#39;))</code></pre>
 <pre><code>## WARNING: Logging before flag parsing goes to stderr.
-## W0522 11:42:27.694524  7792 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+## W0530 15:03:42.690674  1140 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
 ## Instructions for updating:
 ## Call initializer instance with the dtype argument instead of passing it to the constructor</code></pre>
 <pre class="python"><code>model6.add(
@@ -17752,7 +17752,7 @@ model6.compile(optimizer=sgd_optimizer,
 # it was &#39;categorical_crossentropy&#39;, but that expects binary matrices of 1s and 0s
 # it said to use sparse_categorical_crossentropy</code></pre>
 <pre class="python"><code>model6</code></pre>
-<pre><code>## &lt;tensorflow.python.keras.engine.sequential.Sequential object at 0x0000000031ED1198&gt;</code></pre>
+<pre><code>## &lt;tensorflow.python.keras.engine.sequential.Sequential object at 0x0000000035D31128&gt;</code></pre>
 <pre class="python"><code>import time
 start=time.time()
 
@@ -17763,148 +17763,141 @@ history6 = model6.fit(Amanda_train, Amanda_hits_train,
 <pre><code>## Train on 266 samples, validate on 48 samples
 ## Epoch 1/50
 ## 
-##  64/266 [======&gt;.......................] - ETA: 2s - loss: 2.3216
-## 128/266 [=============&gt;................] - ETA: 1s - loss: 2.1127
+##  64/266 [======&gt;.......................] - ETA: 3s - loss: 2.3216
 ## 256/266 [===========================&gt;..] - ETA: 0s - loss: 1.6612
 ## 266/266 [==============================] - 1s 5ms/sample - loss: 1.6403 - val_loss: 0.7896
 ## Epoch 2/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.6572
-## 256/266 [===========================&gt;..] - ETA: 0s - loss: 0.6248
-## 266/266 [==============================] - 0s 458us/sample - loss: 0.6082 - val_loss: 0.6908
+## 266/266 [==============================] - 0s 72us/sample - loss: 0.6082 - val_loss: 0.6908
 ## Epoch 3/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.6562
-## 192/266 [====================&gt;.........] - ETA: 0s - loss: 0.5615
-## 266/266 [==============================] - 0s 294us/sample - loss: 0.5399 - val_loss: 0.7093
+## 266/266 [==============================] - 0s 59us/sample - loss: 0.5399 - val_loss: 0.7093
 ## Epoch 4/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.6426
-## 256/266 [===========================&gt;..] - ETA: 0s - loss: 0.5293
-## 266/266 [==============================] - 0s 317us/sample - loss: 0.5323 - val_loss: 0.6999
+## 266/266 [==============================] - 0s 152us/sample - loss: 0.5323 - val_loss: 0.6999
 ## Epoch 5/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5917
-## 266/266 [==============================] - 0s 457us/sample - loss: 0.5139 - val_loss: 0.6881
+## 266/266 [==============================] - 0s 102us/sample - loss: 0.5139 - val_loss: 0.6881
 ## Epoch 6/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.6206
-## 256/266 [===========================&gt;..] - ETA: 0s - loss: 0.5185
-## 266/266 [==============================] - 0s 412us/sample - loss: 0.5109 - val_loss: 0.6862
+## 266/266 [==============================] - 0s 105us/sample - loss: 0.5109 - val_loss: 0.6862
 ## Epoch 7/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4069
-## 266/266 [==============================] - 0s 310us/sample - loss: 0.5077 - val_loss: 0.6887
+## 266/266 [==============================] - 0s 145us/sample - loss: 0.5077 - val_loss: 0.6887
 ## Epoch 8/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4002
-## 256/266 [===========================&gt;..] - ETA: 0s - loss: 0.4947
-## 266/266 [==============================] - 0s 505us/sample - loss: 0.5069 - val_loss: 0.6914
+## 266/266 [==============================] - 0s 59us/sample - loss: 0.5069 - val_loss: 0.6914
 ## Epoch 9/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3419
-## 266/266 [==============================] - 0s 367us/sample - loss: 0.5018 - val_loss: 0.6891
+## 266/266 [==============================] - 0s 152us/sample - loss: 0.5018 - val_loss: 0.6891
 ## Epoch 10/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4169
-## 256/266 [===========================&gt;..] - ETA: 0s - loss: 0.4877
-## 266/266 [==============================] - 0s 313us/sample - loss: 0.4978 - val_loss: 0.6878
+## 266/266 [==============================] - 0s 83us/sample - loss: 0.4978 - val_loss: 0.6878
 ## Epoch 11/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5791
-## 266/266 [==============================] - 0s 171us/sample - loss: 0.4977 - val_loss: 0.6849
+## 266/266 [==============================] - 0s 98us/sample - loss: 0.4977 - val_loss: 0.6849
 ## Epoch 12/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.6414
-## 266/266 [==============================] - 0s 81us/sample - loss: 0.4971 - val_loss: 0.6860
+## 266/266 [==============================] - 0s 90us/sample - loss: 0.4971 - val_loss: 0.6860
 ## Epoch 13/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5462
-## 266/266 [==============================] - 0s 107us/sample - loss: 0.4943 - val_loss: 0.6917
+## 266/266 [==============================] - 0s 31us/sample - loss: 0.4943 - val_loss: 0.6917
 ## Epoch 14/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3859
-## 266/266 [==============================] - 0s 86us/sample - loss: 0.4969 - val_loss: 0.6904
+## 266/266 [==============================] - 0s 118us/sample - loss: 0.4969 - val_loss: 0.6904
 ## Epoch 15/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3633
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4922 - val_loss: 0.6888
+## 266/266 [==============================] - 0s 100us/sample - loss: 0.4922 - val_loss: 0.6888
 ## Epoch 16/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4594
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4926 - val_loss: 0.6926
+## 266/266 [==============================] - 0s 117us/sample - loss: 0.4926 - val_loss: 0.6926
 ## Epoch 17/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3839
-## 266/266 [==============================] - 0s 156us/sample - loss: 0.4902 - val_loss: 0.7001
+## 266/266 [==============================] - 0s 94us/sample - loss: 0.4902 - val_loss: 0.7001
 ## Epoch 18/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.6349
-## 266/266 [==============================] - 0s 44us/sample - loss: 0.4902 - val_loss: 0.6943
+## 266/266 [==============================] - 0s 90us/sample - loss: 0.4902 - val_loss: 0.6943
 ## Epoch 19/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3777
-## 266/266 [==============================] - 0s 117us/sample - loss: 0.4870 - val_loss: 0.6960
+## 266/266 [==============================] - 0s 24us/sample - loss: 0.4870 - val_loss: 0.6960
 ## Epoch 20/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4897
-## 266/266 [==============================] - 0s 105us/sample - loss: 0.4855 - val_loss: 0.6958
+## 266/266 [==============================] - 0s 117us/sample - loss: 0.4855 - val_loss: 0.6958
 ## Epoch 21/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4259
-## 266/266 [==============================] - 0s 82us/sample - loss: 0.4844 - val_loss: 0.6943
+## 266/266 [==============================] - 0s 118us/sample - loss: 0.4844 - val_loss: 0.6943
 ## Epoch 22/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4115
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4896 - val_loss: 0.6980
+## 266/266 [==============================] - 0s 76us/sample - loss: 0.4896 - val_loss: 0.6980
 ## Epoch 23/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3734
-## 266/266 [==============================] - 0s 122us/sample - loss: 0.4916 - val_loss: 0.6935
+## 266/266 [==============================] - 0s 59us/sample - loss: 0.4916 - val_loss: 0.6935
 ## Epoch 24/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4799
-## 266/266 [==============================] - 0s 71us/sample - loss: 0.4893 - val_loss: 0.6960
+## 266/266 [==============================] - 0s 140us/sample - loss: 0.4893 - val_loss: 0.6960
 ## Epoch 25/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5330
-## 266/266 [==============================] - 0s 97us/sample - loss: 0.4837 - val_loss: 0.6977
+## 266/266 [==============================] - 0s 79us/sample - loss: 0.4837 - val_loss: 0.6977
 ## Epoch 26/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5831
-## 266/266 [==============================] - 0s 113us/sample - loss: 0.4830 - val_loss: 0.6953
+## 266/266 [==============================] - 0s 90us/sample - loss: 0.4830 - val_loss: 0.6953
 ## Epoch 27/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5044
-## 266/266 [==============================] - 0s 40us/sample - loss: 0.4819 - val_loss: 0.6945
+## 266/266 [==============================] - 0s 98us/sample - loss: 0.4819 - val_loss: 0.6945
 ## Epoch 28/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5583
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4805 - val_loss: 0.6953
+## 266/266 [==============================] - 0s 30us/sample - loss: 0.4805 - val_loss: 0.6953
 ## Epoch 29/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4711
-## 266/266 [==============================] - 0s 88us/sample - loss: 0.4789 - val_loss: 0.6899
+## 266/266 [==============================] - 0s 130us/sample - loss: 0.4789 - val_loss: 0.6899
 ## Epoch 30/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5352
-## 266/266 [==============================] - 0s 90us/sample - loss: 0.4792 - val_loss: 0.6860
+## 266/266 [==============================] - 0s 102us/sample - loss: 0.4792 - val_loss: 0.6860
 ## Epoch 31/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5689
-## 266/266 [==============================] - 0s 73us/sample - loss: 0.4796 - val_loss: 0.6840
+## 266/266 [==============================] - 0s 90us/sample - loss: 0.4796 - val_loss: 0.6840
 ## Epoch 32/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3534
-## 266/266 [==============================] - 0s 122us/sample - loss: 0.4764 - val_loss: 0.6921
+## 266/266 [==============================] - 0s 75us/sample - loss: 0.4764 - val_loss: 0.6921
 ## Epoch 33/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4219
-## 266/266 [==============================] - 0s 71us/sample - loss: 0.4755 - val_loss: 0.6858
+## 266/266 [==============================] - 0s 94us/sample - loss: 0.4755 - val_loss: 0.6858
 ## Epoch 34/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4076
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4746 - val_loss: 0.6853
+## 266/266 [==============================] - 0s 65us/sample - loss: 0.4746 - val_loss: 0.6853
 ## Epoch 35/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4912
@@ -17912,67 +17905,67 @@ history6 = model6.fit(Amanda_train, Amanda_hits_train,
 ## Epoch 36/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5236
-## 266/266 [==============================] - 0s 167us/sample - loss: 0.4751 - val_loss: 0.6809
+## 266/266 [==============================] - 0s 59us/sample - loss: 0.4751 - val_loss: 0.6809
 ## Epoch 37/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4648
-## 266/266 [==============================] - 0s 29us/sample - loss: 0.4745 - val_loss: 0.6856
+## 266/266 [==============================] - 0s 176us/sample - loss: 0.4745 - val_loss: 0.6856
 ## Epoch 38/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5471
-## 266/266 [==============================] - 0s 146us/sample - loss: 0.4774 - val_loss: 0.6838
+## 266/266 [==============================] - 0s 83us/sample - loss: 0.4774 - val_loss: 0.6838
 ## Epoch 39/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4356
-## 266/266 [==============================] - 0s 94us/sample - loss: 0.4747 - val_loss: 0.6780
+## 266/266 [==============================] - 0s 75us/sample - loss: 0.4747 - val_loss: 0.6780
 ## Epoch 40/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5387
-## 266/266 [==============================] - 0s 66us/sample - loss: 0.4724 - val_loss: 0.6892
+## 266/266 [==============================] - 0s 102us/sample - loss: 0.4724 - val_loss: 0.6892
 ## Epoch 41/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4527
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4751 - val_loss: 0.6920
+## 266/266 [==============================] - 0s 73us/sample - loss: 0.4751 - val_loss: 0.6920
 ## Epoch 42/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4359
-## 266/266 [==============================] - 0s 133us/sample - loss: 0.4734 - val_loss: 0.6875
+## 266/266 [==============================] - 0s 91us/sample - loss: 0.4734 - val_loss: 0.6875
 ## Epoch 43/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4552
-## 266/266 [==============================] - 0s 63us/sample - loss: 0.4762 - val_loss: 0.6852
+## 266/266 [==============================] - 0s 109us/sample - loss: 0.4762 - val_loss: 0.6852
 ## Epoch 44/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5144
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4748 - val_loss: 0.6795
+## 266/266 [==============================] - 0s 50us/sample - loss: 0.4748 - val_loss: 0.6795
 ## Epoch 45/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.4615
-## 266/266 [==============================] - 0s 155us/sample - loss: 0.4695 - val_loss: 0.6804
+## 266/266 [==============================] - 0s 59us/sample - loss: 0.4695 - val_loss: 0.6804
 ## Epoch 46/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.3914
-## 266/266 [==============================] - 0s 49us/sample - loss: 0.4699 - val_loss: 0.6815
+## 266/266 [==============================] - 0s 120us/sample - loss: 0.4699 - val_loss: 0.6815
 ## Epoch 47/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5914
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4702 - val_loss: 0.6806
+## 266/266 [==============================] - 0s 105us/sample - loss: 0.4702 - val_loss: 0.6806
 ## Epoch 48/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.2354
-## 266/266 [==============================] - 0s 185us/sample - loss: 0.4691 - val_loss: 0.6776
+## 266/266 [==============================] - 0s 30us/sample - loss: 0.4691 - val_loss: 0.6776
 ## Epoch 49/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5044
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4681 - val_loss: 0.6766
+## 266/266 [==============================] - 0s 233us/sample - loss: 0.4681 - val_loss: 0.6766
 ## Epoch 50/50
 ## 
 ##  64/266 [======&gt;.......................] - ETA: 0s - loss: 0.5858
-## 266/266 [==============================] - 0s 59us/sample - loss: 0.4688 - val_loss: 0.6829</code></pre>
+## 266/266 [==============================] - 0s 79us/sample - loss: 0.4688 - val_loss: 0.6829</code></pre>
 <pre class="python"><code>end=time.time()
 fit_time=(end-start)
 print(start,end,fit_time)</code></pre>
-<pre><code>## 1590172948.29972 1590172951.982667 3.6829469203948975</code></pre>
+<pre><code>## 1590876223.1676922 1590876226.066078 2.898385763168335</code></pre>
 <pre class="python"><code>y_train_pred6 = model6.predict_classes(Amanda_train, verbose=0)
 print(&#39;First 3 predictions: &#39;, y_train_pred6[:3])</code></pre>
 <pre><code>## First 3 predictions:  [0 0 0]</code></pre>
@@ -18163,7 +18156,7 @@ model6.compile(optimizer=sgd_optimizer,
 # it was &#39;categorical_crossentropy&#39;, but that expects binary matrices of 1s and 0s
 # it said to use sparse_categorical_crossentropy</code></pre>
 <pre class="python"><code>model6</code></pre>
-<pre><code>## &lt;tensorflow.python.keras.engine.sequential.Sequential object at 0x000000003D5378D0&gt;</code></pre>
+<pre><code>## &lt;tensorflow.python.keras.engine.sequential.Sequential object at 0x0000000049270C18&gt;</code></pre>
 <pre class="python"><code>import time
 start=time.time()
 
@@ -18179,203 +18172,203 @@ history6 = model6.fit(Amanda_train, Amanda_hits_train,
 ## Epoch 2/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 1.0903
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.9068 - val_loss: 0.5537
+## 156/156 [==============================] - 0s 239us/sample - loss: 0.9068 - val_loss: 0.5537
 ## Epoch 3/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.6217
-## 156/156 [==============================] - 0s 228us/sample - loss: 0.6735 - val_loss: 0.4622
+## 156/156 [==============================] - 0s 103us/sample - loss: 0.6735 - val_loss: 0.4622
 ## Epoch 4/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4363
-## 156/156 [==============================] - 0s 106us/sample - loss: 0.6431 - val_loss: 0.4344
+## 156/156 [==============================] - 0s 96us/sample - loss: 0.6431 - val_loss: 0.4344
 ## Epoch 5/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5693
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.6216 - val_loss: 0.4115
+## 156/156 [==============================] - 0s 122us/sample - loss: 0.6216 - val_loss: 0.4115
 ## Epoch 6/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5524
-## 156/156 [==============================] - 0s 104us/sample - loss: 0.5935 - val_loss: 0.3891
+## 156/156 [==============================] - 0s 109us/sample - loss: 0.5935 - val_loss: 0.3891
 ## Epoch 7/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.6715
-## 156/156 [==============================] - 0s 147us/sample - loss: 0.5805 - val_loss: 0.3841
+## 156/156 [==============================] - 0s 96us/sample - loss: 0.5805 - val_loss: 0.3841
 ## Epoch 8/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4604
-## 156/156 [==============================] - 0s 76us/sample - loss: 0.5715 - val_loss: 0.3788
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5715 - val_loss: 0.3788
 ## Epoch 9/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5023
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5644 - val_loss: 0.3748
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5644 - val_loss: 0.3748
 ## Epoch 10/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4562
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5614 - val_loss: 0.3732
+## 156/156 [==============================] - 0s 141us/sample - loss: 0.5614 - val_loss: 0.3732
 ## Epoch 11/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5183
-## 156/156 [==============================] - 0s 0s/sample - loss: 0.5573 - val_loss: 0.3756
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5573 - val_loss: 0.3756
 ## Epoch 12/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4964
-## 156/156 [==============================] - 0s 127us/sample - loss: 0.5555 - val_loss: 0.3760
+## 156/156 [==============================] - 0s 96us/sample - loss: 0.5555 - val_loss: 0.3760
 ## Epoch 13/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5126
-## 156/156 [==============================] - 0s 106us/sample - loss: 0.5503 - val_loss: 0.3736
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5503 - val_loss: 0.3736
 ## Epoch 14/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.6670
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5505 - val_loss: 0.3720
+## 156/156 [==============================] - 0s 83us/sample - loss: 0.5505 - val_loss: 0.3720
 ## Epoch 15/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5387
-## 156/156 [==============================] - 0s 0s/sample - loss: 0.5461 - val_loss: 0.3692
+## 156/156 [==============================] - 0s 140us/sample - loss: 0.5461 - val_loss: 0.3692
 ## Epoch 16/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4884
-## 156/156 [==============================] - 0s 219us/sample - loss: 0.5494 - val_loss: 0.3669
+## 156/156 [==============================] - 0s 96us/sample - loss: 0.5494 - val_loss: 0.3669
 ## Epoch 17/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4133
-## 156/156 [==============================] - 0s 101us/sample - loss: 0.5435 - val_loss: 0.3657
+## 156/156 [==============================] - 0s 0s/sample - loss: 0.5435 - val_loss: 0.3657
 ## Epoch 18/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5762
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5436 - val_loss: 0.3708
+## 156/156 [==============================] - 0s 215us/sample - loss: 0.5436 - val_loss: 0.3708
 ## Epoch 19/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.6018
-## 156/156 [==============================] - 0s 0s/sample - loss: 0.5406 - val_loss: 0.3730
+## 156/156 [==============================] - 0s 128us/sample - loss: 0.5406 - val_loss: 0.3730
 ## Epoch 20/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5129
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5417 - val_loss: 0.3741
+## 156/156 [==============================] - 0s 83us/sample - loss: 0.5417 - val_loss: 0.3741
 ## Epoch 21/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5345
-## 156/156 [==============================] - 0s 207us/sample - loss: 0.5391 - val_loss: 0.3680
+## 156/156 [==============================] - 0s 100us/sample - loss: 0.5391 - val_loss: 0.3680
 ## Epoch 22/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.6523
-## 156/156 [==============================] - 0s 103us/sample - loss: 0.5408 - val_loss: 0.3697
+## 156/156 [==============================] - 0s 100us/sample - loss: 0.5408 - val_loss: 0.3697
 ## Epoch 23/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5544
-## 156/156 [==============================] - 0s 96us/sample - loss: 0.5372 - val_loss: 0.3716
+## 156/156 [==============================] - 0s 144us/sample - loss: 0.5372 - val_loss: 0.3716
 ## Epoch 24/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5954
-## 156/156 [==============================] - 0s 184us/sample - loss: 0.5381 - val_loss: 0.3716
+## 156/156 [==============================] - 0s 115us/sample - loss: 0.5381 - val_loss: 0.3716
 ## Epoch 25/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5523
-## 156/156 [==============================] - 0s 109us/sample - loss: 0.5353 - val_loss: 0.3702
+## 156/156 [==============================] - 0s 96us/sample - loss: 0.5353 - val_loss: 0.3702
 ## Epoch 26/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5646
-## 156/156 [==============================] - 0s 57us/sample - loss: 0.5330 - val_loss: 0.3708
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5330 - val_loss: 0.3708
 ## Epoch 27/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5180
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5349 - val_loss: 0.3667
+## 156/156 [==============================] - 0s 83us/sample - loss: 0.5349 - val_loss: 0.3667
 ## Epoch 28/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.3924
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5330 - val_loss: 0.3652
+## 156/156 [==============================] - 0s 141us/sample - loss: 0.5330 - val_loss: 0.3652
 ## Epoch 29/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5558
-## 156/156 [==============================] - 0s 0s/sample - loss: 0.5324 - val_loss: 0.3675
+## 156/156 [==============================] - 0s 73us/sample - loss: 0.5324 - val_loss: 0.3675
 ## Epoch 30/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.3242
-## 156/156 [==============================] - 0s 226us/sample - loss: 0.5337 - val_loss: 0.3700
+## 156/156 [==============================] - 0s 100us/sample - loss: 0.5337 - val_loss: 0.3700
 ## Epoch 31/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5147
-## 156/156 [==============================] - 0s 103us/sample - loss: 0.5315 - val_loss: 0.3726
+## 156/156 [==============================] - 0s 0s/sample - loss: 0.5315 - val_loss: 0.3726
 ## Epoch 32/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4621
-## 156/156 [==============================] - 0s 6us/sample - loss: 0.5304 - val_loss: 0.3735
+## 156/156 [==============================] - 0s 173us/sample - loss: 0.5304 - val_loss: 0.3735
 ## Epoch 33/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5862
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5290 - val_loss: 0.3704
+## 156/156 [==============================] - 0s 128us/sample - loss: 0.5290 - val_loss: 0.3704
 ## Epoch 34/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5567
-## 156/156 [==============================] - 0s 208us/sample - loss: 0.5277 - val_loss: 0.3713
+## 156/156 [==============================] - 0s 103us/sample - loss: 0.5277 - val_loss: 0.3713
 ## Epoch 35/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5751
-## 156/156 [==============================] - 0s 96us/sample - loss: 0.5278 - val_loss: 0.3700
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5278 - val_loss: 0.3700
 ## Epoch 36/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5606
-## 156/156 [==============================] - 0s 16us/sample - loss: 0.5262 - val_loss: 0.3649
+## 156/156 [==============================] - 0s 83us/sample - loss: 0.5262 - val_loss: 0.3649
 ## Epoch 37/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4248
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5265 - val_loss: 0.3639
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5265 - val_loss: 0.3639
 ## Epoch 38/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4106
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5238 - val_loss: 0.3683
+## 156/156 [==============================] - 0s 147us/sample - loss: 0.5238 - val_loss: 0.3683
 ## Epoch 39/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5278
-## 156/156 [==============================] - 0s 183us/sample - loss: 0.5240 - val_loss: 0.3689
+## 156/156 [==============================] - 0s 46us/sample - loss: 0.5240 - val_loss: 0.3689
 ## Epoch 40/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5179
-## 156/156 [==============================] - 0s 103us/sample - loss: 0.5230 - val_loss: 0.3717
+## 156/156 [==============================] - 0s 100us/sample - loss: 0.5230 - val_loss: 0.3717
 ## Epoch 41/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4725
-## 156/156 [==============================] - 0s 48us/sample - loss: 0.5233 - val_loss: 0.3713
+## 156/156 [==============================] - 0s 100us/sample - loss: 0.5233 - val_loss: 0.3713
 ## Epoch 42/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5310
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5217 - val_loss: 0.3695
+## 156/156 [==============================] - 0s 144us/sample - loss: 0.5217 - val_loss: 0.3695
 ## Epoch 43/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5672
-## 156/156 [==============================] - 0s 175us/sample - loss: 0.5236 - val_loss: 0.3683
+## 156/156 [==============================] - 0s 115us/sample - loss: 0.5236 - val_loss: 0.3683
 ## Epoch 44/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.6168
-## 156/156 [==============================] - 0s 103us/sample - loss: 0.5242 - val_loss: 0.3742
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5242 - val_loss: 0.3742
 ## Epoch 45/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5781
-## 156/156 [==============================] - 0s 43us/sample - loss: 0.5198 - val_loss: 0.3723
+## 156/156 [==============================] - 0s 90us/sample - loss: 0.5198 - val_loss: 0.3723
 ## Epoch 46/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4753
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5255 - val_loss: 0.3700
+## 156/156 [==============================] - 0s 83us/sample - loss: 0.5255 - val_loss: 0.3700
 ## Epoch 47/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4673
-## 156/156 [==============================] - 0s 100us/sample - loss: 0.5178 - val_loss: 0.3753
+## 156/156 [==============================] - 0s 128us/sample - loss: 0.5178 - val_loss: 0.3753
 ## Epoch 48/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.5357
-## 156/156 [==============================] - 0s 106us/sample - loss: 0.5246 - val_loss: 0.3785
+## 156/156 [==============================] - 0s 83us/sample - loss: 0.5246 - val_loss: 0.3785
 ## Epoch 49/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.6369
-## 156/156 [==============================] - 0s 128us/sample - loss: 0.5175 - val_loss: 0.3689
+## 156/156 [==============================] - 0s 14us/sample - loss: 0.5175 - val_loss: 0.3689
 ## Epoch 50/50
 ## 
 ##  64/156 [===========&gt;..................] - ETA: 0s - loss: 0.4764
-## 156/156 [==============================] - 0s 103us/sample - loss: 0.5250 - val_loss: 0.3640</code></pre>
+## 156/156 [==============================] - 0s 100us/sample - loss: 0.5250 - val_loss: 0.3640</code></pre>
 <pre class="python"><code>end=time.time()
 fit_time=(end-start)
 print(start,end,fit_time)</code></pre>
-<pre><code>## 1590172955.2051086 1590172957.3474967 2.142388105392456</code></pre>
+<pre><code>## 1590876229.5811665 1590876231.8449244 2.2637579441070557</code></pre>
 <pre class="python"><code>y_train_pred6 = model6.predict_classes(Amanda_train, verbose=0)
 print(&#39;First 3 predictions: &#39;, y_train_pred6[:3])</code></pre>
 <pre><code>## First 3 predictions:  [0 0 0]</code></pre>
@@ -18490,6 +18483,1053 @@ print(&#39;Testing Correctly Predicted:&#39;,s,&#39;Testing Accuracy:&#39;,accTe
 ##  [ 3  0  0]]</code></pre>
 <p>When using the wrestling set applicable to only the fighter whose ground or wrestling features were accounted for, the testing accuracy improved from 72% to 85% in predicting hits landed using the DNN or CNN alternatively named so.</p>
 <p>In summary the best models were those that scored 100% accuracy in Python’s TensorFlow Keras version for the gradient boosting classifier. In R the best models were the modified boundaries that were rounded to nearest class numeric value for hits landed by X1 on X2. Those R modules scored 100% for random forest, generalized linear models, and recursive partitioned trees. The gradient boosted model in R scored 96%. The caveat is that class 3 in our data only occured 1 time in all and was captured in the CNN model but not in our models that scored 100% in either scripting language. However, the recall and precision were 100% accurate for that class 3 in those models.</p>
+<hr />
+<hr />
+<hr />
+</div>
+<div id="recursive-neural-networks" class="section level1">
+<h1>Recursive Neural Networks</h1>
+<p>Lets now do some predictive text analysis of this fighter Nunez that will use the notes of Nunez’s four fights with NAs removed to fit the format from a script in Sebastian Raschka’s ‘Python: Machine Learning’ book available for Kindle. One will work similar to the CNN by predicting the output of hits landed based on the actions only, and the other will use a text version of all actions to predict the probability of characters next in a sequence for some forecasting of possible actions that Nunez will make based on her sampled fights.</p>
+</div>
+<div id="recursive-neural-networks-rnns" class="section level1">
+<h1>Recursive Neural Networks (RNNs)</h1>
+<p>Lets first prepare the data.</p>
+<pre class="r"><code>Amanda4 &lt;- read.csv(&#39;Nunez4fights_addedFeatures.csv&#39;, sep=&#39;,&#39;, header=TRUE, na.strings=c(&#39;&#39;,&#39; &#39;,&#39;NA&#39;))
+Amanda4RNN &lt;- Amanda4[,c(18,8)]
+colnames(Amanda4RNN) &lt;- c(&#39;review&#39;,&#39;sentiment&#39;)
+Amanda_RNN &lt;- Amanda4RNN[complete.cases(Amanda4RNN$review),]
+head(Amanda_RNN)</code></pre>
+<pre><code>##                                             review sentiment
+## 1                    missed R mt kick to low L leg         0
+## 2                                     missed L jab         0
+## 4                    missed R mt kick to low L leg         0
+## 5                         lands L mt kick to L leg         1
+## 6                     missed L jab, missed R cross         0
+## 7 lands L mt kick to L leg, missed R cross to face         1</code></pre>
+<pre class="r"><code>dim(Amanda_RNN)</code></pre>
+<pre><code>## [1] 360   2</code></pre>
+<p>Our table for the RNN to predict the hits landed or ‘sentiment’ to match this script of Raschka’s will be the Amands_RNN table. Lets make the string character of all the ‘review’ observations which are our fighter actions/reactions for Nunez also changed to match this script into one long string for the predictive test script after we train this RNN model. This will be set to eval=FALSE in Rmarkdown for the chunk setting so that it only prints once.</p>
+<pre class="r"><code>for (i in Amanda_RNN$review){
+  
+  catAmanda &lt;- cat(i, file=&#39;amandaRNN.txt&#39;, sep=&#39; &#39;, fill=TRUE, append=TRUE)
+}
+
+write.csv(Amanda_RNN,&#39;amanda_RNN.csv&#39;, row.names=FALSE)</code></pre>
+<p>The above will create our file to read in when we get to the predictive text script, ‘amandaRNN.txt.’</p>
+<pre class="r"><code>library(reticulate)</code></pre>
+<pre class="r"><code>conda_list(conda = &quot;auto&quot;) </code></pre>
+<pre><code>##           name                                                  python
+## 1    Anaconda2                     C:\\Users\\m\\Anaconda2\\python.exe
+## 2    djangoenv    C:\\Users\\m\\Anaconda2\\envs\\djangoenv\\python.exe
+## 3     python36     C:\\Users\\m\\Anaconda2\\envs\\python36\\python.exe
+## 4     python37     C:\\Users\\m\\Anaconda2\\envs\\python37\\python.exe
+## 5 r-reticulate C:\\Users\\m\\Anaconda2\\envs\\r-reticulate\\python.exe</code></pre>
+<pre class="r"><code>use_condaenv(condaenv = &quot;python36&quot;)</code></pre>
+<p>We are using the same Felicia Spencer data file, but changed the name of TotLandsX1 to sentiment, and the name of the FighterActionsReactionsX1 to review. This file is also in github, modified outside of R and Python as ‘2columnsSpencer.csv’ and the NAs were also removed.</p>
+<pre class="python"><code>import pyprind
+import pandas as pd
+from string import punctuation
+import re
+import numpy as np
+
+
+df = pd.read_csv(&#39;amanda_RNN.csv&#39;, encoding=&#39;utf-8&#39;)
+print(df.head(10))</code></pre>
+<pre><code>##                                               review  sentiment
+## 0                      missed R mt kick to low L leg          0
+## 1                                       missed L jab          0
+## 2                      missed R mt kick to low L leg          0
+## 3                           lands L mt kick to L leg          1
+## 4                       missed L jab, missed R cross          0
+## 5   lands L mt kick to L leg, missed R cross to face          1
+## 6                          holding R leg hold starts          0
+## 7                       holding R leg hold continues          0
+## 8                       holding R leg hold continues          0
+## 9  holding R leg hold continues misses R cross to...          0</code></pre>
+<pre class="python"><code>df.shape</code></pre>
+<pre><code>## (360, 2)</code></pre>
+<pre class="python"><code>type(df[&#39;review&#39;])</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.series.Series&#39;&gt;</code></pre>
+<pre class="python"><code>## Separate words and 
+## count each word&#39;s occurrence
+
+
+from collections import Counter
+
+
+counts = Counter()
+pbar = pyprind.ProgBar(len(df[&#39;review&#39;]),
+                       title=&#39;Counting words occurences&#39;)</code></pre>
+<pre><code>## Counting words occurences</code></pre>
+<pre class="python"><code>for i,review in enumerate(df[&#39;review&#39;]):
+    text = &#39;&#39;.join([c if c not in punctuation else &#39; &#39;+c+&#39; &#39; \
+                    for c in review]).lower()
+    df.loc[i,&#39;review&#39;] = text
+    pbar.update()
+    counts.update(text.split())</code></pre>
+<pre><code>## 
+0% [#                             ] 100% | ETA: 00:00:00
+0% [##                            ] 100% | ETA: 00:00:00
+0% [###                           ] 100% | ETA: 00:00:00
+0% [####                          ] 100% | ETA: 00:00:00
+0% [#####                         ] 100% | ETA: 00:00:00
+0% [######                        ] 100% | ETA: 00:00:00
+0% [#######                       ] 100% | ETA: 00:00:00
+0% [########                      ] 100% | ETA: 00:00:00
+0% [#########                     ] 100% | ETA: 00:00:00
+0% [##########                    ] 100% | ETA: 00:00:00
+0% [###########                   ] 100% | ETA: 00:00:00
+0% [############                  ] 100% | ETA: 00:00:00
+0% [#############                 ] 100% | ETA: 00:00:00
+0% [##############                ] 100% | ETA: 00:00:00
+0% [###############               ] 100% | ETA: 00:00:00
+0% [################              ] 100% | ETA: 00:00:00
+0% [#################             ] 100% | ETA: 00:00:00
+0% [##################            ] 100% | ETA: 00:00:00
+0% [###################           ] 100% | ETA: 00:00:00
+0% [####################          ] 100% | ETA: 00:00:00
+0% [#####################         ] 100% | ETA: 00:00:00
+0% [######################        ] 100% | ETA: 00:00:00
+0% [#######################       ] 100% | ETA: 00:00:00
+0% [########################      ] 100% | ETA: 00:00:00
+0% [#########################     ] 100% | ETA: 00:00:00
+0% [##########################    ] 100% | ETA: 00:00:00
+0% [###########################   ] 100% | ETA: 00:00:00
+0% [############################  ] 100% | ETA: 00:00:00
+0% [############################# ] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+## Total time elapsed: 00:00:00</code></pre>
+<pre class="python"><code>## Create a mapping:
+## Map each unique word to an integer
+
+word_counts = sorted(counts, key=counts.get, reverse=True)
+print(word_counts[:5])</code></pre>
+<pre><code>## [&#39;hold&#39;, &#39;to&#39;, &#39;r&#39;, &#39;in&#39;, &#39;caught&#39;]</code></pre>
+<pre class="python"><code>word_to_int = {word: ii for ii, word in enumerate(word_counts, 1)}
+
+
+mapped_reviews = []
+pbar = pyprind.ProgBar(len(df[&#39;review&#39;]),
+                       title=&#39;Map reviews to ints&#39;)</code></pre>
+<pre><code>## Map reviews to ints</code></pre>
+<pre class="python"><code>for review in df[&#39;review&#39;]:
+    mapped_reviews.append([word_to_int[word] for word in review.split()])
+    pbar.update()</code></pre>
+<pre><code>## 
+0% [#                             ] 100% | ETA: 00:00:00
+0% [##                            ] 100% | ETA: 00:00:00
+0% [###                           ] 100% | ETA: 00:00:00
+0% [####                          ] 100% | ETA: 00:00:00
+0% [#####                         ] 100% | ETA: 00:00:00
+0% [######                        ] 100% | ETA: 00:00:00
+0% [#######                       ] 100% | ETA: 00:00:00
+0% [########                      ] 100% | ETA: 00:00:00
+0% [#########                     ] 100% | ETA: 00:00:00
+0% [##########                    ] 100% | ETA: 00:00:00
+0% [###########                   ] 100% | ETA: 00:00:00
+0% [############                  ] 100% | ETA: 00:00:00
+0% [#############                 ] 100% | ETA: 00:00:00
+0% [##############                ] 100% | ETA: 00:00:00
+0% [###############               ] 100% | ETA: 00:00:00
+0% [################              ] 100% | ETA: 00:00:00
+0% [#################             ] 100% | ETA: 00:00:00
+0% [##################            ] 100% | ETA: 00:00:00
+0% [###################           ] 100% | ETA: 00:00:00
+0% [####################          ] 100% | ETA: 00:00:00
+0% [#####################         ] 100% | ETA: 00:00:00
+0% [######################        ] 100% | ETA: 00:00:00
+0% [#######################       ] 100% | ETA: 00:00:00
+0% [########################      ] 100% | ETA: 00:00:00
+0% [#########################     ] 100% | ETA: 00:00:00
+0% [##########################    ] 100% | ETA: 00:00:00
+0% [###########################   ] 100% | ETA: 00:00:00
+0% [############################  ] 100% | ETA: 00:00:00
+0% [############################# ] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+0% [##############################] 100% | ETA: 00:00:00
+## Total time elapsed: 00:00:00</code></pre>
+<pre class="python"><code>len(mapped_reviews)</code></pre>
+<pre><code>## 360</code></pre>
+<pre class="python"><code>sequence_length = 200  ## sequence length (or T in our formulas)
+sequences = np.zeros((len(mapped_reviews), sequence_length), dtype=int)
+for i, row in enumerate(mapped_reviews):
+    review_arr = np.array(row)
+    sequences[i, -len(row):] = review_arr[-sequence_length:]</code></pre>
+<pre class="python"><code>sequences.shape</code></pre>
+<pre><code>## (360, 200)</code></pre>
+<pre class="python"><code>## Define fixed-length sequences:
+## Use the last 200 elements of each sequence
+## if sequence length &lt; 200: left-pad with zeros
+
+sequence_length = 200  ## sequence length (or T in our formulas)
+sequences = np.zeros((len(mapped_reviews), sequence_length), dtype=int)
+for i, row in enumerate(mapped_reviews):
+    review_arr = np.array(row)
+    sequences[i, -len(row):] = review_arr[-sequence_length:]
+
+X_train = sequences[:270, :]
+y_train = df.loc[:270, &#39;sentiment&#39;].values
+X_test = sequences[270:, :] 
+#the number of samples has to be divisible exactly by batch size or predictions will be cut off, if test #samples are 147 and batch size 15, the predictions will only have 135 samples
+y_test = df.loc[270:, &#39;sentiment&#39;].values
+
+
+np.random.seed(123) # for reproducibility
+
+## Function to generate minibatches:
+def create_batch_generator(x, y=None, batch_size=64):
+    n_batches = len(x)//batch_size
+    x= x[:n_batches*batch_size]
+    if y is not None:
+        y = y[:n_batches*batch_size]
+    for ii in range(0, len(x), batch_size):
+        if y is not None:
+            yield x[ii:ii+batch_size], y[ii:ii+batch_size]
+        else:
+            yield x[ii:ii+batch_size]</code></pre>
+<pre class="python"><code>import tensorflow as tf
+
+
+class SentimentRNN(object):
+    def __init__(self, n_words, seq_len=200,
+                 lstm_size=256, num_layers=1, batch_size=64,
+                 learning_rate=0.0001, embed_size=200):
+        self.n_words = n_words
+        self.seq_len = seq_len
+        self.lstm_size = lstm_size   ## number of hidden units
+        self.num_layers = num_layers
+        self.batch_size = batch_size
+        self.learning_rate = learning_rate
+        self.embed_size = embed_size
+
+        self.g = tf.Graph()
+        with self.g.as_default():
+            tf.set_random_seed(123)
+            self.build()
+            self.saver = tf.train.Saver()
+            self.init_op = tf.global_variables_initializer()
+
+    def build(self):
+        ## Define the placeholders
+        tf_x = tf.placeholder(tf.int32,
+                    shape=(self.batch_size, self.seq_len),
+                    name=&#39;tf_x&#39;)
+        tf_y = tf.placeholder(tf.float32,
+                    shape=(self.batch_size),
+                    name=&#39;tf_y&#39;)
+        tf_keepprob = tf.placeholder(tf.float32,
+                    name=&#39;tf_keepprob&#39;)
+        ## Create the embedding layer
+        embedding = tf.Variable(
+                    tf.random_uniform(
+                        (self.n_words, self.embed_size),
+                        minval=-1, maxval=1),
+                    name=&#39;embedding&#39;)
+        embed_x = tf.nn.embedding_lookup(
+                    embedding, tf_x, 
+                    name=&#39;embeded_x&#39;)
+
+        ## Define LSTM cell and stack them together
+        cells = tf.contrib.rnn.MultiRNNCell(
+                [tf.contrib.rnn.DropoutWrapper(
+                   tf.contrib.rnn.BasicLSTMCell(self.lstm_size),
+                   output_keep_prob=tf_keepprob)
+                 for i in range(self.num_layers)])
+
+        ## Define the initial state:
+        self.initial_state = cells.zero_state(
+                 self.batch_size, tf.float32)
+        print(&#39;  &lt;&lt; initial state &gt;&gt; &#39;, self.initial_state)
+
+        lstm_outputs, self.final_state = tf.nn.dynamic_rnn(
+                 cells, embed_x,
+                 initial_state=self.initial_state)
+        ## Note: lstm_outputs shape: 
+        ##  [batch_size, max_time, cells.output_size]
+        print(&#39;\n  &lt;&lt; lstm_output   &gt;&gt; &#39;, lstm_outputs)
+        print(&#39;\n  &lt;&lt; final state   &gt;&gt; &#39;, self.final_state)
+
+        ## Apply a FC layer after on top of RNN output:
+        logits = tf.layers.dense(
+                 inputs=lstm_outputs[:, -1],
+                 units=1, activation=None,
+                 name=&#39;logits&#39;)
+        
+        logits = tf.squeeze(logits, name=&#39;logits_squeezed&#39;)
+        print (&#39;\n  &lt;&lt; logits        &gt;&gt; &#39;, logits)
+        
+        y_proba = tf.nn.sigmoid(logits, name=&#39;probabilities&#39;)
+        predictions = {
+            &#39;probabilities&#39;: y_proba,
+            &#39;labels&#39; : tf.cast(tf.round(y_proba), tf.int32,
+                 name=&#39;labels&#39;)
+        }
+        print(&#39;\n  &lt;&lt; predictions   &gt;&gt; &#39;, predictions)
+
+        ## Define the cost function
+        cost = tf.reduce_mean(
+                 tf.nn.sigmoid_cross_entropy_with_logits(
+                 labels=tf_y, logits=logits),
+                 name=&#39;cost&#39;)
+        
+        ## Define the optimizer
+        optimizer = tf.train.AdamOptimizer(self.learning_rate)
+        train_op = optimizer.minimize(cost, name=&#39;train_op&#39;)
+
+    def train(self, X_train, y_train, num_epochs):
+        with tf.Session(graph=self.g) as sess:
+            sess.run(self.init_op)
+            iteration = 1
+            for epoch in range(num_epochs):
+                state = sess.run(self.initial_state)
+                
+                for batch_x, batch_y in create_batch_generator(
+                            X_train, y_train, self.batch_size):
+                    feed = {&#39;tf_x:0&#39;: batch_x,
+                            &#39;tf_y:0&#39;: batch_y,
+                            &#39;tf_keepprob:0&#39;: 0.5,
+                            self.initial_state : state}
+                    loss, _, state = sess.run(
+                            [&#39;cost:0&#39;, &#39;train_op&#39;, 
+                             self.final_state],
+                            feed_dict=feed)
+
+                    if iteration % 20 == 0:
+                        print(&quot;Epoch: %d/%d Iteration: %d &quot;
+                              &quot;| Train loss: %.5f&quot; % (
+                               epoch + 1, num_epochs,
+                               iteration, loss))
+
+                    iteration +=1
+                if (epoch+1)%10 == 0:
+                    self.saver.save(sess,
+                        &quot;model/sentiment-%d.ckpt&quot; % epoch)
+
+    def predict(self, X_data, return_proba=False):
+        preds = []
+        with tf.Session(graph = self.g) as sess:
+            self.saver.restore(
+                sess, tf.train.latest_checkpoint(&#39;model/&#39;))
+            test_state = sess.run(self.initial_state)
+            for ii, batch_x in enumerate(
+                create_batch_generator(
+                    X_data, None, batch_size=self.batch_size), 1):
+                feed = {&#39;tf_x:0&#39; : batch_x,
+                        &#39;tf_keepprob:0&#39;: 1.0,
+                        self.initial_state : test_state}
+                if return_proba:
+                    pred, test_state = sess.run(
+                        [&#39;probabilities:0&#39;, self.final_state],
+                        feed_dict=feed)
+                else:
+                    pred, test_state = sess.run(
+                        [&#39;labels:0&#39;, self.final_state],
+                        feed_dict=feed)
+                    
+                preds.append(pred)
+                
+        return np.concatenate(preds)</code></pre>
+<pre class="python"><code>## Train:
+
+n_words = max(list(word_to_int.values())) + 1
+
+rnn = SentimentRNN(n_words=n_words, 
+                   seq_len=sequence_length,
+                   embed_size=256, 
+                   lstm_size=128, 
+                   num_layers=1, 
+# batch_size has to divide evenly into the number of testing set samples, or some samples will be removed
+                   batch_size=10,
+                   learning_rate=0.001)</code></pre>
+<pre><code>##   &lt;&lt; initial state &gt;&gt;  (LSTMStateTuple(c=&lt;tf.Tensor &#39;MultiRNNCellZeroState/DropoutWrapperZeroState/BasicLSTMCellZeroState/zeros:0&#39; shape=(10, 128) dtype=float32&gt;, h=&lt;tf.Tensor &#39;MultiRNNCellZeroState/DropoutWrapperZeroState/BasicLSTMCellZeroState/zeros_1:0&#39; shape=(10, 128) dtype=float32&gt;),)
+## 
+##   &lt;&lt; lstm_output   &gt;&gt;  Tensor(&quot;rnn/transpose_1:0&quot;, shape=(10, 200, 128), dtype=float32)
+## 
+##   &lt;&lt; final state   &gt;&gt;  (LSTMStateTuple(c=&lt;tf.Tensor &#39;rnn/while/Exit_3:0&#39; shape=(10, 128) dtype=float32&gt;, h=&lt;tf.Tensor &#39;rnn/while/Exit_4:0&#39; shape=(10, 128) dtype=float32&gt;),)
+## 
+##   &lt;&lt; logits        &gt;&gt;  Tensor(&quot;logits_squeezed:0&quot;, shape=(10,), dtype=float32)
+## 
+##   &lt;&lt; predictions   &gt;&gt;  {&#39;probabilities&#39;: &lt;tf.Tensor &#39;probabilities:0&#39; shape=(10,) dtype=float32&gt;, &#39;labels&#39;: &lt;tf.Tensor &#39;labels:0&#39; shape=(10,) dtype=int32&gt;}
+## 
+## W0530 15:04:19.324372  1140 deprecation.py:323] From &lt;string&gt;:45: BasicLSTMCell.__init__ (from tensorflow.python.ops.rnn_cell_impl) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## This class is equivalent as tf.keras.layers.LSTMCell, and will be replaced by that in Tensorflow 2.0.
+## W0530 15:04:19.332374  1140 deprecation.py:323] From &lt;string&gt;:45: MultiRNNCell.__init__ (from tensorflow.python.ops.rnn_cell_impl) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## This class is equivalent as tf.keras.layers.StackedRNNCells, and will be replaced by that in Tensorflow 2.0.
+## W0530 15:04:19.369856  1140 deprecation.py:323] From &lt;string&gt;:54: dynamic_rnn (from tensorflow.python.ops.rnn) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Please use `keras.layers.RNN(cell)`, which is equivalent to this API
+## W0530 15:04:20.156065  1140 deprecation.py:506] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\rnn_cell_impl.py:738: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Call initializer instance with the dtype argument instead of passing it to the constructor
+## W0530 15:04:21.017520  1140 deprecation.py:323] From &lt;string&gt;:64: dense (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Use keras.layers.dense instead.
+## W0530 15:04:21.671442  1140 deprecation.py:323] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.&lt;locals&gt;.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Use tf.where in 2.0, which has the same broadcast rule as np.where</code></pre>
+<pre class="python"><code>rnn.train(X_train, y_train, num_epochs=20)</code></pre>
+<pre><code>## Epoch: 1/20 Iteration: 20 | Train loss: 0.12205
+## Epoch: 2/20 Iteration: 40 | Train loss: 0.31215
+## Epoch: 3/20 Iteration: 60 | Train loss: 0.01633
+## Epoch: 3/20 Iteration: 80 | Train loss: 0.02581
+## Epoch: 4/20 Iteration: 100 | Train loss: 0.01532
+## Epoch: 5/20 Iteration: 120 | Train loss: 0.00603
+## Epoch: 6/20 Iteration: 140 | Train loss: 0.01375
+## Epoch: 6/20 Iteration: 160 | Train loss: 0.00513
+## Epoch: 7/20 Iteration: 180 | Train loss: -1.83730
+## Epoch: 8/20 Iteration: 200 | Train loss: 0.00155
+## Epoch: 9/20 Iteration: 220 | Train loss: 0.00343
+## Epoch: 9/20 Iteration: 240 | Train loss: 0.01742
+## Epoch: 10/20 Iteration: 260 | Train loss: -2.78310
+## Epoch: 11/20 Iteration: 280 | Train loss: 0.00013
+## Epoch: 12/20 Iteration: 300 | Train loss: -2.87427
+## Epoch: 12/20 Iteration: 320 | Train loss: 0.00028
+## Epoch: 13/20 Iteration: 340 | Train loss: -8.36930
+## Epoch: 14/20 Iteration: 360 | Train loss: -9.60454
+## Epoch: 15/20 Iteration: 380 | Train loss: 0.00588
+## Epoch: 15/20 Iteration: 400 | Train loss: 0.00005
+## Epoch: 16/20 Iteration: 420 | Train loss: -6.87987
+## Epoch: 17/20 Iteration: 440 | Train loss: 0.00016
+## Epoch: 18/20 Iteration: 460 | Train loss: 0.00041
+## Epoch: 18/20 Iteration: 480 | Train loss: 0.00051
+## Epoch: 19/20 Iteration: 500 | Train loss: 0.00001
+## Epoch: 20/20 Iteration: 520 | Train loss: 0.00010
+## Epoch: 20/20 Iteration: 540 | Train loss: -4.01570</code></pre>
+<pre class="python"><code>X_test.shape</code></pre>
+<pre><code>## (90, 200)</code></pre>
+<pre class="python"><code>y_test</code></pre>
+<pre><code>## array([0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+##        1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 2,
+##        1, 0], dtype=int64)</code></pre>
+<pre class="python"><code>y_test.shape</code></pre>
+<pre><code>## (90,)</code></pre>
+<pre class="python"><code>X_test</code></pre>
+<pre><code>## array([[  0,   0,   0, ...,   8,   3,  10],
+##        [  0,   0,   0, ...,   7,  31,  23],
+##        [  0,   0,   0, ...,   7,  31,  23],
+##        ...,
+##        [  0,   0,   0, ...,  10,   2,  11],
+##        [  0,   0,   0, ...,  19,   2,  11],
+##        [  0,   0,   0, ..., 172, 173, 174]])</code></pre>
+<pre class="python"><code>## Test: 
+preds = rnn.predict(X_test)</code></pre>
+<pre><code>## W0530 15:14:21.670461  1140 deprecation.py:323] From C:\Users\m\Anaconda2\envs\python36\lib\site-packages\tensorflow\python\training\saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## Use standard file APIs to check for files with this prefix.</code></pre>
+<pre class="python"><code>y_true = y_test[:len(preds)]
+print(&#39;Test Acc.: %.3f&#39; % (
+      np.sum(preds == y_true) / len(y_true)))</code></pre>
+<pre><code>## Test Acc.: 0.967</code></pre>
+<pre class="python"><code>preds</code></pre>
+<pre><code>## array([0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+##        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+##        1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1,
+##        1, 0])</code></pre>
+<pre class="python"><code>preds.shape</code></pre>
+<pre><code>## (90,)</code></pre>
+<pre class="python"><code>prd = pd.DataFrame(preds)
+prd.columns=[&#39;Predicted&#39;]
+type(prd)</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</code></pre>
+<pre class="python"><code>prd</code></pre>
+<pre><code>##     Predicted
+## 0           0
+## 1           0
+## 2           0
+## 3           0
+## 4           0
+## ..        ...
+## 85          0
+## 86          1
+## 87          1
+## 88          1
+## 89          0
+## 
+## [90 rows x 1 columns]</code></pre>
+<pre class="python"><code>true = pd.DataFrame(y_test)
+true.columns=[&#39;trueValue&#39;]
+prd.index=true.index
+pred=pd.concat([pd.DataFrame(prd),true],axis=1)
+print(pred)</code></pre>
+<pre><code>##     Predicted  trueValue
+## 0           0          0
+## 1           0          0
+## 2           0          0
+## 3           0          0
+## 4           0          0
+## ..        ...        ...
+## 85          0          0
+## 86          1          1
+## 87          1          2
+## 88          1          1
+## 89          0          0
+## 
+## [90 rows x 2 columns]</code></pre>
+<pre class="python"><code>## Get probabilities:
+proba = rnn.predict(X_test, return_proba=True)</code></pre>
+<pre class="python"><code>proba</code></pre>
+<pre><code>## array([5.8251619e-04, 2.2783875e-04, 2.2783875e-04, 2.2783875e-04,
+##        7.1525574e-07, 2.2783875e-04, 3.3110380e-04, 2.6774406e-04,
+##        2.2779558e-04, 1.0000000e+00, 1.0228753e-03, 2.2777915e-04,
+##        2.2777915e-04, 2.2777915e-04, 1.0228753e-03, 2.2777915e-04,
+##        2.2947788e-06, 7.8870654e-03, 1.0228826e-03, 1.0000000e+00,
+##        6.9737434e-06, 2.9159784e-03, 1.0228753e-03, 5.2005053e-05,
+##        5.8248639e-04, 7.1525574e-07, 1.0228753e-03, 1.3709068e-06,
+##        7.7108888e-07, 5.7717646e-04, 2.2783875e-04, 3.2313168e-03,
+##        1.0000000e+00, 1.3709068e-06, 1.0000000e+00, 1.0061860e-03,
+##        2.2777915e-04, 1.0000000e+00, 1.2943151e-06, 1.6596303e-03,
+##        7.1525574e-07, 2.2351742e-06, 2.2783875e-04, 1.3113022e-06,
+##        1.4853776e-03, 5.7715178e-04, 2.0265579e-06, 1.2814999e-06,
+##        1.0228826e-03, 4.4999470e-06, 1.3113022e-06, 2.2783875e-04,
+##        1.3709068e-06, 1.3113022e-06, 2.6512146e-04, 1.0000000e+00,
+##        7.7486038e-07, 2.2783875e-04, 1.3936120e-06, 5.8249984e-04,
+##        6.3478947e-05, 1.6596019e-03, 3.1292439e-06, 1.0818243e-05,
+##        1.0818243e-05, 1.4357865e-03, 1.0000000e+00, 1.0000000e+00,
+##        7.0459762e-04, 1.4358315e-03, 1.0000000e+00, 7.6147914e-04,
+##        1.0000000e+00, 8.5338056e-03, 1.0000000e+00, 3.6969781e-04,
+##        1.4910400e-03, 1.0000000e+00, 1.0000000e+00, 8.5337665e-03,
+##        2.0563602e-06, 1.0000000e+00, 1.0000000e+00, 1.8021464e-04,
+##        1.0000000e+00, 1.3709068e-06, 1.0000000e+00, 1.0000000e+00,
+##        1.0000000e+00, 4.5541590e-03], dtype=float32)</code></pre>
+<pre class="python"><code>proba.shape</code></pre>
+<pre><code>## (90,)</code></pre>
+<hr />
+<hr />
+<hr />
+<p>This next RNN will make an attempt to predict the text as a limited output based on the actions over sequential data of instances for Felicia Spencer as a text document.</p>
+<pre class="python"><code>import numpy as np
+
+
+## Reading and processing text
+with open(&#39;amandaRNN.txt&#39;, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f: 
+    text=f.read()</code></pre>
+<pre class="python"><code>text</code></pre>
+<pre><code>## &quot;missed R mt kick to low L leg\nmissed L jab\nmissed R mt kick to low L leg\nlands L mt kick to L leg\nmissed L jab, missed R cross\nlands L mt kick to L leg, missed R cross to face\nholding R leg hold starts\nholding R leg hold continues\nholding R leg hold continues\nholding R leg hold continues misses R cross to face\nloses R leg hold\nlands R mt kick to L low leg\nmisses L jab to face, misses R cross to face\nmisses L jab to face, misses R cross to face\nmisses L jab to face \nattempts body waste takedown\nlands takedown\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold and puts weight on L shoulder collarbone acromian process while lifting off L leg to break full guard\ncaught in full guard hold\ncaught in full guard hold and twisting with R armpit and R leg anchoring into L locked thigh at the inside knee\ncaught in full guard hold and grabbing at L ear with R hand while twisting and lifting out of full guard lock, gains L arm back, breaks full guard lock at ankles\nbreaks full guard hold and standing up while keeping L shin of opponent at chest and bent\nholding L knee hold starts of opponent while standing up and maneuvering around L side of opponent pushing forward to knock off balance a possible up kick of opponent\ncaught in open guard hold continues and misses downward R hook to head while pushing and twisting L and holding L knee hold continues\ncaught in open guard hold continues and lands downward R cross to head while pushing opponent&#39;s leg toward her and turning L and loses L knee hold\ncaught in open guard hold continues and lands L downward cross to face while getting out of open guard completely\ncaught in open guard hold continues  \ncaught in open guard hold continues and holding R foot while opponent in open guard\ncaught in open guard hold contnues and moves open guard feet to her R while landing R downward cross to face\nbreaks open guard hold and falls on ground to the side of opponent\ngetting up while attempting a head R arm guillotine of opponent as holding guillotine hold starts\nlocks guillotine around R armpit and neck of opponent while standing full guard lock and holding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\ntakedown of opponent in full guard while holding of guillotine hold continues\nholding guillotine hold continues\nholding full guard hold starts and holding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\nloses guillotine hold and loses full guard hold\npush kicks opponent off \ngetting up while L foot being held by opponent\ngetting up from ground\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\ncaught in R arm hold and caught in upper body hold continues and moves opponent away from side standing control against cage\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nloses R arm hold and caught in upper body hold\nholding neck hold starts and caught in upper body hold\nbreaks upper body hold to switch sides\ncaught in upper body hold and holding R arm hold starts\nbreaks upper body hold and loses R arm hold and lands a R leg to L leg of opponent sweeping takedown\nlands slight double leg takedown\nnot on the ground but leaning over opponent\ncaught in open guard hold  and lands downward R cross to face, lands downward L cross to face, lands downward R cross to face\ncaught in open guard hold  and lands downward R cross to face\ncaught in open guard hold  and lands downward R cross to face\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and breaks into opponents open guard hold  against cage and lands R downward cross to head\ncaught in open guard hold  and lands downward R cross to head, lands downward R cross to head\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and lands R downward cross to head\ncaught in open guard hold  and lands R downward cross to head\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and twists L forearm of opponent at the elbow pushing the hand  in open guard hold  from standing leaning over position\ncaught in open guard hold \ncaught in open guard hold \nbreaks open guard hold  hold\ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \nlands R elbow to face and caught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \nbreaks full guard hold  and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nlands R downward cross to face and caught in open guard hold\ncaught in open guard hold\nlands R downward cross to face and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold and misses L downward cross to head, lands R downward cross to head\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nbreaks through leg kicks of open guard and caught in open guard hold\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward R cross to head\nlands downward R cross to head and caught in open guard hold, lands downward R cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward R cross to head\nlands downward L cross to head and caught in open guard hold, lands downward L cross to head\nlands downward R cross to head and caught in open guard hold\nmisses downward R cross to head and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward L cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head, lands L downward cross to head\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward L cross to head\nlands downward R cross to head and caught in open guard hold\nlands downward L cross to head and caught in open guard hold\nmisses downward R cross to head and caught in open guard hold, lands L downward cross to head\nlands downward R cross to head and caught in open guard hold, lands L downward cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head, misses downward R cross to head\npressing opponent into ground from the top at opponents shoulders and neck having open guard and legs up off balance removing leverage to kick up and caught in open guard hold\ncaught in open guard hold\nknee pinned to abdomen  and holding L side control hold starts and breaks open guard hold\nholding side control hold continues\nlands L downward cross to head and holding side control hold continues\nlands L downward hook to face and holding side control hold continues, lands L downward elbow to face\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nL back side control hold with L knee pinned to opponent&#39;s L hip and holding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding a L armpit and neck choke hold starts and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nloses choke hold and holding side control hold continues and pins L knee on opponent&#39;s abdomen\nmisses R hammer to face  holding side control hold continues with knee pinning opponent&#39;s abdomen\n holding side control hold continues\nlands L downward elbow to the face from pinned side control mount\nmisses L downward elbow to face\nloses side control hold\nmisses downward R cross to face\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \nmisses downward flying R cross to face and caught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \nround ends caught in open guard hold\nmisses L jab\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab\nmisses R mt kick to low L lead leg\ngets up out of takedown\nmisses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R cross to face\nlands body throw takedown gets up\nmisses illegal right knee to the face\nmisses L jab\nmisses L jab, misses R cross to face\nmisses R cross to face\nmisses L jab\nlands R cross\nmisses R cross to face\nmisses R cross to face\nmisses R cross to face\nmisses L jab to face, ducks to avoid body takedown from missed L jab\nmisses R cross to face\nmisses L jab\nlands R cross to face\nmisses R cross to face\nlands L hook to face\nmisses R cross to face\nlands R cross\nlands L upper to face\nmisses R upper to face, misses R upper to face\nlands L knee to face\nmisses L jab, misses R cross to face\nlands L jab to face\nmisses R cross to face\nmisses R mt kick to inside R leg\nlands L jab to face, lands R cross to face\nmisses R cross to face\nlands 2 hammer hits R face on top back\nlands 2 hammer hits L face on top back\nlands 2 hammer hits L face on top back\nlands RNC\nflips on back w RNC\nmisses R mt kick to low L lead leg\nmisses R cross\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab to face\nmisses R mt kick to low L lead leg\nfeigns L mt kick to inside L lead leg\nmissses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nlands L jab to body, misses R cross to face\nmisses L jab to body\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab to body\nmisses R mt kick to low L lead leg\nmisses L jab to face, misses R cross to face\npushes off with R forearm\nmisses L jab to body\nlands R mt kick to low L back of knee, misses L jab, misses R cross\nblocks L jab by raising L Shoulder, misses R cross to face\npushes Face with R hand and away\nmisses L jab to body\nmisses L jab to body, leans back from R cross to face\nmisses R cross\nmisses L jab to face\nmisses L jab to body\nmisses R cross to face\nmisses L jab to face\nducks \nmisses R mt kick to low L lead leg\nducks and clinches waist pushes to cage\nlands R upper to face \nmisses R cross to face\nlands R mt kick to low L back of knee\nblocks L hook with R overhead arm\nmisses R mt kick to low L lead leg\nlands R push kick to body\nmisses L jab, misses R cross to face\nmisses R push kick to body\nmisses L jab to face\nmisses R cross to face, misses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R mt kick to body\nducks\nmisses R upper to face\nmisses L jab, misses R cross to face\nmisses L jab to body\nfeigns L mt kick to head\nmisses L jab, misses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses L jab, misses R cross to face\nmisses L mt kick to inside L lead leg\nlands L knee to body with neck clinch\nmisses L jab to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R cross\nmisses L jab\nmisses R push kick to body\nmissed a L jab to face\nmissed a R cross to face\nmissed a R cross to face\nmissed a R push kick to body\nmissed a R cross to face, lands a L jab to face\nmissed a L jab to face, lands a R cross to face \nmissed a R cross, missed a L jab to face, missed a R cross to face\nmissed a R push kick to body\nlands a R cross to face\nturns body to side gets out of clinch\nlands L jab to face, misses R cross to face\nmisses L jab to face, misses R cross to face, \nlands L jab to face face\nmisses R cross to face, misses L upper\nmisses R cross to body\nlands L jab to face\nlands R cross to face, ducks R cross left\nmisses L jab to face, misses R cross to face, \nmisses R upper to face\nlands L jab to face, misses R cross to face\nmisses L jab to face, lands R cross to face\nruns to and feigns a R cross to face\nlands a R cross to face\nmisses R cross to face \nlands a R cross to face\nlands a L jab to face, lands R cross to face\nlands downward L jab to face\nreferee gets between and stops fight TKO\nmissed R mt kick to low L leg\nmissed L jab\nmissed R mt kick to low L leg\nlands L mt kick to L leg\nmissed L jab, missed R cross\nlands L mt kick to L leg, missed R cross to face\nholding R leg hold starts\nholding R leg hold continues\nholding R leg hold continues\nholding R leg hold continues misses R cross to face\nloses R leg hold\nlands R mt kick to L low leg\nmisses L jab to face, misses R cross to face\nmisses L jab to face, misses R cross to face\nmisses L jab to face \nattempts body waste takedown\nlands takedown\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold and puts weight on L shoulder collarbone acromian process while lifting off L leg to break full guard\ncaught in full guard hold\ncaught in full guard hold and twisting with R armpit and R leg anchoring into L locked thigh at the inside knee\ncaught in full guard hold and grabbing at L ear with R hand while twisting and lifting out of full guard lock, gains L arm back, breaks full guard lock at ankles\nbreaks full guard hold and standing up while keeping L shin of opponent at chest and bent\nholding L knee hold starts of opponent while standing up and maneuvering around L side of opponent pushing forward to knock off balance a possible up kick of opponent\ncaught in open guard hold continues and misses downward R hook to head while pushing and twisting L and holding L knee hold continues\ncaught in open guard hold continues and lands downward R cross to head while pushing opponent&#39;s leg toward her and turning L and loses L knee hold\ncaught in open guard hold continues and lands L downward cross to face while getting out of open guard completely\ncaught in open guard hold continues  \ncaught in open guard hold continues and holding R foot while opponent in open guard\ncaught in open guard hold contnues and moves open guard feet to her R while landing R downward cross to face\nbreaks open guard hold and falls on ground to the side of opponent\ngetting up while attempting a head R arm guillotine of opponent as holding guillotine hold starts\nlocks guillotine around R armpit and neck of opponent while standing full guard lock and holding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\ntakedown of opponent in full guard while holding of guillotine hold continues\nholding guillotine hold continues\nholding full guard hold starts and holding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\nloses guillotine hold and loses full guard hold\npush kicks opponent off \ngetting up while L foot being held by opponent\ngetting up from ground\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\ncaught in R arm hold and caught in upper body hold continues and moves opponent away from side standing control against cage\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nloses R arm hold and caught in upper body hold\nholding neck hold starts and caught in upper body hold\nbreaks upper body hold to switch sides\ncaught in upper body hold and holding R arm hold starts\nbreaks upper body hold and loses R arm hold and lands a R leg to L leg of opponent sweeping takedown\nlands slight double leg takedown\nnot on the ground but leaning over opponent\ncaught in open guard hold  and lands downward R cross to face, lands downward L cross to face, lands downward R cross to face\ncaught in open guard hold  and lands downward R cross to face\ncaught in open guard hold  and lands downward R cross to face\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and breaks into opponents open guard hold  against cage and lands R downward cross to head\ncaught in open guard hold  and lands downward R cross to head, lands downward R cross to head\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and lands R downward cross to head\ncaught in open guard hold  and lands R downward cross to head\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and twists L forearm of opponent at the elbow pushing the hand  in open guard hold  from standing leaning over position\ncaught in open guard hold \ncaught in open guard hold \nbreaks open guard hold  hold\ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \nlands R elbow to face and caught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \nbreaks full guard hold  and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nlands R downward cross to face and caught in open guard hold\ncaught in open guard hold\nlands R downward cross to face and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold and misses L downward cross to head, lands R downward cross to head\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nbreaks through leg kicks of open guard and caught in open guard hold\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward R cross to head\nlands downward R cross to head and caught in open guard hold, lands downward R cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward R cross to head\nlands downward L cross to head and caught in open guard hold, lands downward L cross to head\nlands downward R cross to head and caught in open guard hold\nmisses downward R cross to head and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward L cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head, lands L downward cross to head\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward L cross to head\nlands downward R cross to head and caught in open guard hold\nlands downward L cross to head and caught in open guard hold\nmisses downward R cross to head and caught in open guard hold, lands L downward cross to head\nlands downward R cross to head and caught in open guard hold, lands L downward cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head, misses downward R cross to head\npressing opponent into ground from the top at opponents shoulders and neck having open guard and legs up off balance removing leverage to kick up and caught in open guard hold\ncaught in open guard hold\nknee pinned to abdomen  and holding L side control hold starts and breaks open guard hold\nholding side control hold continues\nlands L downward cross to head and holding side control hold continues\nlands L downward hook to face and holding side control hold continues, lands L downward elbow to face\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nL back side control hold with L knee pinned to opponent&#39;s L hip and holding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding a L armpit and neck choke hold starts and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nloses choke hold and holding side control hold continues and pins L knee on opponent&#39;s abdomen\nmisses R hammer to face  holding side control hold continues with knee pinning opponent&#39;s abdomen\n holding side control hold continues\nlands L downward elbow to the face from pinned side control mount\nmisses L downward elbow to face\nloses side control hold\nmisses downward R cross to face\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \nmisses downward flying R cross to face and caught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \nround ends caught in open guard hold\nmisses L jab\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab\nmisses R mt kick to low L lead leg\ngets up out of takedown\nmisses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R cross to face\nlands body throw takedown gets up\nmisses illegal right knee to the face\nmisses L jab\nmisses L jab, misses R cross to face\nmisses R cross to face\nmisses L jab\nlands R cross\nmisses R cross to face\nmisses R cross to face\nmisses R cross to face\nmisses L jab to face, ducks to avoid body takedown from missed L jab\nmisses R cross to face\nmisses L jab\nlands R cross to face\nmisses R cross to face\nlands L hook to face\nmisses R cross to face\nlands R cross\nlands L upper to face\nmisses R upper to face, misses R upper to face\nlands L knee to face\nmisses L jab, misses R cross to face\nlands L jab to face\nmisses R cross to face\nmisses R mt kick to inside R leg\nlands L jab to face, lands R cross to face\nmisses R cross to face\nlands 2 hammer hits R face on top back\nlands 2 hammer hits L face on top back\nlands 2 hammer hits L face on top back\nlands RNC\nflips on back w RNC\nmisses R mt kick to low L lead leg\nmisses R cross\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab to face\nmisses R mt kick to low L lead leg\nfeigns L mt kick to inside L lead leg\nmissses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nlands L jab to body, misses R cross to face\nmisses L jab to body\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab to body\nmisses R mt kick to low L lead leg\nmisses L jab to face, misses R cross to face\npushes off with R forearm\nmisses L jab to body\nlands R mt kick to low L back of knee, misses L jab, misses R cross\nblocks L jab by raising L Shoulder, misses R cross to face\npushes Face with R hand and away\nmisses L jab to body\nmisses L jab to body, leans back from R cross to face\nmisses R cross\nmisses L jab to face\nmisses L jab to body\nmisses R cross to face\nmisses L jab to face\nducks \nmisses R mt kick to low L lead leg\nducks and clinches waist pushes to cage\nlands R upper to face \nmisses R cross to face\nlands R mt kick to low L back of knee\nblocks L hook with R overhead arm\nmisses R mt kick to low L lead leg\nlands R push kick to body\nmisses L jab, misses R cross to face\nmisses R push kick to body\nmisses L jab to face\nmisses R cross to face, misses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R mt kick to body\nducks\nmisses R upper to face\nmisses L jab, misses R cross to face\nmisses L jab to body\nfeigns L mt kick to head\nmisses L jab, misses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses L jab, misses R cross to face\nmisses L mt kick to inside L lead leg\nlands L knee to body with neck clinch\nmisses L jab to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R cross\nmisses L jab\nmisses R push kick to body\nmissed a L jab to face\nmissed a R cross to face\nmissed a R cross to face\nmissed a R push kick to body\nmissed a R cross to face, lands a L jab to face\nmissed a L jab to face, lands a R cross to face \nmissed a R cross, missed a L jab to face, missed a R cross to face\nmissed a R push kick to body\nlands a R cross to face\nturns body to side gets out of clinch\nlands L jab to face, misses R cross to face\nmisses L jab to face, misses R cross to face, \nlands L jab to face face\nmisses R cross to face, misses L upper\nmisses R cross to body\nlands L jab to face\nlands R cross to face, ducks R cross left\nmisses L jab to face, misses R cross to face, \nmisses R upper to face\nlands L jab to face, misses R cross to face\nmisses L jab to face, lands R cross to face\nruns to and feigns a R cross to face\nlands a R cross to face\nmisses R cross to face \nlands a R cross to face\nlands a L jab to face, lands R cross to face\nlands downward L jab to face\nreferee gets between and stops fight TKO\nmissed R mt kick to low L leg\nmissed L jab\nmissed R mt kick to low L leg\nlands L mt kick to L leg\nmissed L jab, missed R cross\nlands L mt kick to L leg, missed R cross to face\nholding R leg hold starts\nholding R leg hold continues\nholding R leg hold continues\nholding R leg hold continues misses R cross to face\nloses R leg hold\nlands R mt kick to L low leg\nmisses L jab to face, misses R cross to face\nmisses L jab to face, misses R cross to face\nmisses L jab to face \nattempts body waste takedown\nlands takedown\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold\ncaught in full guard hold and puts weight on L shoulder collarbone acromian process while lifting off L leg to break full guard\ncaught in full guard hold\ncaught in full guard hold and twisting with R armpit and R leg anchoring into L locked thigh at the inside knee\ncaught in full guard hold and grabbing at L ear with R hand while twisting and lifting out of full guard lock, gains L arm back, breaks full guard lock at ankles\nbreaks full guard hold and standing up while keeping L shin of opponent at chest and bent\nholding L knee hold starts of opponent while standing up and maneuvering around L side of opponent pushing forward to knock off balance a possible up kick of opponent\ncaught in open guard hold continues and misses downward R hook to head while pushing and twisting L and holding L knee hold continues\ncaught in open guard hold continues and lands downward R cross to head while pushing opponent&#39;s leg toward her and turning L and loses L knee hold\ncaught in open guard hold continues and lands L downward cross to face while getting out of open guard completely\ncaught in open guard hold continues  \ncaught in open guard hold continues and holding R foot while opponent in open guard\ncaught in open guard hold contnues and moves open guard feet to her R while landing R downward cross to face\nbreaks open guard hold and falls on ground to the side of opponent\ngetting up while attempting a head R arm guillotine of opponent as holding guillotine hold starts\nlocks guillotine around R armpit and neck of opponent while standing full guard lock and holding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\ntakedown of opponent in full guard while holding of guillotine hold continues\nholding guillotine hold continues\nholding full guard hold starts and holding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\nholding guillotine hold continues\nloses guillotine hold and loses full guard hold\npush kicks opponent off \ngetting up while L foot being held by opponent\ngetting up from ground\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\ncaught in R arm hold and caught in upper body hold continues and moves opponent away from side standing control against cage\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nholding R arm hold starts and caught in upper body hold\nloses R arm hold and caught in upper body hold\nholding neck hold starts and caught in upper body hold\nbreaks upper body hold to switch sides\ncaught in upper body hold and holding R arm hold starts\nbreaks upper body hold and loses R arm hold and lands a R leg to L leg of opponent sweeping takedown\nlands slight double leg takedown\nnot on the ground but leaning over opponent\ncaught in open guard hold  and lands downward R cross to face, lands downward L cross to face, lands downward R cross to face\ncaught in open guard hold  and lands downward R cross to face\ncaught in open guard hold  and lands downward R cross to face\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and breaks into opponents open guard hold  against cage and lands R downward cross to head\ncaught in open guard hold  and lands downward R cross to head, lands downward R cross to head\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and lands R downward cross to head\ncaught in open guard hold  and lands R downward cross to head\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold  and twists L forearm of opponent at the elbow pushing the hand  in open guard hold  from standing leaning over position\ncaught in open guard hold \ncaught in open guard hold \nbreaks open guard hold  hold\ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \nlands R elbow to face and caught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \ncaught in full guard hold \nbreaks full guard hold  and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nlands R downward cross to face and caught in open guard hold\ncaught in open guard hold\nlands R downward cross to face and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold and misses L downward cross to head, lands R downward cross to head\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nbreaks through leg kicks of open guard and caught in open guard hold\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward R cross to head\nlands downward R cross to head and caught in open guard hold, lands downward R cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward R cross to head\nlands downward L cross to head and caught in open guard hold, lands downward L cross to head\nlands downward R cross to head and caught in open guard hold\nmisses downward R cross to head and caught in open guard hold\ncaught in open guard hold\ncaught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward L cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head, lands L downward cross to head\nlands downward R cross to head and caught in open guard hold\nlands downward R cross to head and caught in open guard hold, lands downward L cross to head\nlands downward R cross to head and caught in open guard hold\nlands downward L cross to head and caught in open guard hold\nmisses downward R cross to head and caught in open guard hold, lands L downward cross to head\nlands downward R cross to head and caught in open guard hold, lands L downward cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head\nmisses downward R cross to head and caught in open guard hold, misses downward L cross to head, misses downward R cross to head\npressing opponent into ground from the top at opponents shoulders and neck having open guard and legs up off balance removing leverage to kick up and caught in open guard hold\ncaught in open guard hold\nknee pinned to abdomen  and holding L side control hold starts and breaks open guard hold\nholding side control hold continues\nlands L downward cross to head and holding side control hold continues\nlands L downward hook to face and holding side control hold continues, lands L downward elbow to face\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nL back side control hold with L knee pinned to opponent&#39;s L hip and holding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding side control hold continues\nholding a L armpit and neck choke hold starts and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nholding choke hold continues and holding side control hold continues\nloses choke hold and holding side control hold continues and pins L knee on opponent&#39;s abdomen\nmisses R hammer to face  holding side control hold continues with knee pinning opponent&#39;s abdomen\n holding side control hold continues\nlands L downward elbow to the face from pinned side control mount\nmisses L downward elbow to face\nloses side control hold\nmisses downward R cross to face\ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \nmisses downward flying R cross to face and caught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \ncaught in open guard hold \nround ends caught in open guard hold\nmisses L jab\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab\nmisses R mt kick to low L lead leg\ngets up out of takedown\nmisses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R cross to face\nlands body throw takedown gets up\nmisses illegal right knee to the face\nmisses L jab\nmisses L jab, misses R cross to face\nmisses R cross to face\nmisses L jab\nlands R cross\nmisses R cross to face\nmisses R cross to face\nmisses R cross to face\nmisses L jab to face, ducks to avoid body takedown from missed L jab\nmisses R cross to face\nmisses L jab\nlands R cross to face\nmisses R cross to face\nlands L hook to face\nmisses R cross to face\nlands R cross\nlands L upper to face\nmisses R upper to face, misses R upper to face\nlands L knee to face\nmisses L jab, misses R cross to face\nlands L jab to face\nmisses R cross to face\nmisses R mt kick to inside R leg\nlands L jab to face, lands R cross to face\nmisses R cross to face\nlands 2 hammer hits R face on top back\nlands 2 hammer hits L face on top back\nlands 2 hammer hits L face on top back\nlands RNC\nflips on back w RNC\nmisses R mt kick to low L lead leg\nmisses R cross\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab to face\nmisses R mt kick to low L lead leg\nfeigns L mt kick to inside L lead leg\nmissses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nlands L jab to body, misses R cross to face\nmisses L jab to body\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses R mt kick to low L lead leg\nmisses L jab to body\nmisses R mt kick to low L lead leg\nmisses L jab to face, misses R cross to face\npushes off with R forearm\nmisses L jab to body\nlands R mt kick to low L back of knee, misses L jab, misses R cross\nblocks L jab by raising L Shoulder, misses R cross to face\npushes Face with R hand and away\nmisses L jab to body\nmisses L jab to body, leans back from R cross to face\nmisses R cross\nmisses L jab to face\nmisses L jab to body\nmisses R cross to face\nmisses L jab to face\nducks \nmisses R mt kick to low L lead leg\nducks and clinches waist pushes to cage\nlands R upper to face \nmisses R cross to face\nlands R mt kick to low L back of knee\nblocks L hook with R overhead arm\nmisses R mt kick to low L lead leg\nlands R push kick to body\nmisses L jab, misses R cross to face\nmisses R push kick to body\nmisses L jab to face\nmisses R cross to face, misses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R mt kick to body\nducks\nmisses R upper to face\nmisses L jab, misses R cross to face\nmisses L jab to body\nfeigns L mt kick to head\nmisses L jab, misses R cross to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses L jab, misses R cross to face\nmisses L mt kick to inside L lead leg\nlands L knee to body with neck clinch\nmisses L jab to face\nmisses R mt kick to low L lead leg\nmisses R cross to face\nmisses R cross\nmisses L jab\nmisses R push kick to body\nmissed a L jab to face\nmissed a R cross to face\nmissed a R cross to face\nmissed a R push kick to body\nmissed a R cross to face, lands a L jab to face\nmissed a L jab to face, lands a R cross to face \nmissed a R cross, missed a L jab to face, missed a R cross to face\nmissed a R push kick to body\nlands a R cross to face\nturns body to side gets out of clinch\nlands L jab to face, misses R cross to face\nmisses L jab to face, misses R cross to face, \nlands L jab to face face\nmisses R cross to face, misses L upper\nmisses R cross to body\nlands L jab to face\nlands R cross to face, ducks R cross left\nmisses L jab to face, misses R cross to face, \nmisses R upper to face\nlands L jab to face, misses R cross to face\nmisses L jab to face, lands R cross to face\nruns to and feigns a R cross to face\nlands a R cross to face\nmisses R cross to face \nlands a R cross to face\nlands a L jab to face, lands R cross to face\nlands downward L jab to face\nreferee gets between and stops fight TKO\n&quot;</code></pre>
+<pre class="python"><code>import re
+
+re.sub(&#39;\n&#39;, &#39; &#39;, text, count=0, flags=0)</code></pre>
+<pre><code>## &quot;missed R mt kick to low L leg missed L jab missed R mt kick to low L leg lands L mt kick to L leg missed L jab, missed R cross lands L mt kick to L leg, missed R cross to face holding R leg hold starts holding R leg hold continues holding R leg hold continues holding R leg hold continues misses R cross to face loses R leg hold lands R mt kick to L low leg misses L jab to face, misses R cross to face misses L jab to face, misses R cross to face misses L jab to face  attempts body waste takedown lands takedown caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold and puts weight on L shoulder collarbone acromian process while lifting off L leg to break full guard caught in full guard hold caught in full guard hold and twisting with R armpit and R leg anchoring into L locked thigh at the inside knee caught in full guard hold and grabbing at L ear with R hand while twisting and lifting out of full guard lock, gains L arm back, breaks full guard lock at ankles breaks full guard hold and standing up while keeping L shin of opponent at chest and bent holding L knee hold starts of opponent while standing up and maneuvering around L side of opponent pushing forward to knock off balance a possible up kick of opponent caught in open guard hold continues and misses downward R hook to head while pushing and twisting L and holding L knee hold continues caught in open guard hold continues and lands downward R cross to head while pushing opponent&#39;s leg toward her and turning L and loses L knee hold caught in open guard hold continues and lands L downward cross to face while getting out of open guard completely caught in open guard hold continues   caught in open guard hold continues and holding R foot while opponent in open guard caught in open guard hold contnues and moves open guard feet to her R while landing R downward cross to face breaks open guard hold and falls on ground to the side of opponent getting up while attempting a head R arm guillotine of opponent as holding guillotine hold starts locks guillotine around R armpit and neck of opponent while standing full guard lock and holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues takedown of opponent in full guard while holding of guillotine hold continues holding guillotine hold continues holding full guard hold starts and holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues loses guillotine hold and loses full guard hold push kicks opponent off  getting up while L foot being held by opponent getting up from ground holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold caught in R arm hold and caught in upper body hold continues and moves opponent away from side standing control against cage holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold loses R arm hold and caught in upper body hold holding neck hold starts and caught in upper body hold breaks upper body hold to switch sides caught in upper body hold and holding R arm hold starts breaks upper body hold and loses R arm hold and lands a R leg to L leg of opponent sweeping takedown lands slight double leg takedown not on the ground but leaning over opponent caught in open guard hold  and lands downward R cross to face, lands downward L cross to face, lands downward R cross to face caught in open guard hold  and lands downward R cross to face caught in open guard hold  and lands downward R cross to face caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and breaks into opponents open guard hold  against cage and lands R downward cross to head caught in open guard hold  and lands downward R cross to head, lands downward R cross to head caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and lands R downward cross to head caught in open guard hold  and lands R downward cross to head caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and twists L forearm of opponent at the elbow pushing the hand  in open guard hold  from standing leaning over position caught in open guard hold  caught in open guard hold  breaks open guard hold  hold caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  lands R elbow to face and caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  breaks full guard hold  and caught in open guard hold caught in open guard hold caught in open guard hold lands R downward cross to face and caught in open guard hold caught in open guard hold lands R downward cross to face and caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold and misses L downward cross to head, lands R downward cross to head caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold breaks through leg kicks of open guard and caught in open guard hold lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward R cross to head lands downward R cross to head and caught in open guard hold, lands downward R cross to head misses downward R cross to head and caught in open guard hold, misses downward R cross to head lands downward L cross to head and caught in open guard hold, lands downward L cross to head lands downward R cross to head and caught in open guard hold misses downward R cross to head and caught in open guard hold caught in open guard hold caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward L cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head, lands L downward cross to head lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward L cross to head lands downward R cross to head and caught in open guard hold lands downward L cross to head and caught in open guard hold misses downward R cross to head and caught in open guard hold, lands L downward cross to head lands downward R cross to head and caught in open guard hold, lands L downward cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head, misses downward R cross to head pressing opponent into ground from the top at opponents shoulders and neck having open guard and legs up off balance removing leverage to kick up and caught in open guard hold caught in open guard hold knee pinned to abdomen  and holding L side control hold starts and breaks open guard hold holding side control hold continues lands L downward cross to head and holding side control hold continues lands L downward hook to face and holding side control hold continues, lands L downward elbow to face holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues L back side control hold with L knee pinned to opponent&#39;s L hip and holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding a L armpit and neck choke hold starts and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues loses choke hold and holding side control hold continues and pins L knee on opponent&#39;s abdomen misses R hammer to face  holding side control hold continues with knee pinning opponent&#39;s abdomen  holding side control hold continues lands L downward elbow to the face from pinned side control mount misses L downward elbow to face loses side control hold misses downward R cross to face caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  misses downward flying R cross to face and caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  round ends caught in open guard hold misses L jab misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab misses R mt kick to low L lead leg gets up out of takedown misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses R cross to face lands body throw takedown gets up misses illegal right knee to the face misses L jab misses L jab, misses R cross to face misses R cross to face misses L jab lands R cross misses R cross to face misses R cross to face misses R cross to face misses L jab to face, ducks to avoid body takedown from missed L jab misses R cross to face misses L jab lands R cross to face misses R cross to face lands L hook to face misses R cross to face lands R cross lands L upper to face misses R upper to face, misses R upper to face lands L knee to face misses L jab, misses R cross to face lands L jab to face misses R cross to face misses R mt kick to inside R leg lands L jab to face, lands R cross to face misses R cross to face lands 2 hammer hits R face on top back lands 2 hammer hits L face on top back lands 2 hammer hits L face on top back lands RNC flips on back w RNC misses R mt kick to low L lead leg misses R cross misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab to face misses R mt kick to low L lead leg feigns L mt kick to inside L lead leg missses R mt kick to low L lead leg misses R mt kick to low L lead leg lands L jab to body, misses R cross to face misses L jab to body misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab to body misses R mt kick to low L lead leg misses L jab to face, misses R cross to face pushes off with R forearm misses L jab to body lands R mt kick to low L back of knee, misses L jab, misses R cross blocks L jab by raising L Shoulder, misses R cross to face pushes Face with R hand and away misses L jab to body misses L jab to body, leans back from R cross to face misses R cross misses L jab to face misses L jab to body misses R cross to face misses L jab to face ducks  misses R mt kick to low L lead leg ducks and clinches waist pushes to cage lands R upper to face  misses R cross to face lands R mt kick to low L back of knee blocks L hook with R overhead arm misses R mt kick to low L lead leg lands R push kick to body misses L jab, misses R cross to face misses R push kick to body misses L jab to face misses R cross to face, misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses R mt kick to body ducks misses R upper to face misses L jab, misses R cross to face misses L jab to body feigns L mt kick to head misses L jab, misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses L jab, misses R cross to face misses L mt kick to inside L lead leg lands L knee to body with neck clinch misses L jab to face misses R mt kick to low L lead leg misses R cross to face misses R cross misses L jab misses R push kick to body missed a L jab to face missed a R cross to face missed a R cross to face missed a R push kick to body missed a R cross to face, lands a L jab to face missed a L jab to face, lands a R cross to face  missed a R cross, missed a L jab to face, missed a R cross to face missed a R push kick to body lands a R cross to face turns body to side gets out of clinch lands L jab to face, misses R cross to face misses L jab to face, misses R cross to face,  lands L jab to face face misses R cross to face, misses L upper misses R cross to body lands L jab to face lands R cross to face, ducks R cross left misses L jab to face, misses R cross to face,  misses R upper to face lands L jab to face, misses R cross to face misses L jab to face, lands R cross to face runs to and feigns a R cross to face lands a R cross to face misses R cross to face  lands a R cross to face lands a L jab to face, lands R cross to face lands downward L jab to face referee gets between and stops fight TKO missed R mt kick to low L leg missed L jab missed R mt kick to low L leg lands L mt kick to L leg missed L jab, missed R cross lands L mt kick to L leg, missed R cross to face holding R leg hold starts holding R leg hold continues holding R leg hold continues holding R leg hold continues misses R cross to face loses R leg hold lands R mt kick to L low leg misses L jab to face, misses R cross to face misses L jab to face, misses R cross to face misses L jab to face  attempts body waste takedown lands takedown caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold and puts weight on L shoulder collarbone acromian process while lifting off L leg to break full guard caught in full guard hold caught in full guard hold and twisting with R armpit and R leg anchoring into L locked thigh at the inside knee caught in full guard hold and grabbing at L ear with R hand while twisting and lifting out of full guard lock, gains L arm back, breaks full guard lock at ankles breaks full guard hold and standing up while keeping L shin of opponent at chest and bent holding L knee hold starts of opponent while standing up and maneuvering around L side of opponent pushing forward to knock off balance a possible up kick of opponent caught in open guard hold continues and misses downward R hook to head while pushing and twisting L and holding L knee hold continues caught in open guard hold continues and lands downward R cross to head while pushing opponent&#39;s leg toward her and turning L and loses L knee hold caught in open guard hold continues and lands L downward cross to face while getting out of open guard completely caught in open guard hold continues   caught in open guard hold continues and holding R foot while opponent in open guard caught in open guard hold contnues and moves open guard feet to her R while landing R downward cross to face breaks open guard hold and falls on ground to the side of opponent getting up while attempting a head R arm guillotine of opponent as holding guillotine hold starts locks guillotine around R armpit and neck of opponent while standing full guard lock and holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues takedown of opponent in full guard while holding of guillotine hold continues holding guillotine hold continues holding full guard hold starts and holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues loses guillotine hold and loses full guard hold push kicks opponent off  getting up while L foot being held by opponent getting up from ground holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold caught in R arm hold and caught in upper body hold continues and moves opponent away from side standing control against cage holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold loses R arm hold and caught in upper body hold holding neck hold starts and caught in upper body hold breaks upper body hold to switch sides caught in upper body hold and holding R arm hold starts breaks upper body hold and loses R arm hold and lands a R leg to L leg of opponent sweeping takedown lands slight double leg takedown not on the ground but leaning over opponent caught in open guard hold  and lands downward R cross to face, lands downward L cross to face, lands downward R cross to face caught in open guard hold  and lands downward R cross to face caught in open guard hold  and lands downward R cross to face caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and breaks into opponents open guard hold  against cage and lands R downward cross to head caught in open guard hold  and lands downward R cross to head, lands downward R cross to head caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and lands R downward cross to head caught in open guard hold  and lands R downward cross to head caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and twists L forearm of opponent at the elbow pushing the hand  in open guard hold  from standing leaning over position caught in open guard hold  caught in open guard hold  breaks open guard hold  hold caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  lands R elbow to face and caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  breaks full guard hold  and caught in open guard hold caught in open guard hold caught in open guard hold lands R downward cross to face and caught in open guard hold caught in open guard hold lands R downward cross to face and caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold and misses L downward cross to head, lands R downward cross to head caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold breaks through leg kicks of open guard and caught in open guard hold lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward R cross to head lands downward R cross to head and caught in open guard hold, lands downward R cross to head misses downward R cross to head and caught in open guard hold, misses downward R cross to head lands downward L cross to head and caught in open guard hold, lands downward L cross to head lands downward R cross to head and caught in open guard hold misses downward R cross to head and caught in open guard hold caught in open guard hold caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward L cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head, lands L downward cross to head lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward L cross to head lands downward R cross to head and caught in open guard hold lands downward L cross to head and caught in open guard hold misses downward R cross to head and caught in open guard hold, lands L downward cross to head lands downward R cross to head and caught in open guard hold, lands L downward cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head, misses downward R cross to head pressing opponent into ground from the top at opponents shoulders and neck having open guard and legs up off balance removing leverage to kick up and caught in open guard hold caught in open guard hold knee pinned to abdomen  and holding L side control hold starts and breaks open guard hold holding side control hold continues lands L downward cross to head and holding side control hold continues lands L downward hook to face and holding side control hold continues, lands L downward elbow to face holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues L back side control hold with L knee pinned to opponent&#39;s L hip and holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding a L armpit and neck choke hold starts and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues loses choke hold and holding side control hold continues and pins L knee on opponent&#39;s abdomen misses R hammer to face  holding side control hold continues with knee pinning opponent&#39;s abdomen  holding side control hold continues lands L downward elbow to the face from pinned side control mount misses L downward elbow to face loses side control hold misses downward R cross to face caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  misses downward flying R cross to face and caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  round ends caught in open guard hold misses L jab misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab misses R mt kick to low L lead leg gets up out of takedown misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses R cross to face lands body throw takedown gets up misses illegal right knee to the face misses L jab misses L jab, misses R cross to face misses R cross to face misses L jab lands R cross misses R cross to face misses R cross to face misses R cross to face misses L jab to face, ducks to avoid body takedown from missed L jab misses R cross to face misses L jab lands R cross to face misses R cross to face lands L hook to face misses R cross to face lands R cross lands L upper to face misses R upper to face, misses R upper to face lands L knee to face misses L jab, misses R cross to face lands L jab to face misses R cross to face misses R mt kick to inside R leg lands L jab to face, lands R cross to face misses R cross to face lands 2 hammer hits R face on top back lands 2 hammer hits L face on top back lands 2 hammer hits L face on top back lands RNC flips on back w RNC misses R mt kick to low L lead leg misses R cross misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab to face misses R mt kick to low L lead leg feigns L mt kick to inside L lead leg missses R mt kick to low L lead leg misses R mt kick to low L lead leg lands L jab to body, misses R cross to face misses L jab to body misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab to body misses R mt kick to low L lead leg misses L jab to face, misses R cross to face pushes off with R forearm misses L jab to body lands R mt kick to low L back of knee, misses L jab, misses R cross blocks L jab by raising L Shoulder, misses R cross to face pushes Face with R hand and away misses L jab to body misses L jab to body, leans back from R cross to face misses R cross misses L jab to face misses L jab to body misses R cross to face misses L jab to face ducks  misses R mt kick to low L lead leg ducks and clinches waist pushes to cage lands R upper to face  misses R cross to face lands R mt kick to low L back of knee blocks L hook with R overhead arm misses R mt kick to low L lead leg lands R push kick to body misses L jab, misses R cross to face misses R push kick to body misses L jab to face misses R cross to face, misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses R mt kick to body ducks misses R upper to face misses L jab, misses R cross to face misses L jab to body feigns L mt kick to head misses L jab, misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses L jab, misses R cross to face misses L mt kick to inside L lead leg lands L knee to body with neck clinch misses L jab to face misses R mt kick to low L lead leg misses R cross to face misses R cross misses L jab misses R push kick to body missed a L jab to face missed a R cross to face missed a R cross to face missed a R push kick to body missed a R cross to face, lands a L jab to face missed a L jab to face, lands a R cross to face  missed a R cross, missed a L jab to face, missed a R cross to face missed a R push kick to body lands a R cross to face turns body to side gets out of clinch lands L jab to face, misses R cross to face misses L jab to face, misses R cross to face,  lands L jab to face face misses R cross to face, misses L upper misses R cross to body lands L jab to face lands R cross to face, ducks R cross left misses L jab to face, misses R cross to face,  misses R upper to face lands L jab to face, misses R cross to face misses L jab to face, lands R cross to face runs to and feigns a R cross to face lands a R cross to face misses R cross to face  lands a R cross to face lands a L jab to face, lands R cross to face lands downward L jab to face referee gets between and stops fight TKO missed R mt kick to low L leg missed L jab missed R mt kick to low L leg lands L mt kick to L leg missed L jab, missed R cross lands L mt kick to L leg, missed R cross to face holding R leg hold starts holding R leg hold continues holding R leg hold continues holding R leg hold continues misses R cross to face loses R leg hold lands R mt kick to L low leg misses L jab to face, misses R cross to face misses L jab to face, misses R cross to face misses L jab to face  attempts body waste takedown lands takedown caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold caught in full guard hold and puts weight on L shoulder collarbone acromian process while lifting off L leg to break full guard caught in full guard hold caught in full guard hold and twisting with R armpit and R leg anchoring into L locked thigh at the inside knee caught in full guard hold and grabbing at L ear with R hand while twisting and lifting out of full guard lock, gains L arm back, breaks full guard lock at ankles breaks full guard hold and standing up while keeping L shin of opponent at chest and bent holding L knee hold starts of opponent while standing up and maneuvering around L side of opponent pushing forward to knock off balance a possible up kick of opponent caught in open guard hold continues and misses downward R hook to head while pushing and twisting L and holding L knee hold continues caught in open guard hold continues and lands downward R cross to head while pushing opponent&#39;s leg toward her and turning L and loses L knee hold caught in open guard hold continues and lands L downward cross to face while getting out of open guard completely caught in open guard hold continues   caught in open guard hold continues and holding R foot while opponent in open guard caught in open guard hold contnues and moves open guard feet to her R while landing R downward cross to face breaks open guard hold and falls on ground to the side of opponent getting up while attempting a head R arm guillotine of opponent as holding guillotine hold starts locks guillotine around R armpit and neck of opponent while standing full guard lock and holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues takedown of opponent in full guard while holding of guillotine hold continues holding guillotine hold continues holding full guard hold starts and holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues holding guillotine hold continues loses guillotine hold and loses full guard hold push kicks opponent off  getting up while L foot being held by opponent getting up from ground holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold caught in R arm hold and caught in upper body hold continues and moves opponent away from side standing control against cage holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold holding R arm hold starts and caught in upper body hold loses R arm hold and caught in upper body hold holding neck hold starts and caught in upper body hold breaks upper body hold to switch sides caught in upper body hold and holding R arm hold starts breaks upper body hold and loses R arm hold and lands a R leg to L leg of opponent sweeping takedown lands slight double leg takedown not on the ground but leaning over opponent caught in open guard hold  and lands downward R cross to face, lands downward L cross to face, lands downward R cross to face caught in open guard hold  and lands downward R cross to face caught in open guard hold  and lands downward R cross to face caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and breaks into opponents open guard hold  against cage and lands R downward cross to head caught in open guard hold  and lands downward R cross to head, lands downward R cross to head caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and lands R downward cross to head caught in open guard hold  and lands R downward cross to head caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  and twists L forearm of opponent at the elbow pushing the hand  in open guard hold  from standing leaning over position caught in open guard hold  caught in open guard hold  breaks open guard hold  hold caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  lands R elbow to face and caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  caught in full guard hold  breaks full guard hold  and caught in open guard hold caught in open guard hold caught in open guard hold lands R downward cross to face and caught in open guard hold caught in open guard hold lands R downward cross to face and caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold and misses L downward cross to head, lands R downward cross to head caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold caught in open guard hold breaks through leg kicks of open guard and caught in open guard hold lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward R cross to head lands downward R cross to head and caught in open guard hold, lands downward R cross to head misses downward R cross to head and caught in open guard hold, misses downward R cross to head lands downward L cross to head and caught in open guard hold, lands downward L cross to head lands downward R cross to head and caught in open guard hold misses downward R cross to head and caught in open guard hold caught in open guard hold caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward L cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head, lands L downward cross to head lands downward R cross to head and caught in open guard hold lands downward R cross to head and caught in open guard hold, lands downward L cross to head lands downward R cross to head and caught in open guard hold lands downward L cross to head and caught in open guard hold misses downward R cross to head and caught in open guard hold, lands L downward cross to head lands downward R cross to head and caught in open guard hold, lands L downward cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head misses downward R cross to head and caught in open guard hold, misses downward L cross to head, misses downward R cross to head pressing opponent into ground from the top at opponents shoulders and neck having open guard and legs up off balance removing leverage to kick up and caught in open guard hold caught in open guard hold knee pinned to abdomen  and holding L side control hold starts and breaks open guard hold holding side control hold continues lands L downward cross to head and holding side control hold continues lands L downward hook to face and holding side control hold continues, lands L downward elbow to face holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues L back side control hold with L knee pinned to opponent&#39;s L hip and holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding side control hold continues holding a L armpit and neck choke hold starts and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues holding choke hold continues and holding side control hold continues loses choke hold and holding side control hold continues and pins L knee on opponent&#39;s abdomen misses R hammer to face  holding side control hold continues with knee pinning opponent&#39;s abdomen  holding side control hold continues lands L downward elbow to the face from pinned side control mount misses L downward elbow to face loses side control hold misses downward R cross to face caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  misses downward flying R cross to face and caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  caught in open guard hold  round ends caught in open guard hold misses L jab misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab misses R mt kick to low L lead leg gets up out of takedown misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses R cross to face lands body throw takedown gets up misses illegal right knee to the face misses L jab misses L jab, misses R cross to face misses R cross to face misses L jab lands R cross misses R cross to face misses R cross to face misses R cross to face misses L jab to face, ducks to avoid body takedown from missed L jab misses R cross to face misses L jab lands R cross to face misses R cross to face lands L hook to face misses R cross to face lands R cross lands L upper to face misses R upper to face, misses R upper to face lands L knee to face misses L jab, misses R cross to face lands L jab to face misses R cross to face misses R mt kick to inside R leg lands L jab to face, lands R cross to face misses R cross to face lands 2 hammer hits R face on top back lands 2 hammer hits L face on top back lands 2 hammer hits L face on top back lands RNC flips on back w RNC misses R mt kick to low L lead leg misses R cross misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab to face misses R mt kick to low L lead leg feigns L mt kick to inside L lead leg missses R mt kick to low L lead leg misses R mt kick to low L lead leg lands L jab to body, misses R cross to face misses L jab to body misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses R mt kick to low L lead leg misses L jab to body misses R mt kick to low L lead leg misses L jab to face, misses R cross to face pushes off with R forearm misses L jab to body lands R mt kick to low L back of knee, misses L jab, misses R cross blocks L jab by raising L Shoulder, misses R cross to face pushes Face with R hand and away misses L jab to body misses L jab to body, leans back from R cross to face misses R cross misses L jab to face misses L jab to body misses R cross to face misses L jab to face ducks  misses R mt kick to low L lead leg ducks and clinches waist pushes to cage lands R upper to face  misses R cross to face lands R mt kick to low L back of knee blocks L hook with R overhead arm misses R mt kick to low L lead leg lands R push kick to body misses L jab, misses R cross to face misses R push kick to body misses L jab to face misses R cross to face, misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses R mt kick to body ducks misses R upper to face misses L jab, misses R cross to face misses L jab to body feigns L mt kick to head misses L jab, misses R cross to face misses R mt kick to low L lead leg misses R cross to face misses L jab, misses R cross to face misses L mt kick to inside L lead leg lands L knee to body with neck clinch misses L jab to face misses R mt kick to low L lead leg misses R cross to face misses R cross misses L jab misses R push kick to body missed a L jab to face missed a R cross to face missed a R cross to face missed a R push kick to body missed a R cross to face, lands a L jab to face missed a L jab to face, lands a R cross to face  missed a R cross, missed a L jab to face, missed a R cross to face missed a R push kick to body lands a R cross to face turns body to side gets out of clinch lands L jab to face, misses R cross to face misses L jab to face, misses R cross to face,  lands L jab to face face misses R cross to face, misses L upper misses R cross to body lands L jab to face lands R cross to face, ducks R cross left misses L jab to face, misses R cross to face,  misses R upper to face lands L jab to face, misses R cross to face misses L jab to face, lands R cross to face runs to and feigns a R cross to face lands a R cross to face misses R cross to face  lands a R cross to face lands a L jab to face, lands R cross to face lands downward L jab to face referee gets between and stops fight TKO &quot;</code></pre>
+<pre class="python"><code>chars = set(text)
+char2int = {ch:i for i,ch in enumerate(chars)}
+int2char = dict(enumerate(chars))
+text_ints = np.array([char2int[ch] for ch in text], 
+                     dtype=np.int32)</code></pre>
+<pre class="python"><code>def reshape_data(sequence, batch_size, num_steps):
+    tot_batch_length = batch_size * num_steps
+    num_batches = int(len(sequence) / tot_batch_length)
+    if num_batches*tot_batch_length + 1 &gt; len(sequence):
+        num_batches = num_batches - 1
+    ## Truncate the sequence at the end to get rid of 
+    ## remaining charcaters that do not make a full batch
+    x = sequence[0 : num_batches*tot_batch_length]
+    y = sequence[1 : num_batches*tot_batch_length + 1]
+    ## Split x &amp; y into a list batches of sequences: 
+    x_batch_splits = np.split(x, batch_size)
+    y_batch_splits = np.split(y, batch_size)
+    ## Stack the batches together
+    ## batch_size x tot_batch_length
+    x = np.stack(x_batch_splits)
+    y = np.stack(y_batch_splits)
+    
+    return x, y
+
+## Testing:
+train_x, train_y = reshape_data(text_ints, 64, 10)
+print(train_x.shape)</code></pre>
+<pre><code>## (64, 740)</code></pre>
+<pre class="python"><code>print(train_x[0, :10])</code></pre>
+<pre><code>## [29  4 34 34 31 28 17 23 17 29]</code></pre>
+<pre class="python"><code>print(train_y[0, :10])</code></pre>
+<pre><code>## [ 4 34 34 31 28 17 23 17 29  8]</code></pre>
+<pre class="python"><code>print(&#39;&#39;.join(int2char[i] for i in train_x[0, :50]))</code></pre>
+<pre><code>## missed R mt kick to low L leg
+## missed L jab
+## missed</code></pre>
+<pre class="python"><code>np.random.seed(123)
+
+def create_batch_generator(data_x, data_y, num_steps):
+    batch_size, tot_batch_length = data_x.shape    
+    num_batches = int(tot_batch_length/num_steps)
+    for b in range(num_batches):
+        yield (data_x[:, b*num_steps: (b+1)*num_steps], 
+               data_y[:, b*num_steps: (b+1)*num_steps])
+        
+bgen = create_batch_generator(train_x[:,:100], train_y[:,:100], 15)
+for b in bgen:
+    print(b[0].shape, b[1].shape, end=&#39;  &#39;)
+    print(&#39;&#39;.join(int2char[i] for i in b[0][0,:]).replace(&#39;\n&#39;, &#39;*&#39;), &#39;    &#39;,
+          &#39;&#39;.join(int2char[i] for i in b[1][0,:]).replace(&#39;\n&#39;, &#39;*&#39;))</code></pre>
+<pre><code>## (64, 15) (64, 15)  missed R mt kic      issed R mt kick
+## (64, 15) (64, 15)  k to low L leg*       to low L leg*m
+## (64, 15) (64, 15)  missed L jab*mi      issed L jab*mis
+## (64, 15) (64, 15)  ssed R mt kick       sed R mt kick t
+## (64, 15) (64, 15)  to low L leg*la      o low L leg*lan
+## (64, 15) (64, 15)  nds L mt kick t      ds L mt kick to</code></pre>
+<pre class="python"><code>import tensorflow as tf
+import os
+
+class CharRNN(object):
+    def __init__(self, num_classes, batch_size=64, 
+                 num_steps=100, lstm_size=128, 
+                 num_layers=1, learning_rate=0.001, 
+                 keep_prob=0.5, grad_clip=5, 
+                 sampling=False):
+        self.num_classes = num_classes
+        self.batch_size = batch_size
+        self.num_steps = num_steps
+        self.lstm_size = lstm_size
+        self.num_layers = num_layers
+        self.learning_rate = learning_rate
+        self.keep_prob = keep_prob
+        self.grad_clip = grad_clip
+        
+        self.g = tf.Graph()
+        with self.g.as_default():
+            tf.set_random_seed(123)
+
+            self.build(sampling=sampling)
+            self.saver = tf.train.Saver()
+            self.init_op = tf.global_variables_initializer()
+            
+    def build(self, sampling):
+        if sampling == True:
+            batch_size, num_steps = 1, 1
+        else:
+            batch_size = self.batch_size
+            num_steps = self.num_steps
+
+        tf_x = tf.placeholder(tf.int32, 
+                              shape=[batch_size, num_steps], 
+                              name=&#39;tf_x&#39;)
+        tf_y = tf.placeholder(tf.int32, 
+                              shape=[batch_size, num_steps], 
+                              name=&#39;tf_y&#39;)
+        tf_keepprob = tf.placeholder(tf.float32, 
+                              name=&#39;tf_keepprob&#39;)
+
+        # One-hot encoding:
+        x_onehot = tf.one_hot(tf_x, depth=self.num_classes)
+        y_onehot = tf.one_hot(tf_y, depth=self.num_classes)
+
+        ### Build the multi-layer RNN cells
+        cells = tf.contrib.rnn.MultiRNNCell(
+            [tf.contrib.rnn.DropoutWrapper(
+                tf.contrib.rnn.BasicLSTMCell(self.lstm_size), 
+                output_keep_prob=tf_keepprob) 
+            for _ in range(self.num_layers)])
+        
+        ## Define the initial state
+        self.initial_state = cells.zero_state(
+                    batch_size, tf.float32)
+
+        ## Run each sequence step through the RNN 
+        lstm_outputs, self.final_state = tf.nn.dynamic_rnn(
+                    cells, x_onehot, 
+                    initial_state=self.initial_state)
+        
+        print(&#39;  &lt;&lt; lstm_outputs  &gt;&gt;&#39;, lstm_outputs)
+
+        seq_output_reshaped = tf.reshape(
+                    lstm_outputs, 
+                    shape=[-1, self.lstm_size],
+                    name=&#39;seq_output_reshaped&#39;)
+
+        logits = tf.layers.dense(
+                    inputs=seq_output_reshaped, 
+                    units=self.num_classes,
+                    activation=None,
+                    name=&#39;logits&#39;)
+
+        proba = tf.nn.softmax(
+                    logits, 
+                    name=&#39;probabilities&#39;)
+        print(proba)
+
+        y_reshaped = tf.reshape(
+                    y_onehot, 
+                    shape=[-1, self.num_classes],
+                    name=&#39;y_reshaped&#39;)
+        cost = tf.reduce_mean(
+                    tf.nn.softmax_cross_entropy_with_logits(
+                        logits=logits, 
+                        labels=y_reshaped),
+                    name=&#39;cost&#39;)
+
+        # Gradient clipping to avoid &quot;exploding gradients&quot;
+        tvars = tf.trainable_variables()
+        grads, _ = tf.clip_by_global_norm(
+                    tf.gradients(cost, tvars), 
+                    self.grad_clip)
+        optimizer = tf.train.AdamOptimizer(self.learning_rate)
+        train_op = optimizer.apply_gradients(
+                    zip(grads, tvars),
+                    name=&#39;train_op&#39;)
+        
+    def train(self, train_x, train_y, 
+              num_epochs, ckpt_dir=&#39;./model/&#39;):
+        ## Create the checkpoint directory
+        ## if does not exists
+        if not os.path.exists(ckpt_dir):
+            os.mkdir(ckpt_dir)
+            
+        with tf.Session(graph=self.g) as sess:
+            sess.run(self.init_op)
+
+            n_batches = int(train_x.shape[1]/self.num_steps)
+            iterations = n_batches * num_epochs
+            for epoch in range(num_epochs):
+
+                # Train network
+                new_state = sess.run(self.initial_state)
+                loss = 0
+                ## Minibatch generator:
+                bgen = create_batch_generator(
+                        train_x, train_y, self.num_steps)
+                for b, (batch_x, batch_y) in enumerate(bgen, 1):
+                    iteration = epoch*n_batches + b
+                    
+                    feed = {&#39;tf_x:0&#39;: batch_x,
+                            &#39;tf_y:0&#39;: batch_y,
+                            &#39;tf_keepprob:0&#39;: self.keep_prob,
+                            self.initial_state : new_state}
+                    batch_cost, _, new_state = sess.run(
+                            [&#39;cost:0&#39;, &#39;train_op&#39;, 
+                                self.final_state],
+                            feed_dict=feed)
+                    if iteration % 10 == 0:
+                        print(&#39;Epoch %d/%d Iteration %d&#39;
+                              &#39;| Training loss: %.4f&#39; % (
+                              epoch + 1, num_epochs, 
+                              iteration, batch_cost))
+
+                ## Save the trained model    
+                self.saver.save(
+                        sess, os.path.join(
+                            ckpt_dir, &#39;language_modeling.ckpt&#39;))
+                              
+                              
+                
+    def sample(self, output_length, 
+               ckpt_dir, starter_seq=&quot;The &quot;):
+        observed_seq = [ch for ch in starter_seq]        
+        with tf.Session(graph=self.g) as sess:
+            self.saver.restore(
+                sess, 
+                tf.train.latest_checkpoint(ckpt_dir))
+            ## 1: run the model using the starter sequence
+            new_state = sess.run(self.initial_state)
+            for ch in starter_seq:
+                x = np.zeros((1, 1))
+                x[0,0] = char2int[ch]
+                feed = {&#39;tf_x:0&#39;: x,
+                        &#39;tf_keepprob:0&#39;: 1.0,
+                        self.initial_state: new_state}
+                proba, new_state = sess.run(
+                        [&#39;probabilities:0&#39;, self.final_state], 
+                        feed_dict=feed)
+
+            ch_id = get_top_char(proba, len(chars))
+            observed_seq.append(int2char[ch_id])
+            
+            ## 2: run the model using the updated observed_seq
+            for i in range(output_length):
+                x[0,0] = ch_id
+                feed = {&#39;tf_x:0&#39;: x,
+                        &#39;tf_keepprob:0&#39;: 1.0,
+                        self.initial_state: new_state}
+                proba, new_state = sess.run(
+                        [&#39;probabilities:0&#39;, self.final_state], 
+                        feed_dict=feed)
+
+                ch_id = get_top_char(proba, len(chars))
+                observed_seq.append(int2char[ch_id])
+
+        return &#39;&#39;.join(observed_seq)</code></pre>
+<pre class="python"><code>def get_top_char(probas, char_size, top_n=5):
+    p = np.squeeze(probas)
+    p[np.argsort(p)[:-top_n]] = 0.0
+    p = p / np.sum(p)
+    ch_id = np.random.choice(char_size, 1, p=p)[0]
+    return ch_id</code></pre>
+<pre class="python"><code>batch_size = 64
+num_steps = 100 
+train_x, train_y = reshape_data(text_ints, 
+                                batch_size, 
+                                num_steps)
+
+rnn = CharRNN(num_classes=len(chars), batch_size=batch_size)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(64, 100, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(6400, 37), dtype=float32)
+## 
+## W0530 15:14:34.507688  1140 deprecation.py:323] From &lt;string&gt;:85: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed in a future version.
+## Instructions for updating:
+## 
+## Future major versions of TensorFlow will allow gradients to flow
+## into the labels input on backprop by default.
+## 
+## See `tf.nn.softmax_cross_entropy_with_logits_v2`.</code></pre>
+<pre class="python"><code>rnn.train(train_x, train_y, 
+          num_epochs=100,
+          #if you don&#39;t have this checkpoint directory, it is made to store results
+          ckpt_dir=&#39;./model-100/&#39;) </code></pre>
+<pre><code>## Epoch 2/100 Iteration 10| Training loss: 3.2478
+## Epoch 3/100 Iteration 20| Training loss: 3.0689
+## Epoch 5/100 Iteration 30| Training loss: 3.0106
+## Epoch 6/100 Iteration 40| Training loss: 2.9797
+## Epoch 8/100 Iteration 50| Training loss: 2.9838
+## Epoch 9/100 Iteration 60| Training loss: 2.9011
+## Epoch 10/100 Iteration 70| Training loss: 2.8513
+## Epoch 12/100 Iteration 80| Training loss: 2.8235
+## Epoch 13/100 Iteration 90| Training loss: 2.7495
+## Epoch 15/100 Iteration 100| Training loss: 2.6615
+## Epoch 16/100 Iteration 110| Training loss: 2.6084
+## Epoch 18/100 Iteration 120| Training loss: 2.5625
+## Epoch 19/100 Iteration 130| Training loss: 2.3948
+## Epoch 20/100 Iteration 140| Training loss: 2.3050
+## Epoch 22/100 Iteration 150| Training loss: 2.2057
+## Epoch 23/100 Iteration 160| Training loss: 2.1029
+## Epoch 25/100 Iteration 170| Training loss: 1.9925
+## Epoch 26/100 Iteration 180| Training loss: 2.0119
+## Epoch 28/100 Iteration 190| Training loss: 1.9892
+## Epoch 29/100 Iteration 200| Training loss: 1.7708
+## Epoch 30/100 Iteration 210| Training loss: 1.6994
+## Epoch 32/100 Iteration 220| Training loss: 1.6395
+## Epoch 33/100 Iteration 230| Training loss: 1.5454
+## Epoch 35/100 Iteration 240| Training loss: 1.4910
+## Epoch 36/100 Iteration 250| Training loss: 1.5194
+## Epoch 38/100 Iteration 260| Training loss: 1.5490
+## Epoch 39/100 Iteration 270| Training loss: 1.3288
+## Epoch 40/100 Iteration 280| Training loss: 1.2765
+## Epoch 42/100 Iteration 290| Training loss: 1.2763
+## Epoch 43/100 Iteration 300| Training loss: 1.1874
+## Epoch 45/100 Iteration 310| Training loss: 1.1364
+## Epoch 46/100 Iteration 320| Training loss: 1.2212
+## Epoch 48/100 Iteration 330| Training loss: 1.2551
+## Epoch 49/100 Iteration 340| Training loss: 1.0414
+## Epoch 50/100 Iteration 350| Training loss: 0.9995
+## Epoch 52/100 Iteration 360| Training loss: 1.0172
+## Epoch 53/100 Iteration 370| Training loss: 0.9383
+## Epoch 55/100 Iteration 380| Training loss: 0.9018
+## Epoch 56/100 Iteration 390| Training loss: 0.9925
+## Epoch 58/100 Iteration 400| Training loss: 1.0598
+## Epoch 59/100 Iteration 410| Training loss: 0.8589
+## Epoch 60/100 Iteration 420| Training loss: 0.8374
+## Epoch 62/100 Iteration 430| Training loss: 0.8581
+## Epoch 63/100 Iteration 440| Training loss: 0.7954
+## Epoch 65/100 Iteration 450| Training loss: 0.7692
+## Epoch 66/100 Iteration 460| Training loss: 0.8621
+## Epoch 68/100 Iteration 470| Training loss: 0.9406
+## Epoch 69/100 Iteration 480| Training loss: 0.7505
+## Epoch 70/100 Iteration 490| Training loss: 0.7129
+## Epoch 72/100 Iteration 500| Training loss: 0.7339
+## Epoch 73/100 Iteration 510| Training loss: 0.6761
+## Epoch 75/100 Iteration 520| Training loss: 0.6532
+## Epoch 76/100 Iteration 530| Training loss: 0.7386
+## Epoch 78/100 Iteration 540| Training loss: 0.8545
+## Epoch 79/100 Iteration 550| Training loss: 0.6518
+## Epoch 80/100 Iteration 560| Training loss: 0.6267
+## Epoch 82/100 Iteration 570| Training loss: 0.6537
+## Epoch 83/100 Iteration 580| Training loss: 0.6042
+## Epoch 85/100 Iteration 590| Training loss: 0.6044
+## Epoch 86/100 Iteration 600| Training loss: 0.6818
+## Epoch 88/100 Iteration 610| Training loss: 0.7780
+## Epoch 89/100 Iteration 620| Training loss: 0.5824
+## Epoch 90/100 Iteration 630| Training loss: 0.5706
+## Epoch 92/100 Iteration 640| Training loss: 0.5934
+## Epoch 93/100 Iteration 650| Training loss: 0.5440
+## Epoch 95/100 Iteration 660| Training loss: 0.5468
+## Epoch 96/100 Iteration 670| Training loss: 0.6141
+## Epoch 98/100 Iteration 680| Training loss: 0.7305
+## Epoch 99/100 Iteration 690| Training loss: 0.5369
+## Epoch 100/100 Iteration 700| Training loss: 0.5069</code></pre>
+<pre class="python"><code>np.random.seed(123)
+rnn = CharRNN(len(chars), sampling=True)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(1, 1, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(1, 37), dtype=float32)</code></pre>
+<pre class="python"><code>print(rnn.sample(ckpt_dir=&#39;./model-100/&#39;, 
+                 output_length=500))</code></pre>
+<pre><code>## The dl nuad holding hold continue
+## lands down openrowt io opon gutht kack opending and caught in open guard hold continues aud laugh oin ooen toands and hold guard face hold ngissean hol in opet antopontno iug holding side control hold continees, sinds L downacrol towhol int tand tin gpinnes L aulet hoper and onding tnuig hpleing spens hold ing toint gut linu popen bodyy hold
+## caught in upe  ard hold holding sid lowntrros to foce guard facd holding R are hol in to facentning spepen gugt ing tuehicgut i</code></pre>
+<pre class="python"><code>## run for 200 epochs
+batch_size = 64
+num_steps = 100 
+
+rnn = CharRNN(num_classes=len(chars), batch_size=batch_size)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(64, 100, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(6400, 37), dtype=float32)</code></pre>
+<pre class="python"><code>rnn.train(train_x, train_y, 
+          num_epochs=200,
+          ckpt_dir=&#39;./model-200/&#39;)</code></pre>
+<pre><code>## Epoch 2/200 Iteration 10| Training loss: 3.2474
+## Epoch 3/200 Iteration 20| Training loss: 3.0692
+## Epoch 5/200 Iteration 30| Training loss: 3.0122
+## Epoch 6/200 Iteration 40| Training loss: 2.9843
+## Epoch 8/200 Iteration 50| Training loss: 2.9860
+## Epoch 9/200 Iteration 60| Training loss: 2.8989
+## Epoch 10/200 Iteration 70| Training loss: 2.8564
+## Epoch 12/200 Iteration 80| Training loss: 2.8073
+## Epoch 13/200 Iteration 90| Training loss: 2.7580
+## Epoch 15/200 Iteration 100| Training loss: 2.6561
+## Epoch 16/200 Iteration 110| Training loss: 2.6021
+## Epoch 18/200 Iteration 120| Training loss: 2.5559
+## Epoch 19/200 Iteration 130| Training loss: 2.3626
+## Epoch 20/200 Iteration 140| Training loss: 2.2792
+## Epoch 22/200 Iteration 150| Training loss: 2.1858
+## Epoch 23/200 Iteration 160| Training loss: 2.0874
+## Epoch 25/200 Iteration 170| Training loss: 1.9766
+## Epoch 26/200 Iteration 180| Training loss: 1.9686
+## Epoch 28/200 Iteration 190| Training loss: 1.9608
+## Epoch 29/200 Iteration 200| Training loss: 1.7501
+## Epoch 30/200 Iteration 210| Training loss: 1.6755
+## Epoch 32/200 Iteration 220| Training loss: 1.6164
+## Epoch 33/200 Iteration 230| Training loss: 1.5325
+## Epoch 35/200 Iteration 240| Training loss: 1.4786
+## Epoch 36/200 Iteration 250| Training loss: 1.5068
+## Epoch 38/200 Iteration 260| Training loss: 1.5314
+## Epoch 39/200 Iteration 270| Training loss: 1.3218
+## Epoch 40/200 Iteration 280| Training loss: 1.2507
+## Epoch 42/200 Iteration 290| Training loss: 1.2633
+## Epoch 43/200 Iteration 300| Training loss: 1.1749
+## Epoch 45/200 Iteration 310| Training loss: 1.1169
+## Epoch 46/200 Iteration 320| Training loss: 1.2069
+## Epoch 48/200 Iteration 330| Training loss: 1.2442
+## Epoch 49/200 Iteration 340| Training loss: 1.0370
+## Epoch 50/200 Iteration 350| Training loss: 0.9939
+## Epoch 52/200 Iteration 360| Training loss: 1.0134
+## Epoch 53/200 Iteration 370| Training loss: 0.9317
+## Epoch 55/200 Iteration 380| Training loss: 0.8910
+## Epoch 56/200 Iteration 390| Training loss: 0.9832
+## Epoch 58/200 Iteration 400| Training loss: 1.0558
+## Epoch 59/200 Iteration 410| Training loss: 0.8724
+## Epoch 60/200 Iteration 420| Training loss: 0.8275
+## Epoch 62/200 Iteration 430| Training loss: 0.8349
+## Epoch 63/200 Iteration 440| Training loss: 0.7720
+## Epoch 65/200 Iteration 450| Training loss: 0.7572
+## Epoch 66/200 Iteration 460| Training loss: 0.8532
+## Epoch 68/200 Iteration 470| Training loss: 0.9326
+## Epoch 69/200 Iteration 480| Training loss: 0.7413
+## Epoch 70/200 Iteration 490| Training loss: 0.7064
+## Epoch 72/200 Iteration 500| Training loss: 0.7335
+## Epoch 73/200 Iteration 510| Training loss: 0.6713
+## Epoch 75/200 Iteration 520| Training loss: 0.6519
+## Epoch 76/200 Iteration 530| Training loss: 0.7357
+## Epoch 78/200 Iteration 540| Training loss: 0.8475
+## Epoch 79/200 Iteration 550| Training loss: 0.6370
+## Epoch 80/200 Iteration 560| Training loss: 0.6173
+## Epoch 82/200 Iteration 570| Training loss: 0.6518
+## Epoch 83/200 Iteration 580| Training loss: 0.6054
+## Epoch 85/200 Iteration 590| Training loss: 0.5929
+## Epoch 86/200 Iteration 600| Training loss: 0.6770
+## Epoch 88/200 Iteration 610| Training loss: 0.7739
+## Epoch 89/200 Iteration 620| Training loss: 0.5882
+## Epoch 90/200 Iteration 630| Training loss: 0.5643
+## Epoch 92/200 Iteration 640| Training loss: 0.5986
+## Epoch 93/200 Iteration 650| Training loss: 0.5393
+## Epoch 95/200 Iteration 660| Training loss: 0.5430
+## Epoch 96/200 Iteration 670| Training loss: 0.6233
+## Epoch 98/200 Iteration 680| Training loss: 0.7182
+## Epoch 99/200 Iteration 690| Training loss: 0.5455
+## Epoch 100/200 Iteration 700| Training loss: 0.5109
+## Epoch 102/200 Iteration 710| Training loss: 0.5416
+## Epoch 103/200 Iteration 720| Training loss: 0.5048
+## Epoch 105/200 Iteration 730| Training loss: 0.4889
+## Epoch 106/200 Iteration 740| Training loss: 0.5701
+## Epoch 108/200 Iteration 750| Training loss: 0.6836
+## Epoch 109/200 Iteration 760| Training loss: 0.4878
+## Epoch 110/200 Iteration 770| Training loss: 0.4685
+## Epoch 112/200 Iteration 780| Training loss: 0.4994
+## Epoch 113/200 Iteration 790| Training loss: 0.4559
+## Epoch 115/200 Iteration 800| Training loss: 0.4541
+## Epoch 116/200 Iteration 810| Training loss: 0.5386
+## Epoch 118/200 Iteration 820| Training loss: 0.6333
+## Epoch 119/200 Iteration 830| Training loss: 0.4573
+## Epoch 120/200 Iteration 840| Training loss: 0.4252
+## Epoch 122/200 Iteration 850| Training loss: 0.4502
+## Epoch 123/200 Iteration 860| Training loss: 0.4193
+## Epoch 125/200 Iteration 870| Training loss: 0.4129
+## Epoch 126/200 Iteration 880| Training loss: 0.4923
+## Epoch 128/200 Iteration 890| Training loss: 0.6039
+## Epoch 129/200 Iteration 900| Training loss: 0.4261
+## Epoch 130/200 Iteration 910| Training loss: 0.4024
+## Epoch 132/200 Iteration 920| Training loss: 0.4210
+## Epoch 133/200 Iteration 930| Training loss: 0.3978
+## Epoch 135/200 Iteration 940| Training loss: 0.3952
+## Epoch 136/200 Iteration 950| Training loss: 0.4679
+## Epoch 138/200 Iteration 960| Training loss: 0.5692
+## Epoch 139/200 Iteration 970| Training loss: 0.4044
+## Epoch 140/200 Iteration 980| Training loss: 0.3841
+## Epoch 142/200 Iteration 990| Training loss: 0.4092
+## Epoch 143/200 Iteration 1000| Training loss: 0.3663
+## Epoch 145/200 Iteration 1010| Training loss: 0.3713
+## Epoch 146/200 Iteration 1020| Training loss: 0.4389
+## Epoch 148/200 Iteration 1030| Training loss: 0.5536
+## Epoch 149/200 Iteration 1040| Training loss: 0.3855
+## Epoch 150/200 Iteration 1050| Training loss: 0.3577
+## Epoch 152/200 Iteration 1060| Training loss: 0.3849
+## Epoch 153/200 Iteration 1070| Training loss: 0.3498
+## Epoch 155/200 Iteration 1080| Training loss: 0.3460
+## Epoch 156/200 Iteration 1090| Training loss: 0.4165
+## Epoch 158/200 Iteration 1100| Training loss: 0.5206
+## Epoch 159/200 Iteration 1110| Training loss: 0.3579
+## Epoch 160/200 Iteration 1120| Training loss: 0.3279
+## Epoch 162/200 Iteration 1130| Training loss: 0.3580
+## Epoch 163/200 Iteration 1140| Training loss: 0.3252
+## Epoch 165/200 Iteration 1150| Training loss: 0.3344
+## Epoch 166/200 Iteration 1160| Training loss: 0.3810
+## Epoch 168/200 Iteration 1170| Training loss: 0.4893
+## Epoch 169/200 Iteration 1180| Training loss: 0.3441
+## Epoch 170/200 Iteration 1190| Training loss: 0.3266
+## Epoch 172/200 Iteration 1200| Training loss: 0.3640
+## Epoch 173/200 Iteration 1210| Training loss: 0.3197
+## Epoch 175/200 Iteration 1220| Training loss: 0.3161
+## Epoch 176/200 Iteration 1230| Training loss: 0.3741
+## Epoch 178/200 Iteration 1240| Training loss: 0.4798
+## Epoch 179/200 Iteration 1250| Training loss: 0.3221
+## Epoch 180/200 Iteration 1260| Training loss: 0.2930
+## Epoch 182/200 Iteration 1270| Training loss: 0.3095
+## Epoch 183/200 Iteration 1280| Training loss: 0.3066
+## Epoch 185/200 Iteration 1290| Training loss: 0.3016
+## Epoch 186/200 Iteration 1300| Training loss: 0.3429
+## Epoch 188/200 Iteration 1310| Training loss: 0.4530
+## Epoch 189/200 Iteration 1320| Training loss: 0.3108
+## Epoch 190/200 Iteration 1330| Training loss: 0.2893
+## Epoch 192/200 Iteration 1340| Training loss: 0.3032
+## Epoch 193/200 Iteration 1350| Training loss: 0.2738
+## Epoch 195/200 Iteration 1360| Training loss: 0.2816
+## Epoch 196/200 Iteration 1370| Training loss: 0.3266
+## Epoch 198/200 Iteration 1380| Training loss: 0.4395
+## Epoch 199/200 Iteration 1390| Training loss: 0.2906
+## Epoch 200/200 Iteration 1400| Training loss: 0.2703</code></pre>
+<pre class="python"><code>del rnn
+
+np.random.seed(123)
+rnn = CharRNN(len(chars), sampling=True)</code></pre>
+<pre><code>##   &lt;&lt; lstm_outputs  &gt;&gt; Tensor(&quot;rnn/transpose_1:0&quot;, shape=(1, 1, 128), dtype=float32)
+## Tensor(&quot;probabilities:0&quot;, shape=(1, 37), dtype=float32)</code></pre>
+<pre class="python"><code>print(rnn.sample(ckpt_dir=&#39;./model-200/&#39;, 
+                 output_length=500))</code></pre>
+<pre><code>## The do face to face
+## lands L jab to face, misses R cross to face
+## misses R mt kiks ti to body lan
+## legs
+## misses R cross to face
+## misses R mt kick to low L lead leg
+## dicsses tok ckocke gint
+## heakes boek folin guar hold 
+## caught in open guard hold 
+## bacest  npee
+## gard  olee bolein
+## lues apding
+## aadin ode contro s can hold contingesed copthones and holding R arm to face and caught in open guard hold
+## caught in open guard hold, lands R downward cross to head and caught in open guard hold
+## lacds dodnwnard L cowsi  f ck</code></pre>
 </div>
 
 
